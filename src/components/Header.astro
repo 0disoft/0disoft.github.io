@@ -1,0 +1,47 @@
+---
+// 이 컴포넌트는 간단한 HTML만으로 구성되므로, 스크립트 부분은 비워둡니다.
+---
+
+<header>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/projects">Projects</a>
+    <a href="/blog">Blog</a>
+    <a href="/contact">Contact</a>
+  </nav>
+</header>
+
+<style>
+  /* Astro의 <style> 태그 안의 CSS는 기본적으로 이 파일 안에서만 적용됩니다.
+    따라서 다른 컴포넌트의 스타일과 충돌할 걱정이 없습니다.
+  */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh; /* 화면 전체 높이를 차지하도록 설정합니다. */
+
+    width: 240px; /* 사이드바의 전체 너비를 240px로 고정합니다. */
+    padding: 2rem;
+    border-right: 1px solid #eee;
+    box-sizing: border-box; /* padding을 너비 안에 포함시켜 계산을 쉽게 합니다. */
+  }
+  nav {
+    display: flex;
+    flex-direction: column; /* <-- 이 속성으로 메뉴를 세로로 쌓습니다. */
+    gap: 1rem; /* 링크 사이의 간격 */
+  }
+  nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out;
+  }
+  nav a:hover {
+    color: royalblue;
+    background-color: #f0f0f0;
+  }
+</style>

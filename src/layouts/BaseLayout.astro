@@ -1,4 +1,5 @@
 ---
+import Header from "../components/Header.astro";
 const { title = "ZeroDi the Software Engineer" } = Astro.props;
 ---
 
@@ -13,8 +14,23 @@ const { title = "ZeroDi the Software Engineer" } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
+    <Header />
     <main>
       <slot />
     </main>
   </body>
 </html>
+
+<style>
+  :root {
+    font-family: system-ui, sans-serif;
+  }
+  body {
+    margin: 0;
+  }
+  main {
+    /* Header의 너비(240px)만큼 왼쪽 여백을 주어 콘텐츠가 겹치지 않게 합니다. */
+    margin-left: 240px;
+    padding: 2rem;
+  }
+</style>
