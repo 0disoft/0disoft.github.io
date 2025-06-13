@@ -1,18 +1,12 @@
 ---
-import PostViewer from "../components/PostViewer.astro";
+// 1. BaseLayout 컴포넌트를 가져옵니다.
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// 2. 이 페이지의 고유한 제목을 변수로 만듭니다. (선택 사항)
+const pageTitle = "ZeroDi the Software Engineer";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body>
-    <h1>Astro</h1>
-
-    <PostViewer />
-  </body>
-</html>
+<BaseLayout title={pageTitle}>
+  <h1>Hello!</h1>
+  <p>test page</p>
+</BaseLayout>
