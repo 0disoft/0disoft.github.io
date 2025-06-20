@@ -7,23 +7,32 @@
   --font-family-sans: system-ui, sans-serif;
   --font-family-serif: 'Georgia', serif;
 
-  --background-color: #f8f8f8;
+  --background-color: #ffffff;
+  --header-background-color: #f8f8f8;
   --primary-color: #1a1a1a;
-  --header-background-color: #ffffff;
+  --secondary-color: #666;
   --accent-color: royalblue;
+  /* 테두리 색상 변수 추가 */
+  --border-color: #eee;
+  /* 호버 배경색 변수 추가 (라이트 모드) */
+  --element-hover-bg: #f0f0f0;
 
   /* 폰트 크기 조절을 위한 변수 추가 */
   --font-size-multiplier: 1;
-  /* 기본값 1 (4단계에 해당) */
-  --base-font-size: 16px;
+  /* 기본값 1 (5단계에 해당) */
+  --base-font-size: 18px;
 }
 
 /* 다크 모드일 때 적용될 색상 변수 */
 [data-theme='dark'] {
-  --background-color: #0B032D;
-  --primary-color: #FFB997;
-  --header-background-color: #07021e;
+  --background-color: #a98467;
+  --header-background-color: #6c584c;
+  --primary-color: #f0ead2;
+  --secondary-color: #74546A;
   --accent-color: #F67E7D;
+  --border-color: #8a817c;
+  /* 호버 배경색 변수 추가 (다크 모드) */
+  --element-hover-bg: rgba(128, 128, 128, 0.1);
 }
 
 /* 모든 요소의 box-sizing을 border-box로 설정하여 크기 계산을 쉽게 합니다. */
