@@ -10,6 +10,14 @@
     <a href="/blog">Blog</a>
     <a href="/contact">Contact</a>
   </nav>
+
+  <div class="controls">
+    <button id="theme-toggle">Toggle Dark Mode</button>
+    <div class="font-control">
+      <label for="font-size-slider">Font Size</label>
+      <input type="range" id="font-size-slider" min="1" max="7" value="4" />
+    </div>
+  </div>
 </header>
 
 <style>
@@ -43,5 +51,16 @@
   nav a:hover {
     color: royalblue;
     background-color: #f0f0f0;
+  }
+  .controls {
+    margin-top: 2rem; /* 네비게이션과의 간격 */
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .font-control {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 </style>

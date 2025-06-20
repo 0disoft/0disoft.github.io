@@ -20,6 +20,39 @@ const { title = "ZeroDi the Software Engineer" } = Astro.props;
     <main>
       <slot />
     </main>
+
+    <script is:inline>
+      // 1. 다크/라이트 모드 기능
+      const themeToggle = document.getElementById("theme-toggle");
+      const savedTheme = localStorage.getItem("theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+
+      themeToggle.addEventListener("click", () => {
+        const currentTheme =
+          document.documentElement.getAttribute("data-theme");
+        const newTheme = currentTheme === "light" ? "dark" : "light";
+        document.documentElement.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+      });
+
+      // 2. 폰트 크기 조절 기능
+      const fontSizeSlider = document.getElementById("font-size-slider");
+      const savedFontSize = localStorage.getItem("font-size") || "4";
+      document.documentElement.style.setProperty(
+        "--font-size-multiplier",
+        `calc(0.8 + 0.1 * ${savedFontSize})`
+      );
+      fontSizeSlider.value = savedFontSize;
+
+      fontSizeSlider.addEventListener("input", (e) => {
+        const newSize = e.target.value;
+        document.documentElement.style.setProperty(
+          "--font-size-multiplier",
+          `calc(0.8 + 0.1 * ${newSize})`
+        );
+        localStorage.setItem("font-size", newSize);
+      });
+    </script>
   </body>
 </html>
 
