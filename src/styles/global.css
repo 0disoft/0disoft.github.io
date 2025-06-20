@@ -4,8 +4,11 @@
   :root 선택자는 문서의 최상위 요소를 의미하며, 전역 변수를 선언하기에 좋은 위치입니다.
 */
 :root {
-  --font-family-sans: system-ui, sans-serif;
-  --font-family-serif: 'Georgia', serif;
+  /* 폰트 변수들을 새로운 구글 폰트로 교체 */
+  --font-family-sans: "Space Grotesk", sans-serif;
+  --font-family-serif: "Yeseva One", serif;
+  --font-family-mono: "Kode Mono", monospace;
+  --font-family-display: "Lilita One", sans-serif;
 
   --background-color: #ffffff;
   --header-background-color: #f8f8f8;
@@ -21,6 +24,10 @@
   --font-size-multiplier: 1;
   /* 기본값 1 (5단계에 해당) */
   --base-font-size: 18px;
+  /* 본문 줄 간격 변수 추가 */
+  --body-line-height: 1.6;
+  /* 제목용 줄 간격 변수 추가 */
+  --heading-line-height: 1.0;
 }
 
 /* 다크 모드일 때 적용될 색상 변수 */
@@ -42,6 +49,11 @@
   box-sizing: border-box;
 }
 
+/* 페이지 전체 레이아웃을 담당하는 래퍼 */
+.page-wrapper {
+  display: flex;
+}
+
 /* body 요소에 기본 폰트와 배경색을 적용합니다. */
 body {
   font-family: var(--font-family-sans);
@@ -53,9 +65,14 @@ body {
 
 /* main 콘텐츠 영역의 스타일을 지정합니다. */
 main {
-  /* Header의 너비(240px)만큼 왼쪽 여백을 주어 콘텐츠가 겹치지 않게 합니다. */
-  margin-left: 240px;
   padding: 2rem;
+  /* 콘텐츠의 최대 너비를 설정하여 가독성을 높이고, 넓은 화면에서 우측 여백을 자연스럽게 만듭니다. */
+  width: 75%;
+  /* ch 대신 rem 단위 사용 및 가운데 정렬 */
+  /* 폰트 크기와 무관한 안정적인 최대 너비 */
+  max-width: 65rem;
+  /* 콘텐츠 블록을 main 영역 안에서 수평으로 가운데 정렬 */
+  margin-inline: auto;
 }
 
 /* 링크(a 태그)의 기본 스타일을 정의합니다. */
@@ -76,5 +93,25 @@ h4,
 h5,
 h6 {
   font-family: var(--font-family-serif);
-  line-height: 1.2;
+  line-height: var(--heading-line-height);
+}
+
+p {
+  line-height: var(--body-line-height);
+  margin-bottom: 1.2em;
+  /* 단락 간의 간격 추가 */
+}
+
+/* 코드 블록과 인라인 코드에 폰트 적용 */
+pre,
+code {
+  font-family: var(--font-family-mono);
+  background-color: var(--element-hover-bg);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+}
+
+pre {
+  padding: 1rem;
+  overflow-x: auto;
 }
