@@ -4,7 +4,7 @@ description: "Astro 콘텐츠 컬렉션을 설정하고 첫 포스트를 작성�
 author: "ZeroDi"
 pubDate: 2025-06-23
 tags: ["astro", "blogging", "learning in public"]
-heroImage: ""
+heroImage: "/images/posts/cherry.webp"
 ---
 
 ## Echoes on the Water, V in the Sky
@@ -19,8 +19,19 @@ Geese are remarkable birds known for their distinctive V-formation during migrat
 
 Geese are remarkable birds known for their distinctive V-formation during migration. As waterfowl, they are perfectly at home both in the sky and on the water. Their loud, honking calls are a familiar sound in many parts of the world, echoing across lakes and fields. These birds belong to the Anatidae family, which also includes swans and ducks. They possess strong wings and webbed feet, making them powerful swimmers and flyers.
 
-[https://www.youtube.com/](https://www.youtube.com/)
-
-```javascript
-console.log("Hello, Astro!");
+```typescript
+function f(x: unknown) {
+    switch (true) {
+        case typeof x === "string":
+            // 여기서 'x'는 'string' 타입입니다.
+            console.log(x.toUpperCase());
+            // 다음 case로 넘어갑니다 (fall-through).
+        case Array.isArray(x):
+            // 여기서 'x'는 'string | any' 타입입니다.
+            console.log(x.length);
+            break;
+        default:
+            // 여기서 'x'는 'unknown' 타입입니다.
+    }
+}
 ```

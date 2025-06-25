@@ -35,9 +35,9 @@
   --background-color: #a98467;
   --header-background-color: #6c584c;
   --primary-color: #f4f3ee;
-  --secondary-color: #74546A;
-  --accent-color: #F67E7D;
-  --border-color: #8a817c;
+  --secondary-color: #faedcd;
+  --accent-color: #fee440;
+  --border-color: #74546A;
   /* 호버 배경색 변수 추가 (다크 모드) */
   --element-hover-bg: rgba(128, 128, 128, 0.1);
 }
@@ -103,7 +103,6 @@ p {
 }
 
 /* 코드 블록과 인라인 코드에 폰트 적용 */
-pre,
 code {
   font-family: var(--font-family-mono);
   background-color: var(--element-hover-bg);
@@ -112,6 +111,8 @@ code {
 }
 
 pre {
+  font-family: var(--font-family-mono);
   padding: 1rem;
   overflow-x: auto;
+  border-radius: 8px;
 }

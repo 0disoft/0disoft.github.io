@@ -3,23 +3,16 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
-// 1. 'blog' 컬렉션의 모든 항목을 가져옵니다.
 const allPosts = await getCollection("blog");
-
-// 2. 게시물을 최신순으로 정렬합니다.
 allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const pageTitle = "블로그";
+const pageTitle = "Blog";
 ---
 
 <BaseLayout title={pageTitle}>
   <section>
-    <h1>{pageTitle}</h1>
-    <p>학습한 내용과 생각들을 기록하는 공간입니다.</p>
-
     <ul>
       {
-        /* 3. 가져온 게시물들을 반복하여 목록을 생성합니다. */
         allPosts.map((post) => (
           <li class="post-item">
             <a href={`/blog/${post.slug}/`} class="post-link">
@@ -30,7 +23,7 @@ const pageTitle = "블로그";
                   class="post-date"
                   datetime={post.data.pubDate.toISOString()}
                 >
-                  {post.data.pubDate.toLocaleDateString("ko-KR", {
+                  {post.data.pubDate.toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",
                     day: "numeric",
@@ -47,17 +40,7 @@ const pageTitle = "블로그";
 
 <style>
   section {
-    padding: 2rem 0;
-  }
-
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  p {
-    margin-bottom: 2rem;
-    color: var(--secondary-color);
+    padding: 1rem 0;
   }
 
   ul {
@@ -65,44 +48,50 @@ const pageTitle = "블로그";
     padding: 0;
     margin: 0;
     display: grid;
+    /* --- 핵심 변경 사항 --- */
+    grid-template-columns: repeat(2, 1fr); /* 2개의 열을 생성 */
     gap: 1.5rem;
   }
 
   .post-item {
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 16px; /* 모서리를 더 둥글게 */
     transition:
       transform 0.2s ease-in-out,
       box-shadow 0.2s ease-in-out;
+    overflow: hidden; /* 이미지가 모서리를 삐져나가지 않도록 */
   }
 
   .post-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
   }
 
   .post-link {
     display: block;
-    padding: 1.5rem;
     text-decoration: none;
     color: inherit;
+    height: 100%;
+  }
+
+  /* --- 콘텐츠 패딩 조정 --- */
+  .post-content {
+    padding: 1.5rem;
   }
 
   .post-title {
-    font-size: 1.5rem;
+    font-size: 1.25em;
     margin: 0 0 0.5rem 0;
     color: var(--primary-color);
   }
 
   .post-description {
-    font-size: 1rem;
-    margin: 0 0 1rem 0;
+    font-size: 0.75em;
+    margin-bottom: 1rem;
     color: var(--secondary-color);
-    line-height: 1.6;
   }
 
   .post-date {
-    font-size: 0.875rem;
+    font-size: 0.75em;
     color: var(--secondary-color);
   }
 </style>
