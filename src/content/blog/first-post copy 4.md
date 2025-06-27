@@ -1,5 +1,5 @@
 ---
-title: "나의 첫 번째 블로그 포스트"
+title: "나의 5 번째 블로그 포스트"
 description: "Astro 콘텐츠 컬렉션을 설정하고 첫 포스트를 작성하는 방법에 대해 알아봅니다."
 author: "ZeroDi"
 pubDate: 2025-06-23
