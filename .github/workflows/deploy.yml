@@ -17,12 +17,39 @@ jobs:
     steps:
       - name: Checkout your repository
         uses: actions/checkout@v4
-      - name: Install, build, and upload your site
-        uses: withastro/action@v4
+
+      # 1. Bun 설치
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          package-manager: bun@latest # <-- 이 줄을 추가하세요.
-          # node-version: 22 # The Node.js version to use (optional)
-          # pnpm-version: 10 # The pnpm version to use (optional)
+          bun-version: latest
+
+      # 2. Bun 의존성 캐시 설정
+      - name: Cache Bun dependencies
+        id: bun-cache
+        uses: actions/cache@v4
+        with:
+          # Bun 캐시 디렉토리 경로
+          path: ~/.bun/install/cache
+          # 캐시 키: lockfile 내용이 바뀔 때마다 새로운 캐시를 생성
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
+
+      # 3. 의존성 설치
+      - name: Install dependencies
+        run: bun install
+
+      # 4. Astro 사이트 빌드
+      - name: Build with Astro
+        run: bun run build
+
+      # 5. 빌드 결과물 업로드
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Astro의 기본 빌드 출력 폴더
+          path: ./dist
 
   deploy:
     needs: build
