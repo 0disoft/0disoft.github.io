@@ -7,7 +7,7 @@ tags: ["astro", "blogging", "learning in public"]
 heroImage: "/images/posts/cherry.webp"
 ---
 
-## 안녕하세요
+## 안녕하세요oo
 
 이곳은 제 블로그의 첫 번째 게시물입니다. Astro를 사용하여 정적 사이트를 구축하는 것은 매우 흥미로운 경험입니다.
 
