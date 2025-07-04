@@ -1,19 +1,32 @@
 ---
-// 이 컴포넌트는 간단한 HTML만으로 구성되므로, 스크립트 부분은 비워둡니다.
+// src/components/Header.astro
+import { NAV_LINKS } from "../consts";
 ---
 
-<header>
-  <nav>
-    <a href="/">Home</a>
-    <a href="/about">About</a>
-    <a href="/projects">Projects</a>
-    <a href="/blog">Blog</a>
-    <a href="/contact">Contact</a>
+<header
+  class="sticky top-0 flex-shrink-0 h-screen w-[240px] p-8 border-r border-border bg-headerBackground box-border flex flex-col"
+>
+  <nav class="flex flex-col gap-4">
+    {
+      NAV_LINKS.map((link) => (
+        <a
+          href={link.path}
+          class="no-underline text-primary font-display font-400 py-3 px-4 rounded-lg transition-all ease-in-out duration-200 text-center hover:(text-accent bg-elementHoverBg)"
+        >
+          {link.title}
+        </a>
+      ))
+    }
   </nav>
 
-  <div class="footer-controls">
-    <button id="theme-toggle" aria-label="Toggle theme">
+  <div class="mt-auto flex items-center justify-center gap-4">
+    <button
+      id="theme-toggle"
+      aria-label="Toggle theme"
+      class="bg-none border-none p-1 cursor-pointer text-primary transition-colors ease-in-out duration-200 flex items-center justify-center rounded-full hover:(text-accent bg-elementHoverBg)"
+    >
       <svg
+        class="w-8 h-8"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="none"
@@ -21,16 +34,21 @@
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
-        class="control-icon lucide lucide-sun-moon-icon lucide-sun-moon"
-        ><path d="M12 8a2.83 2.83 0 0 0 4 4 4 4 0 1 1-4-4"></path><path
-          d="M12 2v2"></path><path d="M12 20v2"></path><path
-          d="m4.9 4.9 1.4 1.4"></path><path d="m17.7 17.7 1.4 1.4"></path><path
-          d="M2 12h2"></path><path d="M20 12h2"></path><path
-          d="m6.3 17.7-1.4 1.4"></path><path d="m19.1 4.9-1.4 1.4"></path></svg
       >
+        <path d="M12 8a2.83 2.83 0 0 0 4 4 4 4 0 1 1-4-4"></path>
+        <path d="M12 2v2"></path><path d="M12 20v2"></path>
+        <path d="m4.9 4.9 1.4 1.4"></path><path d="m17.7 17.7 1.4 1.4"></path>
+        <path d="M2 12h2"></path><path d="M20 12h2"></path>
+        <path d="m6.3 17.7-1.4 1.4"></path><path d="m19.1 4.9-1.4 1.4"></path>
+      </svg>
     </button>
-    <button id="font-size-toggle" aria-label="Cycle font size">
+    <button
+      id="font-size-toggle"
+      aria-label="Cycle font size"
+      class="bg-none border-none p-1 cursor-pointer text-primary transition-colors ease-in-out duration-200 flex items-center justify-center rounded-full hover:(text-accent bg-elementHoverBg)"
+    >
       <svg
+        class="w-8 h-8"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="none"
@@ -38,91 +56,10 @@
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
-        class="control-icon lucide lucide-aarrow-up-icon lucide-a-arrow-up"
-        ><path d="M3.5 13h6"></path><path d="m2 16 4.5-9 4.5 9"></path><path
-          d="M18 16V7"></path><path d="m14 11 4-4 4 4"></path></svg
       >
+        <path d="M3.5 13h6"></path><path d="m2 16 4.5-9 4.5 9"></path>
+        <path d="M18 16V7"></path><path d="m14 11 4-4 4 4"></path>
+      </svg>
     </button>
   </div>
 </header>
-
-<style>
-  header {
-    position: sticky;
-    top: 0;
-    /* flex 아이템으로서 너비가 줄어들지 않도록 설정 */
-    flex-shrink: 0;
-    height: 100vh; /* 화면 전체 높이를 차지하도록 설정합니다. */
-    width: 240px; /* 사이드바의 전체 너비를 240px로 고정합니다. */
-    padding: 2rem;
-    border-right: 1px solid var(--border-color);
-    background-color: var(--header-background-color); /* 배경색도 변수 사용 */
-    box-sizing: border-box; /* padding을 너비 안에 포함시켜 계산을 쉽게 합니다. */
-    display: flex;
-    flex-direction: column;
-  }
-
-  nav {
-    display: flex;
-    flex-direction: column; /* <-- 이 속성으로 메뉴를 세로로 쌓습니다. */
-    gap: 1rem; /* 링크 사이의 간격 */
-  }
-
-  nav a {
-    text-decoration: none;
-    color: var(--primary-color);
-
-    /* 장식용 폰트 적용 */
-    font-family: var(--font-family-display);
-    font-weight: 400;
-    font-style: normal;
-
-    padding: 0.75rem 1rem; /* 상하 0.75rem, 좌우 1rem */
-    border-radius: 8px;
-    transition: all 0.2s ease-in-out;
-    text-align: center; /* 폰트가 중앙에 오도록 추가 */
-  }
-
-  nav a:hover {
-    color: var(--accent-color);
-    background-color: var(--element-hover-bg);
-  }
-
-  .footer-controls {
-    margin-top: auto; /* flex 컨테이너의 남은 공간을 모두 차지하여 맨 아래로 밀어냄 */
-    display: flex;
-    align-items: center; /* 아이콘들을 가로로 배치 */
-    justify-content: center; /* 가운데 정렬 */
-    gap: 1rem;
-  }
-
-  /* 아이콘 버튼 공통 스타일 */
-  #theme-toggle,
-  #font-size-toggle {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    color: var(--primary-color);
-    transition: color 0.2s ease-in-out;
-
-    /* 버튼의 클릭 영역을 넓히기 위해 padding 추가 */
-    padding: 0.25rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%; /* 원형 배경 효과를 위해 추가 */
-  }
-
-  #theme-toggle:hover,
-  #font-size-toggle:hover {
-    color: var(--accent-color);
-    background-color: var(--element-hover-bg); /* 호버 시 배경색 효과 */
-  }
-
-  /* 아이콘 크기를 제어하는 새로운 클래스 */
-  .control-icon {
-    width: 32px;
-    height: 32px;
-  }
-</style>

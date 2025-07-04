@@ -17,8 +17,34 @@ export default defineConfig({
   shortcuts: [
   ],
   theme: {
+    // 폰트 변수를 theme으로 이동
+    fontFamily: {
+      sans: ['"Space Grotesk"', 'sans-serif'],
+      serif: ['"Yeseva One"', 'serif'],
+      mono: ['"Kode Mono"', 'monospace'],
+      display: ['"Lilita One"', 'sans-serif'],
+    },
+    // 색상 변수를 theme으로 이동
     colors: {
-    }
+      // 라이트 모드 색상
+      primary: '#1a1a1a',
+      secondary: '#666',
+      accent: 'royalblue',
+      background: '#ffffff',
+      headerBackground: '#f8f8f8',
+      border: '#eee',
+      elementHoverBg: '#f0f0f0',
+      // 다크 모드 색상을 css 변수로 정의
+      dark: {
+        primary: '#f4f3ee',
+        secondary: '#faedcd',
+        accent: '#fee440',
+        background: '#a98467',
+        headerBackground: '#6c584c',
+        border: '#74546A',
+        elementHoverBg: 'rgba(128, 128, 128, 0.1)',
+      },
+    },
   },
 
   presets: [

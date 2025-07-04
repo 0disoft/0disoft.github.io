@@ -2,12 +2,12 @@
 // src/layouts/BaseLayout.astro
 import "@unocss/reset/tailwind.css";
 import Header from "../components/Header.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts"; // 상수를 가져옵니다.
 import "../styles/global.css";
 
 const {
-  title = "ZeroDi the Software Engineer",
-  // --- 아래 description의 기본값을 수정했습니다. ---
-  description = "Projects, thoughts, and lessons from a solo indie developer.",
+  title = SITE_TITLE, // 기본값을 상수로 변경
+  description = SITE_DESCRIPTION, // 기본값을 상수로 변경
 } = Astro.props;
 ---
 
@@ -41,9 +41,9 @@ const {
     />
   </head>
   <body>
-    <div class="page-wrapper">
+    <div class="flex">
       <Header />
-      <main>
+      <main class="p-8 w-3/4 max-w-65rem mx-auto">
         <slot />
       </main>
     </div>
