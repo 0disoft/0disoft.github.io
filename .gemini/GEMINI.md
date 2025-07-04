@@ -4,7 +4,7 @@
 
 ---
 
-## MCP 서버 설정 (settings.json)
+## MCP 서버 설정 (`settings.json`)
 
 이 프로젝트는 특정 기능을 위해 다음 MCP 서버들을 활용합니다. `settings.json` 파일 내 `mcpServers` 객체에 해당 서버들이 올바르게 구성되었는지 확인하세요.
 
@@ -47,7 +47,7 @@
         }
         ```
 
-  * **주의:** 이 서버는 시스템에 대한 광범위한 접근 권한을 부여할 수 있으므로, 사용 시 보안에 각별히 주의해야 합니다.
+  * **주의:** 이 서버는 시스템에 대한 광범위한 접근 권한을 부여할 수 있으므로, 사용 시 **보안에 각별히 주의**해야 합니다.
 
 * **Sequential Thinking MCP 서버:**
   * 목적: 에이전트가 복잡한 작업을 여러 단계로 나누어 순차적으로 계획하고 실행하는 데 도움을 줍니다. 이는 장기적인 목표 달성이나 복잡한 문제 해결에 유용합니다.
@@ -74,55 +74,17 @@
         }
         ```
 
-* **전체 `mcpServers` 객체 예시:**
-
-      ```json
-      {
-        "mcpServers": {
-          "context7": {
-            "command": "npx",
-            "args": ["-y", "@upstash/context7-mcp"]
-          },
-          "playwright": {
-            "command": "npx",
-            "args": [
-              "-y",
-              "@executeautomation/playwright-mcp-server"
-            ]
-          },
-          "desktop-commander": {
-            "command": "npx",
-            "args": [
-              "-y",
-              "@wonderwhy-er/desktop-commander"
-            ]
-          },
-          "sequential-thinking": {
-            "command": "npx",
-            "args": [
-              "-y",
-              "@modelcontextprotocol/server-sequential-thinking"
-            ]
-          },
-          "dbhub-demo": {
-            "command": "npx",
-            "args": ["-y", "@bytebase/dbhub", "--transport", "stdio", "--demo"]
-          }
-        }
-      }
-      ```
-
 ---
 
 ## 환경 변수 사용 지침 및 종류
 
 환경 변수는 애플리케이션을 구성하는 일반적인 방법이며, 특히 API 키와 같은 민감한 정보나 환경에 따라 변경될 수 있는 설정에 유용합니다.
 
-`settings.json` 파일 내의 문자열 값은 `$VAR_NAME` 또는 `${VAR_NAME}` 구문을 사용하여 환경 변수를 참조할 수 있습니다. 이러한 변수는 설정이 로드될 때 자동으로 해석됩니다.
+`settings.json` 파일 내의 문자열 값은 **`$VAR_NAME`** 또는 **`${VAR_NAME}`** 구문을 사용하여 환경 변수를 참조할 수 있습니다. 이러한 변수는 설정이 로드될 때 자동으로 해석됩니다.
 
 예시: `MY_API_TOKEN` 환경 변수가 있다면 `settings.json`에서 `"apiKey": "$MY_API_TOKEN"`과 같이 사용할 수 있습니다.
 
-권장 사항: 보안이 민감한 정보(API 키, 토큰 등)는 `settings.json`에 직접 하드코딩하지 않고, 항상 환경 변수를 통해 관리하는 것을 강력히 권장합니다.
+권장 사항: 보안이 민감한 정보(API 키, 토큰 등)는 `settings.json`에 직접 하드코딩하지 않고, 항상 **환경 변수를 통해 관리**하는 것을 강력히 권장합니다.
 
 ### 환경 변수 로드 순서
 
@@ -200,7 +162,7 @@ Gemini CLI 사용 시 `write_file`, `read_file`, `replace` 등 **파일 시스�
 
 ---
 
-## settings.json에서 사용 가능한 기타 주요 설정
+## `settings.json`에서 사용 가능한 기타 주요 설정
 
 다음은 `settings.json` 파일에서 설정할 수 있는 기타 유용한 옵션들입니다. 이 설정들은 Gemini CLI의 동작 방식을 세부적으로 제어하는 데 사용됩니다.
 
@@ -427,3 +389,14 @@ CLI를 실행할 때 직접 전달하는 인수는 해당 특정 세션의 다�
   * 패키지 이름에서 `@latest`를 제거해 보세요.
   * 대안으로 `bunx`를 사용해 보세요.
   * 대안으로 `deno`를 사용해 보세요.
+
+---
+
+## 컨텍스트 파일 새로 고침 조언 ✨
+
+이 문서와 같은 컨텍스트 파일(`GEMINI.md` 등)은 Gemini 모델이 프로젝트에 대한 최신 정보를 기반으로 응답하도록 돕는 중요한 역할을 합니다. 파일의 내용이 변경되었을 때, AI가 이를 즉시 인식하고 새로운 지침을 적용하도록 하려면 **메모리를 새로 고쳐야 합니다.**
+
+* **변경 사항 적용**: `GEMINI.md` 또는 다른 컨텍스트 파일을 수정한 후에는 CLI에서 **`/memory refresh`** 명령을 실행하여 변경된 내용을 AI의 컨텍스트에 즉시 반영할 수 있습니다.
+* **현재 컨텍스트 확인**: 현재 AI가 인식하고 있는 전체 컨텍스트를 확인하려면 **`/memory show`** 명령을 사용하십시오. 이를 통해 모든 컨텍스트 파일의 내용이 올바르게 로드되었는지 검증할 수 있습니다.
+
+이러한 명령을 적극적으로 활용하여 AI가 항상 프로젝트의 최신 정보와 지침을 기반으로 작업하도록 유지하세요.
