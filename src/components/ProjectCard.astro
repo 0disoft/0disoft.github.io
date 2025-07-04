@@ -1,0 +1,46 @@
+---
+// src/components/ProjectCard.astro
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+---
+
+<a
+  href={project.data.liveUrl || project.data.githubUrl || "#"}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="group block border border-border rounded-lg no-underline transition-all hover:(border-accent shadow-lg scale-102) overflow-hidden"
+>
+  {
+    project.data.heroImage && (
+      <img
+        src={project.data.heroImage}
+        alt={project.data.title}
+        class="w-full object-cover aspect-video"
+      />
+    )
+  }
+  <div class="p-6">
+    <h2
+      class="font-serif text-2xl mb-2 group-hover:text-accent transition-colors"
+    >
+      {project.data.title}
+    </h2>
+    <p class="text-secondary mb-4 leading-relaxed">
+      {project.data.description}
+    </p>
+    <div class="flex flex-wrap gap-2 mt-auto">
+      {
+        project.data.techStack.map((tech: string) => (
+          <span class="text-xs bg-elementHoverBg text-secondary py-1 px-3 rounded-full">
+            {tech}
+          </span>
+        ))
+      }
+    </div>
+  </div>
+</a>

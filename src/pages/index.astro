@@ -1,57 +1,18 @@
 ---
-// 1. BaseLayout 컴포넌트를 가져옵니다.
+// src/pages/index.astro
 import BaseLayout from "../layouts/BaseLayout.astro";
-
-// 2. 이 페이지의 고유한 제목을 변수로 만듭니다. (선택 사항)
-const pageTitle = "ZeroDi the Software Engineer";
 ---
 
-<BaseLayout title={pageTitle}>
-  <h1>Hello!</h1>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
-  <p>test page</p>
+<BaseLayout>
+  <div class="py-24 md:py-32">
+    <h1 class="font-display text-5xl md:text-7xl mb-4">Hello, I'm ZeroDi!</h1>
+    <p class="max-w-3xl my-8 text-lg text-secondary leading-relaxed">
+      An indie developer turning ideas into reality with code. Here, I share my
+      development journey, completed projects, and thoughts.
+    </p>
+    <div class="flex gap-4 mt-10">
+      <a href="/projects" class="btn-solid"> View Projects </a>
+      <a href="/blog" class="btn-outline"> Read the Blog </a>
+    </div>
+  </div>
 </BaseLayout>

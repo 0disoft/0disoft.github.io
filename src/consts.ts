@@ -25,3 +25,21 @@ export const NAV_LINKS = [
     path: '/contact',
   },
 ];
+
+export const CONTACT_LINKS = [
+  {
+    name: 'Email',
+    url: 'mailto:zerodi0000@gmail.com', // 본인 이메일로 변경하세요
+    icon: 'i-lucide-mail', // Lucide 아이콘
+  },
+  {
+    name: 'GitHub',
+    url: 'https://github.com/0disoft', // 본인 깃허브 주소
+    icon: 'i-simple-icons-github', // Simple Icons
+  },
+  {
+    name: 'Ko-fi',
+    url: 'https://ko-fi.com/zerodi', // Ko-fi 사용 시, 본인 주소로 변경
+    icon: 'i-simple-icons-kofi', // Simple Icons
+  },
+];

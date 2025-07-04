@@ -6,29 +6,49 @@ const pageTitle = "About Me";
 ---
 
 <BaseLayout title={pageTitle}>
-  <h1>Echoes on the Water, V in the Sky</h1>
-  <p>
-    Geese are remarkable birds known for their distinctive V-formation during
-    migration. As waterfowl, they are perfectly at home both in the sky and on
-    the water. Their loud, honking calls are a familiar sound in many parts of
-    the world, echoing across lakes and fields. These birds belong to the
-    Anatidae family, which also includes swans and ducks. They possess strong
-    wings and webbed feet, making them powerful swimmers and flyers.
-  </p>
-  <p>
-    The social structure of geese is surprisingly complex and loyal. They are
-    known for forming strong family bonds and often mate for life. A male goose,
-    or gander, is fiercely protective of his partner and their young, called
-    goslings. This protective nature can sometimes be perceived as aggression
-    towards intruders. The flock works together, communicating constantly to
-    ensure safety and coordinate movement.
-  </p>
-  <p>
-    Geese have a long and shared history with humans. Domesticated for
-    centuries, they provide meat, eggs, and soft down feathers for pillows and
-    blankets. In urban parks, they can be a common sight, sometimes becoming a
-    nuisance with their droppings and territorial behavior. Despite their
-    occasional feistiness, their determined spirit and strong family ties earn
-    them a measure of respect.
-  </p>
+  <div class="mb-12">
+    <h1 class="font-display text-4xl">About ZeroDi</h1>
+    <p class="text-secondary mt-4">
+      A little bit about my journey, philosophy, and the tools I use.
+    </p>
+  </div>
+
+  <article class="prose prose-lg max-w-none">
+    <h2>My Philosophy</h2>
+    <p>
+      I believe in writing clean, maintainable code and building products that
+      are not only functional but also delightful to use. For me, development is
+      a craft that blends logical problem-solving with a touch of artistry.
+    </p>
+
+    <h2>The Journey</h2>
+    <p>
+      My path into software development started with a simple "Hello, World!"
+      but quickly grew into a deep passion. From tinkering with personal scripts
+      to building full-stack applications, every project has been a stepping
+      stone. This website itself is part of that journey—a place to document and
+      share what I learn along the way.
+    </p>
+
+    <h2>Skills & Tools</h2>
+    <p>Here are some of the technologies I enjoy working with:</p>
+    <ul>
+      <li>
+        <strong>Languages:</strong> TypeScript, JavaScript, Rust, Python
+      </li>
+      <li>
+        <strong>Frameworks:</strong> Astro, SvelteKit, React, Next.js
+      </li>
+      <li>
+        <strong>Tools:</strong> Git, Docker, Neovim, Figma, Bun
+      </li>
+    </ul>
+
+    <hr />
+
+    <p>
+      Thanks for stopping by. If you'd like to collaborate or just chat, feel
+      free to get in touch!
+    </p>
+  </article>
 </BaseLayout>

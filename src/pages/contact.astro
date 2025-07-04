@@ -1,34 +1,42 @@
 ---
 // src/pages/contact.astro
+import { CONTACT_LINKS } from "../consts";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const pageTitle = "Contact";
 ---
 
 <BaseLayout title={pageTitle}>
-  <h1>Echoes on the Water, V in the Sky</h1>
-  <p>
-    Geese are remarkable birds known for their distinctive V-formation during
-    migration. As waterfowl, they are perfectly at home both in the sky and on
-    the water. Their loud, honking calls are a familiar sound in many parts of
-    the world, echoing across lakes and fields. These birds belong to the
-    Anatidae family, which also includes swans and ducks. They possess strong
-    wings and webbed feet, making them powerful swimmers and flyers.
-  </p>
-  <p>
-    The social structure of geese is surprisingly complex and loyal. They are
-    known for forming strong family bonds and often mate for life. A male goose,
-    or gander, is fiercely protective of his partner and their young, called
-    goslings. This protective nature can sometimes be perceived as aggression
-    towards intruders. The flock works together, communicating constantly to
-    ensure safety and coordinate movement.
-  </p>
-  <p>
-    Geese have a long and shared history with humans. Domesticated for
-    centuries, they provide meat, eggs, and soft down feathers for pillows and
-    blankets. In urban parks, they can be a common sight, sometimes becoming a
-    nuisance with their droppings and territorial behavior. Despite their
-    occasional feistiness, their determined spirit and strong family ties earn
-    them a measure of respect.
-  </p>
+  <div class="mb-12">
+    <h1 class="font-display text-4xl">Contact Me</h1>
+    <p class="text-secondary mt-4">
+      I'm always open to discussing new projects, creative ideas, or
+      opportunities.
+    </p>
+  </div>
+
+  <div class="max-w-2xl">
+    <div class="flex flex-col gap-6">
+      {
+        CONTACT_LINKS.map((link) => (
+          <a
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group flex items-center gap-4 p-5 border border-border rounded-lg no-underline transition-all hover:(border-accent bg-elementHoverBg)"
+          >
+            <div
+              class:list={[
+                link.icon,
+                "w-8 h-8 text-secondary transition-colors group-hover:text-accent",
+              ]}
+            />
+            <span class="text-lg font-medium text-primary transition-colors group-hover:text-accent">
+              {link.name}
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
 </BaseLayout>

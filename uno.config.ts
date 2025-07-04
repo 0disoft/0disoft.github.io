@@ -15,6 +15,10 @@ import presetWind3 from '@unocss/preset-wind3';
 export default defineConfig({
   // ... shortcuts, theme 설정은 동일 ...
   shortcuts: [
+    {
+      'btn-solid': 'py-3 px-6 bg-primary text-background font-sans font-medium rounded-lg no-underline transition-transform hover:scale-105',
+      'btn-outline': 'py-3 px-6 bg-transparent text-primary border border-primary font-sans font-medium rounded-lg no-underline transition-all hover:(bg-primary text-background)',
+    }
   ],
   theme: {
     // 폰트 변수를 theme으로 이동
