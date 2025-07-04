@@ -33,25 +33,84 @@
         }
         ```
 
-  * **전체 `mcpServers` 객체 예시:**
+* **Desktop Commander MCP 서버:**
+  * 목적: 에이전트가 로컬 데스크톱 환경과 상호작용할 수 있도록 명령어를 실행하는 기능을 제공합니다. (예: 파일 시스템 접근, 애플리케이션 실행 등)
+  * 설정 예시:
 
         ```json
-        {
-          "mcpServers": {
-            "context7": {
-              "command": "npx",
-              "args": ["-y", "@upstash/context7-mcp"]
-            },
-            "playwright": {
-              "command": "npx",
-              "args": [
-                "-y",
-                "@executeautomation/playwright-mcp-server"
-              ]
-            }
-          }
+        "desktop-commander": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "@wonderwhy-er/desktop-commander"
+          ]
         }
         ```
+
+  * **주의:** 이 서버는 시스템에 대한 광범위한 접근 권한을 부여할 수 있으므로, 사용 시 보안에 각별히 주의해야 합니다.
+
+* **Sequential Thinking MCP 서버:**
+  * 목적: 에이전트가 복잡한 작업을 여러 단계로 나누어 순차적으로 계획하고 실행하는 데 도움을 줍니다. 이는 장기적인 목표 달성이나 복잡한 문제 해결에 유용합니다.
+  * 설정 예시:
+
+        ```json
+        "sequential-thinking": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "@modelcontextprotocol/server-sequential-thinking"
+          ]
+        }
+        ```
+
+* **DBHub Demo MCP 서버:**
+  * 목적: AI 모델이 다양한 데이터베이스와 상호작용할 수 있도록 돕는 범용 데이터베이스 게이트웨이입니다. `--demo` 플래그를 통해 실제 데이터베이스 연결 없이 내장된 샘플 데이터베이스로 테스트 및 탐색이 가능합니다.
+  * 설정 예시:
+
+        ```json
+        "dbhub-demo": {
+          "command": "npx",
+          "args": ["-y", "@bytebase/dbhub", "--transport", "stdio", "--demo"]
+        }
+        ```
+
+* **전체 `mcpServers` 객체 예시:**
+
+      ```json
+      {
+        "mcpServers": {
+          "context7": {
+            "command": "npx",
+            "args": ["-y", "@upstash/context7-mcp"]
+          },
+          "playwright": {
+            "command": "npx",
+            "args": [
+              "-y",
+              "@executeautomation/playwright-mcp-server"
+            ]
+          },
+          "desktop-commander": {
+            "command": "npx",
+            "args": [
+              "-y",
+              "@wonderwhy-er/desktop-commander"
+            ]
+          },
+          "sequential-thinking": {
+            "command": "npx",
+            "args": [
+              "-y",
+              "@modelcontextprotocol/server-sequential-thinking"
+            ]
+          },
+          "dbhub-demo": {
+            "command": "npx",
+            "args": ["-y", "@bytebase/dbhub", "--transport", "stdio", "--demo"]
+          }
+        }
+      }
+      ```
 
 ---
 
@@ -129,6 +188,15 @@ CLI는 `.env` 파일에서 환경 변수를 자동으로 로드합니다. 로드
 * **최신 라이브러리 사용:** `"Build a feature using [library_name] version [version_number]."` 와 같이 프롬프트에 버전을 명시하여 Context7이 최신 문서를 참조하도록 유도할 수 있습니다.
 * **코드 리팩토링:** 특정 파일이나 디렉토리를 참조(`@file.js` 또는 `@src/`)하여 에이전트에게 리팩토링이나 개선을 요청하세요.
 * **Playwright 기반 자동화:** 웹 상호작용 및 UI 테스트 자동화에 Playwright MCP 서버를 활용하도록 에이전트에게 요청할 수 있습니다. (예: "로그인 페이지에서 사용자의 로그인 과정을 시뮬레이션하는 Playwright 스크립트를 작성해줘.")
+* **데스크톱 작업 자동화:** Desktop Commander MCP 서버를 사용하여 로컬 환경에서 파일 작업, 애플리케이션 실행 등 데스크톱 관련 작업을 자동화할 수 있습니다. (예: "이름이 `report.xlsx`인 파일을 열고 내용을 요약해줘.")
+* **복잡한 작업 계획:** Sequential Thinking MCP 서버를 사용하여 복잡한 목표를 에이전트가 단계별로 계획하고 실행하도록 지시할 수 있습니다. (예: "새로운 사용자 인증 모듈을 개발하는 전체 계획을 세워줘.")
+* **데이터베이스 상호작용:** DBHub Demo MCP 서버를 활용하여 AI가 데이터베이스에 쿼리를 실행하거나 스키마를 탐색하는 등의 작업을 수행하도록 할 수 있습니다. (예: "직원 데이터베이스에서 모든 직원의 이름을 조회해줘.")
+
+---
+
+## 파일 시스템 접근 도구 사용 시 주의사항
+
+Gemini CLI 사용 시 `write_file`, `read_file`, `replace` 등 **파일 시스템에 접근하는 도구들은 상대 경로를 지원하지 않습니다.** 상대 경로를 사용하면 "File path must be absolute" 오류가 발생합니다. **항상 절대 경로를 사용**하여 파일에 접근해야 합니다.
 
 ---
 
