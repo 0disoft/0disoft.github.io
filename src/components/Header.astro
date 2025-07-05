@@ -4,14 +4,21 @@ import { NAV_LINKS } from "../consts";
 ---
 
 <header
-  class="sticky top-0 flex-shrink-0 h-screen w-[240px] p-8 border-r border-border bg-headerBackground box-border flex flex-col"
+  class="sticky top-0 flex-shrink-0 h-screen w-[240px] p-8 border-r
+         bg-headerBackground border-border
+         dark:bg-dark-headerBackground dark:border-dark-border
+         box-border flex flex-col transition-colors"
 >
   <nav class="flex flex-col gap-4">
     {
       NAV_LINKS.map((link) => (
         <a
           href={link.path}
-          class="no-underline text-primary font-display font-400 py-3 px-4 rounded-lg transition-all ease-in-out duration-200 text-center hover:(text-accent bg-elementHoverBg)"
+          class="no-underline text-primary font-display font-400 py-3 px-4 rounded-lg text-center 
+                 transition-all ease-in-out duration-200 
+                 dark:text-dark-primary 
+                 hover:(text-accent bg-elementHoverBg) 
+                 dark:hover:(text-dark-accent bg-dark-elementHoverBg)"
         >
           {link.title}
         </a>
@@ -23,43 +30,26 @@ import { NAV_LINKS } from "../consts";
     <button
       id="theme-toggle"
       aria-label="Toggle theme"
-      class="bg-none border-none p-1 cursor-pointer text-primary transition-colors ease-in-out duration-200 flex items-center justify-center rounded-full hover:(text-accent bg-elementHoverBg)"
+      class="bg-none border-none p-1 cursor-pointer text-primary rounded-full
+             transition-colors ease-in-out duration-200
+             flex items-center justify-center
+             dark:text-dark-primary
+             hover:(text-accent bg-elementHoverBg)
+             dark:hover:(text-dark-accent bg-dark-elementHoverBg)"
     >
-      <svg
-        class="w-8 h-8"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="M12 8a2.83 2.83 0 0 0 4 4 4 4 0 1 1-4-4"></path>
-        <path d="M12 2v2"></path><path d="M12 20v2"></path>
-        <path d="m4.9 4.9 1.4 1.4"></path><path d="m17.7 17.7 1.4 1.4"></path>
-        <path d="M2 12h2"></path><path d="M20 12h2"></path>
-        <path d="m6.3 17.7-1.4 1.4"></path><path d="m19.1 4.9-1.4 1.4"></path>
-      </svg>
+      <div class="i-lucide-sun-moon w-8 h-8"></div>
     </button>
     <button
       id="font-size-toggle"
       aria-label="Cycle font size"
-      class="bg-none border-none p-1 cursor-pointer text-primary transition-colors ease-in-out duration-200 flex items-center justify-center rounded-full hover:(text-accent bg-elementHoverBg)"
+      class="bg-none border-none p-1 cursor-pointer text-primary rounded-full
+             transition-colors ease-in-out duration-200
+             flex items-center justify-center
+             dark:text-dark-primary
+             hover:(text-accent bg-elementHoverBg)
+             dark:hover:(text-dark-accent bg-dark-elementHoverBg)"
     >
-      <svg
-        class="w-8 h-8"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="M3.5 13h6"></path><path d="m2 16 4.5-9 4.5 9"></path>
-        <path d="M18 16V7"></path><path d="m14 11 4-4 4 4"></path>
-      </svg>
+      <div class="i-lucide-a-arrow-up w-8 h-8"></div>
     </button>
   </div>
 </header>

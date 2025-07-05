@@ -2,9 +2,8 @@
 
 /* body 요소에 기본 폰트와 배경색을 적용합니다. */
 body {
-  /* UnoCSS 유틸리티를 @apply로 적용합니다. */
-  @apply font-sans bg-background text-primary text-[18px];
-  /* text-[18px]는 임의의 값을 사용하는 방법입니다. */
+  /* 기본은 라이트 모드 색상, dark: 다음에는 다크 모드 색상을 적용합니다. */
+  @apply font-sans bg-background text-primary text-[18px] dark:bg-dark-background dark:text-dark-primary;
 }
 
 /* 링크(a 태그)의 기본 스타일을 정의합니다. */
@@ -29,15 +28,18 @@ h6 {
 h1 {
   @apply text-3xl;
 }
+
 h2 {
   @apply text-2xl;
 }
+
 h3 {
   @apply text-xl;
 }
 
 p {
-  @apply leading-relaxed mb-[1.2em]; /* line-height: 1.6; 와 유사 */
+  @apply leading-relaxed mb-[1.2em];
+  /* line-height: 1.6; 와 유사 */
 }
 
 /* 코드 블록과 인라인 코드에 폰트 적용 */

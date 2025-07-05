@@ -4,6 +4,7 @@ import {
   presetAttributify,
   presetIcons,
   presetTypography,
+  presetWebFonts,
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss';
@@ -13,7 +14,13 @@ import presetWind3 from '@unocss/preset-wind3';
 
 
 export default defineConfig({
-  // ... shortcuts, theme 설정은 동일 ...
+  safelist: [
+    'i-lucide-copy',
+    'i-lucide-check',
+    'i-lucide-x',
+    'text-green-500',
+    'text-red-500',
+  ],
   shortcuts: [
     {
       'btn-solid': 'py-3 px-6 bg-primary text-background font-sans font-medium rounded-lg no-underline transition-transform hover:scale-105',
@@ -38,16 +45,15 @@ export default defineConfig({
       headerBackground: '#f8f8f8',
       border: '#eee',
       elementHoverBg: '#f0f0f0',
-      // 다크 모드 색상을 css 변수로 정의
-      dark: {
-        primary: '#f4f3ee',
-        secondary: '#faedcd',
-        accent: '#fee440',
-        background: '#a98467',
-        headerBackground: '#6c584c',
-        border: '#74546A',
-        elementHoverBg: 'rgba(128, 128, 128, 0.1)',
-      },
+
+      // 다크 모드 색상을 'dark-' 접두사를 붙여 추가
+      'dark-primary': '#f4f3ee',
+      'dark-secondary': '#faedcd',
+      'dark-accent': '#fee440',
+      'dark-background': '#a98467',
+      'dark-headerBackground': '#6c584c',
+      'dark-border': '#74546A',
+      'dark-elementHoverBg': 'rgba(128, 128, 128, 0.1)',
     },
   },
 
@@ -59,6 +65,15 @@ export default defineConfig({
       warn: true,
     }),
     presetTypography(),
+    presetWebFonts({
+      provider: 'google', // 구글 폰트 사용
+      fonts: {
+        sans: 'Space Grotesk:300..700',
+        serif: 'Yeseva One',
+        mono: 'Kode Mono:400..700',
+        display: 'Lilita One',
+      },
+    }),
   ],
   transformers: [
     transformerDirectives(),
