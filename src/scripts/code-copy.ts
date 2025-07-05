@@ -32,8 +32,8 @@ function setupCodeCopy() {
     // 4. 버튼 위치를 계산하고 설정하는 함수
     function positionButton() {
       const rect = preElement.getBoundingClientRect();
-      const buttonWidth = 28; // 버튼의 대략적인 너비
-      const padding = 8; // 원하는 여백 (0.5rem = 8px)
+      const buttonWidth = 32; // 버튼의 대략적인 너비
+      const padding = 16; // 원하는 여백 (0.5rem = 8px)
 
       // top 위치에 여백 추가
       copyButton.style.top = `${rect.top + window.scrollY + padding}px`;
@@ -42,7 +42,8 @@ function setupCodeCopy() {
     }
 
     // 5. 초기 위치 설정 및 창 크기 변경 시 위치 재조정
-    positionButton();
+    setTimeout(positionButton, 100); // 100밀리초(0.1초) 지연 후 위치를 계산합니다.
+
     window.addEventListener('resize', positionButton);
 
     // 6. 마우스 호버 효과

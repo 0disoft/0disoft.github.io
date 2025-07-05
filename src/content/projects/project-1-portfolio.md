@@ -5,5 +5,5 @@ description: "My personal portfolio and blog built with Astro and UnoCSS. Focuse
 techStack: ["Astro", "TypeScript", "UnoCSS", "Bun"]
 githubUrl: "https://github.com/0disoft/0disoft.github.io"
 liveUrl: "https://0disoft.github.io"
-heroImage: "/images/placeholder-1.webp"
+heroImage: "/images/projects/exam-1.webp"
 ---

@@ -40,7 +40,7 @@ export default defineConfig({
       // 라이트 모드 색상
       primary: '#1a1a1a',
       secondary: '#666',
-      accent: '#888',
+      accent: '#00539F',
       background: '#ffffff',
       headerBackground: '#f8f8f8',
       border: '#eee',

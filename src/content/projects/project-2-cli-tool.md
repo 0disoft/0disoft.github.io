@@ -5,5 +5,5 @@ description: "A simple command-line interface (CLI) tool to organize file system
 techStack: ["Rust", "Clap.rs", "Tokio"]
 githubUrl: "https://github.com/0disoft/example-cli"
 # liveUrl is intentionally left blank.
-heroImage: "/images/placeholder-2.webp"
+heroImage: "/images/projects/exam-2.webp"
 ---

@@ -11,11 +11,11 @@ const { post } = Astro.props;
 
 <a
   href={`/blog/${post.id}/`}
-  class="group block border border-border rounded-lg no-underline transition-all hover:(border-accent)"
+  class="group block border border-border rounded-lg no-underline transition-all hover:(border-accent dark:border-dark-accent)"
 >
   <div class="p-6">
     <h2
-      class="font-serif text-2xl mb-2 group-hover:text-accent transition-colors"
+      class="font-serif text-2xl mb-2 group-hover:text-accent dark:group-hover:text-dark-accent transition-colors"
     >
       {post.data.title}
     </h2>

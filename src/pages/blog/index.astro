@@ -1,27 +1,22 @@
 ---
 // src/pages/blog/index.astro
 import { getCollection } from "astro:content";
-import BaseLayout from "../../layouts/BaseLayout.astro";
 import BlogPostPreview from "../../components/BlogPostPreview.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const allPosts = await getCollection("blog");
 allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const initialPosts = allPosts.slice(0, 12);
+const postsPerPage = 6;
+const initialPosts = allPosts.slice(0, postsPerPage);
 const pageTitle = "Blog";
 ---
 
 <BaseLayout title={pageTitle}>
-  <div class="mb-12">
-    <h1 class="font-display text-4xl">Indie Dev Log</h1>
-    <p class="mt-4">
-      A log of my development process, experiments, and thoughts.
-    </p>
-  </div>
-
   <ul
     id="post-list"
     class="list-none p-0 m-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+    data-posts-per-page={postsPerPage}
   >
     {
       initialPosts.map((post) => (
@@ -31,36 +26,7 @@ const pageTitle = "Blog";
       ))
     }
   </ul>
-  <div id="load-more-trigger"></div>
+  <div id="load-more-trigger" class="h-20"></div>
 </BaseLayout>
 
-<script>
-  const postList = document.getElementById("post-list") as HTMLUListElement;
-  const trigger = document.getElementById("load-more-trigger");
-
-  let allPostsData: any[] = [];
-  let loadedPostsCount = postList.children.length;
-  const limit = 12;
-
-  const createPostElement = (post: any) => {
-    const postDate = new Date(post.pubDate).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-    const li = document.createElement("li");
-    li.innerHTML = `
-      <a href="/blog/${post.id}/" class="group block border border-border rounded-lg no-underline transition-all hover:(border-accent shadow-lg scale-102)">
-        <div class="p-6">
-          <h2 class="font-serif text-2xl mb-2 group-hover:text-accent transition-colors">${post.title}</h2>
-          <p class="text-secondary mb-4 leading-relaxed">${post.description}</p>
-          <time datetime="${post.pubDate}" class="text-sm text-secondary">${postDate}</time>
-        </div>
-      </a>
-    `;
-    return li;
-  };
-
-  // fetchAllPosts, loadMorePosts, IntersectionObserver 로직은 기존과 유사하게 유지됩니다.
-  // ... (이전 코드의 로직을 여기에 붙여넣거나, 필요 시 재구성합니다)
-</script>
+<script src="../../scripts/blog-infinite-scroll.ts"></script>
