@@ -9,14 +9,7 @@ const pageTitle = "Projects";
 ---
 
 <BaseLayout title={pageTitle}>
-  <div class="mb-12">
-    <h1 class="font-display text-4xl">My Projects</h1>
-    <p class="text-secondary mt-4">
-      A collection of projects I've built and experiments I've conducted.
-    </p>
-  </div>
-
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
     {
       allProjects.map((project) => (
         <ProjectCard project={project} /> // 4. 컴포넌트 사용

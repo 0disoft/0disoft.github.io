@@ -13,7 +13,7 @@ const { project } = Astro.props;
   href={project.data.liveUrl || project.data.githubUrl || "#"}
   target="_blank"
   rel="noopener noreferrer"
-  class="group block border border-border rounded-lg no-underline transition-all hover:(border-accent shadow-lg scale-102) overflow-hidden"
+  class="group block border border-border rounded-lg no-underline transition-all hover:(border-accent) overflow-hidden"
 >
   {
     project.data.heroImage && (
@@ -30,13 +30,13 @@ const { project } = Astro.props;
     >
       {project.data.title}
     </h2>
-    <p class="text-secondary mb-4 leading-relaxed">
+    <p class="text-secondary dark:text-dark-secondary mb-4 leading-relaxed">
       {project.data.description}
     </p>
     <div class="flex flex-wrap gap-2 mt-auto">
       {
         project.data.techStack.map((tech: string) => (
-          <span class="text-xs bg-elementHoverBg text-secondary py-1 px-3 rounded-full">
+          <span class="text-xs bg-elementHoverBg dark:bg-dark-elementHoverBg text-secondary dark:text-dark-secondary py-1 px-3 rounded-full">
             {tech}
           </span>
         ))

@@ -54,6 +54,7 @@ function setupFontSizeToggle(): void {
   const DEFAULT_FONT_LEVEL = Math.ceil((FONT_LEVELS + 1) / 2);
 
   const applyFontSize = (level: number) => {
+    console.log(`Applying font size level: ${level}`); // 디버깅을 위한 로그 추가
     document.documentElement.style.setProperty(
       '--font-size-multiplier',
       `calc(0.8 + 0.05 * ${level})`
@@ -70,6 +71,7 @@ function setupFontSizeToggle(): void {
     let currentLevel = currentLevelStr ? parseInt(currentLevelStr, 10) : DEFAULT_FONT_LEVEL;
 
     currentLevel = (currentLevel % FONT_LEVELS) + 1;
+    console.log(`New font size level after click: ${currentLevel}`); // 디버깅을 위한 로그 추가
     applyFontSize(currentLevel);
   });
 }

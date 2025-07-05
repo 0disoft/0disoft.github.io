@@ -40,7 +40,7 @@ export default defineConfig({
       // 라이트 모드 색상
       primary: '#1a1a1a',
       secondary: '#666',
-      accent: 'royalblue',
+      accent: '#888',
       background: '#ffffff',
       headerBackground: '#f8f8f8',
       border: '#eee',
@@ -53,7 +53,7 @@ export default defineConfig({
       'dark-background': '#a98467',
       'dark-headerBackground': '#6c584c',
       'dark-border': '#74546A',
-      'dark-elementHoverBg': 'rgba(128, 128, 128, 0.1)',
+      'dark-elementHoverBg': 'rgba(0, 0, 0, 0.3)',
     },
   },
 
