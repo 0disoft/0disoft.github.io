@@ -75,5 +75,7 @@ function setupFontSizeToggle(): void {
 }
 
 // 각 기능을 초기화합니다.
-setupThemeToggle();
-setupFontSizeToggle();
+document.addEventListener('astro:page-load', () => {
+  setupThemeToggle();
+  setupFontSizeToggle();
+});

@@ -52,6 +52,18 @@ code {
   @apply bg-elementHoverBg py-1 px-2 rounded;
 }
 
-pre {
+
+/* 모든 코드 블록의 기본 스타일 */
+pre.astro-code {
   @apply p-4 overflow-x-auto rounded-lg;
+  box-sizing: border-box;
+}
+
+/* 
+  .prose 환경의 모든 요소에 대해
+  단어 단위 줄바꿈 규칙을 적용합니다.
+*/
+.prose {
+  word-break: keep-all;
+  overflow-wrap: break-word; /* 긴 영어 단어나 URL이 레이아웃을 깨는 것을 방지 */
 }
