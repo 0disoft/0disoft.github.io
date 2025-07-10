@@ -1,97 +1,93 @@
 function initInfiniteScroll() {
-  const postList = document.getElementById("post-list") as HTMLUListElement;
-  const trigger = document.getElementById("load-more-trigger") as HTMLElement;
+  const postContainer = document.getElementById('post-container') as HTMLUListElement | null;
+  const sentinel = document.getElementById('sentinel');
 
-  // postList나 trigger 요소가 없으면 스크립트를 실행하지 않음
-  if (!postList || !trigger) return;
+  if (!postContainer || !sentinel) {
+    return;
+  }
 
-  // astro 파일에서 data 속성으로 전달된 값을 읽어옴
-  const postsPerPage = parseInt(postList.dataset.postsPerPage || '6', 10);
-
-  let allPostsData: any[] = [];
-  let loadedPostsCount = postList.children.length;
-  let isLoading = false; // 중복 로드를 방지하기 위한 플래그
+  let isLoading = false;
+  let allPostsLoaded = false;
 
   const createPostElement = (post: any) => {
-    const postDate = new Date(post.pubDate).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
+    const listItem = document.createElement('li');
+    const postDate = new Date(post.data.pubDate).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
     });
-    const li = document.createElement("li");
-    li.innerHTML = `
-      <a href="/blog/${post.id}/" class="group block border border-border rounded-lg no-underline transition-all hover:(border-accent dark:border-dark-accent)">
+
+    listItem.innerHTML = `
+      <a
+        href="/blog/${post.slug}/"
+        class="group block border border-border rounded-lg no-underline transition-all hover:(border-accent dark:border-dark-accent)"
+      >
         <div class="p-6">
-          <h2 class="font-serif text-2xl mb-2 group-hover:text-accent dark:group-hover:text-dark-accent transition-colors">${post.title}</h2>
-          <p class="text-secondary dark:text-dark-secondary mb-4 leading-relaxed">${post.description}</p>
-          <time datetime="${post.pubDate}" class="text-sm text-secondary dark:text-dark-secondary">${postDate}</time>
+          <h2
+            class="font-serif text-2xl mb-2 group-hover:text-accent dark:group-hover:text-dark-accent transition-colors"
+          >
+            ${post.data.title}
+          </h2>
+          <p class="text-secondary dark:text-dark-secondary mb-4 leading-relaxed">
+            ${post.data.description}
+          </p>
+          <time
+            datetime="${post.data.pubDate}"
+            class="text-sm text-secondary dark:text-dark-secondary"
+          >
+            ${postDate}
+          </time>
         </div>
       </a>
     `;
-    return li;
+    return listItem;
   };
 
-  const fetchAllPosts = async () => {
-    if (allPostsData.length > 0) return;
-    try {
-      const response = await fetch('/api/posts.json');
-      if (!response.ok) throw new Error('Failed to fetch posts');
-      allPostsData = await response.json();
-    } catch (error) {
-      console.error(error);
-      if (trigger) trigger.textContent = "Failed to load posts.";
-    }
-  };
+  const loadMorePosts = async () => {
+    if (isLoading || allPostsLoaded) return;
 
-  const loadMorePosts = () => {
-    if (isLoading) return;
     isLoading = true;
+    sentinel.textContent = '로딩 중...';
 
-    const postsToLoad = allPostsData.slice(loadedPostsCount, loadedPostsCount + postsPerPage);
-    if (postsToLoad.length > 0) {
-      postsToLoad.forEach(post => {
-        postList.appendChild(createPostElement(post));
+    const loadedPostsCount = postContainer.children.length;
+
+    try {
+      const response = await fetch(`/api/posts.json?offset=${loadedPostsCount}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const newPosts = await response.json();
+
+      if (newPosts.length === 0) {
+        allPostsLoaded = true;
+        sentinel.textContent = '모든 포스트를 불러왔습니다.';
+        observer.disconnect();
+        return;
+      }
+
+      newPosts.forEach((post: any) => {
+        const postElement = createPostElement(post);
+        postContainer.appendChild(postElement);
       });
-      loadedPostsCount += postsToLoad.length;
-    }
 
-    if (loadedPostsCount >= allPostsData.length) {
-      if (trigger) trigger.style.display = 'none';
-      observer.disconnect(); // 더 이상 관찰할 필요가 없으므로 observer를 해제
+    } catch (error) {
+      console.error('Failed to load more posts:', error);
+      sentinel.textContent = '포스트를 불러오는 데 실패했습니다.';
+    } finally {
+      isLoading = false;
     }
-
-    isLoading = false;
   };
 
-  const observer = new IntersectionObserver(async (entries) => {
-    if (entries[0].isIntersecting && !isLoading) {
-      if (allPostsData.length === 0) {
-        await fetchAllPosts();
-      }
-      if (allPostsData.length > 0) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting && !isLoading) {
         loadMorePosts();
       }
-    }
-  }, {
-    rootMargin: '200px'
-  });
+    },
+    { threshold: 1.0 }
+  );
 
-  // 최초 로드 시 이미 모든 게시물이 표시되었다면 트리거를 숨깁니다.
-  // 이 부분은 서버에서 allPosts.length를 전달받아야 정확하지만, 
-  // 우선 클라이언트에서 간단히 처리합니다.
-  if (loadedPostsCount < postsPerPage) {
-    trigger.style.display = 'none';
-  } else {
-    observer.observe(trigger);
-  }
+  observer.observe(sentinel);
 }
 
-// Astro의 페이지 전환 이벤트를 수신하여 스크립트 실행
 document.addEventListener('astro:page-load', initInfiniteScroll);
-
-// 최초 페이지 로드 시에도 스크립트 실행
-if (document.readyState !== 'loading') {
-  initInfiniteScroll();
-} else {
-  document.addEventListener('DOMContentLoaded', initInfiniteScroll);
-}

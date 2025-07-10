@@ -14,9 +14,8 @@ const pageTitle = "Blog";
 
 <BaseLayout title={pageTitle}>
   <ul
-    id="post-list"
+    id="post-container"
     class="list-none p-0 m-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-    data-posts-per-page={postsPerPage}
   >
     {
       initialPosts.map((post) => (
@@ -26,7 +25,7 @@ const pageTitle = "Blog";
       ))
     }
   </ul>
-  <div id="load-more-trigger" class="h-20"></div>
+  <div id="sentinel" class="h-20 text-center"></div>
 </BaseLayout>
 
 <script src="../../scripts/blog-infinite-scroll.ts"></script>

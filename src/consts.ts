@@ -1,7 +1,10 @@
 // src/consts.ts
 
-export const SITE_TITLE = 'ZeroDi the Software Engineer';
-export const SITE_DESCRIPTION = 'Projects, thoughts, and lessons from a solo indie developer.';
+export const SITE = {
+  TITLE: 'ZeroDi the Software Engineer',
+  DESCRIPTION: 'Projects, thoughts, and lessons from a solo indie developer.',
+  POSTS_PER_PAGE: 6,
+};
 
 export const NAV_LINKS = [
   {
