@@ -1,31 +1,57 @@
 ---
-// src/pages/blog/index.astro
+import { SITE } from "@src/consts";
 import { getCollection } from "astro:content";
 import BlogPostPreview from "../../components/BlogPostPreview.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const allPosts = await getCollection("blog");
-allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const postsPerPage = 6;
-const initialPosts = allPosts.slice(0, postsPerPage);
+allPosts.sort((a, b) => {
+  if (a.data.pubDate.valueOf() !== b.data.pubDate.valueOf()) {
+    return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+  }
+  return a.slug.localeCompare(b.slug);
+});
+
+const firstPagePosts = allPosts.slice(0, SITE.POSTS_PER_PAGE);
+const totalPages = Math.ceil(allPosts.length / SITE.POSTS_PER_PAGE);
 const pageTitle = "Blog";
 ---
 
 <BaseLayout title={pageTitle}>
+  <div class="mb-4 flex justify-center gap-4">
+    <div
+      class="no-underline text-secondary font-display font-400 py-3 px-4 rounded-lg text-center
+             dark:text-dark-secondary"
+    >
+      Page 1 / {totalPages}
+    </div>
+    {
+      totalPages > 1 && (
+        <a
+          href="/blog/2"
+          class="no-underline text-primary font-display font-400 py-3 px-4 rounded-lg text-center 
+                 transition-all ease-in-out duration-200 
+                 dark:text-dark-primary 
+                 hover:(text-accent bg-elementHoverBg) 
+                 dark:hover:(text-dark-accent bg-dark-elementHoverBg)"
+        >
+          Next &raquo;
+        </a>
+      )
+    }
+  </div>
+
   <ul
     id="post-container"
     class="list-none p-0 m-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
   >
     {
-      initialPosts.map((post) => (
+      firstPagePosts.map((post) => (
         <li>
           <BlogPostPreview post={post} />
         </li>
       ))
     }
   </ul>
-  <div id="sentinel" class="h-20 text-center"></div>
 </BaseLayout>
-
-<script src="../../scripts/blog-infinite-scroll.ts"></script>

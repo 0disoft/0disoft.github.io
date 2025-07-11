@@ -3,12 +3,14 @@
 import { ClientRouter } from "astro:transitions";
 import "@unocss/reset/tailwind.css";
 import Header from "../components/Header.astro";
-import { SITE_DESCRIPTION, SITE_TITLE } from "../consts"; // 상수를 가져옵니다.
+// ✅ SITE_TITLE, SITE_DESCRIPTION 대신 SITE 객체를 통째로 가져옵니다.
+import { SITE } from "../consts";
 import "../styles/global.css";
 
 const {
-  title = SITE_TITLE, // 기본값을 상수로 변경
-  description = SITE_DESCRIPTION, // 기본값을 상수로 변경
+  // ✅ SITE.TITLE 과 SITE.DESCRIPTION 으로 값을 사용하도록 수정합니다.
+  title = SITE.TITLE,
+  description = SITE.DESCRIPTION,
 } = Astro.props;
 ---
 

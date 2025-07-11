@@ -14,8 +14,9 @@ const { post } = Astro.props;
   class="group block border border-border rounded-lg no-underline transition-all hover:(border-accent dark:border-dark-accent)"
 >
   <div class="p-6">
+    {/* ✅ 여기서도 "text-2xl" 클래스를 삭제했습니다. */}
     <h2
-      class="font-serif text-2xl mb-2 group-hover:text-accent dark:group-hover:text-dark-accent transition-colors"
+      class="font-serif mb-2 group-hover:text-accent dark:group-hover:text-dark-accent transition-colors"
     >
       {post.data.title}
     </h2>
@@ -27,7 +28,7 @@ const { post } = Astro.props;
       class="text-sm text-secondary dark:text-dark-secondary"
     >
       {
-        post.data.pubDate.toLocaleDateString("en-US", {
+        new Date(post.data.pubDate).toLocaleDateString("en-us", {
           year: "numeric",
           month: "long",
           day: "numeric",

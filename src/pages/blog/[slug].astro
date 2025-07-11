@@ -1,50 +1,38 @@
 ---
-// src/pages/blog/[slug].astro
-import { getCollection, render } from "astro:content";
+import { type CollectionEntry, getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 export async function getStaticPaths() {
-  const allPosts = await getCollection("blog");
-  return allPosts.map((post) => ({
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
     params: { slug: post.slug },
-    props: { post },
+    props: post,
   }));
 }
 
-const { post } = Astro.props;
-const { Content } = await render(post);
+type Props = CollectionEntry<"blog">;
+const post = Astro.props;
+const { Content } = await post.render();
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description}>
-  <article>
-    <header class="mb-8">
-      <h1 class="font-serif text-4xl leading-tight mb-2">{post.data.title}</h1>
-      <time datetime={post.data.pubDate.toISOString()} class="text-secondary">
+  <article class="prose prose-lg mx-auto dark:prose-invert">
+    <header class="mb-6">
+      {/* ✅ 여기서 "!text-4xl" 클래스를 삭제했습니다. */}
+      <h1 class="!font-serif !mb-2">{post.data.title}</h1>
+      <time
+        datetime={post.data.pubDate.toISOString()}
+        class="text-sm text-secondary dark:text-dark-secondary"
+      >
         {
-          post.data.pubDate.toLocaleDateString("en-US", {
+          new Date(post.data.pubDate).toLocaleDateString("en-us", {
             year: "numeric",
             month: "long",
             day: "numeric",
           })
         }
       </time>
-      {
-        post.data.heroImage && (
-          <div class="aspect-video w-full my-6 overflow-hidden rounded-lg">
-            <img
-              src={post.data.heroImage}
-              alt={post.data.heroImageAlt || ""}
-              class="w-full h-full object-cover"
-            />
-          </div>
-        )
-      }
     </header>
-
-    <div class="prose prose-lg">
-      <Content />
-    </div>
+    <Content />
   </article>
 </BaseLayout>
-
-

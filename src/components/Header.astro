@@ -1,6 +1,7 @@
 ---
-// src/components/Header.astro
 import { NAV_LINKS } from "../consts";
+
+const currentPath = Astro.url.pathname;
 ---
 
 <header
@@ -11,18 +12,27 @@ import { NAV_LINKS } from "../consts";
 >
   <nav class="flex flex-col gap-4">
     {
-      NAV_LINKS.map((link) => (
-        <a
-          href={link.path}
-          class="no-underline text-primary font-display font-400 py-3 px-4 rounded-lg text-center 
-                 transition-all ease-in-out duration-200 
-                 dark:text-dark-primary 
-                 hover:(text-accent bg-elementHoverBg) 
-                 dark:hover:(text-dark-accent bg-dark-elementHoverBg)"
-        >
-          {link.title}
-        </a>
-      ))
+      NAV_LINKS.map((link) => {
+        const isActive = link.path === currentPath;
+        // 공통으로 사용될 클래스
+        const commonClasses =
+          "no-underline font-display font-400 py-3 px-4 rounded-lg text-center";
+        // 활성 상태일 때의 클래스
+        const activeClasses =
+          "text-accent bg-elementHoverBg dark:text-dark-accent dark:bg-dark-elementHoverBg";
+        // 비활성 상태일 때의 클래스
+        const inactiveClasses =
+          "text-primary dark:text-dark-primary transition-all ease-in-out duration-200 hover:(text-accent bg-elementHoverBg) dark:hover:(text-dark-accent bg-dark-elementHoverBg)";
+
+        // ✅ 현재 페이지일 경우(isActive가 true) <span> 태그를, 아닐 경우 <a> 태그를 렌더링합니다.
+        return isActive ? (
+          <span class:list={[commonClasses, activeClasses]}>{link.title}</span>
+        ) : (
+          <a href={link.path} class:list={[commonClasses, inactiveClasses]}>
+            {link.title}
+          </a>
+        );
+      })
     }
   </nav>
 
@@ -37,7 +47,7 @@ import { NAV_LINKS } from "../consts";
              hover:(text-accent bg-elementHoverBg)
              dark:hover:(text-dark-accent bg-dark-elementHoverBg)"
     >
-      <div class="i-lucide-sun-moon w-7 h-7"></div>
+      <div class="i-tabler-sun-moon w-7 h-7"></div>
     </button>
     <button
       id="font-size-toggle"
@@ -49,7 +59,7 @@ import { NAV_LINKS } from "../consts";
              hover:(text-accent bg-elementHoverBg)
              dark:hover:(text-dark-accent bg-dark-elementHoverBg)"
     >
-      <div class="i-lucide-a-arrow-up w-8 h-8"></div>
+      <div class="i-tabler-typography w-7 h-7"></div>
     </button>
   </div>
 </header>
