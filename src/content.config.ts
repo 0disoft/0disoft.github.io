@@ -6,7 +6,7 @@ const blogCollection = defineCollection({
   // Zod를 사용하여 스키마를 정의합니다.
   schema: z.object({
     title: z.string(),
-    description: z.string(),
+    description: z.string().min(1, { message: "Description cannot be empty." }).max(300, { message: "Description cannot exceed 300 characters." }),
     author: z.string().default("ZeroDi"), // 기본값 설정
     pubDate: z.date(),
     updatedDate: z.date().optional(), // 선택적 필드

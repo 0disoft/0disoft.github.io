@@ -1,6 +1,7 @@
 ---
 // src/components/BlogPostPreview.astro
 import type { CollectionEntry } from "astro:content";
+import { formatDate } from "../utils/date";
 
 interface Props {
   post: CollectionEntry<"blog">;
@@ -27,13 +28,7 @@ const { post } = Astro.props;
       datetime={post.data.pubDate.toISOString()}
       class="text-sm text-secondary dark:text-dark-secondary"
     >
-      {
-        new Date(post.data.pubDate).toLocaleDateString("en-us", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        })
-      }
+      {formatDate(post.data.pubDate)}
     </time>
   </div>
 </a>
