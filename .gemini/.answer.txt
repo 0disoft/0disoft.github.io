@@ -1,4 +1,9 @@
-:art: Refactor: Improve card UI for consistency
+:sparkles: Feat: Implement image optimization
 
-- Standardized card border thickness to 2px by default, maintaining hover color change.
-- Limited blog card description length with ellipsis for consistent card heights.
+- Install `@astrojs/image` and `sharp` for image processing.
+- Configure `@astrojs/image` integration in `astro.config.mjs`.
+- Set `sharp` as the image service in Astro config.
+- Update `ProjectCard.astro` to use Astro's `Image` component for optimized image loading.
+- Fix: Correct `image` import in `astro.config.mjs` from named to default export.
+- Address `virtual:image-loader` error by ensuring `sharp` is installed and configured.
+- Note: Deprecation warning for `entryPoint` is acknowledged and will be resolved with future package updates.
