@@ -40,6 +40,10 @@ jobs:
       - name: Install dependencies
         run: bun install
 
+      # 3.1. 의존성 취약점 감사
+      - name: Audit dependencies
+        run: bun audit --summary --fail-on-warnings
+
       # 4. Astro 사이트 빌드
       - name: Build with Astro
         run: bun run build
