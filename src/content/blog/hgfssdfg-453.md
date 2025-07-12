@@ -1,21 +1,37 @@
 ---
-title: "나의 13번째 블로그 포스트"
-description: "Astro 콘텐츠 컬렉션을 설정하고 첫 포스트를 작성하는 방법에 대해 알아봅니다."
+title: "test post"
+description: "Astro sadf asdfsadf sdfsdf sdfs fsdf"
 author: "ZeroDi"
-pubDate: 2025-06-23
+pubDate: 2025-06-29
 tags: ["astro", "blogging", "learning in public"]
 heroImage: "/images/posts/image-1.webp"
 ---
 
-## 안녕하세요
+## Echoes on the Water, V in the Sky
 
-이곳은 제 블로그의 첫 번째 게시물입니다. Astro를 사용하여 정적 사이트를 구축하는 것은 매우 흥미로운 경험입니다.
+Echoes on the Water, V in the Sky
 
-### 다음으로 할 일
+### Echoes on the Water V in the Sky
 
-- 페이지에 이 게시물 목록 표시하기
-- 스타일 다듬기
+Geese are remarkable birds known for their distinctive V-formation during migration. As waterfowl, they are perfectly at home both in the sky and on the water. Their loud, honking calls are a familiar sound in many parts of the world, echoing across lakes and fields. These birds belong to the Anatidae family, which also includes swans and ducks. They possess strong wings and webbed feet, making them powerful swimmers and flyers.
 
-```javascript
-console.log("Hello, Astro!");
+Geese are remarkable birds known for their distinctive V-formation during migration. As waterfowl, they are perfectly at home both in the sky and on the water. Their loud, honking calls are a familiar sound in many parts of the world, echoing across lakes and fields. These birds belong to the Anatidae family, which also includes swans and ducks. They possess strong wings and webbed feet, making them powerful swimmers and flyers.
+
+Geese are remarkable birds known for their distinctive V-formation during migration. As waterfowl, they are perfectly at home both in the sky and on the water. Their loud, honking calls are a familiar sound in many parts of the world, echoing across lakes and fields. These birds belong to the Anatidae family, which also includes swans and ducks. They possess strong wings and webbed feet, making them powerful swimmers and flyers.
+
+```typescript
+function f(x: unknown) {
+  switch (true) {
+    case typeof x === "string":
+      // 여기서 'x'는 'string' 타입입니다.
+      console.log(x.toUpperCase());
+      // 다음 case로 넘어갑니다 (fall-through).
+    case Array.isArray(x):
+      // 여기서 'x'는 'string | any' 타입입니다.
+      console.log(x.length);
+      break;
+    default:
+      // 여기서 'x'는 'unknown' 타입입니다.
+  }
+}
 ```

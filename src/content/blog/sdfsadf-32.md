@@ -1,6 +1,6 @@
 ---
-title: "나의 17번째 블로그 포스트"
-description: "Astro 콘텐츠 컬렉션을 설정하고 첫 포스트를 작성하는 방법에 대해 알아봅니다."
+title: "test post"
+description: "Astro sadf asdfsadf sdfsdf sdfs fsdf"
 author: "ZeroDi"
 pubDate: 2025-06-23
 tags: ["astro", "blogging", "learning in public"]
