@@ -11,7 +11,7 @@ const { post } = Astro.props;
 
 <a
   href={`/blog/${post.slug}/`}
-  class="group block border-2 border-border rounded-lg no-underline transition-all hover:(border-accent dark:border-dark-accent)"
+  class="group block h-full border-2 border-border rounded-lg no-underline transition-all hover:(border-accent dark:border-dark-accent)"
 >
   <div class="p-6">
     {/* ✅ 여기서도 "text-2xl" 클래스를 삭제했습니다. */}
@@ -20,7 +20,7 @@ const { post } = Astro.props;
     >
       {post.data.title}
     </h2>
-    <p class="text-secondary dark:text-dark-secondary mb-4 leading-relaxed">
+    <p class="text-secondary dark:text-dark-secondary mb-4 leading-relaxed line-clamp-3">
       {post.data.description}
     </p>
     <time
