@@ -1,5 +1,0 @@
-✨ feat: Migrate image handling to Astro's built-in Assets API
-
-Removed the deprecated `@astrojs/image` package and its configuration from `astro.config.mjs`.
-Verified existing image usage in `ProjectCard.astro` already utilizes `astro:assets`.
-This resolves the `virtual:image-loader` error and aligns with Astro v5+ best practices for image optimization.
