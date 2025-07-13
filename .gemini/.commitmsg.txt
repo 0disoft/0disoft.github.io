@@ -1,0 +1,7 @@
+✨ feat: Implement responsive header and mobile menu
+
+- Adjust header padding for mobile screens.
+- Implement mobile menu toggle functionality.
+- Ensure navigation links stack vertically on mobile.
+- Correctly position theme and font size toggle buttons for both mobile (with menu) and desktop (bottom of header).
+- Refine JavaScript logic for menu and button visibility.

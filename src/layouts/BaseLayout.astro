@@ -47,13 +47,14 @@ const {
     </script>
   </head>
   <body>
-    <div class="flex">
+    <div class="flex flex-col lg:flex-row">
       <Header />
-      <main class="grow p-8 md:p-12 lg:p-16 max-w-65rem mx-auto">
+      <main class="grow p-4 md:p-8 lg:p-16 max-w-full lg:max-w-65rem mx-auto">
         <slot />
       </main>
     </div>
     <script src="../scripts/theme-controller.ts"></script>
     <script src="../scripts/code-copy.ts"></script>
+    <script src="../scripts/mobile-menu.ts"></script>
   </body>
 </html>
