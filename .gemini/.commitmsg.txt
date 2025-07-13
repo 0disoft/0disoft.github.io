@@ -1,7 +1,7 @@
-✨ feat: Implement responsive header and mobile menu
+✨ feat: Enhance blog page layout and functionality
 
-- Adjust header padding for mobile screens.
-- Implement mobile menu toggle functionality.
-- Ensure navigation links stack vertically on mobile.
-- Correctly position theme and font size toggle buttons for both mobile (with menu) and desktop (bottom of header).
-- Refine JavaScript logic for menu and button visibility.
+- Adjust blog post card layout to 2 columns per row.
+- Implement dynamic hero images for individual blog posts.
+- Add tags to blog post cards, matching project card styling.
+- Introduce bottom pagination controls for blog pages.
+- Refactor blog grid classes into a shared constant for consistency.

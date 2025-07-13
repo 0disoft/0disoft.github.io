@@ -2,9 +2,9 @@
 title: "test post"
 description: "Astro  sdf sdf sdaf sdf sdf sds sdf sdf sdaf sdf sdf s sdf"
 author: "ZeroDi"
-pubDate: 2025-07-09
+pubDate: 2025-07-13
 tags: ["astro", "blogging", "learning in public"]
-heroImage: "/images/posts/image-1.webp"
+heroImage: "/images/posts/image-2.webp"
 ---
 
 ## Echoes on the Water, V in the Sky

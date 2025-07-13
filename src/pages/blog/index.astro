@@ -37,7 +37,7 @@ const pageTitle = "Blog";
 
   <ul
     id="post-container"
-    class="list-none p-0 m-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+    class={`list-none p-0 m-0 ${SITE.BLOG_GRID_CLASSES}`}
   >
     {
       firstPagePosts.map((post) => (
@@ -47,4 +47,27 @@ const pageTitle = "Blog";
       ))
     }
   </ul>
+
+  <div class="mb-4 mt-8 flex justify-center gap-4">
+    <div
+      class="no-underline text-secondary font-display font-400 py-3 px-4 rounded-lg text-center
+             dark:text-dark-secondary"
+    >
+      Page 1 / {totalPages}
+    </div>
+    {
+      totalPages > 1 && (
+        <a
+          href="/blog/2"
+          class="no-underline text-primary font-display font-400 py-3 px-4 rounded-lg text-center 
+                 transition-all ease-in-out duration-200 
+                 dark:text-dark-primary 
+                 hover:(text-accent bg-elementHoverBg) 
+                 dark:hover:(text-dark-accent bg-dark-elementHoverBg)"
+        >
+          Next &raquo;
+        </a>
+      )
+    }
+  </div>
 </BaseLayout>

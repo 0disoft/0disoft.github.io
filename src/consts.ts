@@ -4,6 +4,7 @@ export const SITE = {
   TITLE: 'ZeroDi the Software Engineer',
   DESCRIPTION: 'Projects, thoughts, and lessons from a solo indie developer.',
   POSTS_PER_PAGE: 6,
+  BLOG_GRID_CLASSES: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8",
 };
 
 export const NAV_LINKS = [
