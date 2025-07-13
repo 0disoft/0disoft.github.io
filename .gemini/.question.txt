@@ -1,23 +1,304 @@
-[Preamble] 너는 15년차 시니어 소프트웨어 아키텍트다. 다음 5단계에 걸쳐 한 단계씩 코드베이스를 리뷰할 예정이다.
-지금 해야할 단계: 1단계
-언급된 단계에서 개선할 부분에 대해 생각하고 이야기해봐.
-내가 말한 단계 이외의 단계는 생각하지마. 다음에 요청할거니까.
-개선점이 없으면 다음 단계로 진행할거냐 물어봐.
-1단계: 아키텍처 및 보안
-"이 코드베이스의 전체 아키텍처를 분석하고 SOLID 원칙과 '안전한 설계' 관점에서 리팩토링 아이디어를 제시해줘. 특히 기능 단위 모듈화와 아키텍처 수준의 보안 강화 방안에 집중해줘."
-2단계: 정확성 및 견고성
-"코드의 논리적 결함이나 놓치기 쉬운 엣지 케이스를 찾아내고, 입력값 검증, Null 처리, 불변성 유지를 통해 런타임 오류를 방지할 방어적 코딩 패턴을 제안해줘. 복구 가능/불가능 오류 처리 전략도 포함해줘."
-3단계: 가독성 및 유지보수성
-"유지보수 비용을 줄이기 위해 코드의 명료성을 높일 방안을 제시해줘. 역할이 명확히 드러나는 네이밍, 자기 서술적 코드 작성법, 그리고 긴 함수를 SRP에 따라 분리하는 리팩토링 방안을 중심으로 설명해줘."
-4단계: 성능
-"구조, 정확성, 가독성이 확보되었다는 전제 하에, 성능 병목 지점을 찾아내고 구체적인 최적화 기법을 제안해줘. 비효율적인 알고리즘, 자료구조, I/O 사용 패턴을 지적해줘."
-5단계: 개발 생태계
-"코드의 신뢰도를 높이고 팀의 개발 효율을 극대화할 방안을 제안해줘. 2단계에서 발견된 엣지 케이스를 검증할 테스트 케이스, 신규 개발자를 위한 핵심 문서 전략, 그리고 린터/CI/CD 같은 개발 경험(DX) 개선 도구를 추천해줘."
-ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-<리팩토링 해야 할 코드 or 코드위치>
-src\pages\index.astro
-src\scripts\code-copy.
-src\scripts\theme-controller.ts
-src\styles\global.css
-src\consts.ts
-src\content.config.ts
+아래 오류 왜뜨는거지?
+
+사이트 접속은 잘되는데 말이지
+
+0disoft.github.io on  main [!] is 📦 v0.0.2 via 🥟 v1.2.18
+
+❯ bun run dev
+
+$ astro dev
+
+17:00:37 [WARN] The injected route "/_image" by @astrojs/image specifies the entry point with the "entryPoint" property. This property is deprecated, please use "entrypoint" instead.
+
+17:00:41 [types] Generated 3ms
+
+17:00:46 [content] Syncing content
+
+17:00:46 [content] Synced content
+
+
+
+astro v5.11.0 ready in 13116 ms
+
+
+
+┃ Local http://localhost:4321/
+
+┃ Network use --host to expose
+
+
+
+17:00:47 watching for file changes...
+
+X [ERROR] Could not resolve "virtual:image-loader"
+
+
+
+node_modules/@astrojs/image/dist/endpoint.js:2:19:
+
+2 │ import loader from "virtual:image-loader";
+
+╵ ~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+You can mark the path "virtual:image-loader" as external to exclude it from the bundle, which will
+
+remove this error and leave the unresolved path in the bundle.
+
+
+
+17:00:47 [ERROR] [vite] error while updating dependencies:
+
+Error: Build failed with 1 error:
+
+node_modules/@astrojs/image/dist/endpoint.js:2:19: ERROR: Could not resolve "virtual:image-loader"
+
+at failureErrorWithLog (C:\Users\zerodi\Documents\workspace\0disoft.github.io\node_modules\esbuild\lib\main.js:1463:15)
+
+at C:\Users\zerodi\Documents\workspace\0disoft.github.io\node_modules\esbuild\lib\main.js:924:25
+
+at C:\Users\zerodi\Documents\workspace\0disoft.github.io\node_modules\esbuild\lib\main.js:1341:9
+
+at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+17:00:57 [200] /projects 1156ms 
+
+---------
+
+
+@astrojs/image 패키지가 deprecated됐는데 아직 사용 중이라서 생기는 문제다.
+
+원인:
+
+
+
+@astrojs/image는 Astro v3부터 deprecated
+
+Astro v4+에서는 내장 이미지 최적화 기능(astro:assets) 사용
+
+virtual:image-loader 모듈을 찾을 수 없어서 에러 발생
+
+해결 방법:
+
+
+
+@astrojs/image 제거하고 내장 기능으로 마이그레이션:
+
+bun remove @astrojs/image
+
+astro.config.mjs에서 설정 제거:
+
+// 기존 (제거)
+
+import { defineConfig } from 'astro/config';
+
+import image from '@astrojs/image';
+
+
+
+export default defineConfig({
+
+  integrations: [image()], // 이 줄 삭제
+
+});
+
+
+
+// 수정 후
+
+import { defineConfig } from 'astro/config';
+
+
+
+export default defineConfig({
+
+  // 이미지 최적화는 이제 기본 내장
+
+});
+
+코드에서 import 구문 수정:
+
+// 기존
+
+import { Image } from '@astrojs/image/components';
+
+
+
+// 수정 후
+
+import { Image } from 'astro:assets';
+
+이미지 사용 방식 업데이트:
+
+---
+
+// 기존
+
+import { Image } from '@astrojs/image/components';
+
+
+
+// 수정 후
+
+import { Image } from 'astro:assets';
+
+import myImage from '../assets/image.jpg';
+
+---
+
+
+
+<!-- 기존 -->
+
+<Image src="/images/photo.jpg" alt="Photo" width={400} height={300} />
+
+
+
+<!-- 수정 후 -->
+
+<Image src={myImage} alt="Photo" />
+
+이미지 최적화 기능은 그대로 유지되면서 더 안정적으로 작동한다. 마이그레이션 후 bun run dev 다시 실행하면 에러 사라진다.
+
+
+
+이 오류는 `@astrojs/image` 통합이 **더 이상 Astro v5에서 공식적으로 지원되지 않기 때문**입니다. Astro v5부터는 `@astrojs/image`가 **deprecated** 되었고, 대신 **Astro의 내장 Assets API**를 사용해야 합니다.
+
+
+
+---
+
+
+
+### 🔍 오류 원인 분석
+
+```bash
+
+X [ERROR] Could not resolve "virtual:image-loader"
+
+```
+
+- `@astrojs/image`는 **가상 모듈(`virtual:image-loader`)** 을 내부적으로 사용하는데, Astro v5의 Vite 버전이 업데이트되면서 **해당 가상 모듈을 더 이상 해석할 수 없게 됨**.
+
+- `@astrojs/image`는 **Astro v4까지만 공식 지원**됩니다.
+
+
+
+---
+
+
+
+### ✅ 해결 방법
+
+#### 1. `@astrojs/image` 제거
+
+```bash
+
+bun remove @astrojs/image
+
+```
+
+
+
+#### 2. `astro.config.mjs`에서 `@astrojs/image` 통합 제거
+
+```js
+
+// astro.config.mjs
+
+export default defineConfig({
+
+  // ❌ @astrojs/image 통합 제거
+
+  integrations: [
+
+    // 다른 통합들...
+
+  ],
+
+});
+
+```
+
+
+
+#### 3. 내장 Assets API로 마이그레이션
+
+Astro v5부터는 **별도의 통합 없이** 이미지를 최적화할 수 있습니다.
+
+
+
+**예시: 기존 코드 → 새 코드**
+
+```astro
+
+---
+
+// ❌ 예전 방식 (@astrojs/image)
+
+import { Image } from '@astrojs/image/components';
+
+---
+
+
+
+<!-- ❌ 더 이상 작동하지 않음 -->
+
+<Image src="/hero.png" width={640} height={360} format="webp" />
+
+```
+
+
+
+```astro
+
+---
+
+// ✅ 새 방식 (Astro v5 내장 Assets)
+
+import hero from '/src/assets/hero.png';
+
+---
+
+
+
+<!-- ✅ 자동 최적화 -->
+
+<img src={hero.src} width={hero.width} height={hero.height} alt="Hero" />
+
+```
+
+
+
+---
+
+
+
+### 🚨 참고사항
+
+- **GitHub Pages 배포**는 정상 작동하지만, **로컬 개발 서버에서만 오류 발생** → 실제 배포에는 영향 없음.
+
+- 만약 **Cloudflare Pages**나 **Netlify**에서 빌드 실패한다면, 위 마이그레이션 필수.
+
+
+
+---
+
+
+
+### 📌 요약
+
+| 항목 | 상태 |
+
+|------|------|
+
+| `@astrojs/image` | ❌ Deprecated (Astro v5) |
+
+| 해결책 | ✅ 내장 Assets API로 마이그레이션 |
+
+| 긴급도 | 🔶 높음 (빌드 실패 가능성) |
+
+
+
+마이그레이션 가이드는 [Astro 공식 문서](https://docs.astro.build/en/guides/images/#upgrade-from-astrojsimage)에서 확인 가능합니다.

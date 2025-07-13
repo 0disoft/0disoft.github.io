@@ -1,9 +1,5 @@
-:sparkles: Feat: Implement image optimization
+✨ feat: Migrate image handling to Astro's built-in Assets API
 
-- Install `@astrojs/image` and `sharp` for image processing.
-- Configure `@astrojs/image` integration in `astro.config.mjs`.
-- Set `sharp` as the image service in Astro config.
-- Update `ProjectCard.astro` to use Astro's `Image` component for optimized image loading.
-- Fix: Correct `image` import in `astro.config.mjs` from named to default export.
-- Address `virtual:image-loader` error by ensuring `sharp` is installed and configured.
-- Note: Deprecation warning for `entryPoint` is acknowledged and will be resolved with future package updates.
+Removed the deprecated `@astrojs/image` package and its configuration from `astro.config.mjs`.
+Verified existing image usage in `ProjectCard.astro` already utilizes `astro:assets`.
+This resolves the `virtual:image-loader` error and aligns with Astro v5+ best practices for image optimization.

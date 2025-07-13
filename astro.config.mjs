@@ -1,5 +1,4 @@
 // @ts-check
-import image from '@astrojs/image'; // image 임포트 수정
 import { defineConfig } from 'astro/config';
 import unoCSS from 'unocss/astro';
 import csp from 'vite-plugin-csp';
@@ -9,12 +8,8 @@ export default defineConfig({
   site: 'https://0disoft.github.io',
   base: '/',
   integrations: [
-    unoCSS(), // UnoCSS 통합을 추가합니다.
-    image(), // Astro Image 통합을 추가합니다.
+    unoCSS(), // UnoCSS 통합을 추가합니다。
   ],
-  image: {
-    service: { entrypoint: 'astro/assets/services/sharp' }
-  },
   vite: { // Vite 설정 추가
     plugins: [
       csp({
