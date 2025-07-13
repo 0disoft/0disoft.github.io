@@ -1,7 +1,10 @@
 ---
 import { NAV_LINKS } from "../consts";
 
-const currentPath = Astro.url.pathname;
+const currentPathWithoutTrailingSlash = Astro.url.pathname.endsWith('/') && Astro.url.pathname !== '/'
+  ? Astro.url.pathname.slice(0, -1)
+  : Astro.url.pathname;
+
 ---
 
 <header
@@ -13,7 +16,9 @@ const currentPath = Astro.url.pathname;
   <nav class="flex flex-col gap-4">
     {
       NAV_LINKS.map((link) => {
-        const isActive = link.path === currentPath;
+        const isActive = link.path === '/'
+          ? currentPathWithoutTrailingSlash === '/'
+          : currentPathWithoutTrailingSlash.startsWith(link.path);
         // 공통으로 사용될 클래스
         const commonClasses =
           "no-underline font-display font-400 py-3 px-4 rounded-lg text-center";
