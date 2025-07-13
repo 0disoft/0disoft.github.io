@@ -1,8 +1,8 @@
 // @ts-check
+import image from '@astrojs/image'; // image 임포트 수정
 import { defineConfig } from 'astro/config';
 import unoCSS from 'unocss/astro';
 import csp from 'vite-plugin-csp';
-import image from '@astrojs/image'; // image 임포트 수정
 
 // https://astro.build/config
 export default defineConfig({
@@ -23,10 +23,10 @@ export default defineConfig({
         // 가능한 한 'unsafe-inline'을 제거하고 해시 또는 nonce를 사용하는 것이 더 안전합니다.
         // 하지만 현재 프로젝트 구조에서는 'unsafe-inline'이 필요할 가능성이 높습니다.
         policy: {
-          'default-src': ["'self'"],
-          'img-src': ["'self'", 'data:'],
-          'style-src': ["'self'", "'unsafe-inline'"],
-          'script-src': ["'self'", "'unsafe-inline'"],
+          'default-src': ["'self'"], // 여기서 수정!
+          'img-src': ["'self'", 'data:'], // 여기서 수정!
+          'style-src': ["'self'", "'unsafe-inline'"], // 여기서 수정!
+          'script-src': ["'self'", "'unsafe-inline'"], // 여기서 수정!
         },
       }),
     ],
