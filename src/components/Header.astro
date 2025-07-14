@@ -8,21 +8,21 @@ const currentPathWithoutTrailingSlash = Astro.url.pathname.endsWith('/') && Astr
 ---
 
 <header
-  class="sticky top-0 flex-shrink-0 w-full lg:w-[240px] h-auto lg:h-screen p-2 lg:p-8 border-r
+  class="sticky top-0 flex-shrink-0 w-full lg:w-[240px] h-auto lg:h-screen lg:p-8 border-b lg:border-r lg:border-b-0
          bg-headerBackground border-border
          dark:bg-dark-headerBackground dark:border-dark-border
-         box-border flex flex-col transition-colors">
-  <div class="flex items-center lg:hidden mb-4">
-    <button id="mobile-menu-toggle" aria-label="Toggle mobile menu"
-            class="bg-none border-none p-1 cursor-pointer text-primary rounded-full
-                   transition-colors ease-in-out duration-200
-                   flex items-center justify-center
-                   dark:text-dark-primary
-                   hover:(text-accent bg-elementHoverBg)
-                   dark:hover:(text-dark-accent bg-dark-elementHoverBg)">
-      <div class="i-tabler-menu-2 w-7 h-7"></div>
-    </button>
-  </div>
+         box-border flex flex-col transition-colors
+         lg:justify-center
+         [&.menu-open]:h-screen [&.menu-open]:justify-center [&.menu-open]:p-4">
+  <button id="mobile-menu-toggle" aria-label="Toggle mobile menu"
+          class="absolute top-2 right-2 z-20 lg:hidden bg-none border-none p-1 cursor-pointer text-primary rounded-full
+                 transition-colors ease-in-out duration-200
+                 flex items-center justify-center
+                 dark:text-dark-primary
+                 hover:(text-accent bg-elementHoverBg)
+                 dark:hover:(text-dark-accent bg-dark-elementHoverBg)">
+    <div class="i-tabler-menu-2 w-7 h-7"></div>
+  </button>
   <nav id="mobile-menu" class="hidden flex-col gap-4 lg:flex">
     {
       NAV_LINKS.map((link) => {
@@ -51,7 +51,7 @@ const currentPathWithoutTrailingSlash = Astro.url.pathname.endsWith('/') && Astr
     }
   </nav>
 
-  <div id="utility-buttons" class="hidden flex flex-row items-center justify-center gap-4 lg:flex lg:mt-auto">
+  <div id="utility-buttons" class="hidden flex flex-row items-center justify-center gap-4 mt-8 lg:flex lg:mt-auto">
     <button
       id="theme-toggle"
       aria-label="Toggle theme"

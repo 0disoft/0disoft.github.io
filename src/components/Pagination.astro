@@ -1,0 +1,46 @@
+---
+import type { Page } from "astro";
+
+interface Props {
+  page: Page;
+}
+
+const { page } = Astro.props;
+---
+
+<div class="flex justify-center gap-4">
+  {
+    page.url.prev && (
+      <a
+        href={page.url.prev}
+        class="no-underline text-primary font-display font-400 py-3 px-4 rounded-lg text-center 
+               transition-all ease-in-out duration-200 
+               dark:text-dark-primary 
+               hover:(text-accent bg-elementHoverBg) 
+               dark:hover:(text-dark-accent bg-dark-elementHoverBg)"
+      >
+        &laquo; Previous
+      </a>
+    )
+  }
+  <div
+    class="no-underline text-secondary font-display font-400 py-3 px-4 rounded-lg text-center
+           dark:text-dark-secondary"
+  >
+    Page {page.currentPage} / {page.lastPage}
+  </div>
+  {
+    page.url.next && (
+      <a
+        href={page.url.next}
+        class="no-underline text-primary font-display font-400 py-3 px-4 rounded-lg text-center 
+               transition-all ease-in-out duration-200 
+               dark:text-dark-primary 
+               hover:(text-accent bg-elementHoverBg) 
+               dark:hover:(text-dark-accent bg-dark-elementHoverBg)"
+      >
+        Next &raquo;
+      </a>
+    )
+  }
+</div>

@@ -1,7 +1,1 @@
-✨ feat: Enhance blog page layout and functionality
-
-- Adjust blog post card layout to 2 columns per row.
-- Implement dynamic hero images for individual blog posts.
-- Add tags to blog post cards, matching project card styling.
-- Introduce bottom pagination controls for blog pages.
-- Refactor blog grid classes into a shared constant for consistency.
+✨ feat: Improve mobile header layout and fix blog pagination bug

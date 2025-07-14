@@ -1,83 +1,81 @@
 // src/scripts/code-copy.ts
 
+// 상수 정의
+const COPY_BUTTON_CLASS = 'code-copy-button';
+const ICON_BASE_CLASS = 'w-4 h-4';
+const ICON_COPY_CLASS = `i-lucide-copy text-primary dark:text-dark-primary`;
+const ICON_SUCCESS_CLASS = 'i-lucide-check text-green-500';
+const ICON_ERROR_CLASS = 'i-lucide-x text-red-500';
+const SUCCESS_ICON_DURATION = 2000;
+
+/**
+ * 클립보드 복사 로직을 처리합니다.
+ * @param button - 클릭된 버튼 요소
+ * @param preElement - 코드 블록을 감싸는 <pre> 요소
+ */
+async function handleCopyClick(button: HTMLButtonElement, preElement: HTMLElement) {
+  const code = preElement.querySelector('code')?.innerText;
+  if (!code) return;
+
+  const icon = button.querySelector('div');
+  if (!icon) return;
+
+  try {
+    await navigator.clipboard.writeText(code);
+    icon.className = `${ICON_BASE_CLASS} ${ICON_SUCCESS_CLASS}`;
+  } catch (err) {
+    console.error('텍스트 복사에 실패했습니다: ', err);
+    icon.className = `${ICON_BASE_CLASS} ${ICON_ERROR_CLASS}`;
+  } finally {
+    setTimeout(() => {
+      icon.className = `${ICON_BASE_CLASS} ${ICON_COPY_CLASS}`;
+    }, SUCCESS_ICON_DURATION);
+  }
+}
+
+/**
+ * 코드 블록을 위한 복사 버튼을 생성하고 설정합니다.
+ * @param preElement - 버튼을 추가할 <pre> 요소
+ * @returns 생성된 버튼 요소
+ */
+function createCopyButton(preElement: HTMLElement): HTMLButtonElement {
+  const button = document.createElement('button');
+  button.className = `${COPY_BUTTON_CLASS} p-1.5 bg-transparent border-none cursor-pointer rounded-md opacity-0 transition-opacity duration-200 group-hover:opacity-100 focus:opacity-100`;
+  button.setAttribute('aria-label', '코드 복사');
+
+  // JS로 직접 위치 스타일을 지정하여 안정성 확보
+  button.style.position = 'absolute';
+  button.style.top = '1rem';
+  button.style.right = '1rem';
+  button.style.zIndex = '10';
+
+  const icon = document.createElement('div');
+  icon.className = `${ICON_BASE_CLASS} ${ICON_COPY_CLASS}`;
+  button.appendChild(icon);
+
+  button.addEventListener('click', () => handleCopyClick(button, preElement));
+
+  return button;
+}
+
+/**
+ * 모든 코드 블록을 찾아 복사 버튼을 추가합니다.
+ */
 function setupCodeCopy() {
-  // 1. '.astro-code' 클래스를 가진 모든 <pre> 태그를 찾습니다.
   document.querySelectorAll<HTMLElement>('pre.astro-code').forEach((preElement) => {
-    // 이미 버튼이 있다면 중복 생성 방지
-    if (preElement.querySelector('.code-copy-button')) {
+    // group-hover와 position:absolute를 위한 스타일 설정
+    preElement.classList.add('group');
+    preElement.style.position = 'relative';
+
+    // 버튼 중복 생성 방지
+    if (preElement.querySelector(`.${COPY_BUTTON_CLASS}`)) {
       return;
     }
 
-    // 2. 복사 버튼 생성
-    const copyButton = document.createElement('button');
-    copyButton.className = 'code-copy-button'; // 식별을 위한 클래스 추가
-    copyButton.style.position = 'absolute'; // JS로 직접 스타일 설정
-    copyButton.style.zIndex = '10';
-    copyButton.style.opacity = '0'; // 기본적으로 숨김
-    copyButton.style.transition = 'opacity 0.2s';
-    copyButton.style.cursor = 'pointer';
-    copyButton.style.background = 'transparent';
-    copyButton.style.border = 'none';
-    copyButton.style.padding = '0.375rem'; // p-1.5
-
-    const icon = document.createElement('div');
-    // UnoCSS 아이콘 클래스를 직접 설정합니다.
-    icon.className = 'i-lucide-copy w-4 h-4 text-primary dark:text-dark-primary';
-    copyButton.appendChild(icon);
-
-    // 3. 버튼을 body에 직접 추가합니다.
-    // 이렇게 하면 다른 요소의 스타일에 전혀 영향을 받지 않습니다.
-    document.body.appendChild(copyButton);
-
-    // 4. 버튼 위치를 계산하고 설정하는 함수
-    function positionButton() {
-      const rect = preElement.getBoundingClientRect();
-      const buttonWidth = 32; // 버튼의 대략적인 너비
-      const padding = 16; // 원하는 여백 (0.5rem = 8px)
-
-      // top 위치에 여백 추가
-      copyButton.style.top = `${rect.top + window.scrollY + padding}px`;
-      // left 위치 계산 시, 오른쪽 끝에서 버튼 너비와 여백만큼 왼쪽으로 이동
-      copyButton.style.left = `${rect.right + window.scrollX - buttonWidth - padding}px`;
-    }
-
-    // 5. 초기 위치 설정 및 창 크기 변경 시 위치 재조정
-    setTimeout(positionButton, 100); // 100밀리초(0.1초) 지연 후 위치를 계산합니다.
-
-    window.addEventListener('resize', positionButton);
-
-    // 6. 마우스 호버 효과
-    preElement.addEventListener('mouseenter', () => {
-      copyButton.style.opacity = '1';
-    });
-    preElement.addEventListener('mouseleave', () => {
-      copyButton.style.opacity = '0';
-    });
-    copyButton.addEventListener('mouseenter', () => {
-      copyButton.style.opacity = '1';
-    });
-    copyButton.addEventListener('mouseleave', () => {
-      copyButton.style.opacity = '0';
-    });
-
-
-    // 7. 클릭 이벤트 리스너 설정
-    copyButton.addEventListener('click', async () => {
-      const code = preElement.querySelector('code');
-      if (!code) return;
-
-      try {
-        await navigator.clipboard.writeText(code.innerText);
-        icon.className = 'i-lucide-check w-4 h-4 text-green-500';
-        setTimeout(() => {
-          icon.className = 'i-lucide-copy w-4 h-4 text-primary dark:text-dark-primary';
-        }, 2000);
-      } catch (err) {
-        console.error('Failed to copy text: ', err);
-        icon.className = 'i-lucide-x w-4 h-4 text-red-500';
-      }
-    });
+    const button = createCopyButton(preElement);
+    preElement.appendChild(button);
   });
 }
 
+// Astro 페이지 로드 시 스크립트 실행
 document.addEventListener('astro:page-load', setupCodeCopy);

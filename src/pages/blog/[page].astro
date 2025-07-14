@@ -4,6 +4,7 @@ import type { GetStaticPathsOptions } from "astro";
 import { getSortedBlogPosts } from "../../utils/blog";
 import BlogPostPreview from "../../components/BlogPostPreview.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import Pagination from "../../components/Pagination.astro";
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const allPosts = await getSortedBlogPosts();
@@ -21,41 +22,8 @@ const pageTitle = `Blog - Page ${page.currentPage}`;
 ---
 
 <BaseLayout title={pageTitle}>
-  <div class="mb-4 flex justify-center gap-4">
-    {
-      page.url.prev && (
-        <a
-          href={page.url.prev}
-          class="no-underline text-primary font-display font-400 py-3 px-4 rounded-lg text-center 
-                 transition-all ease-in-out duration-200 
-                 dark:text-dark-primary 
-                 hover:(text-accent bg-elementHoverBg) 
-                 dark:hover:(text-dark-accent bg-dark-elementHoverBg)"
-        >
-          &laquo; Previous
-        </a>
-      )
-    }
-    <div
-      class="no-underline text-secondary font-display font-400 py-3 px-4 rounded-lg text-center
-             dark:text-dark-secondary"
-    >
-      Page {page.currentPage} / {page.lastPage}
-    </div>
-    {
-      page.url.next && (
-        <a
-          href={page.url.next}
-          class="no-underline text-primary font-display font-400 py-3 px-4 rounded-lg text-center 
-                 transition-all ease-in-out duration-200 
-                 dark:text-dark-primary 
-                 hover:(text-accent bg-elementHoverBg) 
-                 dark:hover:(text-dark-accent bg-dark-elementHoverBg)"
-        >
-          Next &raquo;
-        </a>
-      )
-    }
+  <div class="mb-4">
+    <Pagination {page} />
   </div>
 
   <ul
@@ -71,40 +39,7 @@ const pageTitle = `Blog - Page ${page.currentPage}`;
     }
   </ul>
 
-  <div class="mb-4 mt-8 flex justify-center gap-4">
-    {
-      page.url.prev && (
-        <a
-          href={page.url.prev}
-          class="no-underline text-primary font-display font-400 py-3 px-4 rounded-lg text-center 
-                 transition-all ease-in-out duration-200 
-                 dark:text-dark-primary 
-                 hover:(text-accent bg-elementHoverBg) 
-                 dark:hover:(text-dark-accent bg-dark-elementHoverBg)"
-        >
-          &laquo; Previous
-        </a>
-      )
-    }
-    <div
-      class="no-underline text-secondary font-display font-400 py-3 px-4 rounded-lg text-center
-             dark:text-dark-secondary"
-    >
-      Page {page.currentPage} / {page.lastPage}
-    </div>
-    {
-      page.url.next && (
-        <a
-          href={page.url.next}
-          class="no-underline text-primary font-display font-400 py-3 px-4 rounded-lg text-center 
-                 transition-all ease-in-out duration-200 
-                 dark:text-dark-primary 
-                 hover:(text-accent bg-elementHoverBg) 
-                 dark:hover:(text-dark-accent bg-dark-elementHoverBg)"
-        >
-          Next &raquo;
-        </a>
-      )
-    }
+  <div class="mt-8">
+    <Pagination {page} />
   </div>
 </BaseLayout>
