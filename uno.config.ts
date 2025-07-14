@@ -9,40 +9,16 @@ import {
   transformerVariantGroup,
 } from 'unocss';
 
-// ↓↓↓ 이 라인을 추가합니다.
 import presetWind3 from '@unocss/preset-wind3';
-
 
 export default defineConfig({
   safelist: [
+    // 동적으로 사용되거나 UnoCSS가 감지하기 어려운 아이콘 클래스
     'i-lucide-copy',
     'i-lucide-check',
     'i-lucide-x',
     'text-green-500',
     'text-red-500',
-    // BlogPostPreview.astro safelist (transformed)
-    'group',
-    'block',
-    'border',
-    'border-border',
-    'rounded-lg',
-    'no-underline',
-    'transition-all',
-    'p-6',
-    'font-serif',
-    'text-2xl',
-    'mb-2',
-    'transition-colors',
-    'text-secondary',
-    'dark:text-dark-secondary',
-    'mb-4',
-    'leading-relaxed',
-    'text-sm',
-    // Variant group classes
-    'hover:border-accent',
-    'hover:dark:border-dark-accent',
-    'group-hover:text-accent',
-    'dark:group-hover:text-dark-accent',
   ],
   shortcuts: [
     {
@@ -51,16 +27,14 @@ export default defineConfig({
     }
   ],
   theme: {
-    // 폰트 변수를 theme으로 이동
     fontFamily: {
       sans: ['"Space Grotesk"', 'sans-serif'],
       serif: ['"Yeseva One"', 'serif'],
       mono: ['"Kode Mono"', 'monospace'],
       display: ['"Lilita One"', 'sans-serif'],
     },
-    // 색상 변수를 theme으로 이동
     colors: {
-      // 라이트 모드 색상
+      // 라이트 모드 색상 팔레트
       primary: '#1a1a1a',
       secondary: '#666',
       accent: '#00539F',
@@ -69,7 +43,7 @@ export default defineConfig({
       border: '#eee',
       elementHoverBg: '#f0f0f0',
 
-      // 다크 모드 색상을 'dark-' 접두사를 붙여 추가
+      // 다크 모드 색상 팔레트 (dark- 접두사 사용)
       'dark-primary': '#f4f3ee',
       'dark-secondary': '#faedcd',
       'dark-accent': '#fee440',
@@ -81,7 +55,7 @@ export default defineConfig({
   },
 
   presets: [
-    presetWind3(), // <<< presetWind()를 presetWind3()로 최종 수정합니다.
+    presetWind3(),
     presetAttributify(),
     presetIcons({
       scale: 1.2,
@@ -89,7 +63,7 @@ export default defineConfig({
     }),
     presetTypography(),
     presetWebFonts({
-      provider: 'google', // 구글 폰트 사용
+      provider: 'google',
       fonts: {
         sans: 'Space Grotesk:300..700',
         serif: 'Yeseva One',

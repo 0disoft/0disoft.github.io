@@ -1,13 +1,16 @@
 /* src/styles/global.css */
 
-/* body 요소에 기본 폰트와 배경색을 적용합니다. */
+/*
+  이 파일은 프로젝트의 전역 CSS 스타일을 정의합니다.
+  UnoCSS의 @apply 지시어를 사용하여 유틸리티 클래스를 적용하고,
+  필요에 따라 직접 CSS 속성을 정의합니다.
+*/
+
+/* body 요소에 기본 폰트, 배경색, 텍스트 색상 및 폰트 크기를 적용합니다. */
 body {
-  /* 기본은 라이트 모드 색상, dark: 다음에는 다크 모드 색상을 적용합니다. */
   @apply font-sans bg-background dark:bg-dark-background dark:text-dark-primary;
-  /* text-primary 제거 */
-  font-size: calc(1rem * var(--font-size-multiplier, 1));
-  /* --font-size-multiplier 변수 적용 */
-  overflow-wrap: break-word;
+  font-size: calc(1rem * var(--font-size-multiplier, 1)); /* 폰트 크기 조절 변수 적용 */
+  overflow-wrap: break-word; /* 긴 단어 줄바꿈 처리 */
 }
 
 /* 링크(a 태그)의 기본 스타일을 정의합니다. */
@@ -15,7 +18,7 @@ a {
   @apply text-primary dark:text-dark-primary no-underline transition-colors duration-200;
 }
 
-/* 제목(h1, h2, h3)의 스타일을 정의합니다. */
+/* 제목(h1-h6)의 기본 스타일을 정의합니다. */
 h1,
 h2,
 h3,
@@ -26,24 +29,23 @@ h6 {
 }
 
 h1 {
-  font-size: 1.75em; /* text-3xl과 유사한 크기 */
+  font-size: 1.75em;
   line-height: 2.5rem;
 }
 
 h2 {
-  font-size: 1.5em; /* text-2xl과 유사한 크기 */
+  font-size: 1.5em;
   line-height: 2.25rem;
 }
 
 h3 {
-  font-size: 1.25em; /* text-xl과 유사한 크기 */
+  font-size: 1.25em;
   line-height: 2rem;
 }
 
+/* 단락(p 태그)의 스타일을 정의합니다. */
 p {
-  /* 아래와 같이 text-secondary와 dark:text-dark-secondary를 추가합니다. */
   @apply leading-relaxed mb-[1.2em] text-secondary dark:text-dark-secondary;
-  /* line-height: 1.6; 와 유사 */
 }
 
 /* 코드 블록과 인라인 코드에 폰트 적용 */
@@ -52,10 +54,12 @@ pre {
   @apply font-mono text-[0.9em] leading-none;
 }
 
+/* 인라인 코드 스타일 */
 :not(pre) > code {
   @apply bg-elementHoverBg dark:bg-dark-elementHoverBg text-primary dark:text-dark-primary py-1 px-2 rounded;
 }
 
+/* 코드 블록 내부 코드 스타일 */
 pre > code {
   @apply bg-transparent p-0;
 }
@@ -63,22 +67,17 @@ pre > code {
 /* 모든 코드 블록의 기본 스타일 */
 pre.astro-code {
   @apply p-4 overflow-x-auto rounded-lg bg-elementHoverBg dark:bg-dark-elementHoverBg border border-border dark:border-dark-border;
-  box-sizing: border-box;
-  --astro-code-tab-size: 2;
-  /* 탭 크기를 2칸으로 설정 */
+  box-sizing: border-box; /* 박스 모델 설정 */
+  --astro-code-tab-size: 2; /* 탭 크기를 2칸으로 설정 */
 }
 
-/* 
-  .prose 환경의 모든 요소에 대해
-  단어 단위 줄바꿈 규칙을 적용합니다.
-*/
+/* .prose 클래스가 적용된 요소 내의 텍스트 줄바꿈 규칙 */
 .prose {
-  word-break: keep-all;
-  overflow-wrap: break-word;
-  /* 긴 영어 단어나 URL이 레이아웃을 깨는 것을 방지 */
+  word-break: keep-all; /* 단어 단위 줄바꿈 */
+  overflow-wrap: break-word; /* 긴 단어 줄바꿈 처리 */
 }
 
+/* #sentinel.all-loaded 요소의 상단 마진 */
 #sentinel.all-loaded {
   margin-top: 2rem;
-  /* 원하는 마진 값으로 조정 (예: 1rem, 3rem 등) */
 }

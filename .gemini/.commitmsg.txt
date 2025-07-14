@@ -1,1 +1,1 @@
-✨ feat: Improve mobile header layout and fix blog pagination bug
+✨ refactor: Refactor various Astro components and utilities

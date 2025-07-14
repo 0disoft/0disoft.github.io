@@ -29,17 +29,14 @@ const currentPathWithoutTrailingSlash = Astro.url.pathname.endsWith('/') && Astr
         const isActive = link.path === '/'
           ? currentPathWithoutTrailingSlash === '/'
           : currentPathWithoutTrailingSlash.startsWith(link.path);
-        // 공통으로 사용될 클래스
+        
         const commonClasses =
           "no-underline font-display font-400 py-3 px-4 rounded-lg text-center w-full";
-        // 활성 상태일 때의 클래스
         const activeClasses =
           "text-accent bg-elementHoverBg dark:text-dark-accent dark:bg-dark-elementHoverBg";
-        // 비활성 상태일 때의 클래스
         const inactiveClasses =
           "text-primary dark:text-dark-primary transition-all ease-in-out duration-200 hover:(text-accent bg-elementHoverBg) dark:hover:(text-dark-accent bg-dark-elementHoverBg)";
 
-        // ✅ 현재 페이지일 경우(isActive가 true) <span> 태그를, 아닐 경우 <a> 태그를 렌더링합니다.
         return isActive ? (
           <span class:list={[commonClasses, activeClasses]}>{link.title}</span>
         ) : (

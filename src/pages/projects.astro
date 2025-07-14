@@ -1,7 +1,7 @@
 ---
 // src/pages/projects.astro
 import { getCollection } from "astro:content";
-import ProjectCard from "../components/ProjectCard.astro"; // 1. ProjectCard 컴포넌트 가져오기
+import ProjectCard from "../components/ProjectCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const allProjects = await getCollection("projects");
@@ -12,7 +12,7 @@ const pageTitle = "Projects";
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
     {
       allProjects.map((project) => (
-        <ProjectCard project={project} /> // 4. 컴포넌트 사용
+        <ProjectCard project={project} />
       ))
     }
   </div>

@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { formatDate } from "../../utils/date";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -18,19 +19,12 @@ const { Content } = await post.render();
 <BaseLayout title={post.data.title} description={post.data.description}>
   <article class="prose prose-lg mx-auto dark:prose-invert">
     <header class="mb-6">
-      {/* ✅ 여기서 "!text-4xl" 클래스를 삭제했습니다. */}
       <h1 class="!font-serif !mb-2">{post.data.title}</h1>
       <time
         datetime={post.data.pubDate.toISOString()}
         class="text-sm text-secondary dark:text-dark-secondary"
       >
-        {
-          new Date(post.data.pubDate).toLocaleDateString("en-us", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })
-        }
+        {formatDate(post.data.pubDate)}
       </time>
     </header>
     <Content />

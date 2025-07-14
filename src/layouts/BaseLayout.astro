@@ -3,15 +3,15 @@
 import { ClientRouter } from "astro:transitions";
 import "@unocss/reset/tailwind.css";
 import Header from "../components/Header.astro";
-// ✅ SITE_TITLE, SITE_DESCRIPTION 대신 SITE 객체를 통째로 가져옵니다.
 import { SITE } from "../consts";
 import "../styles/global.css";
 
-const {
-  // ✅ SITE.TITLE 과 SITE.DESCRIPTION 으로 값을 사용하도록 수정합니다.
-  title = SITE.TITLE,
-  description = SITE.DESCRIPTION,
-} = Astro.props;
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = SITE.TITLE, description = SITE.DESCRIPTION } = Astro.props;
 ---
 
 <!doctype html>
@@ -25,26 +25,6 @@ const {
     <title>{title}</title>
 
     <ClientRouter />
-    <script is:inline>
-      const theme = (() => {
-        if (
-          typeof localStorage !== "undefined" &&
-          localStorage.getItem("theme")
-        ) {
-          return localStorage.getItem("theme");
-        }
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-          return "dark";
-        }
-        return "light";
-      })();
-
-      if (theme === "light") {
-        document.documentElement.classList.remove("dark");
-      } else {
-        document.documentElement.classList.add("dark");
-      }
-    </script>
   </head>
   <body>
     <div class="flex flex-col lg:flex-row">

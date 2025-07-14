@@ -1,35 +1,42 @@
 // src/content.config.ts
-import { defineCollection, z } from "astro:content";
+import { defineCollection, z, type SchemaContext } from "astro:content";
 
-// 'blog' 컬렉션을 정의합니다.
+/**
+ * 블로그 게시물 컬렉션을 정의합니다.
+ * 각 블로그 게시물은 다음 스키마를 따릅니다.
+ */
 const blogCollection = defineCollection({
-  // Zod를 사용하여 스키마를 정의합니다.
-  schema: z.object({
+  schema: ({ image }: SchemaContext) => z.object({
     title: z.string(),
     description: z.string().min(1, { message: "Description cannot be empty." }).max(300, { message: "Description cannot exceed 300 characters." }),
-    author: z.string().default("ZeroDi"), // 기본값 설정
+    author: z.string().default("ZeroDi"),
     pubDate: z.date(),
-    updatedDate: z.date().optional(), // 선택적 필드
-    heroImage: z.string().optional(),
-    heroImageAlt: z.string().optional(), // heroImage의 alt 텍스트 필드 추가
-    tags: z.array(z.string()), // 태그들을 위한 문자열 배열
+    updatedDate: z.date().optional(),
+    heroImage: z.string().optional(), // 이미지 유효성 검사 강화
+    heroImageAlt: z.string().optional(),
+    tags: z.array(z.string()),
   }),
 });
 
-// 'projects' 컬렉션을 새로 정의합니다.
+/**
+ * 프로젝트 컬렉션을 정의합니다.
+ * 각 프로젝트는 다음 스키마를 따릅니다.
+ */
 const projectCollection = defineCollection({
-  type: 'content', // 또는 'content' for Markdown body
-  schema: z.object({
+  type: 'content',
+  schema: ({ image }: SchemaContext) => z.object({
     title: z.string(),
     description: z.string(),
-    heroImage: z.string().optional(), // z.string()을 image()로 변경합니다.
+    heroImage: z.string().optional(), // 이미지 유효성 검사 강화
     techStack: z.array(z.string()),
     githubUrl: z.string().url().optional(),
     liveUrl: z.string().url().optional(),
   }),
 });
 
-// 'collections' 객체를 내보내 Astro에 컬렉션을 등록합니다. 
+/**
+ * Astro에 등록할 모든 콘텐츠 컬렉션을 내보냅니다.
+ */
 export const collections = {
   blog: blogCollection,
   projects: projectCollection,

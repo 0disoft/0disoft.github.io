@@ -8,7 +8,7 @@ import Pagination from "../../components/Pagination.astro";
 const allPosts = await getSortedBlogPosts();
 const firstPagePosts = allPosts.slice(0, SITE.POSTS_PER_PAGE);
 
-// 가짜 Page 객체 생성
+// 페이지네이션 컴포넌트에 전달할 가짜 Page 객체 생성
 const fakePage = {
   data: firstPagePosts,
   currentPage: 1,
