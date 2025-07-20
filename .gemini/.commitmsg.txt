@@ -1,5 +1,5 @@
-✨ Feat: Implement basic SEO component
+✨ Feat: Apply dynamic meta tags to pages
 
-- Created `SEO.astro` component to manage meta tags (title, description).
-- Integrated `SEO.astro` into `BaseLayout.astro` for global application.
-- Updated `.gemini/.plan.md` to mark task 4.2.1 as complete.
+- Ensured blog posts dynamically set their title and description.
+- Updated `index.astro`, `about.astro`, `projects.astro`, and `contact.astro` to pass appropriate titles and descriptions to `BaseLayout`.
+- Marked task 4.2.2 as complete in `.gemini/.plan.md`.
