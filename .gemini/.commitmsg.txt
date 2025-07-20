@@ -1,1 +1,5 @@
-✨ refactor: Refactor various Astro components and utilities
+✨ Feat: Implement basic SEO component
+
+- Created `SEO.astro` component to manage meta tags (title, description).
+- Integrated `SEO.astro` into `BaseLayout.astro` for global application.
+- Updated `.gemini/.plan.md` to mark task 4.2.1 as complete.
