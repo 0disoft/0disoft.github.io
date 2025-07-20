@@ -12,6 +12,23 @@ export default defineConfig({
     unoCSS(), // UnoCSS 통합 활성화
     sitemap(), // Sitemap 통합 활성화
   ],
+  // Google Fonts preconnect
+  head: {
+    links: [
+      {
+        rel: 'preconnect',
+        href: 'https://fonts.googleapis.com',
+      },
+      {
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        crossorigin: '',
+      },
+    ],
+  },
+  build: {
+    inlineStyles: true, // 모든 CSS를 인라인으로 처리
+  },
   vite: { // Vite 설정
     plugins: [
       csp({

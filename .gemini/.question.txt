@@ -1,0 +1,30 @@
+
+렌더링 차단 요청 절감 가능치: 1,050 밀리초
+요청으로 인해 페이지의 초기 렌더링이 차단되어 LCP가 지연될 수 있습니다. 지연 또는 인라인 처리하면 이러한 네트워크 요청이 주요 경로에서 벗어날 수 있습니다.LCPFCP
+URL
+전송 크기
+시간
+GitHub utility 퍼스트 파티
+7.4 KiB	660ms
+/_astro/about.1-uO-zaE.css(0disoft.github.io)
+2.3 KiB
+480ms
+/_astro/about.B5FxlbiO.css(0disoft.github.io)
+5.1 KiB
+180ms
+네트워크 종속 항목 트리
+체인의 길이를 줄이고, 리소스의 다운로드 크기를 줄이거나 불필요한 리소스의 다운로드를 지연하여 페이지 로드 속도를 개선하는 방식으로 크리티컬 요청 체이닝을 방지합니다.LCP
+최상 경로 최대 지연 시간: 384ms
+초기 탐색
+https://0disoft.github.io - 235ms, 3.13 KiB
+/_astro/ClientRouter.astro_ast….D98dxaWf.js(0disoft.github.io) - 364ms, 5.69 KiB
+/_astro/about.B5FxlbiO.css(0disoft.github.io) - 335ms, 5.12 KiB
+…v16/i7dPIFZ9Z….woff2(fonts.gstatic.com) - 384ms, 11.22 KiB
+…v21/V8mDoQDjQ….woff2(fonts.gstatic.com) - 384ms, 22.56 KiB
+/_astro/about.1-uO-zaE.css(0disoft.github.io) - 336ms, 2.32 KiB
+Preconnected origins
+preconnect hints help the browser establish a connection earlier in the page load, saving time when the first request for that origin is made. The following are the origins that the page preconnected to.
+no origins were preconnected
+Preconnect candidates
+Add preconnect hints to your most important origins, but try to use no more than 4.
+No additional origins are good candidates for preconnecting

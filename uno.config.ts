@@ -70,6 +70,9 @@ export default defineConfig({
         mono: 'Kode Mono:400..700',
         display: 'Lilita One',
       },
+      webfont: {
+        display: 'swap', // Add font-display: swap
+      },
     }),
   ],
   transformers: [
