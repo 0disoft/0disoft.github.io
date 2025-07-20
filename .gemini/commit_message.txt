@@ -1,0 +1,6 @@
+✨ Feat: Optimize web performance (CSS & Fonts)
+
+- Add `font-display: swap` to Google Fonts in `uno.config.ts` to prevent render-blocking.
+- Add `preconnect` hints for Google Fonts in `astro.config.mjs` for faster loading.
+- Enable CSS inlining in `astro.config.mjs` to resolve render-blocking CSS.
+- Mark web performance optimization task as complete in `.gemini/.plan.md`.
