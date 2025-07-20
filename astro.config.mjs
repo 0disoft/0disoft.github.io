@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import unoCSS from 'unocss/astro';
+import sitemap from '@astrojs/sitemap';
 import csp from 'vite-plugin-csp';
 
 // https://astro.build/config
@@ -9,6 +10,7 @@ export default defineConfig({
   base: '/',
   integrations: [
     unoCSS(), // UnoCSS 통합 활성화
+    sitemap(), // Sitemap 통합 활성화
   ],
   vite: { // Vite 설정
     plugins: [

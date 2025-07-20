@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://0disoft.github.io/sitemap-index.xml

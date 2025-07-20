@@ -1,5 +1,6 @@
-✨ Feat: Apply dynamic meta tags to pages
+✨ Feat: Integrate sitemap and robots.txt for SEO
 
-- Ensured blog posts dynamically set their title and description.
-- Updated `index.astro`, `about.astro`, `projects.astro`, and `contact.astro` to pass appropriate titles and descriptions to `BaseLayout`.
-- Marked task 4.2.2 as complete in `.gemini/.plan.md`.
+- Installed `@astrojs/sitemap` package.
+- Configured `astro.config.mjs` to use the sitemap integration.
+- Created `public/robots.txt` with sitemap reference.
+- Marked task 4.2.3 as complete in `.gemini/.plan.md`.
