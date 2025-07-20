@@ -1,6 +1,5 @@
-✨ Feat: Integrate sitemap and robots.txt for SEO
+🐛 Fix: Blog navigation and home page link
 
-- Installed `@astrojs/sitemap` package.
-- Configured `astro.config.mjs` to use the sitemap integration.
-- Created `public/robots.txt` with sitemap reference.
-- Marked task 4.2.3 as complete in `.gemini/.plan.md`.
+- Updated `NAV_LINKS` in `src/consts.ts` to point `/blog/1` for the blog menu.
+- Updated "Read the Blog" link in `src/pages/index.astro` to point to `/blog/1`.
+- Marked task 5.1.3 as complete in `.gemini/.plan.md`.

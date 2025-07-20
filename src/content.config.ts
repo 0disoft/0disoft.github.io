@@ -6,7 +6,7 @@ import { defineCollection, z, type SchemaContext } from "astro:content";
  * 각 블로그 게시물은 다음 스키마를 따릅니다.
  */
 const blogCollection = defineCollection({
-  schema: ({ image }: SchemaContext) => z.object({
+  schema: ({}: SchemaContext) => z.object({
     title: z.string(),
     description: z.string().min(1, { message: "Description cannot be empty." }).max(300, { message: "Description cannot exceed 300 characters." }),
     author: z.string().default("ZeroDi"),
@@ -24,7 +24,7 @@ const blogCollection = defineCollection({
  */
 const projectCollection = defineCollection({
   type: 'content',
-  schema: ({ image }: SchemaContext) => z.object({
+  schema: ({}: SchemaContext) => z.object({
     title: z.string(),
     description: z.string(),
     heroImage: z.string().optional(), // 이미지 유효성 검사 강화

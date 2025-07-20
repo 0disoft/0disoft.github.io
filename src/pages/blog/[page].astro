@@ -1,30 +1,31 @@
 ---
 import { SITE } from "@src/consts";
-import type { GetStaticPathsOptions } from "astro";
 import { getSortedBlogPosts } from "../../utils/blog";
 import BlogPostPreview from "../../components/BlogPostPreview.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Pagination from "../../components/Pagination.astro";
 
-export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+export async function getStaticPaths({ paginate }: { paginate: any }) {
   const allPosts = await getSortedBlogPosts();
+  return paginate(allPosts, {
+    pageSize: SITE.POSTS_PER_PAGE,
+  });
+}
 
-  return paginate(allPosts, { pageSize: SITE.POSTS_PER_PAGE });
+import type { Page } from "astro";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  page: Page<CollectionEntry<"blog">>;
 }
 
 const { page } = Astro.props;
-
-// 첫 번째 페이지는 /blog 경로로 리다이렉트
-if (page.currentPage === 1) {
-  return Astro.redirect("/blog");
-}
-
-const pageTitle = `Blog - Page ${page.currentPage}`;
+const pageTitle = "Blog";
 ---
 
 <BaseLayout title={pageTitle}>
   <div class="mb-4">
-    <Pagination {page} />
+    <Pagination page={page} />
   </div>
 
   <ul
@@ -41,6 +42,6 @@ const pageTitle = `Blog - Page ${page.currentPage}`;
   </ul>
 
   <div class="mt-8">
-    <Pagination {page} />
+    <Pagination page={page} />
   </div>
 </BaseLayout>
