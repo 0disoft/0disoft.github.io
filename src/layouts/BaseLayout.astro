@@ -1,11 +1,11 @@
 ---
 // src/layouts/BaseLayout.astro
-import { ClientRouter } from "astro:transitions";
 import "@unocss/reset/tailwind.css";
+import { ClientRouter } from "astro:transitions";
 import Header from "../components/Header.astro";
+import SEO from "../components/SEO.astro";
 import { SITE } from "../consts";
 import "../styles/global.css";
-import SEO from "../components/SEO.astro";
 
 interface Props {
   title?: string;
@@ -22,6 +22,10 @@ const { title = SITE.TITLE, description = SITE.DESCRIPTION } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <SEO title={title} description={description} />
 
     <ClientRouter />
