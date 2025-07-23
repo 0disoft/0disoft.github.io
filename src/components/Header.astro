@@ -1,10 +1,10 @@
 ---
-import { NAV_LINKS } from "../consts";
+import { NAV_LINKS } from "@/consts";
 
-const currentPathWithoutTrailingSlash = Astro.url.pathname.endsWith('/') && Astro.url.pathname !== '/'
-  ? Astro.url.pathname.slice(0, -1)
-  : Astro.url.pathname;
-
+const currentPathWithoutTrailingSlash =
+  Astro.url.pathname.endsWith("/") && Astro.url.pathname !== "/"
+    ? Astro.url.pathname.slice(0, -1)
+    : Astro.url.pathname;
 ---
 
 <header
@@ -13,23 +13,28 @@ const currentPathWithoutTrailingSlash = Astro.url.pathname.endsWith('/') && Astr
          dark:bg-dark-headerBackground dark:border-dark-border
          box-border flex flex-col transition-colors
          lg:justify-center
-         [&.menu-open]:h-screen [&.menu-open]:justify-center [&.menu-open]:p-4">
-  <button id="mobile-menu-toggle" aria-label="Toggle mobile menu"
-          class="absolute top-2 right-2 z-20 lg:hidden bg-none border-none p-1 cursor-pointer text-primary rounded-full
+         [&.menu-open]:h-screen [&.menu-open]:justify-center [&.menu-open]:p-4"
+>
+  <button
+    id="mobile-menu-toggle"
+    aria-label="Toggle mobile menu"
+    class="absolute top-2 right-2 z-20 lg:hidden bg-none border-none p-1 cursor-pointer text-primary rounded-full
                  transition-colors ease-in-out duration-200
                  flex items-center justify-center
                  dark:text-dark-primary
                  hover:(text-accent bg-elementHoverBg)
-                 dark:hover:(text-dark-accent bg-dark-elementHoverBg)">
+                 dark:hover:(text-dark-accent bg-dark-elementHoverBg)"
+  >
     <div class="i-tabler-menu-2 w-7 h-7"></div>
   </button>
   <nav id="mobile-menu" class="hidden flex-col gap-4 lg:flex">
     {
       NAV_LINKS.map((link) => {
-        const isActive = link.path === '/'
-          ? currentPathWithoutTrailingSlash === '/'
-          : currentPathWithoutTrailingSlash.startsWith(link.path);
-        
+        const isActive =
+          link.path === "/"
+            ? currentPathWithoutTrailingSlash === "/"
+            : currentPathWithoutTrailingSlash.startsWith(link.path);
+
         const commonClasses =
           "no-underline font-display font-400 py-3 px-4 rounded-lg text-center w-full";
         const activeClasses =
@@ -48,7 +53,10 @@ const currentPathWithoutTrailingSlash = Astro.url.pathname.endsWith('/') && Astr
     }
   </nav>
 
-  <div id="utility-buttons" class="hidden flex flex-row items-center justify-center gap-4 mt-8 lg:flex lg:mt-auto">
+  <div
+    id="utility-buttons"
+    class="hidden flex flex-row items-center justify-center gap-4 mt-8 lg:flex lg:mt-auto"
+  >
     <button
       id="theme-toggle"
       aria-label="Toggle theme"

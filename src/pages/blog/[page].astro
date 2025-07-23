@@ -1,9 +1,9 @@
 ---
-import { SITE } from "@src/consts";
-import { getSortedBlogPosts } from "../../utils/blog";
-import BlogPostPreview from "../../components/BlogPostPreview.astro";
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import Pagination from "../../components/Pagination.astro";
+import BlogPostPreview from "@/components/BlogPostPreview.astro";
+import Pagination from "@/components/Pagination.astro";
+import { SITE } from "@/consts.ts";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getSortedBlogPosts } from "@/utils/blog";
 
 export async function getStaticPaths({ paginate }: { paginate: any }) {
   const allPosts = await getSortedBlogPosts();
@@ -28,10 +28,7 @@ const pageTitle = "Blog";
     <Pagination page={page} />
   </div>
 
-  <ul
-    id="post-container"
-    class={`list-none p-0 m-0 ${SITE.BLOG_GRID_CLASSES}`}
-  >
+  <ul id="post-container" class={`list-none p-0 m-0 ${SITE.BLOG_GRID_CLASSES}`}>
     {
       page.data.map((post) => (
         <li>
