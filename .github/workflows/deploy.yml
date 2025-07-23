@@ -46,6 +46,9 @@ jobs:
 
       # 4. Astro 사이트 빌드
       - name: Build with Astro
+        # GA4 측정 ID를 환경 변수로 전달
+        env:
+          PUBLIC_GA_TRACKING_ID: ${{ secrets.PUBLIC_GA_TRACKING_ID }}
         run: bun run build
 
       # 5. 빌드 결과물 업로드
