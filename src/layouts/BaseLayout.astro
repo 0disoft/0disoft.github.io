@@ -2,7 +2,7 @@
 // src/layouts/BaseLayout.astro
 import Header from "@/components/Header.astro";
 import SEO from "@/components/SEO.astro";
-import { SITE } from "@/consts";
+import { GA, SITE } from "@/consts";
 import "@/styles/global.css";
 import "@unocss/reset/tailwind.css";
 import { ClientRouter } from "astro:transitions";
@@ -13,6 +13,8 @@ interface Props {
 }
 
 const { title = SITE.TITLE, description = SITE.DESCRIPTION } = Astro.props;
+// GA ID를 환경 변수에서 직접 가져옵니다.
+const GA_TRACKING_ID = import.meta.env.PUBLIC_GA_TRACKING_ID;
 ---
 
 <!doctype html>
@@ -28,6 +30,21 @@ const { title = SITE.TITLE, description = SITE.DESCRIPTION } = Astro.props;
 
     <SEO title={title} description={description} />
 
+    <!-- Google Analytics with Partytown -->
+    <script
+      type="text/partytown"
+      src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+    ></script>
+    <script type="text/partytown">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", `{${GA_TRACKING_ID}}`);
+    </script>
+    <!-- Google Analytics with Partytown 끝 -->
+
     <ClientRouter />
   </head>
   <body>
@@ -40,5 +57,17 @@ const { title = SITE.TITLE, description = SITE.DESCRIPTION } = Astro.props;
     <script src="../scripts/theme-controller.ts"></script>
     <script src="../scripts/code-copy.ts"></script>
     <script src="../scripts/mobile-menu.ts"></script>
+
+    <!-- View Transitions 페이지 이동 시 GA 이벤트 다시 보내기 -->
+    <!-- View Transitions 페이지 이동 시 GA 이벤트 다시 보내기 -->
+    <script is:inline>
+      document.addEventListener("astro:after-swap", () => {
+        if (typeof gtag === "function" && `{${GA_TRACKING_ID}}`) {
+          gtag("config", `{${GA_TRACKING_ID}}`, {
+            page_path: window.location.pathname,
+          });
+        }
+      });
+    </script>
   </body>
 </html>

@@ -1,4 +1,5 @@
 // @ts-check
+import partytown from '@astrojs/partytown';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
 import unoCSS from 'unocss/astro';
@@ -11,6 +12,12 @@ export default defineConfig({
   integrations: [
     unoCSS(), // UnoCSS 통합 활성화
     sitemap(), // Sitemap 통합 활성화
+    partytown({
+      config: {
+        // Google Analytics 스크립트를 Partytown으로 전달
+        forward: ['dataLayer.push'],
+      },
+    }),
   ],
   // // Google Fonts preconnect
   // head: {

@@ -9,7 +9,9 @@
 /* body 요소에 기본 폰트, 배경색, 텍스트 색상 및 폰트 크기를 적용합니다. */
 body {
   @apply font-sans bg-background dark:bg-dark-background dark:text-dark-primary;
-  font-size: calc(1rem * var(--font-size-multiplier, 1)); /* 폰트 크기 조절 변수 적용 */
+  font-size: calc(
+    1rem * var(--font-size-multiplier, 1)
+  ); /* 폰트 크기 조절 변수 적용 */
   overflow-wrap: break-word; /* 긴 단어 줄바꿈 처리 */
 }
 
@@ -49,9 +51,8 @@ p {
 }
 
 /* 코드 블록과 인라인 코드에 폰트 적용 */
-code,
-pre {
-  @apply font-mono text-[0.9em] leading-none;
+code {
+  @apply font-mono;
 }
 
 /* 인라인 코드 스타일 */
@@ -67,8 +68,15 @@ pre > code {
 /* 모든 코드 블록의 기본 스타일 */
 pre.astro-code {
   @apply p-4 overflow-x-auto rounded-lg bg-elementHoverBg dark:bg-dark-elementHoverBg border border-border dark:border-dark-border;
-  box-sizing: border-box; /* 박스 모델 설정 */
-  --astro-code-tab-size: 2; /* 탭 크기를 2칸으로 설정 */
+  @apply leading-snug;
+  box-sizing: border-box;
+  --astro-code-tab-size: 2;
+}
+
+/* 코드 블록 내부의 텍스트(code)에 대한 스타일을 여기에 직접 지정합니다. */
+pre.astro-code > code {
+  @apply font-mono; /* font-family와 줄 간격 설정 */
+  font-size: 0.85em; /* 원하는 폰트 크기로 조정! */
 }
 
 /* .prose 클래스가 적용된 요소 내의 텍스트 줄바꿈 규칙 */

@@ -11,6 +11,13 @@ export const SITE = {
 };
 
 /**
+ * Google Analytics 설정 정보를 정의합니다.
+ */
+export const GA = {
+  TRACKING_ID: 'G-XXXXXXXXXX', // 여기에 본인의 GA 측정 ID를 넣으세요
+};
+
+/**
  * 메인 내비게이션 링크들을 정의합니다.
  */
 export const NAV_LINKS = [
