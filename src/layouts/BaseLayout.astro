@@ -10,15 +10,20 @@ import { ClientRouter } from "astro:transitions";
 interface Props {
   title?: string;
   description?: string;
+  lang?: string;
 }
 
-const { title = SITE.TITLE, description = SITE.DESCRIPTION } = Astro.props;
+const {
+  title = SITE.TITLE,
+  description = SITE.DESCRIPTION,
+  lang = "en",
+} = Astro.props;
 // GA ID를 환경 변수에서 직접 가져옵니다.
 const GA_TRACKING_ID = import.meta.env.PUBLIC_GA_TRACKING_ID;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -29,6 +34,39 @@ const GA_TRACKING_ID = import.meta.env.PUBLIC_GA_TRACKING_ID;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <SEO title={title} description={description} />
+
+    <!-- Theme & Font Size Controller Script -->
+    <script is:inline>
+      // Theme
+      const theme = (() => {
+        if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+          return localStorage.getItem("theme");
+        }
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          return "dark";
+        }
+        return "light";
+      })();
+
+      if (theme === "light") {
+        document.documentElement.classList.remove("dark");
+      } else {
+        document.documentElement.classList.add("dark");
+      }
+
+      // Font Size
+      const FONT_LEVEL_KEY = "font-size-level";
+      const FONT_LEVELS = 9;
+      const DEFAULT_FONT_LEVEL = Math.ceil((FONT_LEVELS + 1) / 2);
+      const savedLevelStr = localStorage.getItem(FONT_LEVEL_KEY);
+      const level = savedLevelStr
+        ? parseInt(savedLevelStr, 10)
+        : DEFAULT_FONT_LEVEL;
+      document.documentElement.style.setProperty(
+        "--font-size-multiplier",
+        `calc(0.8 + 0.05 * ${level})`,
+      );
+    </script>
 
     <!-- Google Analytics with Partytown -->
     <script
@@ -59,8 +97,32 @@ const GA_TRACKING_ID = import.meta.env.PUBLIC_GA_TRACKING_ID;
     <script src="../scripts/mobile-menu.ts"></script>
 
     <!-- View Transitions 페이지 이동 시 GA 이벤트 다시 보내기 -->
-    <!-- View Transitions 페이지 이동 시 GA 이벤트 다시 보내기 -->
     <script is:inline>
+      // 테마 및 폰트 크기 유지를 위한 스크립트
+      document.addEventListener("astro:after-swap", () => {
+        // Theme
+        const theme = localStorage.getItem("theme");
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+
+        // Font Size
+        const FONT_LEVEL_KEY = "font-size-level";
+        const FONT_LEVELS = 9;
+        const DEFAULT_FONT_LEVEL = Math.ceil((FONT_LEVELS + 1) / 2);
+        const savedLevelStr = localStorage.getItem(FONT_LEVEL_KEY);
+        const level = savedLevelStr
+          ? parseInt(savedLevelStr, 10)
+          : DEFAULT_FONT_LEVEL;
+        document.documentElement.style.setProperty(
+          "--font-size-multiplier",
+          `calc(0.8 + 0.05 * ${level})`,
+        );
+      });
+
+      // GA 이벤트 전송
       document.addEventListener("astro:after-swap", () => {
         if (typeof gtag === "function" && `{${GA_TRACKING_ID}}`) {
           gtag("config", `{${GA_TRACKING_ID}}`, {

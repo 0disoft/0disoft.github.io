@@ -47,9 +47,6 @@ function setupThemeToggle(): void {
   const themeToggle = document.getElementById('theme-toggle');
   if (!themeToggle) return;
 
-  // 초기 테마 적용
-  applyTheme(getCurrentTheme());
-
   // 클릭 이벤트 리스너
   themeToggle.addEventListener('click', () => {
     const newTheme = document.documentElement.classList.contains(THEME_DARK) ? THEME_LIGHT : THEME_DARK;
@@ -81,9 +78,6 @@ function applyFontSize(level: number): void {
 function setupFontSizeToggle(): void {
   const fontSizeToggle = document.getElementById('font-size-toggle');
   if (!fontSizeToggle) return;
-
-  // 초기 폰트 크기 적용
-  applyFontSize(getCurrentFontLevel());
 
   // 클릭 이벤트 리스너
   fontSizeToggle.addEventListener('click', () => {

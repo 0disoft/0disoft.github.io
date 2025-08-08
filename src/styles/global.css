@@ -81,8 +81,12 @@ pre.astro-code > code {
 
 /* .prose 클래스가 적용된 요소 내의 텍스트 줄바꿈 규칙 */
 .prose {
-  word-break: keep-all; /* 단어 단위 줄바꿈 */
   overflow-wrap: break-word; /* 긴 단어 줄바꿈 처리 */
+}
+
+/* 한글의 경우 단어 단위로 줄바꿈 */
+:lang(ko) .prose {
+  word-break: keep-all;
 }
 
 /* #sentinel.all-loaded 요소의 상단 마진 */
