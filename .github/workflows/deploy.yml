@@ -1,70 +1,92 @@
+# GitHub Actions 워크플로의 이름을 정의합니다.
 name: GitHub Pages
 
+# 워크플로가 실행될 조건을 정의합니다.
 on:
+  # 'main' 브랜치에 코드를 푸시할 때마다 워크플로를 실행합니다.
   push:
     branches:
       - main
+  # GitHub UI에서 수동으로 워크플로를 실행할 수 있도록 허용합니다.
   workflow_dispatch:
 
+# 워크플로가 작업(job)을 수행하는 데 필요한 권한을 정의합니다.
 permissions:
+  # 리포지토리 콘텐츠를 읽기만 할 수 있는 권한을 부여합니다.
   contents: read
+  # GitHub Pages에 배포할 수 있는 권한을 부여합니다.
   pages: write
+  # OIDC(OpenID Connect) 토큰을 생성할 수 있는 권한을 부여합니다.
   id-token: write
 
+# 워크플로를 구성하는 여러 작업(job)들을 정의합니다.
 jobs:
+  # 'build' 작업: Astro 사이트를 빌드하는 역할을 수행합니다.
   build:
+    # 이 작업이 실행될 환경을 정의합니다.
     runs-on: ubuntu-latest
+    # 이 작업에 포함될 단계(step)들을 정의합니다.
     steps:
+      # 1. 리포지토리 체크아웃
       - name: Checkout your repository
         uses: actions/checkout@v4
 
-      # 1. Bun 설치
+      # 2. Bun 설치
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
 
-      # 2. Bun 의존성 캐시 설정
+      # 3. Bun 의존성 캐시 설정
       - name: Cache Bun dependencies
         id: bun-cache
         uses: actions/cache@v4
         with:
-          # Bun 캐시 디렉토리 경로
+          # 캐시할 파일의 경로를 정의합니다.
           path: ~/.bun/install/cache
-          # 캐시 키: lockfile 내용이 바뀔 때마다 새로운 캐시를 생성
+          # 캐시를 식별하는 키를 정의합니다.
+          # 운영 체제, 패키지 관리자 이름, lockfile의 해시 값을 사용해 의존성이 변경될 때만 새로운 캐시를 생성합니다.
           key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+          # 캐시가 존재하지 않을 경우, 어떤 키를 사용하여 복원할지 정의합니다.
           restore-keys: |
             ${{ runner.os }}-bun-
 
-      # 3. 의존성 설치
+      # 4. 의존성 설치
       - name: Install dependencies
         run: bun install
 
-      # 3.1. 의존성 취약점 감사
+      # 5. 의존성 취약점 감사
       - name: Audit dependencies
         run: bun audit --summary --fail-on-warnings
 
-      # 4. Astro 사이트 빌드
+      # 6. Astro 사이트 빌드
       - name: Build with Astro
-        # GA4 측정 ID를 환경 변수로 전달
+        # 빌드 과정에서 필요한 환경 변수를 설정합니다.
+        # GitHub Secrets에 저장된 GA4 측정 ID를 환경 변수로 전달합니다.
         env:
           PUBLIC_GA_TRACKING_ID: ${{ secrets.PUBLIC_GA_TRACKING_ID }}
         run: bun run build
 
-      # 5. 빌드 결과물 업로드
+      # 7. 빌드 결과물 업로드
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Astro의 기본 빌드 출력 폴더
+          # 업로드할 빌드 결과물 디렉토리 경로를 정의합니다.
           path: ./dist
 
+  # 'deploy' 작업: 빌드된 사이트를 GitHub Pages에 배포하는 역할을 수행합니다.
   deploy:
+    # 'build' 작업이 성공적으로 완료된 후에만 이 작업을 실행하도록 의존성을 설정합니다.
     needs: build
+    # 이 작업이 실행될 환경을 정의합니다.
     runs-on: ubuntu-latest
+    # 배포할 환경의 이름과 URL을 정의합니다.
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    # 이 작업에 포함될 단계(step)들을 정의합니다.
     steps:
+      # 1. GitHub Pages에 배포
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

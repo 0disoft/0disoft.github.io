@@ -70,7 +70,7 @@ export default defineConfig({
       // 라이트 모드 색상 팔레트
       primary: '#1a1a1a',
       secondary: '#666',
-      accent: '#00539F',
+      accent: '#0077b6',
       background: '#ffffff',
       headerBackground: '#f8f8f8',
       border: '#eee',
@@ -79,7 +79,7 @@ export default defineConfig({
       // 다크 모드 색상 팔레트 (dark- 접두사 사용)
       'dark-primary': '#f4f3ee',
       'dark-secondary': '#faedcd',
-      'dark-accent': '#fee440',
+      'dark-accent': '#ffe6a7',
       'dark-background': '#a98467',
       'dark-headerBackground': '#6c584c',
       'dark-border': '#74546A',
