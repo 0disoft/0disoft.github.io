@@ -1,10 +1,23 @@
 ---
 // src/pages/projects.astro
+//
+// @file 프로젝트 목록 페이지
+// @description Astro 콘텐츠 컬렉션에서 모든 프로젝트 데이터를 가져와 목록으로 표시하는 페이지입니다.
+//              BaseLayout을 사용하여 일관된 페이지 구조를 유지합니다.
+// @version 1.0.0
+
+// ProjectCard 컴포넌트를 가져와 개별 프로젝트를 렌더링하는 데 사용합니다.
 import ProjectCard from "@/components/ProjectCard.astro";
+// 기본 레이아웃 컴포넌트를 가져와 페이지의 전체적인 구조를 정의합니다.
 import BaseLayout from "@/layouts/BaseLayout.astro";
+// Astro 콘텐츠 컬렉션에서 데이터를 가져오는 API를 가져옵니다.
 import { getCollection } from "astro:content";
 
+// 비동기 함수 getCollection을 사용하여 'projects' 컬렉션의 모든 데이터를 가져옵니다.
 const allProjects = await getCollection("projects");
+
+// 페이지의 제목과 설명을 정의합니다.
+// BaseLayout 컴포넌트에 props로 전달되어 SEO 메타 태그를 생성하는 데 사용됩니다.
 const pageTitle = "Projects";
 const pageDescription =
   "Explore ZeroDi's portfolio of indie development projects.";

@@ -1,5 +1,21 @@
 ---
+// src/pages/blog/index.astro
+//
+// @file 블로그 인덱스 리디렉션 페이지
+// @description 루트 블로그 페이지(/blog)로 접근했을 때,
+//              페이지네이션된 첫 번째 페이지(/blog/1)로 리디렉션하는 파일입니다.
+//              이는 사용자가 항상 유효한 경로로 시작하도록 보장합니다.
+// @version 1.0.0
+
+/**
+ * @function GET
+ * @description HTTP GET 요청을 처리하는 함수.
+ * Astro의 내장 리디렉션 기능을 사용하여 /blog 요청을 /blog/1로 보냅니다.
+ * @returns {Response} Astro.redirect 함수가 반환하는 응답 객체.
+ */
 export function GET() {
-  return Astro.redirect('/blog/1');
+  // Astro.redirect 함수를 사용하여 /blog 경로로 들어오는 모든 요청을
+  // 페이지네이션된 첫 번째 페이지인 /blog/1로 302 리디렉션합니다.
+  return Astro.redirect("/blog/1");
 }
 ---

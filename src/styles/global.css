@@ -1,26 +1,31 @@
 /* src/styles/global.css */
-
 /*
-  이 파일은 프로젝트의 전역 CSS 스타일을 정의합니다.
-  UnoCSS의 @apply 지시어를 사용하여 유틸리티 클래스를 적용하고,
-  필요에 따라 직접 CSS 속성을 정의합니다.
+  @file 전역 스타일시트
+  @description UnoCSS와 일반 CSS를 혼합하여 프로젝트의 전역 스타일을 정의합니다.
+               폰트, 색상, 레이아웃, 타이포그래피 등의 기본 스타일을 설정합니다.
+  @version 1.0.0
 */
 
-/* body 요소에 기본 폰트, 배경색, 텍스트 색상 및 폰트 크기를 적용합니다. */
+/*
+ * @section 기본 요소 스타일
+ * @description 웹페이지의 기본 요소(body, a, h1-h6, p)에 대한 전역 스타일을 정의합니다.
+ */
+
+/* <body> 요소: 기본 배경색, 텍스트 색상, 폰트 및 폰트 크기 설정을 적용합니다.
+   --font-size-multiplier 변수를 사용하여 폰트 크기 조절 기능을 지원합니다. */
 body {
   @apply font-sans bg-background dark:bg-dark-background dark:text-dark-primary;
-  font-size: calc(
-    1rem * var(--font-size-multiplier, 1)
-  ); /* 폰트 크기 조절 변수 적용 */
-  overflow-wrap: break-word; /* 긴 단어 줄바꿈 처리 */
+  font-size: calc(1rem * var(--font-size-multiplier, 1));
+  overflow-wrap: break-word;
+  /* 긴 단어의 줄바꿈 처리를 보장합니다. */
 }
 
-/* 링크(a 태그)의 기본 스타일을 정의합니다. */
+/* <a> 태그: 링크의 색상, 밑줄, 전환 효과를 설정합니다. */
 a {
   @apply text-primary dark:text-dark-primary no-underline transition-colors duration-200;
 }
 
-/* 제목(h1-h6)의 기본 스타일을 정의합니다. */
+/* <h1>-<h6> 태그: 제목의 폰트, 줄 간격 및 색상을 정의합니다. */
 h1,
 h2,
 h3,
@@ -45,51 +50,70 @@ h3 {
   line-height: 2rem;
 }
 
-/* 단락(p 태그)의 스타일을 정의합니다. */
+/* <p> 태그: 단락의 줄 간격, 하단 여백 및 텍스트 색상을 설정합니다. */
 p {
   @apply leading-relaxed mb-[1.2em] text-secondary dark:text-dark-secondary;
 }
 
-/* 코드 블록과 인라인 코드에 폰트 적용 */
+/*
+ * @section 코드 블록 스타일
+ * @description 인라인 코드와 코드 블록(pre)에 대한 스타일을 정의합니다.
+ */
+
+/* <code> 태그: 인라인 및 블록 코드에 대한 폰트를 설정합니다. */
 code {
   @apply font-mono;
 }
 
-/* 인라인 코드 스타일 */
+/* 인라인 코드: <pre> 태그 내부에 없는 <code> 요소에 대한 스타일.
+   배경색, 텍스트 색상, 패딩, 테두리 반경을 적용합니다. */
 :not(pre) > code {
   @apply bg-elementHoverBg dark:bg-dark-elementHoverBg text-primary dark:text-dark-primary py-1 px-2 rounded;
 }
 
-/* 코드 블록 내부 코드 스타일 */
+/* 코드 블록 내부의 <code> 요소:
+   부모인 <pre> 태그의 스타일을 상속받도록 설정하여 중복 스타일을 방지합니다. */
 pre > code {
   @apply bg-transparent p-0;
 }
 
-/* 모든 코드 블록의 기본 스타일 */
+/* 모든 코드 블록(pre.astro-code)의 기본 컨테이너 스타일.
+   패딩, 스크롤바, 테두리, 배경색 등을 설정합니다. */
 pre.astro-code {
   @apply p-4 overflow-x-auto rounded-lg bg-elementHoverBg dark:bg-dark-elementHoverBg border border-border dark:border-dark-border;
   @apply leading-snug;
   box-sizing: border-box;
   --astro-code-tab-size: 2;
+  /* 탭 크기 CSS 변수 설정 */
 }
 
-/* 코드 블록 내부의 텍스트(code)에 대한 스타일을 여기에 직접 지정합니다. */
+/* 코드 블록 내의 실제 코드 텍스트 스타일.
+   폰트 패밀리와 크기를 재정의하여 가독성을 높입니다. */
 pre.astro-code > code {
-  @apply font-mono; /* font-family와 줄 간격 설정 */
-  font-size: 0.85em; /* 원하는 폰트 크기로 조정! */
+  @apply font-mono;
+  font-size: 0.85em;
 }
 
-/* .prose 클래스가 적용된 요소 내의 텍스트 줄바꿈 규칙 */
+/*
+ * @section 추가 유틸리티 및 특수 스타일
+ * @description .prose 클래스, 다국어 지원, 기타 유틸리티 클래스에 대한 스타일을 정의합니다.
+ */
+
+/* .prose 클래스: 마크다운 콘텐츠에 대한 줄바꿈 처리를 보장합니다. */
 .prose {
-  overflow-wrap: break-word; /* 긴 단어 줄바꿈 처리 */
+  overflow-wrap: break-word;
 }
 
-/* 한글의 경우 단어 단위로 줄바꿈 */
+/* :lang(ko) 선택자: 한국어 콘텐츠에 대한 줄바꿈 규칙.
+   단어 단위 줄바꿈을 유지하여 가독성을 향상시킵니다.
+   @why: 한글은 띄어쓰기 단위로 줄바꿈하는 것이 자연스럽습니다. */
 :lang(ko) .prose {
   word-break: keep-all;
 }
 
-/* #sentinel.all-loaded 요소의 상단 마진 */
+/* #sentinel.all-loaded:
+   모든 페이지 로딩이 완료된 후 적용될 스타일. 현재는 상단 여백을 추가합니다.
+   @why: 페이지 로딩 상태를 기반으로 동적인 레이아웃 조정을 위해 사용됩니다. */
 #sentinel.all-loaded {
   margin-top: 2rem;
 }

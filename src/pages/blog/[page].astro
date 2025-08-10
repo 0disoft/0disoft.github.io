@@ -1,10 +1,25 @@
 ---
+// src/pages/blog/[page].astro
+//
+// @file 블로그 페이지네이션 페이지
+// @description 모든 블로그 포스트를 페이지네이션하여 목록으로 표시하는 동적 라우팅 페이지입니다.
+// @version 1.0.0
+
+// 컴포넌트, 상수, 레이아웃, 유틸리티를 가져옵니다.
 import BlogPostPreview from "@/components/BlogPostPreview.astro";
 import Pagination from "@/components/Pagination.astro";
 import { SITE } from "@/consts.ts";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getSortedBlogPosts } from "@/utils/blog";
 
+/**
+ * @function getStaticPaths
+ * @description Astro의 정적 사이트 생성(SSG)을 위해 페이지 경로를 동적으로 생성합니다.
+ * 모든 블로그 포스트를 가져와 `SITE.POSTS_PER_PAGE` 설정에 따라 페이지네이션합니다.
+ * @param {object} param0 - Astro의 getStaticPaths 함수 파라미터.
+ * @param {function} param0.paginate - 페이지네이션 도우미 함수.
+ * @returns {Promise<object[]>} 페이지네이션된 경로 객체들의 배열.
+ */
 export async function getStaticPaths({ paginate }: { paginate: any }) {
   const allPosts = await getSortedBlogPosts();
   return paginate(allPosts, {
@@ -12,14 +27,23 @@ export async function getStaticPaths({ paginate }: { paginate: any }) {
   });
 }
 
+// Astro의 페이지네이션 타입과 콘텐츠 컬렉션 타입을 가져옵니다.
 import type { Page } from "astro";
 import type { CollectionEntry } from "astro:content";
 
+/**
+ * @interface Props
+ * @description 페이지 컴포넌트의 props 인터페이스.
+ * @property {Page<CollectionEntry<"blog">>} page - Astro가 생성한 페이지네이션 객체.
+ * 현재 페이지의 데이터, URL, 번호 등을 포함합니다.
+ */
 interface Props {
   page: Page<CollectionEntry<"blog">>;
 }
 
+// 부모 컴포넌트로부터 전달받은 페이지네이션 객체를 구조 분해 할당합니다.
 const { page } = Astro.props;
+// 페이지 제목을 정의합니다.
 const pageTitle = "Blog";
 ---
 
@@ -30,6 +54,7 @@ const pageTitle = "Blog";
 
   <ul id="post-container" class={`list-none p-0 m-0 ${SITE.BLOG_GRID_CLASSES}`}>
     {
+      // 현재 페이지의 포스트 데이터를 순회하며 BlogPostPreview 컴포넌트를 렌더링합니다.
       page.data.map((post) => (
         <li>
           <BlogPostPreview post={post} />

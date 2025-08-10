@@ -1,18 +1,37 @@
 ---
+// src/pages/blog/[slug].astro
+//
+// @file 블로그 포스트 상세 페이지
+// @description 개별 블로그 포스트의 상세 내용을 표시하는 동적 라우팅 페이지입니다.
+//              마크다운 콘텐츠를 렌더링하고, 포스트의 제목, 날짜 등을 표시합니다.
+// @version 1.0.0
+
+// 컴포넌트, 유틸리티 함수, 콘텐츠 컬렉션 API를 가져옵니다.
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { formatDate } from "@/utils/date";
 import { type CollectionEntry, getCollection } from "astro:content";
 
+/**
+ * @function getStaticPaths
+ * @description Astro의 정적 사이트 생성(SSG)을 위해 개별 포스트의 경로를 동적으로 생성합니다.
+ * 'blog' 콘텐츠 컬렉션의 모든 포스트를 가져와 각 포스트의 slug를 기반으로 경로를 만듭니다.
+ * @returns {Promise<object[]>} 각 포스트의 params와 props를 포함하는 경로 객체들의 배열.
+ */
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
+  // 포스트의 slug를 URL 파라미터로, 포스트 객체 전체를 props로 전달합니다.
   return posts.map((post) => ({
     params: { slug: post.slug },
     props: post,
   }));
 }
 
+// Astro의 콘텐츠 컬렉션 엔트리 타입을 정의합니다.
 type Props = CollectionEntry<"blog">;
+// props로 전달받은 포스트 데이터를 할당합니다.
 const post = Astro.props;
+// 마크다운 콘텐츠를 렌더링 가능한 컴포넌트로 변환합니다.
+// Content는 컴포넌트이므로 대문자로 시작합니다.
 const { Content } = await post.render();
 ---
 

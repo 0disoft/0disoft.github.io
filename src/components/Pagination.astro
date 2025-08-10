@@ -1,23 +1,39 @@
 ---
+// src/components/Pagination.astro
+//
+// @file Pagination 컴포넌트
+// @description 블로그 포스트 목록과 같은 페이지네이션 기능을 위한 내비게이션 컴포넌트입니다.
+//              이전 페이지, 현재 페이지 정보, 다음 페이지 링크를 표시합니다.
+// @version 1.0.0
+
+// Astro의 페이지네이션 타입을 가져옵니다.
 import type { Page } from "astro";
 
+/**
+ * @interface Props
+ * @description Pagination 컴포넌트의 props 인터페이스.
+ * @property {Page} page - Astro의 페이지네이션 객체.
+ * url, currentPage, lastPage 등의 정보를 포함합니다.
+ */
 interface Props {
   page: Page;
 }
 
+// 부모 컴포넌트로부터 전달받은 페이지네이션 객체를 구조 분해 할당합니다.
 const { page } = Astro.props;
 ---
 
 <div class="flex justify-center gap-4">
   {
+    // 이전 페이지 URL이 존재할 경우에만 '이전' 링크를 렌더링합니다.
     page.url.prev && (
       <a
         href={page.url.prev}
-        class="no-underline text-primary font-display font-400 py-3 px-4 rounded-lg text-center 
-               transition-all ease-in-out duration-200 
-               dark:text-dark-primary 
-               hover:(text-accent bg-elementHoverBg) 
-               dark:hover:(text-dark-accent bg-dark-elementHoverBg)"
+        class="no-underline text-primary font-display font-400 py-3 px-4 rounded-lg text-center
+                 transition-all ease-in-out duration-200
+                 dark:text-dark-primary
+                 hover:(text-accent bg-elementHoverBg)
+                 dark:hover:(text-dark-accent bg-dark-elementHoverBg)"
       >
         &laquo; Previous
       </a>
@@ -25,19 +41,20 @@ const { page } = Astro.props;
   }
   <div
     class="no-underline text-secondary font-display font-400 py-3 px-4 rounded-lg text-center
-           dark:text-dark-secondary"
+             dark:text-dark-secondary"
   >
     Page {page.currentPage} / {page.lastPage}
   </div>
   {
+    // 다음 페이지 URL이 존재할 경우에만 '다음' 링크를 렌더링합니다.
     page.url.next && (
       <a
         href={page.url.next}
-        class="no-underline text-primary font-display font-400 py-3 px-4 rounded-lg text-center 
-               transition-all ease-in-out duration-200 
-               dark:text-dark-primary 
-               hover:(text-accent bg-elementHoverBg) 
-               dark:hover:(text-dark-accent bg-dark-elementHoverBg)"
+        class="no-underline text-primary font-display font-400 py-3 px-4 rounded-lg text-center
+                 transition-all ease-in-out duration-200
+                 dark:text-dark-primary
+                 hover:(text-accent bg-elementHoverBg)
+                 dark:hover:(text-dark-accent bg-dark-elementHoverBg)"
       >
         Next &raquo;
       </a>

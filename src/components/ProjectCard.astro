@@ -1,12 +1,29 @@
 ---
 // src/components/ProjectCard.astro
+//
+// @file ProjectCard 컴포넌트
+// @description 개별 프로젝트의 미리보기를 표시하는 카드 컴포넌트입니다.
+//              프로젝트 이미지, 제목, 설명, 사용 기술 스택을 포함합니다.
+// @version 1.0.0
+
+// Astro 콘텐츠 컬렉션의 타입을 가져와 타입 안전성을 확보합니다.
+// 'projects' 컬렉션에 정의된 데이터 구조를 사용하도록 강제합니다.
 import type { CollectionEntry } from "astro:content";
+// Astro의 최적화된 이미지 컴포넌트를 가져옵니다.
+// 이미지 로딩 성능을 개선하고, 다양한 기기 해상도에 맞게 이미지를 제공합니다.
 import { Image } from "astro:assets";
 
+/**
+ * @interface Props
+ * @description ProjectCard 컴포넌트의 props 인터페이스.
+ * @property {CollectionEntry<"projects">} project - 표시할 프로젝트 객체.
+ * Astro 콘텐츠 컬렉션 'projects'의 엔트리 타입입니다.
+ */
 interface Props {
   project: CollectionEntry<"projects">;
 }
 
+// 부모 컴포넌트로부터 전달받은 project 객체를 구조 분해 할당합니다.
 const { project } = Astro.props;
 ---
 
@@ -17,6 +34,8 @@ const { project } = Astro.props;
   class="group block border-2 border-border rounded-2xl no-underline transition-all hover:(border-accent dark:border-dark-accent) overflow-hidden"
 >
   {
+    // 프로젝트 대표 이미지가 있는 경우에만 <Image> 컴포넌트를 렌더링합니다.
+    // Astro의 내장 Image 컴포넌트를 사용하여 성능 최적화를 적용합니다.
     project.data.heroImage && (
       <Image
         src={project.data.heroImage}

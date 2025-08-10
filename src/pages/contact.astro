@@ -1,8 +1,18 @@
 ---
 // src/pages/contact.astro
+//
+// @file 연락처 페이지
+// @description 협업, 아이디어 공유 등 연락을 위한 링크 목록을 제공하는 페이지입니다.
+//              BaseLayout을 사용하여 일관된 페이지 구조를 유지합니다.
+// @version 1.0.0
+
+// 연락처 링크 데이터를 가져옵니다.
 import { CONTACT_LINKS } from "@/consts";
+// 기본 레이아웃 컴포넌트를 가져옵니다.
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
+// 페이지의 제목과 설명을 정의합니다.
+// 이는 BaseLayout 컴포넌트에 props로 전달되어 SEO 메타 태그를 생성하는 데 사용됩니다.
 const pageTitle = "Contact";
 const pageDescription =
   "Get in touch with ZeroDi for collaborations, ideas, or just a chat.";

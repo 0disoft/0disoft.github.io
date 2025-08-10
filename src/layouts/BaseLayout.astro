@@ -1,5 +1,12 @@
 ---
 // src/layouts/BaseLayout.astro
+//
+// @file BaseLayout 컴포넌트
+// @description 모든 페이지에 적용되는 기본 레이아웃. HTML 뼈대, SEO,
+//              공통 헤더 및 전역 스타일을 관리합니다.
+// @version 1.0.0
+
+// 필수 컴포넌트 및 유틸리티를 가져옵니다.
 import Header from "@/components/Header.astro";
 import SEO from "@/components/SEO.astro";
 import { GA, SITE } from "@/consts";
@@ -7,18 +14,30 @@ import "@/styles/global.css";
 import "@unocss/reset/tailwind.css";
 import { ClientRouter } from "astro:transitions";
 
+/**
+ * @interface Props
+ * @description BaseLayout 컴포넌트의 props 인터페이스.
+ * @property {string} [title] - 페이지 제목. SEO 컴포넌트에 전달됩니다.
+ * @property {string} [description] - 페이지 설명. SEO 컴포넌트에 전달됩니다.
+ * @property {string} [lang] - HTML lang 속성. 기본값은 "en"입니다.
+ */
 interface Props {
   title?: string;
   description?: string;
   lang?: string;
 }
 
+// props의 기본값을 설정합니다.
+// TODO(seungmin): SITE.TITLE과 SITE.DESCRIPTION의 기본값 설정을
+//                `SEO` 컴포넌트로 이동하여 중복을 제거할 수 있습니다.
 const {
   title = SITE.TITLE,
   description = SITE.DESCRIPTION,
   lang = "en",
 } = Astro.props;
-// GA ID를 환경 변수에서 직접 가져옵니다.
+
+// Google Analytics(GA) 추적 ID를 환경 변수에서 가져옵니다.
+// Partytown 스크립트에서 사용됩니다.
 const GA_TRACKING_ID = import.meta.env.PUBLIC_GA_TRACKING_ID;
 ---
 
@@ -35,11 +54,16 @@ const GA_TRACKING_ID = import.meta.env.PUBLIC_GA_TRACKING_ID;
 
     <SEO title={title} description={description} />
 
-    <!-- Theme & Font Size Controller Script -->
     <script is:inline>
-      // Theme
+      // 페이지 로딩 시점에 테마(라이트/다크)를 결정하는 로직
+      // 1. localStorage에 저장된 테마가 있는지 확인
+      // 2. 없으면 prefers-color-scheme 미디어 쿼리를 사용
+      // 3. 최종적으로 "light"를 기본값으로 사용
       const theme = (() => {
-        if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+        if (
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme")
+        ) {
           return localStorage.getItem("theme");
         }
         if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
@@ -48,13 +72,15 @@ const GA_TRACKING_ID = import.meta.env.PUBLIC_GA_TRACKING_ID;
         return "light";
       })();
 
+      // 테마에 따라 <html> 요소에 'dark' 클래스를 추가/제거
       if (theme === "light") {
         document.documentElement.classList.remove("dark");
       } else {
         document.documentElement.classList.add("dark");
       }
 
-      // Font Size
+      // Font Size: localStorage에 저장된 폰트 크기 레벨을 적용하는 로직
+      // 폰트 크기 조절 기능의 일관성을 유지하기 위해 사용
       const FONT_LEVEL_KEY = "font-size-level";
       const FONT_LEVELS = 9;
       const DEFAULT_FONT_LEVEL = Math.ceil((FONT_LEVELS + 1) / 2);
@@ -64,11 +90,10 @@ const GA_TRACKING_ID = import.meta.env.PUBLIC_GA_TRACKING_ID;
         : DEFAULT_FONT_LEVEL;
       document.documentElement.style.setProperty(
         "--font-size-multiplier",
-        `calc(0.8 + 0.05 * ${level})`,
+        `calc(0.8 + 0.05 * ${level})`
       );
     </script>
 
-    <!-- Google Analytics with Partytown -->
     <script
       type="text/partytown"
       src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
@@ -81,7 +106,6 @@ const GA_TRACKING_ID = import.meta.env.PUBLIC_GA_TRACKING_ID;
       gtag("js", new Date());
       gtag("config", `{${GA_TRACKING_ID}}`);
     </script>
-    <!-- Google Analytics with Partytown 끝 -->
 
     <ClientRouter />
   </head>
@@ -92,15 +116,14 @@ const GA_TRACKING_ID = import.meta.env.PUBLIC_GA_TRACKING_ID;
         <slot />
       </main>
     </div>
+
     <script src="../scripts/theme-controller.ts"></script>
     <script src="../scripts/code-copy.ts"></script>
     <script src="../scripts/mobile-menu.ts"></script>
 
-    <!-- View Transitions 페이지 이동 시 GA 이벤트 다시 보내기 -->
     <script is:inline>
-      // 테마 및 폰트 크기 유지를 위한 스크립트
       document.addEventListener("astro:after-swap", () => {
-        // Theme
+        // Theme & Font Size 유지
         const theme = localStorage.getItem("theme");
         if (theme === "dark") {
           document.documentElement.classList.add("dark");
@@ -108,7 +131,6 @@ const GA_TRACKING_ID = import.meta.env.PUBLIC_GA_TRACKING_ID;
           document.documentElement.classList.remove("dark");
         }
 
-        // Font Size
         const FONT_LEVEL_KEY = "font-size-level";
         const FONT_LEVELS = 9;
         const DEFAULT_FONT_LEVEL = Math.ceil((FONT_LEVELS + 1) / 2);
@@ -118,12 +140,10 @@ const GA_TRACKING_ID = import.meta.env.PUBLIC_GA_TRACKING_ID;
           : DEFAULT_FONT_LEVEL;
         document.documentElement.style.setProperty(
           "--font-size-multiplier",
-          `calc(0.8 + 0.05 * ${level})`,
+          `calc(0.8 + 0.05 * ${level})`
         );
-      });
 
-      // GA 이벤트 전송
-      document.addEventListener("astro:after-swap", () => {
+        // GA 이벤트 전송
         if (typeof gtag === "function" && `{${GA_TRACKING_ID}}`) {
           gtag("config", `{${GA_TRACKING_ID}}`, {
             page_path: window.location.pathname,
