@@ -7,42 +7,27 @@
 // @version 1.0.0
 
 // 필수 컴포넌트 및 유틸리티를 가져옵니다.
+// src/layouts/BaseLayout.astro
 import Header from "@/components/Header.astro";
 import SEO from "@/components/SEO.astro";
-import { GA, SITE } from "@/consts";
+import { SITE } from "@/consts";
 import "@/styles/global.css";
 import "@unocss/reset/tailwind.css";
 import { ClientRouter } from "astro:transitions";
 
-/**
- * @interface Props
- * @description BaseLayout 컴포넌트의 props 인터페이스.
- * @property {string} [title] - 페이지 제목. SEO 컴포넌트에 전달됩니다.
- * @property {string} [description] - 페이지 설명. SEO 컴포넌트에 전달됩니다.
- * @property {string} [lang] - HTML lang 속성. 기본값은 "en"입니다.
- */
 interface Props {
   title?: string;
   description?: string;
-  lang?: string;
 }
 
-// props의 기본값을 설정합니다.
-// TODO(seungmin): SITE.TITLE과 SITE.DESCRIPTION의 기본값 설정을
-//                `SEO` 컴포넌트로 이동하여 중복을 제거할 수 있습니다.
-const {
-  title = SITE.TITLE,
-  description = SITE.DESCRIPTION,
-  lang = "en",
-} = Astro.props;
+const { title = SITE.TITLE, description = SITE.DESCRIPTION } = Astro.props;
 
-// Google Analytics(GA) 추적 ID를 환경 변수에서 가져옵니다.
-// Partytown 스크립트에서 사용됩니다.
-const GA_TRACKING_ID = import.meta.env.PUBLIC_GA_TRACKING_ID;
+// Google Analytics 추적 ID를 상수로 직접 정의합니다.
+const GTAG_ID = "G-JKJT327TYE";
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={Astro.currentLocale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -55,10 +40,7 @@ const GA_TRACKING_ID = import.meta.env.PUBLIC_GA_TRACKING_ID;
     <SEO title={title} description={description} />
 
     <script is:inline>
-      // 페이지 로딩 시점에 테마(라이트/다크)를 결정하는 로직
-      // 1. localStorage에 저장된 테마가 있는지 확인
-      // 2. 없으면 prefers-color-scheme 미디어 쿼리를 사용
-      // 3. 최종적으로 "light"를 기본값으로 사용
+      // 테마 및 폰트 크기 설정 스크립트 (기존과 동일)
       const theme = (() => {
         if (
           typeof localStorage !== "undefined" &&
@@ -71,16 +53,11 @@ const GA_TRACKING_ID = import.meta.env.PUBLIC_GA_TRACKING_ID;
         }
         return "light";
       })();
-
-      // 테마에 따라 <html> 요소에 'dark' 클래스를 추가/제거
       if (theme === "light") {
         document.documentElement.classList.remove("dark");
       } else {
         document.documentElement.classList.add("dark");
       }
-
-      // Font Size: localStorage에 저장된 폰트 크기 레벨을 적용하는 로직
-      // 폰트 크기 조절 기능의 일관성을 유지하기 위해 사용
       const FONT_LEVEL_KEY = "font-size-level";
       const FONT_LEVELS = 9;
       const DEFAULT_FONT_LEVEL = Math.ceil((FONT_LEVELS + 1) / 2);
@@ -94,18 +71,25 @@ const GA_TRACKING_ID = import.meta.env.PUBLIC_GA_TRACKING_ID;
       );
     </script>
 
-    <script
-      type="text/partytown"
-      src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
-    ></script>
-    <script type="text/partytown">
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", `{${GA_TRACKING_ID}}`);
-    </script>
+    {
+      GTAG_ID && (
+        <>
+          <script
+            async
+            type="text/partytown"
+            src={`https://www.googletagmanager.com/gtag/js?id=${GTAG_ID}`}
+          />
+          <script type="text/partytown">
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+              dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+            gtag("config", GTAG_ID);
+          </script>
+        </>
+      )
+    }
 
     <ClientRouter />
   </head>
@@ -117,9 +101,9 @@ const GA_TRACKING_ID = import.meta.env.PUBLIC_GA_TRACKING_ID;
       </main>
     </div>
 
-    <script src="../scripts/theme-controller.ts"></script>
-    <script src="../scripts/code-copy.ts"></script>
-    <script src="../scripts/mobile-menu.ts"></script>
+    <script src="@/scripts/theme-controller.ts"></script>
+    <script src="@/scripts/code-copy.ts"></script>
+    <script src="@/scripts/mobile-menu.ts"></script>
 
     <script is:inline>
       document.addEventListener("astro:after-swap", () => {
@@ -143,9 +127,9 @@ const GA_TRACKING_ID = import.meta.env.PUBLIC_GA_TRACKING_ID;
           `calc(0.8 + 0.05 * ${level})`
         );
 
-        // GA 이벤트 전송
-        if (typeof gtag === "function" && `{${GA_TRACKING_ID}}`) {
-          gtag("config", `{${GA_TRACKING_ID}}`, {
+        // GA 페이지뷰 이벤트 전송 (클라이언트 사이드 라우팅 시)
+        if (typeof gtag === "function" && GTAG_ID) {
+          gtag("config", GTAG_ID, {
             page_path: window.location.pathname,
           });
         }

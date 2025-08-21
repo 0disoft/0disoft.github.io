@@ -11,16 +11,16 @@
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/partytown": "^2.1.4",
-    "@astrojs/sitemap": "^3.4.2",
+    "@astrojs/sitemap": "^3.5.0",
     "@unocss/preset-wind4": "^66.4.2",
-    "astro": "^5.12.9",
+    "astro": "^5.13.2",
     "typescript": "^5.9.2"
   },
   "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad",
   "devDependencies": {
-    "@iconify-json/lucide": "^1.2.62",
-    "@iconify-json/simple-icons": "^1.2.47",
-    "@iconify-json/tabler": "^1.2.20",
+    "@iconify-json/lucide": "^1.2.63",
+    "@iconify-json/simple-icons": "^1.2.48",
+    "@iconify-json/tabler": "^1.2.22",
     "@unocss/astro": "^66.4.2",
     "@unocss/preset-wind3": "^66.4.2",
     "@unocss/reset": "^66.4.2",

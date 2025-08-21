@@ -7,28 +7,24 @@
 // @version 1.0.0
 
 // 기본 레이아웃 컴포넌트를 가져옵니다.
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import BaseLayout from '@/layouts/BaseLayout.astro';
 
-// 페이지의 제목과 설명을 정의합니다.
-// 이는 BaseLayout 컴포넌트에 props로 전달되어 SEO 메타 태그를 생성하는 데 사용됩니다.
-const pageTitle = "About Me";
-const pageDescription =
-  "Learn more about ZeroDi, an indie developer's journey, philosophy, and skills.";
+const pageTitle = 'About Me';
+const pageDescription = "Learn more about ZeroDi, an indie developer's journey, philosophy, and skills.";
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} lang="en">
+<BaseLayout title={pageTitle} description={pageDescription}>
   <article class="prose prose-lg max-w-none">
     <h2>Mission</h2>
     <p>
-      To create software that is easy to use even for those unfamiliar with
-      technology, eliminating the digital divide and providing enjoyable
-      experiences for all.
+      To create software that is easy to use even for those unfamiliar with technology, eliminating the digital divide
+      and providing enjoyable experiences for all.
     </p>
 
     <h2>Vision</h2>
     <p>
-      To redefine the standard of user experience as 'seamlessness' and lead a
-      future where this is taken for granted by everyone.
+      To redefine the standard of user experience as 'seamlessness' and lead a future where this is taken for granted by
+      everyone.
     </p>
   </article>
 </BaseLayout>

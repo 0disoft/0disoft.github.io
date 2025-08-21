@@ -45,7 +45,6 @@ jobs:
           # 캐시할 파일의 경로를 정의합니다.
           path: ~/.bun/install/cache
           # 캐시를 식별하는 키를 정의합니다.
-          # 운영 체제, 패키지 관리자 이름, lockfile의 해시 값을 사용해 의존성이 변경될 때만 새로운 캐시를 생성합니다.
           key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
           # 캐시가 존재하지 않을 경우, 어떤 키를 사용하여 복원할지 정의합니다.
           restore-keys: |
@@ -61,10 +60,7 @@ jobs:
 
       # 6. Astro 사이트 빌드
       - name: Build with Astro
-        # 빌드 과정에서 필요한 환경 변수를 설정합니다.
-        # GitHub Secrets에 저장된 GA4 측정 ID를 환경 변수로 전달합니다.
-        env:
-          PUBLIC_GA_TRACKING_ID: ${{ secrets.PUBLIC_GA_TRACKING_ID }}
+        # GTAG 주입을 위해 사용했던 env 블록을 여기에서 삭제했습니다.
         run: bun run build
 
       # 7. 빌드 결과물 업로드
