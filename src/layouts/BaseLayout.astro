@@ -8,12 +8,12 @@
 
 // 필수 컴포넌트 및 유틸리티를 가져옵니다.
 // src/layouts/BaseLayout.astro
-import Header from "@/components/Header.astro";
-import SEO from "@/components/SEO.astro";
-import { SITE } from "@/consts";
-import "@/styles/global.css";
-import "@unocss/reset/tailwind.css";
-import { ClientRouter } from "astro:transitions";
+import Header from '@/components/Header.astro';
+import SEO from '@/components/SEO.astro';
+import { SITE } from '@/consts';
+import '@/styles/global.css';
+import '@unocss/reset/tailwind.css';
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
   title?: string;
@@ -23,7 +23,7 @@ interface Props {
 const { title = SITE.TITLE, description = SITE.DESCRIPTION } = Astro.props;
 
 // Google Analytics 추적 ID를 상수로 직접 정의합니다.
-const GTAG_ID = "G-JKJT327TYE";
+const GTAG_ID = 'G-JKJT327TYE';
 ---
 
 <!doctype html>
@@ -40,56 +40,78 @@ const GTAG_ID = "G-JKJT327TYE";
     <SEO title={title} description={description} />
 
     <script is:inline>
-      // 테마 및 폰트 크기 설정 스크립트 (기존과 동일)
+      // 테마 설정
       const theme = (() => {
-        if (
-          typeof localStorage !== "undefined" &&
-          localStorage.getItem("theme")
-        ) {
-          return localStorage.getItem("theme");
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
         }
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-          return "dark";
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
         }
-        return "light";
+        return 'light';
       })();
-      if (theme === "light") {
-        document.documentElement.classList.remove("dark");
+
+      if (theme === 'light') {
+        document.documentElement.classList.remove('dark');
       } else {
-        document.documentElement.classList.add("dark");
+        document.documentElement.classList.add('dark');
       }
-      const FONT_LEVEL_KEY = "font-size-level";
+
+      // 폰트 크기 설정
+      const FONT_LEVEL_KEY = 'font-size-level';
       const FONT_LEVELS = 9;
       const DEFAULT_FONT_LEVEL = Math.ceil((FONT_LEVELS + 1) / 2);
       const savedLevelStr = localStorage.getItem(FONT_LEVEL_KEY);
-      const level = savedLevelStr
-        ? parseInt(savedLevelStr, 10)
-        : DEFAULT_FONT_LEVEL;
-      document.documentElement.style.setProperty(
-        "--font-size-multiplier",
-        `calc(0.8 + 0.05 * ${level})`
-      );
+      const level = savedLevelStr ? parseInt(savedLevelStr, 10) : DEFAULT_FONT_LEVEL;
+      document.documentElement.style.setProperty('--font-size-multiplier', 'calc(0.8 + 0.05 * ' + level + ')');
     </script>
 
+    <!-- Google Analytics -->
     {
       GTAG_ID && (
         <>
+          <script async src={`https://www.googletagmanager.com/gtag/js?id=${GTAG_ID}`} />
           <script
-            async
-            type="text/partytown"
-            src={`https://www.googletagmanager.com/gtag/js?id=${GTAG_ID}`}
+            set:html={`
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag("js", new Date());
+          gtag("config", "${GTAG_ID}");
+        `}
           />
-          <script type="text/partytown" define:vars={{ GTAG_ID }}>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-              dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-            gtag("config", GTAG_ID);
-          </script>
         </>
       )
     }
+
+    <!-- SPA 라우팅 시 테마/폰트 즉시 적용 및 GA 추적 -->
+    <script is:inline define:vars={{ GTAG_ID }}>
+      document.addEventListener('astro:after-swap', () => {
+        // 테마 즉시 적용 (FOUC 방지)
+        const theme = localStorage.getItem('theme');
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+
+        // 폰트 크기 즉시 적용
+        const FONT_LEVEL_KEY = 'font-size-level';
+        const FONT_LEVELS = 9;
+        const DEFAULT_FONT_LEVEL = Math.ceil((FONT_LEVELS + 1) / 2);
+        const savedLevelStr = localStorage.getItem(FONT_LEVEL_KEY);
+        const level = savedLevelStr ? parseInt(savedLevelStr, 10) : DEFAULT_FONT_LEVEL;
+        document.documentElement.style.setProperty('--font-size-multiplier', 'calc(0.8 + 0.05 * ' + level + ')');
+
+        // GA 페이지뷰 이벤트 전송
+        if (typeof window.gtag === 'function' && GTAG_ID) {
+          window.gtag('config', GTAG_ID, {
+            page_path: window.location.pathname,
+          });
+        }
+      });
+    </script>
 
     <ClientRouter />
   </head>
@@ -104,36 +126,5 @@ const GTAG_ID = "G-JKJT327TYE";
     <script src="@/scripts/theme-controller.ts"></script>
     <script src="@/scripts/code-copy.ts"></script>
     <script src="@/scripts/mobile-menu.ts"></script>
-
-    <script is:inline define:vars={{ GTAG_ID }}>
-      document.addEventListener("astro:after-swap", () => {
-        // Theme & Font Size 유지
-        const theme = localStorage.getItem("theme");
-        if (theme === "dark") {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-
-        const FONT_LEVEL_KEY = "font-size-level";
-        const FONT_LEVELS = 9;
-        const DEFAULT_FONT_LEVEL = Math.ceil((FONT_LEVELS + 1) / 2);
-        const savedLevelStr = localStorage.getItem(FONT_LEVEL_KEY);
-        const level = savedLevelStr
-          ? parseInt(savedLevelStr, 10)
-          : DEFAULT_FONT_LEVEL;
-        document.documentElement.style.setProperty(
-          "--font-size-multiplier",
-          `calc(0.8 + 0.05 * ${level})`
-        );
-
-        // GA 페이지뷰 이벤트 전송 (클라이언트 사이드 라우팅 시)
-        if (typeof gtag === "function" && GTAG_ID) {
-          gtag("config", GTAG_ID, {
-            page_path: window.location.pathname,
-          });
-        }
-      });
-    </script>
   </body>
 </html>

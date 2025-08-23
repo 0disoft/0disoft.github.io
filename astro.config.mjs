@@ -26,7 +26,7 @@ export default defineConfig({
       config: {
         // 'dataLayer.push' 함수를 메인 스레드에서 실행되도록 Partytown에 설정합니다.
         // 이는 Google Analytics 스크립트가 데이터 레이어를 통해 이벤트를 전송할 수 있도록 합니다.
-        forward: ['dataLayer.push'],
+        forward: ['dataLayer.push', 'gtag'],
       },
     }),
   ],
