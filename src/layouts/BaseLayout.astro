@@ -79,13 +79,13 @@ const GTAG_ID = "G-JKJT327TYE";
             type="text/partytown"
             src={`https://www.googletagmanager.com/gtag/js?id=${GTAG_ID}`}
           />
-          <script type="text/partytown">
+          <script type="text/partytown" define:vars={{ GTAG_ID }}>
             window.dataLayer = window.dataLayer || [];
             function gtag() {
               dataLayer.push(arguments);
             }
             gtag("js", new Date());
-            gtag("config", `{GTAG_ID}`);
+            gtag("config", GTAG_ID);
           </script>
         </>
       )
@@ -105,7 +105,7 @@ const GTAG_ID = "G-JKJT327TYE";
     <script src="@/scripts/code-copy.ts"></script>
     <script src="@/scripts/mobile-menu.ts"></script>
 
-    <script is:inline>
+    <script is:inline define:vars={{ GTAG_ID }}>
       document.addEventListener("astro:after-swap", () => {
         // Theme & Font Size 유지
         const theme = localStorage.getItem("theme");
@@ -128,8 +128,8 @@ const GTAG_ID = "G-JKJT327TYE";
         );
 
         // GA 페이지뷰 이벤트 전송 (클라이언트 사이드 라우팅 시)
-        if (typeof gtag === "function" && `{GTAG_ID}`) {
-          gtag("config", `{GTAG_ID}`, {
+        if (typeof gtag === "function" && GTAG_ID) {
+          gtag("config", GTAG_ID, {
             page_path: window.location.pathname,
           });
         }
