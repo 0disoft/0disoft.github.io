@@ -1,13 +1,11 @@
 ---
 // src/layouts/BaseLayout.astro
-//
 // @file BaseLayout 컴포넌트
 // @description 모든 페이지에 적용되는 기본 레이아웃. HTML 뼈대, SEO,
-//              공통 헤더 및 전역 스타일을 관리합니다.
+// 공통 헤더 및 전역 스타일을 관리합니다.
 // @version 1.0.0
 
 // 필수 컴포넌트 및 유틸리티를 가져옵니다.
-// src/layouts/BaseLayout.astro
 import Header from '@/components/Header.astro';
 import SEO from '@/components/SEO.astro';
 import { SITE } from '@/consts';
@@ -33,7 +31,6 @@ const GTAG_ID = 'G-JKJT327TYE';
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
@@ -67,54 +64,49 @@ const GTAG_ID = 'G-JKJT327TYE';
     </script>
 
     <!-- Google Analytics -->
-    {
-      GTAG_ID && (
-        <>
-          <script async src={`https://www.googletagmanager.com/gtag/js?id=${GTAG_ID}`} />
-          <script
-            set:html={`
-          window.dataLayer = window.dataLayer || [];
-          function gtag() {
-            dataLayer.push(arguments);
-          }
-          gtag("js", new Date());
-          gtag("config", "${GTAG_ID}");
-        `}
-          />
-        </>
-      )
-    }
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JKJT327TYE"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'G-JKJT327TYE');
+    </script>
 
     <!-- SPA 라우팅 시 테마/폰트 즉시 적용 및 GA 추적 -->
-    <script is:inline define:vars={{ GTAG_ID }}>
-      document.addEventListener('astro:after-swap', () => {
-        // 테마 즉시 적용 (FOUC 방지)
-        const theme = localStorage.getItem('theme');
-        if (theme === 'dark') {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
+    <script is:inline>
+      (function () {
+        document.addEventListener('astro:after-swap', () => {
+          // 테마 즉시 적용 (FOUC 방지)
+          const theme = localStorage.getItem('theme');
+          if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
 
-        // 폰트 크기 즉시 적용
-        const FONT_LEVEL_KEY = 'font-size-level';
-        const FONT_LEVELS = 9;
-        const DEFAULT_FONT_LEVEL = Math.ceil((FONT_LEVELS + 1) / 2);
-        const savedLevelStr = localStorage.getItem(FONT_LEVEL_KEY);
-        const level = savedLevelStr ? parseInt(savedLevelStr, 10) : DEFAULT_FONT_LEVEL;
-        document.documentElement.style.setProperty('--font-size-multiplier', 'calc(0.8 + 0.05 * ' + level + ')');
+          // 폰트 크기 즉시 적용
+          const FONT_LEVEL_KEY = 'font-size-level';
+          const FONT_LEVELS = 9;
+          const DEFAULT_FONT_LEVEL = Math.ceil((FONT_LEVELS + 1) / 2);
+          const savedLevelStr = localStorage.getItem(FONT_LEVEL_KEY);
+          const level = savedLevelStr ? parseInt(savedLevelStr, 10) : DEFAULT_FONT_LEVEL;
+          document.documentElement.style.setProperty('--font-size-multiplier', 'calc(0.8 + 0.05 * ' + level + ')');
 
-        // GA 페이지뷰 이벤트 전송
-        if (typeof window.gtag === 'function' && GTAG_ID) {
-          window.gtag('config', GTAG_ID, {
-            page_path: window.location.pathname,
-          });
-        }
-      });
+          // GA 페이지뷰 이벤트 전송
+          if (typeof window.gtag === 'function') {
+            window.gtag('config', 'G-JKJT327TYE', {
+              page_path: window.location.pathname,
+            });
+          }
+        });
+      })();
     </script>
 
     <ClientRouter />
   </head>
+
   <body>
     <div class="flex flex-col lg:flex-row">
       <Header />
