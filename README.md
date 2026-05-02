@@ -1,42 +1,16 @@
-# sv
+# 0disoft.github.io
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+## License
 
-## Creating a project
+This repository is licensed under the BSD Zero Clause License (0BSD).
 
-If you're seeing this, you've probably already done this step. Congrats!
+Unless otherwise noted, the 0BSD license applies only to original materials
+created for this repository by 0disoft, including code, documentation, profile
+text, website copy, configuration files, website content, UI design,
+project-specific artwork, images, and logo-like assets.
 
-```sh
-# create a new project
-npx sv create my-app
-```
+No attribution is required for those original materials.
 
-To recreate this project with the same configuration:
-
-```sh
-# recreate this project
-bun x sv@0.15.2 create --template minimal --types ts --install bun .
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+Third-party dependencies, frameworks, packages, fonts, icons, templates, and
+external assets are not relicensed by this repository. They remain under their
+own respective licenses.

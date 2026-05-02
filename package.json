@@ -2,6 +2,7 @@
   "name": "0disoft.github.io",
   "version": "0.0.1",
   "private": true,
+  "license": "0BSD",
   "type": "module",
   "scripts": {
     "dev": "vite dev",
