@@ -1,0 +1,44 @@
+# Prek configuration for the 0disoft.github.io repository.
+# Docs: https://prek.j178.dev/configuration/
+
+exclude = "^(build/|\\.svelte-kit/|node_modules/|src/lib/paraglide/|project.inlang/cache/)"
+
+[[repos]]
+repo = "local"
+
+[[repos.hooks]]
+id = "oxfmt"
+name = "oxfmt"
+entry = "bunx oxfmt --write --no-error-on-unmatched-pattern"
+language = "system"
+files = "\\.(js|ts|jsx|tsx|mjs|mts|cjs|cts|json|jsonc|json5|yml|yaml|toml|css|scss|less|md|mdx|html|vue|graphql|gql|hbs|handlebars)$"
+
+[[repos.hooks]]
+id = "oxlint"
+name = "oxlint"
+entry = "bunx oxlint"
+language = "system"
+files = "\\.(js|ts|jsx|tsx|mjs|mts|cjs|cts|svelte)$"
+
+[[repos.hooks]]
+id = "unit-tests"
+name = "unit tests"
+entry = "bun test"
+language = "system"
+pass_filenames = false
+
+[[repos.hooks]]
+id = "svelte-check"
+name = "svelte check"
+entry = "bun run check"
+language = "system"
+pass_filenames = false
+stages = ["pre-push"]
+
+[[repos.hooks]]
+id = "production-build"
+name = "production build"
+entry = "bun run build"
+language = "system"
+pass_filenames = false
+stages = ["pre-push"]
