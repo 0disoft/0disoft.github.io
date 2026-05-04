@@ -6,7 +6,54 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <meta name="color-scheme" content="light dark" />
+
     <meta name="text-scale" content="scale" />
+    <script>
+      (() => {
+        const locales = ["en", "zh", "es", "fr", "hi", "ko"];
+        const baseLocale = "en";
+        const storageKey = "0disoft:locale";
+        const cookieName = "ODISOFT_LOCALE";
+        const toLocale = (value) => {
+          if (typeof value !== "string") return null;
+          const normalized = value.toLowerCase();
+          const language = normalized.split("-")[0];
+          if (locales.includes(normalized)) return normalized;
+          if (locales.includes(language)) return language;
+          return null;
+        };
+        const firstPathSegment = window.location.pathname.replace(/^\/+/, "").split("/")[0];
+        if (toLocale(firstPathSegment)) return;
+
+        let storedLocale = null;
+        try {
+          storedLocale = toLocale(window.localStorage.getItem(storageKey));
+        } catch {}
+
+        const cookiePrefix = cookieName + "=";
+        const cookieLocale = toLocale(
+          (
+            document.cookie
+              .split(";")
+              .map((cookie) => cookie.trim())
+              .find((cookie) => cookie.startsWith(cookiePrefix)) || ""
+          ).slice(cookiePrefix.length),
+        );
+        const browserLocales =
+          navigator.languages && navigator.languages.length > 0
+            ? navigator.languages
+            : [navigator.language];
+        const browserLocale = browserLocales.map(toLocale).find(Boolean);
+        const locale = storedLocale || cookieLocale || browserLocale || baseLocale;
+
+        if (locale === baseLocale) return;
+
+        const pathname = window.location.pathname;
+        const nextPathname = pathname === "/" ? "/" + locale + "/" : "/" + locale + pathname;
+        window.location.replace(nextPathname + window.location.search + window.location.hash);
+      })();
+    </script>
     %sveltekit.head%
   </head>
 
