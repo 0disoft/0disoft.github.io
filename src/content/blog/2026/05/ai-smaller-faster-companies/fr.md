@@ -1,6 +1,6 @@
 ---
 {
-  "title": "L'IA ne va pas supprimer les entreprises. Elle les rendra plus petites et plus rapides",
+  "title": "L'IA rend les entreprises plus petites et plus rapides",
   "summary": "L'essor des entreprises unipersonnelles et les choix d'organisation que les entreprises existantes doivent faire à l'ère de l'IA.",
   "searchTags": [
     "IA",

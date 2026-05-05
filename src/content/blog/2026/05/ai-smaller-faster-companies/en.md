@@ -1,6 +1,6 @@
 ---
 {
-  "title": "AI Won't Kill Companies. It Will Make Them Smaller and Faster",
+  "title": "AI Is Making Companies Smaller and Faster",
   "summary": "The rise of one-person companies and the organizational choices incumbents need to make in the AI era.",
   "searchTags": [
     "AI",

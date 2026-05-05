@@ -87,7 +87,7 @@ describe("blog list", () => {
 			),
 		).toMatchObject({
 			locale: "es",
-			title: "La IA no va a eliminar las empresas. Las hará más pequeñas y rápidas",
+			title: "La IA vuelve a las empresas más pequeñas y rápidas",
 			heroImage: {
 				src: "/images/blog/2026/05/ai-smaller-faster-companies/thumbnail.webp",
 				alt: "Persona trabajando frente a varias pantallas de software en una oficina",
@@ -102,8 +102,7 @@ describe("blog list", () => {
 			),
 		).toMatchObject({
 			locale: "fr",
-			title:
-				"L'IA ne va pas supprimer les entreprises. Elle les rendra plus petites et plus rapides",
+			title: "L'IA rend les entreprises plus petites et plus rapides",
 			heroImage: {
 				src: "/images/blog/2026/05/ai-smaller-faster-companies/thumbnail.webp",
 				alt: "Personne travaillant devant plusieurs écrans de logiciel dans un bureau",
@@ -118,7 +117,7 @@ describe("blog list", () => {
 			),
 		).toMatchObject({
 			locale: "hi",
-			title: "AI कंपनियों को खत्म नहीं करेगा। यह उन्हें छोटा और तेज बनाएगा",
+			title: "AI कंपनियों को छोटा और तेज बना रहा है",
 			heroImage: {
 				src: "/images/blog/2026/05/ai-smaller-faster-companies/thumbnail.webp",
 				alt: "कार्यालय में कई सॉफ्टवेयर स्क्रीन पर काम करता व्यक्ति",
@@ -133,7 +132,7 @@ describe("blog list", () => {
 			),
 		).toMatchObject({
 			locale: "zh",
-			title: "AI 不会消灭公司。它会让公司变得更小、更快",
+			title: "AI 正在让公司变得更小、更快",
 			heroImage: {
 				src: "/images/blog/2026/05/ai-smaller-faster-companies/thumbnail.webp",
 				alt: "办公室里的人正在多个软件屏幕前工作",

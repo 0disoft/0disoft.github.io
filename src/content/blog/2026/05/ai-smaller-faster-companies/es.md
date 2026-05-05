@@ -1,6 +1,6 @@
 ---
 {
-  "title": "La IA no va a eliminar las empresas. Las hará más pequeñas y rápidas",
+  "title": "La IA vuelve a las empresas más pequeñas y rápidas",
   "summary": "El ascenso de las empresas unipersonales y las decisiones organizativas que las compañías existentes deben tomar en la era de la IA.",
   "searchTags": [
     "IA",
