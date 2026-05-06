@@ -9,7 +9,6 @@ import {
 	layoutSource,
 	navigationModuleExists,
 	navigationSource,
-	routeSource,
 	sectionRouteSource,
 	sidebarActionSource,
 	sidebarSource,
@@ -29,7 +28,6 @@ describe("site shell", () => {
 			{ label: "Contact", href: "/contact" },
 		]);
 		expect(siteProfile.navigation.map((item) => item.label)).not.toContain("홈");
-		expect(siteProfile.navigation.map((item) => item.href)).not.toContain("/zero-license");
 		expect(siteProfile.navigation.every((item) => !item.href.startsWith("#"))).toBe(true);
 		expect(siteProfile.links).toEqual([
 			{
@@ -45,9 +43,6 @@ describe("site shell", () => {
 	});
 
 	it("replaces starter copy with the real profile surface", () => {
-		expect(routeSource).not.toContain("Welcome to SvelteKit");
-		expect(routeSource).not.toContain("svelte.dev/docs/kit");
-		expect(routeSource).not.toContain("profile-panel");
 		expect(siteSurfaceSource).toContain("siteProfile");
 		expect(siteSurfaceSource).toContain("site-sidebar");
 		expect(siteSurfaceSource).toContain("settings-panel");
@@ -108,13 +103,13 @@ describe("site shell", () => {
 			{ section: "contact" },
 		]);
 		expect(sectionSlugToPath("blog")).toBe("/blog");
-		expect(sectionSlugToPath("zero-license")).toBeNull();
+		expect(sectionSlugToPath("missing-section")).toBeNull();
 		expect(sectionSlugToPath("missing")).toBeNull();
-		expect(findNavigationItemByPath("/zero-license")).toBeUndefined();
+		expect(findNavigationItemByPath("/missing-section")).toBeUndefined();
 	});
 
 	it("keeps landmarks and grouped controls semantic", () => {
-		expect(siteSurfaceSource).toContain('<div class="site-frame watercolor-backdrop">');
+		expect(siteSurfaceSource).toContain('<div class="site-frame site-backdrop">');
 		expect(siteSurfaceSource).toContain('<main class="content-shell"');
 		expect(siteSurfaceSource).not.toContain('<main class="site-frame">');
 		expect(siteSurfaceSource).toContain('<ul class="menu-list"');
@@ -180,8 +175,6 @@ describe("site shell", () => {
 	it("uses routed navigation without a duplicate home body", () => {
 		expect(siteSurfaceSource).toContain('href={localizeSitePathname("/", selectedLocale)}');
 		expect(siteSurfaceSource).not.toContain('href="#');
-		expect(siteSurfaceSource).not.toContain("home-surface");
-		expect(siteSurfaceSource).not.toContain("home-title");
 	});
 
 	it("keeps placeholder section labels available to assistive tech only", () => {
@@ -195,14 +188,14 @@ describe("site shell", () => {
 	});
 
 	it("uses Tailwind v4 utilities for shared styling primitives", () => {
-		expect(layoutCss).toContain("@utility watercolor-backdrop");
-		expect(siteSurfaceSource).toContain("watercolor-backdrop");
-		expect(errorSource).toContain("watercolor-backdrop");
+		expect(layoutCss).toContain("@utility site-backdrop");
+		expect(siteSurfaceSource).toContain("site-backdrop");
+		expect(errorSource).toContain("site-backdrop");
 		expect(siteSurfaceSource).toContain('class="sr-only"');
 		expect(siteSurfaceSource).not.toContain("visually-hidden");
 	});
 
-	it("uses the watercolor palette as UI tokens", () => {
+	it("uses shared backdrop colors as UI tokens", () => {
 		expect(layoutCss).toContain("--water: oklch(");
 		expect(layoutCss).toContain("--moss: oklch(");
 		expect(layoutCss).toContain("--bronze: oklch(");

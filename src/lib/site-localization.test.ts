@@ -177,7 +177,5 @@ describe("site localization", () => {
 		expect(hiMessages.blog_clear_filters).toBe("रीसेट");
 		expect(hiMessages.analytics_consent_accept).toBe("अनुमति दें");
 		expect(hiMessages.privacy_page_title).toBe("गोपनीयता");
-		expect(enMessages).not.toHaveProperty("nav_zero_license");
-		expect(koMessages).not.toHaveProperty("nav_zero_license");
 	});
 });

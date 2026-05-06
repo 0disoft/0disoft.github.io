@@ -6,6 +6,10 @@
 	import { siReddit, siWhatsapp, siX, type SimpleIcon } from "simple-icons";
 	import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
+	import {
+		buildBlogPostingStructuredData,
+		createStructuredDataScriptMarkup,
+	} from "$lib/blog-post-seo";
 	import { buildBlogShareLinks, type BlogSharePlatform } from "$lib/blog-share";
 	import {
 		BLOG_POST_TOC_SHORTCUT_LIMIT,
@@ -53,6 +57,17 @@
 	const selectedLocale = $derived(isSiteLocale(currentLocale) ? currentLocale : "en");
 	const sharePath = $derived(post ? localizeSitePathname(`/blog/${post.slug}`, selectedLocale) : "");
 	const shareUrl = $derived(sharePath ? new URL(sharePath, siteProfile.origin).toString() : "");
+	const blogPostingStructuredDataMarkup = $derived(
+		post && shareUrl
+			? createStructuredDataScriptMarkup(
+					buildBlogPostingStructuredData({
+						post,
+						canonicalUrl: shareUrl,
+						siteProfile,
+					}),
+				)
+			: "",
+	);
 	const sharePayload = $derived(
 		post && shareUrl
 			? {
@@ -383,6 +398,9 @@
 
 <svelte:head>
 	<title>{post ? `${post.title} · ${siteProfile.name}` : siteProfile.name}</title>
+	{#if blogPostingStructuredDataMarkup}
+		{@html blogPostingStructuredDataMarkup}
+	{/if}
 </svelte:head>
 
 {#if post}
@@ -393,9 +411,30 @@
 		</a>
 
 		<header class="post-header">
-			<p class="post-date">
-				<time datetime={post.publishedAt}>{post.publishedAt}</time>
-			</p>
+			<dl class="post-meta">
+				<div>
+					<dt>{m.blog_post_author_label({}, { locale: displayLocale })}</dt>
+					<dd>
+						<a href={siteProfile.author.url} target="_blank" rel="noopener noreferrer">
+							{siteProfile.author.name}
+						</a>
+					</dd>
+				</div>
+				<div>
+					<dt>{m.blog_post_published_label({}, { locale: displayLocale })}</dt>
+					<dd>
+						<time datetime={post.publishedAt}>{post.publishedAt}</time>
+					</dd>
+				</div>
+				{#if post.updatedAt && post.updatedAt !== post.publishedAt}
+					<div>
+						<dt>{m.blog_post_updated_label({}, { locale: displayLocale })}</dt>
+						<dd>
+							<time datetime={post.updatedAt}>{post.updatedAt}</time>
+						</dd>
+					</div>
+				{/if}
+			</dl>
 			<h1 id="section-title">{post.title}</h1>
 			<p>{post.summary}</p>
 			<ul aria-label={m.blog_post_tags_label({}, { locale: displayLocale })}>
@@ -589,11 +628,42 @@
 		text-shadow: 0 0.07em 0 var(--display-heading-shadow);
 	}
 
-	.post-date {
+	.post-meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.35rem 0.8rem;
+		padding: 0;
+		margin: 0;
 		color: var(--muted-foreground);
 		font-size: 0.9rem;
 		font-weight: 680;
 		user-select: none;
+	}
+
+	.post-meta div {
+		display: inline-flex;
+		gap: 0.28rem;
+		align-items: baseline;
+	}
+
+	.post-meta dt,
+	.post-meta dd {
+		margin: 0;
+	}
+
+	.post-meta dt::after {
+		content: ":";
+	}
+
+	.post-meta a {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.post-meta a:hover {
+		color: var(--foreground);
+		text-decoration: underline;
+		text-underline-offset: 0.18em;
 	}
 
 	.post-header ul {

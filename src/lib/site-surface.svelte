@@ -25,7 +25,7 @@
 	<title>{activeSection ? `${activeSectionLabel} · ${siteProfile.name}` : siteProfile.name}</title>
 </svelte:head>
 
-<div class="site-frame watercolor-backdrop">
+<div class="site-frame site-backdrop">
 	<SiteSidebar {activePath} />
 
 	<main class="content-shell" class:empty-home={!activeSection && !children}>

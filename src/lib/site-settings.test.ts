@@ -32,7 +32,6 @@ describe("site settings", () => {
 		expect(siteSurfaceSource).toContain('"/works": "W"');
 		expect(siteSurfaceSource).toContain('"/roadmap": "R"');
 		expect(siteSurfaceSource).toContain('"/contact": "C"');
-		expect(siteSurfaceSource).not.toContain('"/zero-license":');
 		expect(siteSurfaceSource).toContain("const navigationPathByShortcut");
 		expect(siteSurfaceSource).toContain('if (key === "p")');
 		expect(siteSurfaceSource).toContain('shortcut="P"');

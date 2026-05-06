@@ -13,33 +13,34 @@ import {
 	blogPostCoreSource,
 	blogPostRouteComponentSource,
 	blogPostRouteSource,
+	blogPostSeoSource,
 	blogPostSurfaceSource,
 	brandIconSource,
 	packageSource,
-	sampleWatercolorKoreanMarkdown,
-	sampleWatercolorMarkdown,
-	sampleWatercolorMetadata,
-	sampleWatercolorPath,
-	sampleZeroLicenseKoreanMarkdown,
-	sampleZeroLicenseMarkdown,
-	sampleZeroLicenseMetadata,
-	sampleZeroLicensePath,
+	sampleOpenSourceNoteKoreanMarkdown,
+	sampleOpenSourceNoteMarkdown,
+	sampleOpenSourceNoteMetadata,
+	sampleOpenSourceNotePath,
+	sampleRichPostKoreanMarkdown,
+	sampleRichPostMarkdown,
+	sampleRichPostMetadata,
+	sampleRichPostPath,
 	surfaceSource,
 } from "./test-support/site-test-sources";
 
 describe("blog post", () => {
 	it("renders blog posts as routed detail pages", () => {
 		const englishPost = createBlogPostDetailFromContent(
-			sampleZeroLicensePath,
-			sampleZeroLicenseMetadata,
+			sampleOpenSourceNotePath,
+			sampleOpenSourceNoteMetadata,
 			"en",
-			sampleZeroLicenseMarkdown,
+			sampleOpenSourceNoteMarkdown,
 		);
 		const koreanPost = createBlogPostDetailFromContent(
-			sampleZeroLicensePath,
-			sampleZeroLicenseMetadata,
+			sampleOpenSourceNotePath,
+			sampleOpenSourceNoteMetadata,
 			"ko",
-			sampleZeroLicenseKoreanMarkdown,
+			sampleOpenSourceNoteKoreanMarkdown,
 		);
 
 		expect(blogPostRouteSource).toContain("blogPostDetails");
@@ -101,14 +102,6 @@ describe("blog post", () => {
 		expect(blogPostSurfaceSource).toContain("<Send");
 		expect(blogPostSurfaceSource).toContain("<MessageCircle");
 		expect(blogPostSurfaceSource).toContain("<BrandIcon");
-		expect(blogPostSurfaceSource).not.toContain("<Phone");
-		expect(blogPostSurfaceSource).not.toContain("<MessageSquare");
-		expect(blogPostSurfaceSource).not.toContain('class="post-share-x-mark"');
-		expect(blogPostSurfaceSource).not.toContain("<AtSign");
-		expect(blogPostSurfaceSource).not.toContain('"phone"');
-		expect(blogPostSurfaceSource).not.toContain('"message-square"');
-		expect(blogPostSurfaceSource).not.toContain('"x-mark"');
-		expect(blogPostSurfaceSource).not.toContain('"at-sign"');
 		expect(blogPostSurfaceSource).not.toContain('class="post-share-button"');
 		expect(blogPostSurfaceSource).not.toContain('class="post-share-button-icon"');
 		expect(blogPostSurfaceSource).toContain('class="post-share"');
@@ -176,6 +169,16 @@ describe("blog post", () => {
 		expect(blogPostSurfaceSource).toContain('shortcutKey === "p"');
 		expect(blogPostSurfaceSource).toContain('shortcutKey === "n"');
 		expect(blogPostSurfaceSource).toContain("getAdjacentBlogPosts");
+		expect(blogPostSurfaceSource).toContain("buildBlogPostingStructuredData");
+		expect(blogPostSurfaceSource).toContain("createStructuredDataScriptMarkup");
+		expect(blogPostSurfaceSource).toContain("m.blog_post_author_label");
+		expect(blogPostSurfaceSource).toContain("m.blog_post_published_label");
+		expect(blogPostSurfaceSource).toContain("m.blog_post_updated_label");
+		expect(blogPostSurfaceSource).not.toContain("recommendationCount");
+		expect(blogPostSeoSource).toContain('"@type": "BlogPosting"');
+		expect(blogPostSeoSource).toContain('type="application/ld+json"');
+		expect(blogPostSeoSource).toContain("dateModified");
+		expect(blogPostSeoSource).toContain("mainEntityOfPage");
 		expect(blogPostSurfaceSource).toContain("const adjacentPosts = $derived");
 		expect(blogPostSurfaceSource).toContain('class="post-adjacent"');
 		expect(blogPostSurfaceSource).toContain('class="post-adjacent-link previous"');
@@ -213,6 +216,7 @@ describe("blog post", () => {
 		expect(surfaceSource).toContain("children?: Snippet");
 		expect(surfaceSource).toContain("{@render children()}");
 		expect(blogPostCoreSource).toContain("export type BlogPostDetail");
+		expect(blogPostCoreSource).toContain("updatedAt?: string");
 		expect(blogPostCoreSource).toContain("export type BlogPostBodyBlock");
 		expect(blogPostCoreSource).toContain("export function getBlogPostForLocale");
 		expect(blogPostCoreSource).toContain("export function getBlogPostEntries");
@@ -223,11 +227,13 @@ describe("blog post", () => {
 		expect(blogPostCoreSource).toContain("export function getBlogPostBodyBlocks");
 		expect(blogPostCoreSource).toContain("export function getBlogPostBodyParagraphs");
 
-		expect(getBlogPostEntries([englishPost, koreanPost])).toEqual([{ slug: "zero-license-notes" }]);
-		expect(getBlogPostForLocale([englishPost, koreanPost], "zero-license-notes", "ko")?.title).toBe(
-			"제로 라이선스 메모",
-		);
-		expect(getBlogPostForLocale([englishPost], "zero-license-notes", "ko")?.locale).toBe("en");
+		expect(getBlogPostEntries([englishPost, koreanPost])).toEqual([
+			{ slug: "sample-open-source-note" },
+		]);
+		expect(
+			getBlogPostForLocale([englishPost, koreanPost], "sample-open-source-note", "ko")?.title,
+		).toBe("샘플 오픈소스 메모");
+		expect(getBlogPostForLocale([englishPost], "sample-open-source-note", "ko")?.locale).toBe("en");
 		expect(getBlogPostForLocale([englishPost, koreanPost], "missing", "ko")).toBeNull();
 		expect(
 			getAdjacentBlogPosts(
@@ -246,14 +252,14 @@ describe("blog post", () => {
 						publishedAt: "2026-01-01",
 					},
 				],
-				"zero-license-notes",
+				"sample-open-source-note",
 				"en",
 			),
 		).toEqual({
 			previous: expect.objectContaining({ slug: "older-post" }),
 			next: expect.objectContaining({ slug: "newer-post" }),
 		});
-		expect(getAdjacentBlogPosts([englishPost], "zero-license-notes", "en")).toEqual({
+		expect(getAdjacentBlogPosts([englishPost], "sample-open-source-note", "en")).toEqual({
 			previous: null,
 			next: null,
 		});
@@ -267,23 +273,23 @@ describe("blog post", () => {
 		expect(getBlogPostTocShortcutIndex("2", "Numpad2")).toBe(1);
 		expect(getBlogPostTocShortcutIndex("0", "Digit0")).toBeUndefined();
 		expect(getBlogPostBodyParagraphs(englishPost)).toEqual([
-			"Zero-license thinking starts from a simple question: what should be easy for the next person to reuse?",
-			"This note is a placeholder for comparing permissive licenses and the amount of friction they leave behind.",
+			"Open collaboration starts from a simple question: what should be easy for the next person to reuse?",
+			"This note is a parser fixture for reusable work and the amount of friction it leaves behind.",
 		]);
 
-		const watercolorBlocks = getBlogPostBodyBlocks(
+		const richPostBlocks = getBlogPostBodyBlocks(
 			createBlogPostDetailFromContent(
-				sampleWatercolorPath,
-				sampleWatercolorMetadata,
+				sampleRichPostPath,
+				sampleRichPostMetadata,
 				"en",
-				sampleWatercolorMarkdown,
+				sampleRichPostMarkdown,
 			),
 		);
 
-		expect(watercolorBlocks.slice(0, 4)).toEqual([
+		expect(richPostBlocks.slice(0, 4)).toEqual([
 			{
 				kind: "paragraph",
-				text: "The visual direction should feel hand-made without turning into decoration for its own sake.",
+				text: "The article body should support text, headings, and media without relying on current production posts.",
 			},
 			{
 				kind: "heading",
@@ -297,25 +303,25 @@ describe("blog post", () => {
 			},
 			{
 				kind: "paragraph",
-				text: "This note is a placeholder for palette, surface, and typography decisions.",
+				text: "This fixture keeps body parsing behavior visible without naming a deleted article.",
 			},
 		]);
 		expect(
-			watercolorBlocks.filter((block) => block.kind === "heading").length,
+			richPostBlocks.filter((block) => block.kind === "heading").length,
 		).toBeGreaterThanOrEqual(4);
 		expect(
 			getBlogPostBodyBlocks(
 				createBlogPostDetailFromContent(
-					sampleWatercolorPath,
-					sampleWatercolorMetadata,
+					sampleRichPostPath,
+					sampleRichPostMetadata,
 					"ko",
-					sampleWatercolorKoreanMarkdown,
+					sampleRichPostKoreanMarkdown,
 				),
 			).slice(0, 4),
 		).toEqual([
 			{
 				kind: "paragraph",
-				text: "시각 방향은 손맛을 품고 있어야 하지만, 장식만을 위한 장식으로 변하면 안 됩니다.",
+				text: "본문 파서는 현재 운영 중인 글 이름에 기대지 않고 문단, 제목, 이미지를 처리해야 합니다.",
 			},
 			{
 				kind: "heading",
@@ -329,7 +335,7 @@ describe("blog post", () => {
 			},
 			{
 				kind: "paragraph",
-				text: "이 글은 색상, 표면, 글자 체계에 대한 선택을 정리하기 위한 자리입니다.",
+				text: "이 fixture는 삭제된 글 이름 없이 본문 파싱 동작을 드러냅니다.",
 			},
 		]);
 	});

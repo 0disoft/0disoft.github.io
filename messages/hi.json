@@ -71,5 +71,8 @@
   "blog_post_adjacent_label": "और पोस्ट",
   "blog_post_previous_label": "पिछली पोस्ट",
   "blog_post_next_label": "अगली पोस्ट",
+  "blog_post_author_label": "लेखक",
+  "blog_post_published_label": "प्रकाशित",
+  "blog_post_updated_label": "अपडेट किया गया",
   "blog_post_tags_label": "टैग"
 }

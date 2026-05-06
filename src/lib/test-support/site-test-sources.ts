@@ -4,12 +4,6 @@ function readRequiredText(path: string): string {
 	return readFileSync(new URL(path, import.meta.url), "utf8");
 }
 
-function readOptionalText(path: string): string {
-	const url = new URL(path, import.meta.url);
-
-	return existsSync(url) ? readFileSync(url, "utf8") : "";
-}
-
 function collectRelativeFiles(rootPath: string, suffix: string): string[] {
 	const rootUrl = new URL(rootPath, import.meta.url);
 
@@ -42,11 +36,11 @@ function collectRelativeFiles(rootPath: string, suffix: string): string[] {
 
 export const routeSource = readRequiredText("../../routes/+page.svelte");
 export const sectionRouteSource = readRequiredText("../../routes/[section]/+page.ts");
-export const blogPostRouteSource = readOptionalText("../../routes/blog/[slug]/+page.ts");
-export const blogPostRouteComponentSource = readOptionalText(
+export const blogPostRouteSource = readRequiredText("../../routes/blog/[slug]/+page.ts");
+export const blogPostRouteComponentSource = readRequiredText(
 	"../../routes/blog/[slug]/+page.svelte",
 );
-export const privacyRouteSource = readOptionalText("../../routes/privacy/+page.svelte");
+export const privacyRouteSource = readRequiredText("../../routes/privacy/+page.svelte");
 export const layoutCss = readRequiredText("../../routes/layout.css");
 export const errorSource = readRequiredText("../../routes/+error.svelte");
 export const appHtmlSource = readRequiredText("../../app.html");
@@ -62,30 +56,31 @@ export const additionalLocaleMessageSources = {
 	hi: readRequiredText("../../../messages/hi.json"),
 } as const;
 
-export const surfaceSource = readOptionalText("../site-surface.svelte");
-export const sidebarSource = readOptionalText("../site-sidebar.svelte");
-export const sidebarActionSource = readOptionalText("../ui/sidebar-action.svelte");
-export const iconButtonSource = readOptionalText("../ui/icon-button.svelte");
-export const brandIconSource = readOptionalText("../ui/brand-icon.svelte");
-export const blogSurfaceSource = readOptionalText("../blog-surface.svelte");
-export const blogPostSurfaceSource = readOptionalText("../blog-post-surface.svelte");
-export const blogPostsSource = readOptionalText("../blog-posts.ts");
+export const surfaceSource = readRequiredText("../site-surface.svelte");
+export const sidebarSource = readRequiredText("../site-sidebar.svelte");
+export const sidebarActionSource = readRequiredText("../ui/sidebar-action.svelte");
+export const iconButtonSource = readRequiredText("../ui/icon-button.svelte");
+export const brandIconSource = readRequiredText("../ui/brand-icon.svelte");
+export const blogSurfaceSource = readRequiredText("../blog-surface.svelte");
+export const blogPostSurfaceSource = readRequiredText("../blog-post-surface.svelte");
+export const blogPostSeoSource = readRequiredText("../blog-post-seo.ts");
+export const blogPostsSource = readRequiredText("../blog-posts.ts");
 export const blogPostCoreSource = readRequiredText("../blog-post-core.ts");
-export const blogShareSource = readOptionalText("../blog-share.ts");
+export const blogShareSource = readRequiredText("../blog-share.ts");
 export const localesSource = readRequiredText("../site-locales.ts");
 export const labelsSource = readRequiredText("../site-labels.ts");
-export const analyticsCoreSource = readOptionalText("../site-analytics-core.ts");
-export const analyticsRuntimeSource = readOptionalText("../site-analytics.ts");
-export const analyticsBootstrapSource = readOptionalText("../site-analytics.svelte");
-export const analyticsConsentSource = readOptionalText("../site-analytics-consent.svelte");
-export const navigationSource = readOptionalText("../site-navigation.ts");
+export const analyticsCoreSource = readRequiredText("../site-analytics-core.ts");
+export const analyticsRuntimeSource = readRequiredText("../site-analytics.ts");
+export const analyticsBootstrapSource = readRequiredText("../site-analytics.svelte");
+export const analyticsConsentSource = readRequiredText("../site-analytics-consent.svelte");
+export const navigationSource = readRequiredText("../site-navigation.ts");
 
 export const inlangSettingsSource = readRequiredText("../../../project.inlang/settings.json");
 export const packageSource = readRequiredText("../../../package.json");
 export const viteConfigSource = readRequiredText("../../../vite.config.ts");
 export const svelteConfigSource = readRequiredText("../../../svelte.config.js");
-export const deployWorkflowSource = readOptionalText("../../../.github/workflows/deploy.yml");
-export const publicBirdImageSource = readOptionalText("../../../static/images/0disoft-bird.svg");
+export const deployWorkflowSource = readRequiredText("../../../.github/workflows/deploy.yml");
+export const publicBirdImageSource = readRequiredText("../../../static/images/0disoft-bird.svg");
 
 export const blogPostsModuleExists = blogPostsSource.length > 0;
 export const navigationModuleExists = navigationSource.length > 0;
@@ -124,26 +119,27 @@ export const aiSmallerFasterChineseMarkdown = readRequiredText(
 	"../../content/blog/2026/05/ai-smaller-faster-companies/zh.md",
 );
 
-export const sampleZeroLicensePath = "../content/blog/2026/05/zero-license-notes/meta.json";
-export const sampleZeroLicenseMetadata = {
-	id: "zero-license-notes",
+export const sampleOpenSourceNotePath = "../content/blog/2026/05/sample-open-source-note/meta.json";
+export const sampleOpenSourceNoteMetadata = {
+	id: "sample-open-source-note",
 	publishedAt: "2026-05-03",
+	updatedAt: "2026-05-04",
 	tags: ["open-source", "product"],
 };
-export const sampleZeroLicenseMarkdown = `---
-{"title":"Zero License notes","summary":"Permissive license notes","searchTags":["0BSD","MIT-0"]}
+export const sampleOpenSourceNoteMarkdown = `---
+{"title":"Sample open source note","summary":"Neutral collaboration notes","searchTags":["reuse","attribution"]}
 ---
-Zero-license thinking starts from a simple question: what should be easy for the next person to reuse?
+Open collaboration starts from a simple question: what should be easy for the next person to reuse?
 
-This note is a placeholder for comparing permissive licenses and the amount of friction they leave behind.`;
-export const sampleZeroLicenseKoreanMarkdown = `---
-{"title":"제로 라이선스 메모","summary":"허용적인 라이선스와 출처 표시에 대한 짧은 초안.","searchTags":["0BSD","MIT-0"]}
+This note is a parser fixture for reusable work and the amount of friction it leaves behind.`;
+export const sampleOpenSourceNoteKoreanMarkdown = `---
+{"title":"샘플 오픈소스 메모","summary":"협업과 출처 표시에 대한 중립 테스트 글.","searchTags":["reuse","attribution"]}
 ---
-제로 라이선스에 대한 생각은 다음 사람이 무엇을 쉽게 다시 쓸 수 있어야 하는가라는 질문에서 출발합니다.`;
+열린 협업에 대한 생각은 다음 사람이 무엇을 쉽게 다시 쓸 수 있어야 하는가라는 질문에서 출발합니다.`;
 
-export const sampleWatercolorPath = "../content/blog/2026/04/watercolor-interface/meta.json";
-export const sampleWatercolorMetadata = {
-	id: "watercolor-interface",
+export const sampleRichPostPath = "../content/blog/2026/04/sample-rich-post/meta.json";
+export const sampleRichPostMetadata = {
+	id: "sample-rich-post",
 	publishedAt: "2026-04-17",
 	tags: ["design", "product"],
 	heroImage: {
@@ -158,16 +154,16 @@ export const sampleWatercolorMetadata = {
 		},
 	},
 };
-export const sampleWatercolorMarkdown = `---
-{"title":"Watercolor interface","summary":"A short note about the site surface."}
+export const sampleRichPostMarkdown = `---
+{"title":"Sample rich post","summary":"A short note with headings and media."}
 ---
-The visual direction should feel hand-made without turning into decoration for its own sake.
+The article body should support text, headings, and media without relying on current production posts.
 
 ## Start with the mark
 
 ![0disoft bird mark](/images/0disoft-bird.svg)
 
-This note is a placeholder for palette, surface, and typography decisions.
+This fixture keeps body parsing behavior visible without naming a deleted article.
 
 ## Keep controls clear
 
@@ -179,17 +175,17 @@ Line length and spacing should support reading.
 
 ## Recheck after content grows
 
-The design should survive more posts.`;
-export const sampleWatercolorKoreanMarkdown = `---
-{"title":"수채화 인터페이스","summary":"사이트 표면에 대한 짧은 메모."}
+The parser should survive more posts.`;
+export const sampleRichPostKoreanMarkdown = `---
+{"title":"샘플 상세 글","summary":"제목과 이미지가 있는 짧은 테스트 글."}
 ---
-시각 방향은 손맛을 품고 있어야 하지만, 장식만을 위한 장식으로 변하면 안 됩니다.
+본문 파서는 현재 운영 중인 글 이름에 기대지 않고 문단, 제목, 이미지를 처리해야 합니다.
 
 ## 표식에서 출발하기
 
 ![0disoft 새 그림](/images/0disoft-bird.svg)
 
-이 글은 색상, 표면, 글자 체계에 대한 선택을 정리하기 위한 자리입니다.
+이 fixture는 삭제된 글 이름 없이 본문 파싱 동작을 드러냅니다.
 
 ## 조작 요소는 선명하게
 
@@ -201,4 +197,4 @@ export const sampleWatercolorKoreanMarkdown = `---
 
 ## 글이 늘어난 뒤 다시 보기
 
-디자인은 글이 늘어나도 버텨야 합니다.`;
+파서는 글이 늘어나도 같은 규칙으로 동작해야 합니다.`;

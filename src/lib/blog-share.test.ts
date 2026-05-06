@@ -8,9 +8,9 @@ describe("blog share", () => {
 
 		const { DEFAULT_BLOG_SHARE_PLATFORMS, buildBlogShareLinks } = await import("./blog-share");
 		const links = buildBlogShareLinks({
-			title: "Watercolor interface",
-			text: "A short note about the site surface.",
-			url: "https://0disoft.github.io/blog/watercolor-interface",
+			title: "AI is making companies smaller and faster",
+			text: "A short note about AI-era operating models.",
+			url: "https://0disoft.github.io/blog/ai-smaller-faster-companies",
 		});
 
 		expect(DEFAULT_BLOG_SHARE_PLATFORMS).toEqual(["telegram", "line", "whatsapp", "x", "reddit"]);
@@ -25,7 +25,7 @@ describe("blog share", () => {
 		expect(
 			links.every((link) =>
 				link.href.includes(
-					encodeURIComponent("https://0disoft.github.io/blog/watercolor-interface"),
+					encodeURIComponent("https://0disoft.github.io/blog/ai-smaller-faster-companies"),
 				),
 			),
 		).toBe(true);

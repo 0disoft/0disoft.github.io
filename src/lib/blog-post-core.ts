@@ -34,6 +34,7 @@ export type BlogPost = {
 	title: string;
 	summary: string;
 	publishedAt: string;
+	updatedAt?: string;
 	tags: readonly BlogTagId[];
 	searchTags?: readonly string[];
 	heroImage?: BlogPostHeroImage;
@@ -68,6 +69,7 @@ export type BlogFilters = {
 type BlogPostSharedMetadata = {
 	id: string;
 	publishedAt: string;
+	updatedAt?: string;
 	tags: BlogTagId[];
 	heroImage?: BlogPostSharedHeroImage;
 };
@@ -100,6 +102,7 @@ export function createBlogPostFromContent(
 		title: readRequiredString(localizedMetadata, "title", path),
 		summary: readRequiredString(localizedMetadata, "summary", path),
 		publishedAt: sharedMetadata.publishedAt,
+		...(sharedMetadata.updatedAt ? { updatedAt: sharedMetadata.updatedAt } : {}),
 		tags: sharedMetadata.tags,
 		searchTags: readOptionalStringList(localizedMetadata, "searchTags", path),
 		...(heroImage ? { heroImage } : {}),
@@ -127,6 +130,7 @@ export function readSharedMetadata(path: string, metadata: unknown): BlogPostSha
 	return {
 		id: readBlogPostId(metadataRecord, path),
 		publishedAt: readPublishedAt(metadataRecord, path),
+		...readOptionalUpdatedAt(metadataRecord, path),
 		tags: readBlogTags(metadataRecord, path),
 		...(heroImage ? { heroImage } : {}),
 	};
@@ -370,6 +374,30 @@ function readPublishedAt(metadata: Record<string, unknown>, path: string): strin
 	}
 
 	throw new Error(`Blog post publishedAt must use YYYY-MM-DD: ${path}`);
+}
+
+function readOptionalUpdatedAt(
+	metadata: Record<string, unknown>,
+	path: string,
+): { updatedAt?: string } {
+	const value = metadata.updatedAt;
+
+	if (typeof value === "undefined") {
+		return {};
+	}
+
+	if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+		throw new Error(`Blog post updatedAt must use YYYY-MM-DD: ${path}`);
+	}
+
+	const updatedAt = value.trim();
+	const publishedAt = readPublishedAt(metadata, path);
+
+	if (updatedAt < publishedAt) {
+		throw new Error(`Blog post updatedAt must not be earlier than publishedAt: ${path}`);
+	}
+
+	return { updatedAt };
 }
 
 function readBlogTags(metadata: Record<string, unknown>, path: string): BlogTagId[] {

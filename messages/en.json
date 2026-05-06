@@ -71,5 +71,8 @@
   "blog_post_adjacent_label": "More posts",
   "blog_post_previous_label": "Previous post",
   "blog_post_next_label": "Next post",
+  "blog_post_author_label": "Author",
+  "blog_post_published_label": "Published",
+  "blog_post_updated_label": "Updated",
   "blog_post_tags_label": "Tags"
 }

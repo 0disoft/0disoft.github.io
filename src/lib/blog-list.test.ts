@@ -25,13 +25,13 @@ import {
 	blogSurfaceSource,
 	privacyRouteSource,
 	publicBirdImageSource,
-	sampleWatercolorKoreanMarkdown,
-	sampleWatercolorMetadata,
-	sampleWatercolorPath,
-	sampleZeroLicenseKoreanMarkdown,
-	sampleZeroLicenseMarkdown,
-	sampleZeroLicenseMetadata,
-	sampleZeroLicensePath,
+	sampleOpenSourceNoteKoreanMarkdown,
+	sampleOpenSourceNoteMarkdown,
+	sampleOpenSourceNoteMetadata,
+	sampleOpenSourceNotePath,
+	sampleRichPostKoreanMarkdown,
+	sampleRichPostMetadata,
+	sampleRichPostPath,
 	sectionRouteSource,
 	surfaceSource,
 	svelteConfigSource,
@@ -56,7 +56,6 @@ describe("blog list", () => {
 		expect(svelteConfigSource).toContain('extensions: [".svelte", ".svx"]');
 		expect(svelteConfigSource).not.toContain('extensions: [".svx", ".md"]');
 		expect(svelteConfigSource).not.toContain('extensions: [".svelte", ".svx", ".md"]');
-		expect(blogPostsSource).not.toContain('title: "Zero License notes"');
 		expect(blogPostsSource).toContain("getBlogPostsForLocale");
 		expect(blogMetaFilePaths).toEqual(["2026/05/ai-smaller-faster-companies/meta.json"]);
 		expect(blogMarkdownFilePaths).toEqual([
@@ -206,13 +205,13 @@ describe("blog list", () => {
 
 		const posts = [
 			{
-				slug: "zero-license-notes",
+				slug: "sample-open-source-note",
 				locale: "en",
-				title: "Zero License notes",
-				summary: "Permissive license notes",
+				title: "Sample open source note",
+				summary: "Neutral collaboration notes",
 				publishedAt: "2026-05-03",
 				tags: ["open-source", "product"],
-				searchTags: ["0BSD", "MIT-0"],
+				searchTags: ["reuse", "attribution"],
 			},
 			{
 				slug: "open-source-index-sketch",
@@ -223,41 +222,50 @@ describe("blog list", () => {
 				tags: ["open-source", "product"],
 			},
 			{
-				slug: "rust-license",
+				slug: "automation-runbook",
 				locale: "en",
-				title: "Rust license note",
-				summary: "Permissive license notes",
+				title: "Automation runbook",
+				summary: "Automation notes",
 				publishedAt: "2026-02-02",
 				tags: ["engineering", "automation"],
-				searchTags: ["Rust"],
+				searchTags: ["workflow"],
 			},
 			{
-				slug: "website-log",
+				slug: "design-log",
 				locale: "en",
-				title: "Website log",
+				title: "Design log",
 				summary: "Design notes",
 				publishedAt: "2025-11-03",
 				tags: ["design"],
 			},
 		] satisfies readonly BlogPost[];
 		const markdownPost = createBlogPostFromContent(
-			sampleZeroLicensePath,
-			sampleZeroLicenseMetadata,
+			sampleOpenSourceNotePath,
+			sampleOpenSourceNoteMetadata,
 			"en",
-			sampleZeroLicenseMarkdown,
+			sampleOpenSourceNoteMarkdown,
 		);
 
 		expect(posts).toHaveLength(4);
-		expect(markdownPost.slug).toBe("zero-license-notes");
+		expect(markdownPost.slug).toBe("sample-open-source-note");
 		expect(markdownPost.locale).toBe("en");
+		expect(markdownPost).toMatchObject({ updatedAt: "2026-05-04" });
 		expect(markdownPost.tags).toEqual(["open-source", "product"]);
-		expect(markdownPost.searchTags).toContain("MIT-0");
+		expect(markdownPost.searchTags).toContain("attribution");
+		expect(() =>
+			createBlogPostFromContent(
+				sampleOpenSourceNotePath,
+				{ ...sampleOpenSourceNoteMetadata, updatedAt: "2026-05-02" },
+				"en",
+				sampleOpenSourceNoteMarkdown,
+			),
+		).toThrow("Blog post updatedAt must not be earlier than publishedAt");
 		expect(
 			createBlogPostFromContent(
-				sampleWatercolorPath,
-				sampleWatercolorMetadata,
+				sampleRichPostPath,
+				sampleRichPostMetadata,
 				"ko",
-				sampleWatercolorKoreanMarkdown,
+				sampleRichPostKoreanMarkdown,
 			).heroImage,
 		).toEqual({
 			src: "/images/0disoft-bird.svg",
@@ -265,10 +273,10 @@ describe("blog list", () => {
 		});
 		expect(
 			createBlogPostFromContent(
-				sampleZeroLicensePath,
-				sampleZeroLicenseMetadata,
+				sampleOpenSourceNotePath,
+				sampleOpenSourceNoteMetadata,
 				"ko",
-				sampleZeroLicenseKoreanMarkdown,
+				sampleOpenSourceNoteKoreanMarkdown,
 			).locale,
 		).toBe("ko");
 		expect(blogTagOptions).toHaveLength(15);
@@ -291,30 +299,30 @@ describe("blog list", () => {
 		]);
 		expect(getBlogFilterOptions(posts).years).toEqual(["2026", "2025"]);
 		expect(getBlogPostTagLabels(posts[0])).toEqual(["Open Source", "Product"]);
-		expect(getBlogPostSearchValues(posts[0])).toContain("0BSD");
+		expect(getBlogPostSearchValues(posts[0])).toContain("reuse");
 		expect(
 			filterBlogPosts(posts, { query: "", tag: "open-source", year: "" }).map((post) => post.slug),
-		).toEqual(["zero-license-notes", "open-source-index-sketch"]);
+		).toEqual(["sample-open-source-note", "open-source-index-sketch"]);
 		expect(
-			filterBlogPosts(posts, { query: "MIT-0", tag: "", year: "" }).map((post) => post.slug),
-		).toEqual(["zero-license-notes"]);
+			filterBlogPosts(posts, { query: "attribution", tag: "", year: "" }).map((post) => post.slug),
+		).toEqual(["sample-open-source-note"]);
 		expect(getBlogFilterOptions(posts).tags).toHaveLength(15);
 		expect(getBlogFilterOptions(posts).years).toEqual(["2026", "2025"]);
 		expect(
-			filterBlogPosts(posts, { query: "rust", tag: "", year: "" }).map((post) => post.slug),
-		).toEqual(["rust-license"]);
+			filterBlogPosts(posts, { query: "workflow", tag: "", year: "" }).map((post) => post.slug),
+		).toEqual(["automation-runbook"]);
 		expect(
 			filterBlogPosts(posts, { query: "", tag: "design", year: "2025" }).map((post) => post.slug),
-		).toEqual(["website-log"]);
+		).toEqual(["design-log"]);
 		expect(
 			getBlogPostsForLocale(
 				[
 					...posts,
 					createBlogPostFromContent(
-						sampleZeroLicensePath,
-						sampleZeroLicenseMetadata,
+						sampleOpenSourceNotePath,
+						sampleOpenSourceNoteMetadata,
 						"ko",
-						sampleZeroLicenseKoreanMarkdown,
+						sampleOpenSourceNoteKoreanMarkdown,
 					),
 				],
 				"ko",

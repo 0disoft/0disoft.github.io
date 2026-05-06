@@ -71,5 +71,8 @@
   "blog_post_adjacent_label": "다른 글",
   "blog_post_previous_label": "이전 글",
   "blog_post_next_label": "다음 글",
+  "blog_post_author_label": "작성자",
+  "blog_post_published_label": "발행일",
+  "blog_post_updated_label": "수정일",
   "blog_post_tags_label": "태그"
 }

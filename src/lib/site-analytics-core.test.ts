@@ -30,13 +30,13 @@ describe("site analytics core", () => {
 
 		expect(
 			createGa4PageViewPayload(
-				new URL("https://0disoft.github.io/ko/blog/watercolor-interface/?tag=design"),
-				"수채화 인터페이스",
+				new URL("https://0disoft.github.io/ko/blog/ai-smaller-faster-companies/?tag=strategy"),
+				"AI가 회사를 더 작고 빠르게 바꾸고 있다",
 			),
 		).toEqual({
-			page_location: "https://0disoft.github.io/ko/blog/watercolor-interface/?tag=design",
-			page_path: "/ko/blog/watercolor-interface/?tag=design",
-			page_title: "수채화 인터페이스",
+			page_location: "https://0disoft.github.io/ko/blog/ai-smaller-faster-companies/?tag=strategy",
+			page_path: "/ko/blog/ai-smaller-faster-companies/?tag=strategy",
+			page_title: "AI가 회사를 더 작고 빠르게 바꾸고 있다",
 		});
 	});
 });

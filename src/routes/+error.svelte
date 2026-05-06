@@ -35,7 +35,7 @@
 	<title>{page.status} · {siteProfile.name}</title>
 </svelte:head>
 
-<main class="error-shell watercolor-backdrop">
+<main class="error-shell site-backdrop">
 	<section class="error-panel" aria-labelledby="error-title">
 		<img src={birdMarkPath} alt="" />
 
