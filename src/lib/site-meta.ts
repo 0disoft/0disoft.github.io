@@ -13,8 +13,11 @@ export { indexedSiteLocales };
 
 const TEXT_PLAIN_CONTENT_TYPE = "text/plain; charset=utf-8";
 const XML_CONTENT_TYPE = "application/xml; charset=utf-8";
+const RSS_CONTENT_TYPE = "application/rss+xml; charset=utf-8";
 const DEFAULT_CACHE_CONTROL = "public, max-age=3600";
 const LLMS_FULL_MAX_CHARACTERS = 60_000;
+const RSS_ITEM_LIMIT = 20;
+export const defaultRssFeedLocale: BlogPost["locale"] = "en";
 
 type LinkEntry = {
 	label: string;
@@ -35,6 +38,15 @@ export function createXmlResponse(content: string): Response {
 	return new Response(content, {
 		headers: {
 			"content-type": XML_CONTENT_TYPE,
+			"cache-control": DEFAULT_CACHE_CONTROL,
+		},
+	});
+}
+
+export function createRssResponse(content: string): Response {
+	return new Response(content, {
+		headers: {
+			"content-type": RSS_CONTENT_TYPE,
 			"cache-control": DEFAULT_CACHE_CONTROL,
 		},
 	});
@@ -66,6 +78,35 @@ export function buildSitemapXml(origin: string, posts: readonly BlogPost[] = [])
 		"</urlset>",
 		"",
 	].join("\n");
+}
+
+export function buildRssXml(
+	origin: string,
+	posts: readonly BlogPost[],
+	locale: BlogPost["locale"] = defaultRssFeedLocale,
+): string {
+	const feedPosts = getExactLocalePosts(posts, locale).slice(0, RSS_ITEM_LIMIT);
+	const lastBuildDate = getLastBuildDate(feedPosts);
+
+	return [
+		'<?xml version="1.0" encoding="UTF-8"?>',
+		'<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
+		"  <channel>",
+		`    <title>${escapeXml(siteProfile.name)}</title>`,
+		`    <link>${escapeXml(toAbsoluteUrl(origin, withTrailingSlash(localizeSitePathname("/blog", locale))))}</link>`,
+		`    <description>${escapeXml(siteProfile.description)}</description>`,
+		`    <language>${locale}</language>`,
+		`    <atom:link href="${escapeXml(toAbsoluteUrl(origin, getRssFeedPath(locale)))}" rel="self" type="application/rss+xml" />`,
+		...(lastBuildDate ? [`    <lastBuildDate>${lastBuildDate}</lastBuildDate>`] : []),
+		...feedPosts.flatMap((post) => formatRssItem(origin, post, locale)),
+		"  </channel>",
+		"</rss>",
+		"",
+	].join("\n");
+}
+
+export function getRssFeedPath(locale: BlogPost["locale"]): string {
+	return localizeSitePathname("/rss.xml", locale);
 }
 
 export function buildAiText(origin: string): string {
@@ -233,10 +274,43 @@ function getMachineReadableLinks(): LinkEntry[] {
 	return [
 		{ label: "robots.txt", path: "/robots.txt", note: "Crawler access policy" },
 		{ label: "sitemap.xml", path: "/sitemap.xml", note: "Search engine sitemap" },
+		{ label: "rss.xml", path: "/rss.xml", note: "Default blog RSS feed" },
 		{ label: "ai.txt", path: "/ai.txt", note: "AI usage and attribution guidance" },
 		{ label: "llms.txt", path: "/llms.txt", note: "Compact assistant index" },
 		{ label: "llms-full.txt", path: "/llms-full.txt", note: "Expanded assistant index" },
 	];
+}
+
+function formatRssItem(origin: string, post: BlogPost, locale: BlogPost["locale"]): string[] {
+	const postUrl = toAbsoluteUrl(
+		origin,
+		withTrailingSlash(localizeSitePathname(`/blog/${post.slug}`, locale)),
+	);
+
+	return [
+		"    <item>",
+		`      <title>${escapeXml(post.title)}</title>`,
+		`      <link>${escapeXml(postUrl)}</link>`,
+		`      <guid isPermaLink="true">${escapeXml(postUrl)}</guid>`,
+		`      <description>${escapeXml(post.summary)}</description>`,
+		`      <pubDate>${formatRssDate(post.publishedAt)}</pubDate>`,
+		...getBlogPostTagLabels(post).map(
+			(category) => `      <category>${escapeXml(category)}</category>`,
+		),
+		"    </item>",
+	];
+}
+
+function getLastBuildDate(posts: readonly BlogPost[]): string | null {
+	const latestDate = posts
+		.map((post) => post.updatedAt ?? post.publishedAt)
+		.toSorted((left, right) => right.localeCompare(left))[0];
+
+	return latestDate ? formatRssDate(latestDate) : null;
+}
+
+function formatRssDate(date: string): string {
+	return new Date(`${date}T00:00:00.000Z`).toUTCString();
 }
 
 function formatLlmsLink(origin: string, link: LinkEntry): string {

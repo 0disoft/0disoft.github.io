@@ -12,6 +12,7 @@
 	import SiteAnalytics from "$lib/site-analytics.svelte";
 	import SiteAnalyticsConsent from "$lib/site-analytics-consent.svelte";
 	import { birdMarkPath } from '$lib/site-assets';
+	import { getRssFeedPath } from '$lib/site-meta';
 	import { siteProfile } from '$lib/site-profile';
 	import { ModeWatcher } from 'mode-watcher';
 	import './layout.css';
@@ -37,6 +38,14 @@
 	<title>{siteProfile.name}</title>
 	<meta name="description" content={siteProfile.description} />
 	<link rel="icon" href={birdMarkPath} />
+	{#each languageOptions as language (language.locale)}
+		<link
+			rel="alternate"
+			type="application/rss+xml"
+			href={getRssFeedPath(language.locale)}
+			title={`${siteProfile.name} ${language.label} RSS`}
+		/>
+	{/each}
 	<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
 	<meta name="theme-color" content="#fbf7e8" media="(prefers-color-scheme: light)" />
 	<meta name="theme-color" content="#152814" media="(prefers-color-scheme: dark)" />
