@@ -97,14 +97,19 @@ export function getPreferredClientLocale(): SiteLocale {
 	return readStoredSiteLocale() ?? getBrowserSiteLocale(navigator.languages);
 }
 
+function toInternalPathname(pathname: string): string {
+	return `/${pathname.replace(/^\/+/, "")}`;
+}
+
 export function stripLocalePrefix(pathname: string): string {
-	const [firstSegment, ...restSegments] = pathname.replace(/^\/+/, "").split("/");
+	const normalizedPathname = toInternalPathname(pathname);
+	const [firstSegment, ...restSegments] = normalizedPathname.slice(1).split("/");
 
 	if (!firstSegment || !isSiteLocale(firstSegment)) {
-		return pathname.startsWith("/") ? pathname : `/${pathname}`;
+		return normalizedPathname;
 	}
 
-	return `/${restSegments.join("/")}`.replace(/\/$/, "") || "/";
+	return toInternalPathname(restSegments.join("/")).replace(/\/$/, "") || "/";
 }
 
 export function localizeSitePathname(pathname: string, locale: SiteLocale): string {

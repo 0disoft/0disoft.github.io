@@ -71,10 +71,18 @@ describe("site localization", () => {
 		expect(toDisplayLocale("hi")).toBe("hi");
 		expect(stripLocalePrefix("/en/blog")).toBe("/blog");
 		expect(stripLocalePrefix("/zh/contact/")).toBe("/contact");
+		expect(stripLocalePrefix("//attacker.example/login")).toBe("/attacker.example/login");
+		expect(stripLocalePrefix("/fr//attacker.example/login")).toBe("/attacker.example/login");
 		expect(localizeSitePathname("/blog", "en")).toBe("/blog");
 		expect(localizeSitePathname("/en/blog", "zh")).toBe("/zh/blog");
 		expect(localizeSitePathname("/en/blog", "ko")).toBe("/ko/blog");
 		expect(localizeSitePathname("/ko/blog", "ko")).toBe("/ko/blog");
+		expect(localizeSitePathname("/fr//attacker.example/login", "en")).toBe(
+			"/attacker.example/login",
+		);
+		expect(localizeSitePathname("/fr//attacker.example/login", "ko")).toBe(
+			"/ko/attacker.example/login",
+		);
 	});
 
 	it("chooses the first client locale from url, saved preference, browser language, then English", () => {
