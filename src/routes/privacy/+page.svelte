@@ -26,6 +26,13 @@
 			<p>{m.privacy_analytics_body({}, { locale: displayLocale })}</p>
 		</section>
 
+		<section aria-labelledby="privacy-ads-title">
+			<h2 id="privacy-ads-title">
+				{m.privacy_ads_title({}, { locale: displayLocale })}
+			</h2>
+			<p>{m.privacy_ads_body({}, { locale: displayLocale })}</p>
+		</section>
+
 		<section aria-labelledby="privacy-cookies-title">
 			<h2 id="privacy-cookies-title">
 				{m.privacy_cookies_title({}, { locale: displayLocale })}

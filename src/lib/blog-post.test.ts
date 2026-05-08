@@ -130,9 +130,8 @@ describe("blog post", () => {
 		expect(blogPostSurfaceSource).toContain("tocShortcutPending");
 		expect(blogPostSurfaceSource).toContain("startTocShortcutSequence");
 		expect(blogPostSurfaceSource).toContain("clearTocShortcutSequence");
-		expect(blogPostSurfaceSource).toContain(
-			"event.key.toLocaleLowerCase() === BLOG_POST_TOC_SHORTCUT_PREFIX.toLocaleLowerCase()",
-		);
+		expect(blogPostSurfaceSource).toContain("event.key.toLocaleLowerCase() ===");
+		expect(blogPostSurfaceSource).toContain("BLOG_POST_TOC_SHORTCUT_PREFIX.toLocaleLowerCase()");
 		expect(blogPostSurfaceSource).toContain("getBlogPostTocShortcutIndex(event.key, event.code)");
 		expect(blogPostSurfaceSource).not.toContain("/^[1-9]$/.test(event.key)");
 		expect(blogPostSurfaceSource).not.toContain("/^[0-9]$/.test(event.key)");
@@ -142,12 +141,10 @@ describe("blog post", () => {
 		expect(blogPostSurfaceSource).toContain("m.blog_post_adjacent_label");
 		expect(blogPostSurfaceSource).toContain("m.blog_post_previous_label");
 		expect(blogPostSurfaceSource).toContain("m.blog_post_next_label");
-		expect(blogPostSurfaceSource).toContain(
-			'withShortcut(m.blog_post_previous_label({}, { locale: displayLocale }), "Alt+P")',
-		);
-		expect(blogPostSurfaceSource).toContain(
-			'withShortcut(m.blog_post_next_label({}, { locale: displayLocale }), "Alt+N")',
-		);
+		expect(blogPostSurfaceSource).toContain("const previousPostShortcutTitle = $derived");
+		expect(blogPostSurfaceSource).toContain("const nextPostShortcutTitle = $derived");
+		expect(blogPostSurfaceSource).toContain('"Alt+P"');
+		expect(blogPostSurfaceSource).toContain('"Alt+N"');
 		expect(blogPostSurfaceSource).toContain("handleAdjacentPostShortcut");
 		expect(blogPostSurfaceSource).toContain(
 			'window.addEventListener("keydown", handleAdjacentPostShortcut)',
@@ -190,8 +187,8 @@ describe("blog post", () => {
 		expect(blogPostSurfaceSource).toContain("aria-label={m.blog_post_adjacent_label");
 		expect(blogPostSurfaceSource).toContain("function getPostHeadingId");
 		expect(blogPostSurfaceSource).toContain("const postHeadings = $derived");
-		expect(blogPostSurfaceSource).toContain("id={getPostHeadingId(index)}");
-		expect(blogPostSurfaceSource).toContain('<nav class="post-toc"');
+		expect(blogPostSurfaceSource).toContain("id={getPostHeadingId(item.blockIndex)}");
+		expect(blogPostSurfaceSource).toContain('class="post-toc"');
 		expect(blogPostSurfaceSource).toContain("href={`#${heading.id}`}");
 		expect(blogPostSurfaceSource).toContain('class="post-reading-layout"');
 		expect(blogPostSurfaceSource).toContain("--post-body-width: 48rem");
@@ -201,11 +198,15 @@ describe("blog post", () => {
 		expect(blogPostSurfaceSource).toContain("font-weight: 740");
 		expect(blogPostSurfaceSource).not.toContain("font-size: clamp(2rem, 6vw, 4.6rem)");
 		expect(blogPostSurfaceSource).toContain(
-			"grid-template-columns: minmax(0, var(--post-body-width)) minmax(var(--post-toc-min-width), var(--post-toc-max-width));",
+			"grid-template-columns: minmax(0, var(--post-body-width)) minmax(",
 		);
+		expect(blogPostSurfaceSource).toContain("var(--post-toc-min-width)");
+		expect(blogPostSurfaceSource).toContain("var(--post-toc-max-width)");
 		expect(blogPostSurfaceSource).toContain("position: sticky;");
-		expect(blogPostSurfaceSource).toContain('block.kind === "image"');
-		expect(blogPostSurfaceSource).toContain('block.kind === "heading"');
+		expect(blogPostSurfaceSource).toContain('item.block.kind === "image"');
+		expect(blogPostSurfaceSource).toContain('item.block.kind === "heading"');
+		expect(blogPostSurfaceSource).toContain('item.block.kind === "table"');
+		expect(blogPostSurfaceSource).toContain('class="post-table-wrap"');
 		expect(blogPostSurfaceSource).toContain('loading="lazy"');
 		expect(blogPostSurfaceSource).toContain('decoding="async"');
 		expect(blogPostSurfaceSource).toContain("font-size: calc(1.02rem + 2pt)");
@@ -309,6 +310,14 @@ describe("blog post", () => {
 		expect(
 			richPostBlocks.filter((block) => block.kind === "heading").length,
 		).toBeGreaterThanOrEqual(4);
+		expect(richPostBlocks.find((block) => block.kind === "table")).toEqual({
+			kind: "table",
+			headers: ["Team size", "Approval time"],
+			rows: [
+				["Small", "2 days"],
+				["Large", "9 days"],
+			],
+		});
 		expect(
 			getBlogPostBodyBlocks(
 				createBlogPostDetailFromContent(
@@ -338,5 +347,22 @@ describe("blog post", () => {
 				text: "이 fixture는 삭제된 글 이름 없이 본문 파싱 동작을 드러냅니다.",
 			},
 		]);
+		expect(
+			getBlogPostBodyBlocks(
+				createBlogPostDetailFromContent(
+					sampleRichPostPath,
+					sampleRichPostMetadata,
+					"ko",
+					sampleRichPostKoreanMarkdown,
+				),
+			).find((block) => block.kind === "table"),
+		).toEqual({
+			kind: "table",
+			headers: ["팀 규모", "승인 시간"],
+			rows: [
+				["소규모", "2일"],
+				["대규모", "9일"],
+			],
+		});
 	});
 });

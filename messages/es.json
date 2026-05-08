@@ -26,6 +26,8 @@
   "privacy_page_intro": "Esta página explica las analíticas básicas y las opciones de almacenamiento del navegador usadas en este sitio.",
   "privacy_analytics_title": "Analíticas",
   "privacy_analytics_body": "Google Analytics solo se carga después de que permitas las analíticas. Se usa para entender el uso básico del sitio.",
+  "privacy_ads_title": "Anuncios",
+  "privacy_ads_body": "Los socios publicitarios pueden cargarse en las páginas donde haya bloques de anuncios configurados. Pueden usar cookies o almacenamiento similar para mostrar y medir anuncios según sus políticas.",
   "privacy_cookies_title": "Cookies y almacenamiento local",
   "privacy_cookies_body": "El sitio guarda tus opciones de idioma, tema y analíticas en el navegador. Google Analytics puede establecer cookies de analíticas tras el consentimiento.",
   "privacy_choices_title": "Tus opciones",

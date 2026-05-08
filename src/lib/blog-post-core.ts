@@ -58,6 +58,11 @@ export type BlogPostBodyBlock =
 			kind: "image";
 			alt: string;
 			src: string;
+	  }
+	| {
+			kind: "table";
+			headers: string[];
+			rows: string[][];
 	  };
 
 export type BlogFilters = {
@@ -248,7 +253,7 @@ export function getBlogPostBodyBlocks(post: BlogPostDetail): BlogPostBodyBlock[]
 		.replace(/\r\n/g, "\n")
 		.split(/\n{2,}/)
 		.map(parseBlogPostBodyBlock)
-		.filter((block) => block.kind === "image" || block.text.length > 0);
+		.filter((block) => block.kind === "image" || block.kind === "table" || block.text.length > 0);
 }
 
 export function getBlogPostBodyParagraphs(post: BlogPostDetail): string[] {
@@ -299,9 +304,15 @@ function parseMarkdownFile(path: string, markdown: string): { frontmatter: unkno
 }
 
 function parseBlogPostBodyBlock(rawBlock: string): BlogPostBodyBlock {
-	const block = rawBlock.replace(/\n/g, " ").trim();
+	const normalizedBlock = rawBlock.trim();
+	const table = parseBlogPostTableBlock(normalizedBlock);
+	const block = normalizedBlock.replace(/\n/g, " ").trim();
 	const imageMatch = /^!\[([^\]\n]*)\]\(([^()\s]+)\)$/.exec(block);
 	const headingMatch = /^##\s+(.+)$/.exec(block);
+
+	if (table) {
+		return table;
+	}
 
 	if (imageMatch) {
 		return {
@@ -323,6 +334,47 @@ function parseBlogPostBodyBlock(rawBlock: string): BlogPostBodyBlock {
 		kind: "paragraph",
 		text: block,
 	};
+}
+
+function parseBlogPostTableBlock(block: string): BlogPostBodyBlock | undefined {
+	const lines = block
+		.split("\n")
+		.map((line) => line.trim())
+		.filter(Boolean);
+
+	if (lines.length < 3 || !lines.every((line) => line.startsWith("|") && line.endsWith("|"))) {
+		return undefined;
+	}
+
+	const headers = parseBlogPostTableRow(lines[0]);
+	const separator = parseBlogPostTableRow(lines[1]);
+
+	if (
+		headers.length === 0 ||
+		separator.length !== headers.length ||
+		!separator.every((cell) => /^:?-{3,}:?$/.test(cell))
+	) {
+		return undefined;
+	}
+
+	const rows = lines.slice(2).map(parseBlogPostTableRow);
+
+	if (!rows.every((row) => row.length === headers.length)) {
+		return undefined;
+	}
+
+	return {
+		kind: "table",
+		headers,
+		rows,
+	};
+}
+
+function parseBlogPostTableRow(line: string): string[] {
+	return line
+		.slice(1, -1)
+		.split("|")
+		.map((cell) => cell.trim());
 }
 
 function toRecord(value: unknown, path: string): Record<string, unknown> {

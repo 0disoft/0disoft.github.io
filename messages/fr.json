@@ -26,6 +26,8 @@
   "privacy_page_intro": "Cette page explique les mesures d’audience simples et les choix de stockage du navigateur utilisés sur ce site.",
   "privacy_analytics_title": "Analyse",
   "privacy_analytics_body": "Google Analytics ne se charge qu’après votre accord pour l’analyse. Il sert à comprendre l’usage de base du site.",
+  "privacy_ads_title": "Annonces",
+  "privacy_ads_body": "Des partenaires publicitaires peuvent se charger sur les pages où des blocs d’annonces sont configurés. Ils peuvent utiliser des cookies ou un stockage similaire pour diffuser et mesurer les annonces selon leurs règles.",
   "privacy_cookies_title": "Cookies et stockage local",
   "privacy_cookies_body": "Le site enregistre vos choix de langue, de thème et d’analyse dans le navigateur. Google Analytics peut définir des cookies d’analyse après consentement.",
   "privacy_choices_title": "Vos choix",

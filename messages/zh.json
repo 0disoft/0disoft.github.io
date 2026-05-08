@@ -26,6 +26,8 @@
   "privacy_page_intro": "此页面说明本站使用的基本分析和浏览器存储选择。",
   "privacy_analytics_title": "分析",
   "privacy_analytics_body": "Google Analytics 只会在你允许分析后加载，用于了解基本的网站使用情况。",
+  "privacy_ads_title": "广告",
+  "privacy_ads_body": "在配置了广告单元的页面上，广告合作方可能会加载。它们可能会根据各自政策使用 Cookie 或类似存储来投放和衡量广告。",
   "privacy_cookies_title": "Cookie 和本地存储",
   "privacy_cookies_body": "本站会在你的浏览器中保存语言、主题和分析选择。允许分析后，Google Analytics 可能会设置分析 Cookie。",
   "privacy_choices_title": "你的选择",

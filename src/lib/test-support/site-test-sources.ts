@@ -40,6 +40,7 @@ export const blogPostRouteSource = readRequiredText("../../routes/blog/[slug]/+p
 export const blogPostRouteComponentSource = readRequiredText(
 	"../../routes/blog/[slug]/+page.svelte",
 );
+export const adsTxtRouteSource = readRequiredText("../../routes/ads.txt/+server.ts");
 export const privacyRouteSource = readRequiredText("../../routes/privacy/+page.svelte");
 export const layoutCss = readRequiredText("../../routes/layout.css");
 export const errorSource = readRequiredText("../../routes/+error.svelte");
@@ -63,7 +64,9 @@ export const iconButtonSource = readRequiredText("../ui/icon-button.svelte");
 export const brandIconSource = readRequiredText("../ui/brand-icon.svelte");
 export const blogSurfaceSource = readRequiredText("../blog-surface.svelte");
 export const worksSurfaceSource = readRequiredText("../works-surface.svelte");
+export const adUnitSource = readRequiredText("../ad-unit.svelte");
 export const blogPostSurfaceSource = readRequiredText("../blog-post-surface.svelte");
+export const blogPostAdsSource = readRequiredText("../blog-post-ads.ts");
 export const blogPostSeoSource = readRequiredText("../blog-post-seo.ts");
 export const blogPostsSource = readRequiredText("../blog-posts.ts");
 export const worksSource = readRequiredText("../works.ts");
@@ -76,6 +79,8 @@ export const analyticsCoreSource = readRequiredText("../site-analytics-core.ts")
 export const analyticsRuntimeSource = readRequiredText("../site-analytics.ts");
 export const analyticsBootstrapSource = readRequiredText("../site-analytics.svelte");
 export const analyticsConsentSource = readRequiredText("../site-analytics-consent.svelte");
+export const googleAdProviderSource = readRequiredText("../site-ad-provider-google.ts");
+export const siteAdvertisingSource = readRequiredText("../site-advertising.ts");
 export const navigationSource = readRequiredText("../site-navigation.ts");
 
 export const inlangSettingsSource = readRequiredText("../../../project.inlang/settings.json");
@@ -101,7 +106,9 @@ export const siteSurfaceSource = [
 	iconButtonSource,
 	blogSurfaceSource,
 	worksSurfaceSource,
+	adUnitSource,
 	blogPostSurfaceSource,
+	blogPostAdsSource,
 	blogPostsSource,
 	worksSource,
 	workCoreSource,
@@ -174,6 +181,11 @@ The article body should support text, headings, and media without relying on cur
 
 This fixture keeps body parsing behavior visible without naming a deleted article.
 
+| Team size | Approval time |
+| --- | ---: |
+| Small | 2 days |
+| Large | 9 days |
+
 ## Keep controls clear
 
 The interface should stay quiet around actual controls.
@@ -195,6 +207,11 @@ export const sampleRichPostKoreanMarkdown = `---
 ![0disoft 새 그림](/images/0disoft-bird.svg)
 
 이 fixture는 삭제된 글 이름 없이 본문 파싱 동작을 드러냅니다.
+
+| 팀 규모 | 승인 시간 |
+| --- | ---: |
+| 소규모 | 2일 |
+| 대규모 | 9일 |
 
 ## 조작 요소는 선명하게
 

@@ -26,6 +26,8 @@
   "privacy_page_intro": "This page explains the small analytics and storage choices used on this site.",
   "privacy_analytics_title": "Analytics",
   "privacy_analytics_body": "Google Analytics loads only after you allow analytics. It is used to understand basic site usage.",
+  "privacy_ads_title": "Ads",
+  "privacy_ads_body": "Advertising partners may load on pages where ad units are configured. They can use cookies or similar storage to serve and measure ads according to their policies.",
   "privacy_cookies_title": "Cookies and local storage",
   "privacy_cookies_body": "The site stores language, theme, and analytics choices in your browser. Google Analytics may set analytics cookies after consent.",
   "privacy_choices_title": "Your choices",

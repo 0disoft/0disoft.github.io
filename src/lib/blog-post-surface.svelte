@@ -10,6 +10,8 @@
 		buildBlogPostingStructuredData,
 		createStructuredDataScriptMarkup,
 	} from "$lib/blog-post-seo";
+	import AdUnit from "$lib/ad-unit.svelte";
+	import { createBlogPostRenderItems } from "$lib/blog-post-ads";
 	import { buildBlogShareLinks, type BlogSharePlatform } from "$lib/blog-share";
 	import {
 		BLOG_POST_TOC_SHORTCUT_LIMIT,
@@ -39,24 +41,41 @@
 	let copyFeedbackTimer: number | undefined;
 	let tocShortcutPending = $state(false);
 	let tocShortcutTimer: number | undefined;
+	let selectedImage = $state<{ src: string; alt: string } | undefined>();
+	let imagePreviewDialog = $state<HTMLDialogElement | undefined>();
 
 	const currentLocale = $derived(getLocale());
 	const displayLocale = $derived(toDisplayLocale(currentLocale));
-	const post = $derived(getBlogPostForLocale(blogPostDetails, slug, currentLocale));
-	const adjacentPosts = $derived(getAdjacentBlogPosts(blogPostDetails, slug, currentLocale));
+	const post = $derived(
+		getBlogPostForLocale(blogPostDetails, slug, currentLocale),
+	);
+	const adjacentPosts = $derived(
+		getAdjacentBlogPosts(blogPostDetails, slug, currentLocale),
+	);
 	const postTagLabels = $derived(post ? getBlogPostTagLabels(post) : []);
 	const postBodyBlocks = $derived(post ? getBlogPostBodyBlocks(post) : []);
+	const postRenderItems = $derived(createBlogPostRenderItems(postBodyBlocks));
 	const postHeadings = $derived(
-		postBodyBlocks.flatMap((block, index) =>
-			block.kind === "heading" ? [{ id: getPostHeadingId(index), text: block.text }] : [],
-		).map((heading, index) => ({
-			...heading,
-			shortcut: getBlogPostTocShortcut(index),
-		})),
+		postBodyBlocks
+			.flatMap((block, index) =>
+				block.kind === "heading"
+					? [{ id: getPostHeadingId(index), text: block.text }]
+					: [],
+			)
+			.map((heading, index) => ({
+				...heading,
+				shortcut: getBlogPostTocShortcut(index),
+			})),
 	);
-	const selectedLocale = $derived(isSiteLocale(currentLocale) ? currentLocale : "en");
-	const sharePath = $derived(post ? localizeSitePathname(`/blog/${post.slug}`, selectedLocale) : "");
-	const shareUrl = $derived(sharePath ? new URL(sharePath, siteProfile.origin).toString() : "");
+	const selectedLocale = $derived(
+		isSiteLocale(currentLocale) ? currentLocale : "en",
+	);
+	const sharePath = $derived(
+		post ? localizeSitePathname(`/blog/${post.slug}`, selectedLocale) : "",
+	);
+	const shareUrl = $derived(
+		sharePath ? new URL(sharePath, siteProfile.origin).toString() : "",
+	);
 	const blogPostingStructuredDataMarkup = $derived(
 		post && shareUrl
 			? createStructuredDataScriptMarkup(
@@ -82,14 +101,36 @@
 	);
 	const blogHref = $derived(localizeSitePathname("/blog", selectedLocale));
 	const previousPostShortcutTitle = $derived(
-		withShortcut(m.blog_post_previous_label({}, { locale: displayLocale }), "Alt+P"),
+		withShortcut(
+			m.blog_post_previous_label({}, { locale: displayLocale }),
+			"Alt+P",
+		),
 	);
 	const nextPostShortcutTitle = $derived(
-		withShortcut(m.blog_post_next_label({}, { locale: displayLocale }), "Alt+N"),
+		withShortcut(
+			m.blog_post_next_label({}, { locale: displayLocale }),
+			"Alt+N",
+		),
 	);
 
+	$effect(() => {
+		if (!imagePreviewDialog) {
+			return;
+		}
+
+		if (selectedImage && !imagePreviewDialog.open) {
+			imagePreviewDialog.showModal();
+			return;
+		}
+
+		if (!selectedImage && imagePreviewDialog.open) {
+			imagePreviewDialog.close();
+		}
+	});
+
 	onMount(() => {
-		canUseDeviceShare = typeof navigator !== "undefined" && typeof navigator.share === "function";
+		canUseDeviceShare =
+			typeof navigator !== "undefined" && typeof navigator.share === "function";
 		window.addEventListener("keydown", handleTocShortcut);
 		window.addEventListener("keydown", handleAdjacentPostShortcut);
 		window.addEventListener("keydown", handleBlogPostControlKeydown);
@@ -111,8 +152,13 @@
 		return `post-heading-${index}`;
 	}
 
-	function getPostHeadingTitle(heading: { text: string; shortcut?: string }): string | undefined {
-		return heading.shortcut ? withShortcut(heading.text, heading.shortcut) : undefined;
+	function getPostHeadingTitle(heading: {
+		text: string;
+		shortcut?: string;
+	}): string | undefined {
+		return heading.shortcut
+			? withShortcut(heading.text, heading.shortcut)
+			: undefined;
 	}
 
 	function getBlogPostHref(slug: string): string {
@@ -131,7 +177,8 @@
 		}
 
 		if (
-			event.key.toLocaleLowerCase() === BLOG_POST_TOC_SHORTCUT_PREFIX.toLocaleLowerCase()
+			event.key.toLocaleLowerCase() ===
+			BLOG_POST_TOC_SHORTCUT_PREFIX.toLocaleLowerCase()
 		) {
 			event.preventDefault();
 			startTocShortcutSequence();
@@ -144,7 +191,10 @@
 
 		const shortcutIndex = getBlogPostTocShortcutIndex(event.key, event.code);
 
-		if (shortcutIndex === undefined || shortcutIndex >= BLOG_POST_TOC_SHORTCUT_LIMIT) {
+		if (
+			shortcutIndex === undefined ||
+			shortcutIndex >= BLOG_POST_TOC_SHORTCUT_LIMIT
+		) {
 			clearTocShortcutSequence();
 			return;
 		}
@@ -191,6 +241,20 @@
 		if (tocShortcutTimer !== undefined) {
 			window.clearTimeout(tocShortcutTimer);
 			tocShortcutTimer = undefined;
+		}
+	}
+
+	function openImagePreview(image: { src: string; alt: string }) {
+		selectedImage = image;
+	}
+
+	function closeImagePreview() {
+		selectedImage = undefined;
+	}
+
+	function handleImagePreviewDialogClick(event: MouseEvent) {
+		if (event.target === event.currentTarget) {
+			closeImagePreview();
 		}
 	}
 
@@ -259,7 +323,9 @@
 
 	function getBlogPostFocusTargets(): HTMLElement[] {
 		return Array.from(
-			blogPostElement?.querySelectorAll<HTMLElement>("[data-blog-post-keyboard-target]") ?? [],
+			blogPostElement?.querySelectorAll<HTMLElement>(
+				"[data-blog-post-keyboard-target]",
+			) ?? [],
 		);
 	}
 
@@ -287,7 +353,10 @@
 	}
 
 	function isBlogPostKeyboardTarget(target: EventTarget | null): boolean {
-		return target instanceof HTMLElement && Boolean(target.closest("[data-blog-post-keyboard-target]"));
+		return (
+			target instanceof HTMLElement &&
+			Boolean(target.closest("[data-blog-post-keyboard-target]"))
+		);
 	}
 
 	function isModifiedKeyEvent(event: KeyboardEvent): boolean {
@@ -318,7 +387,9 @@
 		}
 	}
 
-	function getSharePlatformIcon(platform: BlogSharePlatform): SharePlatformIcon {
+	function getSharePlatformIcon(
+		platform: BlogSharePlatform,
+	): SharePlatformIcon {
 		switch (platform) {
 			case "telegram":
 				return { kind: "lucide", name: "send" };
@@ -356,7 +427,11 @@
 			return;
 		}
 
-		if (canUseDeviceShare && typeof navigator !== "undefined" && typeof navigator.share === "function") {
+		if (
+			canUseDeviceShare &&
+			typeof navigator !== "undefined" &&
+			typeof navigator.share === "function"
+		) {
 			try {
 				await navigator.share(sharePayload);
 				return;
@@ -392,22 +467,35 @@
 	}
 
 	function isShareAbortError(error: unknown): boolean {
-		return Boolean(error && typeof error === "object" && "name" in error && error.name === "AbortError");
+		return Boolean(
+			error &&
+			typeof error === "object" &&
+			"name" in error &&
+			error.name === "AbortError",
+		);
 	}
 </script>
 
 <svelte:head>
-	<title>{post ? `${post.title} · ${siteProfile.name}` : siteProfile.name}</title>
+	<title
+		>{post ? `${post.title} · ${siteProfile.name}` : siteProfile.name}</title
+	>
 	{#if blogPostingStructuredDataMarkup}
 		{@html blogPostingStructuredDataMarkup}
 	{/if}
 </svelte:head>
 
 {#if post}
-	<article bind:this={blogPostElement} class="blog-post" aria-labelledby="section-title">
+	<article
+		bind:this={blogPostElement}
+		class="blog-post"
+		aria-labelledby="section-title"
+	>
 		<a class="back-link" href={blogHref}>
 			<ArrowLeft aria-hidden="true" size={16} strokeWidth={2.2} />
-			<span class="back-link-label">{m.blog_back_to_list({}, { locale: displayLocale })}</span>
+			<span class="back-link-label"
+				>{m.blog_back_to_list({}, { locale: displayLocale })}</span
+			>
 		</a>
 
 		<header class="post-header">
@@ -415,7 +503,11 @@
 				<div>
 					<dt>{m.blog_post_author_label({}, { locale: displayLocale })}</dt>
 					<dd>
-						<a href={siteProfile.author.url} target="_blank" rel="noopener noreferrer">
+						<a
+							href={siteProfile.author.url}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
 							{siteProfile.author.name}
 						</a>
 					</dd>
@@ -446,22 +538,66 @@
 
 		<div class="post-reading-layout">
 			<div class="post-body">
-				{#each postBodyBlocks as block, index (`${block.kind}-${index}`)}
-					{#if block.kind === "paragraph"}
-						<p>{block.text}</p>
-					{:else if block.kind === "heading"}
-						<h2 id={getPostHeadingId(index)} tabindex="-1">{block.text}</h2>
-					{:else if block.kind === "image"}
+				{#each postRenderItems as item (item.key)}
+					{#if item.kind === "ad"}
+						<AdUnit slotKey={item.placement.slotKey} />
+					{:else if item.block.kind === "paragraph"}
+						<p>{item.block.text}</p>
+					{:else if item.block.kind === "heading"}
+						<h2 id={getPostHeadingId(item.blockIndex)} tabindex="-1">
+							{item.block.text}
+						</h2>
+					{:else if item.block.kind === "image"}
+						{@const imageBlock = item.block}
 						<figure class="post-image">
-							<img src={block.src} alt={block.alt} loading="lazy" decoding="async" />
+							<button
+								type="button"
+								class="post-image-button"
+								onclick={() =>
+									openImagePreview({
+										src: imageBlock.src,
+										alt: imageBlock.alt,
+									})}
+							>
+								<img
+									src={imageBlock.src}
+									alt={imageBlock.alt}
+									loading="lazy"
+									decoding="async"
+								/>
+							</button>
 						</figure>
+					{:else if item.block.kind === "table"}
+						<div class="post-table-wrap">
+							<table>
+								<thead>
+									<tr>
+										{#each item.block.headers as header}
+											<th scope="col">{header}</th>
+										{/each}
+									</tr>
+								</thead>
+								<tbody>
+									{#each item.block.rows as row}
+										<tr>
+											{#each row as cell}
+												<td>{cell}</td>
+											{/each}
+										</tr>
+									{/each}
+								</tbody>
+							</table>
+						</div>
 					{/if}
 				{/each}
 
 				{#if adjacentPosts.previous || adjacentPosts.next}
 					<nav
 						class="post-adjacent"
-						aria-label={m.blog_post_adjacent_label({}, { locale: displayLocale })}
+						aria-label={m.blog_post_adjacent_label(
+							{},
+							{ locale: displayLocale },
+						)}
 					>
 						{#if adjacentPosts.previous}
 							<a
@@ -471,7 +607,12 @@
 								aria-keyshortcuts="Alt+P"
 								data-blog-post-keyboard-target
 							>
-								<span>{m.blog_post_previous_label({}, { locale: displayLocale })}</span>
+								<span
+									>{m.blog_post_previous_label(
+										{},
+										{ locale: displayLocale },
+									)}</span
+								>
 								<strong>{adjacentPosts.previous.title}</strong>
 							</a>
 						{/if}
@@ -484,7 +625,9 @@
 								aria-keyshortcuts="Alt+N"
 								data-blog-post-keyboard-target
 							>
-								<span>{m.blog_post_next_label({}, { locale: displayLocale })}</span>
+								<span
+									>{m.blog_post_next_label({}, { locale: displayLocale })}</span
+								>
 								<strong>{adjacentPosts.next.title}</strong>
 							</a>
 						{/if}
@@ -495,7 +638,10 @@
 			{#if postHeadings.length > 0 || shareLinks.length > 0}
 				<aside class="post-sidecar">
 					{#if postHeadings.length > 0}
-						<nav class="post-toc" aria-label={m.blog_post_toc_label({}, { locale: displayLocale })}>
+						<nav
+							class="post-toc"
+							aria-label={m.blog_post_toc_label({}, { locale: displayLocale })}
+						>
 							<p>{m.blog_post_toc_label({}, { locale: displayLocale })}</p>
 							<ol>
 								{#each postHeadings as heading (heading.id)}
@@ -516,7 +662,9 @@
 
 					{#if shareLinks.length > 0}
 						<section class="post-share" aria-labelledby="post-share-title">
-							<p id="post-share-title">{m.blog_post_share_label({}, { locale: displayLocale })}</p>
+							<p id="post-share-title">
+								{m.blog_post_share_label({}, { locale: displayLocale })}
+							</p>
 							<div class="post-share-grid">
 								<button
 									class="post-share-icon-button"
@@ -535,16 +683,26 @@
 								<button
 									class="post-share-icon-button"
 									type="button"
-									aria-label={m.blog_post_share_device({}, { locale: displayLocale })}
-									data-tooltip={m.blog_post_share_device({}, { locale: displayLocale })}
+									aria-label={m.blog_post_share_device(
+										{},
+										{ locale: displayLocale },
+									)}
+									data-tooltip={m.blog_post_share_device(
+										{},
+										{ locale: displayLocale },
+									)}
 									data-blog-post-keyboard-target
 									onclick={shareWithDevice}
 								>
 									<Share2 aria-hidden="true" size={18} strokeWidth={2.2} />
 								</button>
 								{#each shareLinks as shareLink (shareLink.platform)}
-									{@const platformLabel = getSharePlatformLabel(shareLink.platform)}
-									{@const platformIcon = getSharePlatformIcon(shareLink.platform)}
+									{@const platformLabel = getSharePlatformLabel(
+										shareLink.platform,
+									)}
+									{@const platformIcon = getSharePlatformIcon(
+										shareLink.platform,
+									)}
 									<a
 										class="post-share-icon-button"
 										href={shareLink.href}
@@ -558,7 +716,11 @@
 											{#if platformIcon.name === "send"}
 												<Send aria-hidden="true" size={18} strokeWidth={2.2} />
 											{:else}
-												<MessageCircle aria-hidden="true" size={18} strokeWidth={2.2} />
+												<MessageCircle
+													aria-hidden="true"
+													size={18}
+													strokeWidth={2.2}
+												/>
 											{/if}
 										{:else}
 											<BrandIcon icon={platformIcon.icon} size={18} />
@@ -567,13 +729,37 @@
 								{/each}
 							</div>
 							<span class="sr-only" aria-live="polite">
-								{copyState === "copied" ? m.blog_post_copied_link({}, { locale: displayLocale }) : ""}
+								{copyState === "copied"
+									? m.blog_post_copied_link({}, { locale: displayLocale })
+									: ""}
 							</span>
 						</section>
 					{/if}
 				</aside>
 			{/if}
 		</div>
+
+		<dialog
+			bind:this={imagePreviewDialog}
+			class="post-image-preview-dialog"
+			aria-label={selectedImage?.alt ?? ""}
+			onclick={handleImagePreviewDialogClick}
+			onclose={closeImagePreview}
+		>
+			{#if selectedImage}
+				<button
+					type="button"
+					class="post-image-preview-close"
+					onclick={closeImagePreview}
+				>
+					<img
+						src={selectedImage.src}
+						alt={selectedImage.alt}
+						decoding="async"
+					/>
+				</button>
+			{/if}
+		</dialog>
 	</article>
 {/if}
 
@@ -688,7 +874,10 @@
 	.post-reading-layout {
 		display: grid;
 		grid-template-areas: "body toc";
-		grid-template-columns: minmax(0, var(--post-body-width)) minmax(var(--post-toc-min-width), var(--post-toc-max-width));
+		grid-template-columns: minmax(0, var(--post-body-width)) minmax(
+				var(--post-toc-min-width),
+				var(--post-toc-max-width)
+			);
 		gap: clamp(1.25rem, 4vw, 2.5rem);
 		align-items: start;
 	}
@@ -833,7 +1022,7 @@
 
 	.post-body h2 {
 		scroll-margin-top: 1.5rem;
-		margin: 0.7rem 0 -0.15rem;
+		margin: 2.75rem 0 -0.1rem;
 		color: var(--foreground);
 		font-size: 1.28rem;
 		font-weight: 780;
@@ -842,18 +1031,111 @@
 	}
 
 	.post-image {
-		margin: 0;
+		margin: 0.25rem 0 0.75rem;
+	}
+
+	.post-image-button {
+		display: block;
+		width: 100%;
+		padding: 0;
+		border: 0;
+		background: transparent;
+		color: inherit;
+		cursor: zoom-in;
 	}
 
 	.post-image img {
 		display: block;
-		width: min(100%, 18rem);
-		aspect-ratio: 1;
+		width: 100%;
+		height: auto;
 		border: 1px solid color-mix(in oklch, var(--border) 78%, transparent);
 		border-radius: var(--radius-md);
 		background: var(--paper-soft);
-		object-fit: cover;
 		user-select: none;
+	}
+
+	.post-image-preview-dialog {
+		display: none;
+		place-items: center;
+		width: 100vw;
+		max-width: none;
+		height: 100svh;
+		max-height: none;
+		padding: 1rem;
+		border: 0;
+		margin: 0;
+		background: transparent;
+		cursor: zoom-out;
+	}
+
+	.post-image-preview-dialog[open] {
+		display: grid;
+	}
+
+	.post-image-preview-dialog::backdrop {
+		background: color-mix(in oklch, black 78%, transparent);
+	}
+
+	.post-image-preview-close {
+		display: block;
+		padding: 0;
+		border: 0;
+		background: transparent;
+		cursor: zoom-out;
+	}
+
+	.post-image-preview-dialog img {
+		display: block;
+		width: auto;
+		max-width: calc(100vw - 4rem);
+		height: auto;
+		max-height: calc(100svh - 4rem);
+		border: 1px solid color-mix(in oklch, var(--border) 65%, transparent);
+		border-radius: var(--radius-md);
+		background: var(--paper-soft);
+		box-shadow: 0 1.5rem 4rem color-mix(in oklch, black 38%, transparent);
+		user-select: none;
+	}
+
+	.post-table-wrap {
+		overflow-x: auto;
+		margin: 0.35rem 0 0.85rem;
+		border: 1px solid color-mix(in oklch, var(--border) 72%, transparent);
+		border-radius: var(--radius-md);
+		background: color-mix(in oklch, var(--paper-soft) 14%, transparent);
+	}
+
+	.post-table-wrap table {
+		width: 100%;
+		min-width: 34rem;
+		border-collapse: collapse;
+		font-size: calc(0.88rem + 1pt);
+		line-height: 1.38;
+	}
+
+	.post-table-wrap :is(th, td) {
+		padding: 0.72rem 0.84rem;
+		border-bottom: 1px solid color-mix(in oklch, var(--border) 58%, transparent);
+		text-align: left;
+		vertical-align: top;
+	}
+
+	.post-table-wrap th {
+		color: var(--foreground);
+		font-weight: 760;
+	}
+
+	.post-table-wrap td {
+		color: color-mix(in oklch, var(--foreground) 88%, var(--muted-foreground));
+	}
+
+	.post-table-wrap tr:last-child td {
+		border-bottom: 0;
+	}
+
+	.post-table-wrap :is(th, td):not(:first-child) {
+		text-align: right;
+		white-space: nowrap;
 	}
 
 	.post-adjacent {
@@ -921,7 +1203,8 @@
 			position: static;
 			padding: 0 0 0.8rem;
 			border-left: 0;
-			border-bottom: 1px solid color-mix(in oklch, var(--border) 76%, transparent);
+			border-bottom: 1px solid
+				color-mix(in oklch, var(--border) 76%, transparent);
 		}
 
 		.post-share {
