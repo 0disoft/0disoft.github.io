@@ -76,8 +76,12 @@ describe("site settings", () => {
 		expect(analyticsBootstrapSource).toContain("readStoredAnalyticsConsent()");
 		expect(analyticsBootstrapSource).toContain("siteAnalyticsConsentChangeEvent");
 		expect(analyticsConsentSource).toContain("readStoredAnalyticsConsentValue");
-		expect(analyticsConsentSource).toContain("writeStoredAnalyticsConsent(true)");
-		expect(analyticsConsentSource).toContain("writeStoredAnalyticsConsent(false)");
+		expect(analyticsConsentSource).toContain("readStoredAdvertisingConsentValue");
+		expect(analyticsConsentSource).toContain("writeConfiguredServiceConsent(true)");
+		expect(analyticsConsentSource).toContain("writeConfiguredServiceConsent(false)");
+		expect(analyticsConsentSource).toContain("writeStoredAnalyticsConsent(enabled)");
+		expect(analyticsConsentSource).toContain("writeStoredAdvertisingConsent(enabled)");
+		expect(analyticsConsentSource).toContain("isSiteAdvertisingConfigured");
 		expect(layoutSource).toContain('import SiteAnalytics from "$lib/site-analytics.svelte"');
 		expect(layoutSource).toContain(
 			'import SiteAnalyticsConsent from "$lib/site-analytics-consent.svelte"',

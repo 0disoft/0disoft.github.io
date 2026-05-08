@@ -7,27 +7,46 @@
 		readStoredAnalyticsConsentValue,
 		writeStoredAnalyticsConsent,
 	} from "$lib/site-analytics";
+	import {
+		readStoredAdvertisingConsentValue,
+		writeStoredAdvertisingConsent,
+	} from "$lib/site-advertising-consent";
+	import { isSiteAdvertisingConfigured } from "$lib/site-advertising";
 	import { toDisplayLocale } from "$lib/site-labels";
 
 	let visible = $state(false);
 	const displayLocale = $derived(toDisplayLocale(getLocale()));
+	const analyticsConfigured = isSiteAnalyticsConfigured();
+	const advertisingConfigured = isSiteAdvertisingConfigured();
 
 	$effect(() => {
-		if (!browser || !isSiteAnalyticsConfigured()) {
+		if (!browser || (!analyticsConfigured && !advertisingConfigured)) {
 			return;
 		}
 
-		visible = readStoredAnalyticsConsentValue() === null;
+		visible =
+			(analyticsConfigured && readStoredAnalyticsConsentValue() === null) ||
+			(advertisingConfigured && readStoredAdvertisingConsentValue() === null);
 	});
 
-	function acceptAnalytics() {
-		writeStoredAnalyticsConsent(true);
+	function acceptConfiguredServices() {
+		writeConfiguredServiceConsent(true);
 		visible = false;
 	}
 
-	function declineAnalytics() {
-		writeStoredAnalyticsConsent(false);
+	function declineConfiguredServices() {
+		writeConfiguredServiceConsent(false);
 		visible = false;
+	}
+
+	function writeConfiguredServiceConsent(enabled: boolean) {
+		if (analyticsConfigured) {
+			writeStoredAnalyticsConsent(enabled);
+		}
+
+		if (advertisingConfigured) {
+			writeStoredAdvertisingConsent(enabled);
+		}
 	}
 </script>
 
@@ -38,10 +57,10 @@
 	>
 		<p>{m.analytics_consent_body({}, { locale: displayLocale })}</p>
 		<div class="analytics-consent-actions">
-			<button type="button" class="primary" onclick={acceptAnalytics}>
+			<button type="button" class="primary" onclick={acceptConfiguredServices}>
 				{m.analytics_consent_accept({}, { locale: displayLocale })}
 			</button>
-			<button type="button" onclick={declineAnalytics}>
+			<button type="button" onclick={declineConfiguredServices}>
 				{m.analytics_consent_decline({}, { locale: displayLocale })}
 			</button>
 		</div>
