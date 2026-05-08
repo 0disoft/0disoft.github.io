@@ -207,6 +207,7 @@ describe("site shell", () => {
 		expect(workMetaFilePaths).toEqual([
 			"mustflow/meta.json",
 			"quickquack/meta.json",
+			"tessera/meta.json",
 			"workduck/meta.json",
 		]);
 		expect(workJsonFilePaths).toEqual([
@@ -224,6 +225,13 @@ describe("site shell", () => {
 			"quickquack/ko.json",
 			"quickquack/meta.json",
 			"quickquack/zh.json",
+			"tessera/en.json",
+			"tessera/es.json",
+			"tessera/fr.json",
+			"tessera/hi.json",
+			"tessera/ko.json",
+			"tessera/meta.json",
+			"tessera/zh.json",
 			"workduck/en.json",
 			"workduck/es.json",
 			"workduck/fr.json",
@@ -245,6 +253,7 @@ describe("site shell", () => {
 		expect(worksSurfaceSource).toContain('class="work-card"');
 		expect(worksSurfaceSource).toContain("repeat(auto-fill");
 		expect(worksSurfaceSource).not.toContain("repeat(auto-fit");
+		expect(worksSurfaceSource).toContain("grid-auto-rows: 1fr");
 		expect(worksSurfaceSource).toContain("align-items: stretch");
 		expect(worksSurfaceSource).toContain("min-height: 100%");
 		expect(worksSurfaceSource).toContain("margin-top: auto");

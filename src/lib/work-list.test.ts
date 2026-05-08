@@ -198,11 +198,12 @@ describe("work list content", () => {
 		const koreanWorks = getWorksForLocale(workItems, "ko");
 		const koreanMustflow = koreanWorks.find((work) => work.slug === "mustflow");
 		const koreanQuickquack = koreanWorks.find((work) => work.slug === "quickquack");
+		const koreanTessera = koreanWorks.find((work) => work.slug === "tessera");
 		const koreanWorkduck = koreanWorks.find((work) => work.slug === "workduck");
 
 		expect(workLocales).toEqual(["en", "zh", "es", "fr", "hi", "ko"]);
-		expect(workItems).toHaveLength(workLocales.length * 3);
-		expect(workSlugs).toEqual(["mustflow", "quickquack", "workduck"]);
+		expect(workItems).toHaveLength(workLocales.length * 4);
+		expect(workSlugs).toEqual(["mustflow", "quickquack", "tessera", "workduck"]);
 		expect(koreanMustflow).toMatchObject({
 			slug: "mustflow",
 			locale: "ko",
@@ -227,6 +228,21 @@ describe("work list content", () => {
 			license: "",
 			languages: [],
 			title: "quickquack",
+			summary: "",
+			updatedAt: "",
+			tags: [],
+			links: {
+				source: null,
+				docs: null,
+			},
+		});
+		expect(koreanTessera).toMatchObject({
+			slug: "tessera",
+			locale: "ko",
+			status: "building",
+			license: "",
+			languages: [],
+			title: "tessera",
 			summary: "",
 			updatedAt: "",
 			tags: [],
@@ -266,10 +282,20 @@ describe("work list content", () => {
 		const koreanWorks = getWorksForLocale(workItems, "ko");
 		const fallbackWorks = getWorksForLocale(workItems, "missing");
 
-		expect(koreanWorks.map((work) => work.locale)).toEqual(["ko", "ko", "ko"]);
-		expect(fallbackWorks.map((work) => work.locale)).toEqual(["en", "en", "en"]);
-		expect(koreanWorks.map((work) => work.slug)).toEqual(["mustflow", "quickquack", "workduck"]);
-		expect(fallbackWorks.map((work) => work.slug)).toEqual(["mustflow", "quickquack", "workduck"]);
+		expect(koreanWorks.map((work) => work.locale)).toEqual(["ko", "ko", "ko", "ko"]);
+		expect(fallbackWorks.map((work) => work.locale)).toEqual(["en", "en", "en", "en"]);
+		expect(koreanWorks.map((work) => work.slug)).toEqual([
+			"mustflow",
+			"quickquack",
+			"tessera",
+			"workduck",
+		]);
+		expect(fallbackWorks.map((work) => work.slug)).toEqual([
+			"mustflow",
+			"quickquack",
+			"tessera",
+			"workduck",
+		]);
 	});
 });
 

@@ -564,6 +564,7 @@
 	.works-list {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+		grid-auto-rows: 1fr;
 		gap: 0.85rem;
 		align-items: stretch;
 		padding: 0;
