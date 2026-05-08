@@ -62,9 +62,12 @@ export const sidebarActionSource = readRequiredText("../ui/sidebar-action.svelte
 export const iconButtonSource = readRequiredText("../ui/icon-button.svelte");
 export const brandIconSource = readRequiredText("../ui/brand-icon.svelte");
 export const blogSurfaceSource = readRequiredText("../blog-surface.svelte");
+export const worksSurfaceSource = readRequiredText("../works-surface.svelte");
 export const blogPostSurfaceSource = readRequiredText("../blog-post-surface.svelte");
 export const blogPostSeoSource = readRequiredText("../blog-post-seo.ts");
 export const blogPostsSource = readRequiredText("../blog-posts.ts");
+export const worksSource = readRequiredText("../works.ts");
+export const workCoreSource = readRequiredText("../work-core.ts");
 export const blogPostCoreSource = readRequiredText("../blog-post-core.ts");
 export const blogShareSource = readRequiredText("../blog-share.ts");
 export const localesSource = readRequiredText("../site-locales.ts");
@@ -83,9 +86,12 @@ export const deployWorkflowSource = readRequiredText("../../../.github/workflows
 export const publicBirdImageSource = readRequiredText("../../../static/images/0disoft-bird.svg");
 
 export const blogPostsModuleExists = blogPostsSource.length > 0;
+export const worksModuleExists = worksSource.length > 0;
 export const navigationModuleExists = navigationSource.length > 0;
 export const blogMetaFilePaths = collectRelativeFiles("../../content/blog/", "meta.json");
 export const blogMarkdownFilePaths = collectRelativeFiles("../../content/blog/", ".md");
+export const workMetaFilePaths = collectRelativeFiles("../../content/works/", "meta.json");
+export const workJsonFilePaths = collectRelativeFiles("../../content/works/", ".json");
 
 export const siteSurfaceSource = [
 	routeSource,
@@ -94,8 +100,11 @@ export const siteSurfaceSource = [
 	sidebarActionSource,
 	iconButtonSource,
 	blogSurfaceSource,
+	worksSurfaceSource,
 	blogPostSurfaceSource,
 	blogPostsSource,
+	worksSource,
+	workCoreSource,
 	labelsSource,
 ].join("\n");
 

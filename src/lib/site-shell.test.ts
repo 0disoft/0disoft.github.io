@@ -14,6 +14,12 @@ import {
 	sidebarSource,
 	siteSurfaceSource,
 	surfaceSource,
+	workCoreSource,
+	workJsonFilePaths,
+	workMetaFilePaths,
+	worksModuleExists,
+	worksSource,
+	worksSurfaceSource,
 } from "./test-support/site-test-sources";
 
 describe("site shell", () => {
@@ -185,6 +191,82 @@ describe("site shell", () => {
 			'<h1 id="section-title" class="sr-only">{activeSectionLabel}</h1>',
 		);
 		expect(surfaceSource).not.toContain(".content-section h1");
+	});
+
+	it("renders works as a filterable public card list", () => {
+		expect(worksModuleExists).toBe(true);
+		expect(surfaceSource).toContain('import WorksSurface from "$lib/works-surface.svelte"');
+		expect(surfaceSource).toContain('const isWorksSection = $derived(activePath === "/works")');
+		expect(surfaceSource).toContain("<WorksSurface");
+		expect(worksSource).toContain('import.meta.glob("../content/works/**/meta.json"');
+		expect(worksSource).toContain("WORK_FILTER_QUERY_KEYS");
+		expect(worksSource).toContain("filterWorks");
+		expect(worksSource).toContain("getWorkFilterOptions");
+		expect(worksSource).toContain("parseWorkFilters");
+		expect(workCoreSource).toContain("workLocales = siteLocales");
+		expect(workMetaFilePaths).toEqual([
+			"mustflow/meta.json",
+			"quickquack/meta.json",
+			"workduck/meta.json",
+		]);
+		expect(workJsonFilePaths).toEqual([
+			"mustflow/en.json",
+			"mustflow/es.json",
+			"mustflow/fr.json",
+			"mustflow/hi.json",
+			"mustflow/ko.json",
+			"mustflow/meta.json",
+			"mustflow/zh.json",
+			"quickquack/en.json",
+			"quickquack/es.json",
+			"quickquack/fr.json",
+			"quickquack/hi.json",
+			"quickquack/ko.json",
+			"quickquack/meta.json",
+			"quickquack/zh.json",
+			"workduck/en.json",
+			"workduck/es.json",
+			"workduck/fr.json",
+			"workduck/hi.json",
+			"workduck/ko.json",
+			"workduck/meta.json",
+			"workduck/zh.json",
+		]);
+		expect(worksSurfaceSource).toContain('class="works-filters"');
+		expect(worksSurfaceSource).toContain('id="works-search"');
+		expect(worksSurfaceSource).toContain('id="works-tag"');
+		expect(worksSurfaceSource).toContain('id="works-language"');
+		expect(worksSurfaceSource).toContain("filterWorks(localizedWorks, filters)");
+		expect(worksSurfaceSource).toContain("getWorkFilterOptions(localizedWorks)");
+		expect(worksSurfaceSource).toContain("parseWorkFilters");
+		expect(worksSurfaceSource).toContain("works_clear_filters");
+		expect(worksSurfaceSource).toContain("works_results_label");
+		expect(worksSurfaceSource).toContain('class="works-list"');
+		expect(worksSurfaceSource).toContain('class="work-card"');
+		expect(worksSurfaceSource).toContain("repeat(auto-fill");
+		expect(worksSurfaceSource).not.toContain("repeat(auto-fit");
+		expect(worksSurfaceSource).toContain("align-items: stretch");
+		expect(worksSurfaceSource).toContain("min-height: 100%");
+		expect(worksSurfaceSource).toContain("margin-top: auto");
+		expect(worksSurfaceSource).toContain("getWorksForLocale(workItems, currentLocale)");
+		expect(worksSurfaceSource).toContain("getWorkStatusLabel(work.status)");
+		expect(worksSurfaceSource).toContain("works_license_label");
+		expect(worksSurfaceSource).toContain("{#if work.license}");
+		expect(worksSurfaceSource).toContain("works_languages_label");
+		expect(worksSurfaceSource).toContain("work.languages");
+		expect(worksSurfaceSource).not.toContain("works_updated_label");
+		expect(worksSurfaceSource).not.toContain("work.updatedAt");
+		expect(worksSurfaceSource).toContain("hasWorkDetails");
+		expect(worksSurfaceSource).toContain("{#if work.summary}");
+		expect(worksSurfaceSource).toContain("{#if work.tags.length > 0}");
+		expect(worksSurfaceSource).toContain("getWorkTagLabel(tag)");
+		expect(worksSurfaceSource).toContain("getWorkLinks(work.links)");
+		expect(worksSurfaceSource).toContain('class="work-link-disabled"');
+		expect(worksSurfaceSource).toContain("disabled");
+		expect(worksSurfaceSource).toContain("noopener noreferrer");
+		expect(worksSurfaceSource).not.toContain("work_tag_deploy_soon");
+		expect(worksSurfaceSource).not.toContain("deploy-soon");
+		expect(worksSurfaceSource).not.toContain("category");
 	});
 
 	it("uses Tailwind v4 utilities for shared styling primitives", () => {

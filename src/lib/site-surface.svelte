@@ -2,6 +2,7 @@
 	import type { Snippet } from "svelte";
 	import BlogSurface from "$lib/blog-surface.svelte";
 	import SiteSidebar from "$lib/site-sidebar.svelte";
+	import WorksSurface from "$lib/works-surface.svelte";
 	import { getLocale } from "$lib/paraglide/runtime";
 	import { getLocalizedNavigationLabel, toDisplayLocale } from "$lib/site-labels";
 	import type { SiteSectionPath } from "$lib/site-navigation";
@@ -16,6 +17,7 @@
 	const displayLocale = $derived(toDisplayLocale(getLocale()));
 	const activeSection = $derived(findNavigationItemByPath(activePath));
 	const isBlogSection = $derived(activePath === "/blog");
+	const isWorksSection = $derived(activePath === "/works");
 	const activeSectionLabel = $derived(
 		activeSection ? getLocalizedNavigationLabel(activeSection.href, displayLocale) : siteProfile.name,
 	);
@@ -33,6 +35,8 @@
 			{@render children()}
 		{:else if isBlogSection}
 			<BlogSurface />
+		{:else if isWorksSection}
+			<WorksSurface />
 		{:else if activeSection}
 			<section class="content-section" aria-labelledby="section-title">
 				<h1 id="section-title" class="sr-only">{activeSectionLabel}</h1>

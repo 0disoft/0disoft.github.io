@@ -1,0 +1,4 @@
+{
+  "title": "mustflow",
+  "summary": "Una herramienta CLI de flujo de trabajo que guía a los agentes de código con LLM para entender y seguir las reglas de trabajo, las convenciones de comandos y los procedimientos de verificación definidos en el repositorio antes de actuar."
+}
