@@ -86,7 +86,8 @@ describe("blog list", () => {
 			),
 		).toMatchObject({
 			locale: "es",
-			title: "La IA vuelve a las empresas más pequeñas y rápidas",
+			title:
+				"En la era de la IA, la velocidad de decisión importa más que la velocidad de ejecución",
 			heroImage: {
 				src: "/images/blog/2026/05/ai-smaller-faster-companies/thumbnail.webp",
 				alt: "Persona trabajando frente a varias pantallas de software en una oficina",
@@ -101,7 +102,7 @@ describe("blog list", () => {
 			),
 		).toMatchObject({
 			locale: "fr",
-			title: "L'IA rend les entreprises plus petites et plus rapides",
+			title: "À l'ère de l'IA, la vitesse de décision compte plus que la vitesse d'exécution",
 			heroImage: {
 				src: "/images/blog/2026/05/ai-smaller-faster-companies/thumbnail.webp",
 				alt: "Personne travaillant devant plusieurs écrans de logiciel dans un bureau",
@@ -116,7 +117,7 @@ describe("blog list", () => {
 			),
 		).toMatchObject({
 			locale: "hi",
-			title: "AI कंपनियों को छोटा और तेज बना रहा है",
+			title: "AI युग में असली मुकाबला एक्ज़ीक्यूशन स्पीड का नहीं, निर्णय लेने की गति का है",
 			heroImage: {
 				src: "/images/blog/2026/05/ai-smaller-faster-companies/thumbnail.webp",
 				alt: "कार्यालय में कई सॉफ्टवेयर स्क्रीन पर काम करता व्यक्ति",
@@ -131,7 +132,7 @@ describe("blog list", () => {
 			),
 		).toMatchObject({
 			locale: "zh",
-			title: "AI 正在让公司变得更小、更快",
+			title: "AI 时代的关键不是执行速度，而是决策速度",
 			heroImage: {
 				src: "/images/blog/2026/05/ai-smaller-faster-companies/thumbnail.webp",
 				alt: "办公室里的人正在多个软件屏幕前工作",
