@@ -8,6 +8,7 @@ import {
 	requestGoogleAdRender,
 	type GoogleAdUnitConfig,
 } from "$lib/site-ad-provider-google";
+import { readStoredAdvertisingConsent } from "$lib/site-advertising-consent";
 
 type SiteAdProvider = GoogleAdUnitConfig["provider"];
 type SiteAdUnitConfig = GoogleAdUnitConfig;
@@ -45,6 +46,10 @@ export function getBlogPostAdUnitConfig(slotKey: BlogPostAdSlotKey): SiteAdUnitC
 }
 
 export function loadSiteAdProviderScript(config: SiteAdUnitConfig): Promise<boolean> {
+	if (!readStoredAdvertisingConsent()) {
+		return Promise.resolve(false);
+	}
+
 	switch (config.provider) {
 		case "google":
 			return loadGoogleAdScript(config.clientId);
@@ -52,6 +57,10 @@ export function loadSiteAdProviderScript(config: SiteAdUnitConfig): Promise<bool
 }
 
 export function requestSiteAdRender(config: SiteAdUnitConfig): boolean {
+	if (!readStoredAdvertisingConsent()) {
+		return false;
+	}
+
 	switch (config.provider) {
 		case "google":
 			return requestGoogleAdRender();

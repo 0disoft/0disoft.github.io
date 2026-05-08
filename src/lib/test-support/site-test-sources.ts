@@ -79,6 +79,7 @@ export const analyticsCoreSource = readRequiredText("../site-analytics-core.ts")
 export const analyticsRuntimeSource = readRequiredText("../site-analytics.ts");
 export const analyticsBootstrapSource = readRequiredText("../site-analytics.svelte");
 export const analyticsConsentSource = readRequiredText("../site-analytics-consent.svelte");
+export const advertisingConsentSource = readRequiredText("../site-advertising-consent.ts");
 export const googleAdProviderSource = readRequiredText("../site-ad-provider-google.ts");
 export const siteAdvertisingSource = readRequiredText("../site-advertising.ts");
 export const navigationSource = readRequiredText("../site-navigation.ts");

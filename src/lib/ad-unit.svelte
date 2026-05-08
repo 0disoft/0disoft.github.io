@@ -1,28 +1,32 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import { onMount, tick } from "svelte";
 	import type { BlogPostAdSlotKey } from "$lib/blog-post-ads";
 	import {
 		getBlogPostAdUnitConfig,
 		loadSiteAdProviderScript,
 		requestSiteAdRender,
 	} from "$lib/site-advertising";
+	import {
+		readStoredAdvertisingConsent,
+		siteAdvertisingConsentChangeEvent,
+	} from "$lib/site-advertising-consent";
 
 	const AD_RENDER_RESULT_TIMEOUT_MS = 6000;
 
 	let { slotKey }: { slotKey: BlogPostAdSlotKey } = $props();
 
 	let adElement = $state<HTMLElement | undefined>();
+	let advertisingConsent = $state(false);
 	let displayState = $state<"pending" | "filled" | "empty">("pending");
 
-	const config = $derived(getBlogPostAdUnitConfig(slotKey));
+	const rawConfig = $derived(getBlogPostAdUnitConfig(slotKey));
+	const config = $derived(advertisingConsent ? rawConfig : null);
 
 	onMount(() => {
-		if (!config || !adElement) {
-			return;
-		}
-
 		let renderTimeout: number | undefined;
-		const observer = new MutationObserver(syncDisplayState);
+		let observer: MutationObserver | undefined;
+		let renderRequested = false;
+		let disposed = false;
 
 		function syncDisplayState() {
 			const providerStatus = adElement?.dataset.adStatus;
@@ -37,32 +41,70 @@
 			}
 		}
 
-		observer.observe(adElement, {
-			attributes: true,
-			attributeFilter: ["data-ad-status"],
-		});
-
-		renderTimeout = window.setTimeout(() => {
-			syncDisplayState();
-
-			if (displayState === "pending") {
-				displayState = "empty";
-			}
-		}, AD_RENDER_RESULT_TIMEOUT_MS);
-
-		void loadSiteAdProviderScript(config).then((loaded) => {
-			if (!loaded) {
+		async function loadAdUnit() {
+			if (!rawConfig || !advertisingConsent || disposed) {
 				displayState = "empty";
 				return;
 			}
 
-			requestSiteAdRender(config);
+			displayState = "pending";
+			await tick();
+
+			if (!adElement || disposed) {
+				displayState = "empty";
+				return;
+			}
+
+			observer?.disconnect();
+			observer = new MutationObserver(syncDisplayState);
+			observer.observe(adElement, {
+				attributes: true,
+				attributeFilter: ["data-ad-status"],
+			});
+
+			if (renderTimeout !== undefined) {
+				window.clearTimeout(renderTimeout);
+			}
+
+			renderTimeout = window.setTimeout(() => {
+				syncDisplayState();
+
+				if (displayState === "pending") {
+					displayState = "empty";
+				}
+			}, AD_RENDER_RESULT_TIMEOUT_MS);
+
+			const loaded = await loadSiteAdProviderScript(rawConfig);
+
+			if (!loaded || disposed || !readStoredAdvertisingConsent()) {
+				displayState = "empty";
+				return;
+			}
+
+			if (!renderRequested) {
+				renderRequested = requestSiteAdRender(rawConfig);
+			}
 
 			syncDisplayState();
-		});
+		}
+
+		function syncConsent() {
+			advertisingConsent = readStoredAdvertisingConsent();
+
+			if (advertisingConsent) {
+				void loadAdUnit();
+			} else {
+				displayState = "empty";
+			}
+		}
+
+		window.addEventListener(siteAdvertisingConsentChangeEvent, syncConsent);
+		syncConsent();
 
 		return () => {
-			observer.disconnect();
+			disposed = true;
+			window.removeEventListener(siteAdvertisingConsentChangeEvent, syncConsent);
+			observer?.disconnect();
 
 			if (renderTimeout !== undefined) {
 				window.clearTimeout(renderTimeout);

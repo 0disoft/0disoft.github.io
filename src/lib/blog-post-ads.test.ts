@@ -109,6 +109,7 @@ describe("blog post ads", () => {
 		expect(siteAdvertisingSource).toContain("publicEnv.PUBLIC_AD_CLIENT_ID");
 		expect(siteAdvertisingSource).toContain("publicEnv.PUBLIC_BLOG_POST_AD_SLOT");
 		expect(siteAdvertisingSource).toContain("isSiteAdvertisingConfigured");
+		expect(siteAdvertisingSource).toContain("readStoredAdvertisingConsent");
 		expect(siteAdvertisingSource).toContain("loadSiteAdProviderScript");
 		expect(siteAdvertisingSource).toContain("requestSiteAdRender");
 		expect(siteAdvertisingSource).toContain("buildAdsTxt");
@@ -118,6 +119,8 @@ describe("blog post ads", () => {
 		expect(adUnitSource).toContain("Advertisements");
 		expect(adUnitSource).toContain('class="blog-ad-unit"');
 		expect(adUnitSource).toContain("AD_RENDER_RESULT_TIMEOUT_MS");
+		expect(adUnitSource).toContain("readStoredAdvertisingConsent");
+		expect(adUnitSource).toContain("siteAdvertisingConsentChangeEvent");
 		expect(adUnitSource).toContain("MutationObserver");
 		expect(adUnitSource).toContain('providerStatus === "filled"');
 		expect(adUnitSource).toContain('providerStatus === "unfilled"');

@@ -35,6 +35,11 @@
 		readStoredAnalyticsConsent,
 		writeStoredAnalyticsConsent,
 	} from "$lib/site-analytics";
+	import {
+		readStoredAdvertisingConsent,
+		writeStoredAdvertisingConsent,
+	} from "$lib/site-advertising-consent";
+	import { isSiteAdvertisingConfigured } from "$lib/site-advertising";
 	import type { SiteLocale } from "$lib/site-locales";
 	import type { SiteSectionPath } from "$lib/site-navigation";
 	import { siteProfile } from "$lib/site-profile";
@@ -52,6 +57,7 @@
 	const analyticsConfigured = isSiteAnalyticsConfigured();
 	const settingsLabel = $derived(m.settings_trigger_label({}, { locale: displayLocale }));
 	const sponsorLabel = $derived(m.sponsor_label({}, { locale: displayLocale }));
+	const advertisingConfigured = isSiteAdvertisingConfigured();
 
 	const navigationIconByHref = {
 		"/manifesto": FileText,
@@ -90,6 +96,7 @@
 
 	let selectedLocale = $state<SiteLocale>(getSettingsLocale());
 	let analyticsConsent = $state(false);
+	let advertisingConsent = $state(false);
 
 	const languageShortcutByKey = {
 		e: "en",
@@ -193,6 +200,7 @@
 	async function openSettingsDialog() {
 		activeSettingsTab = "theme";
 		analyticsConsent = readStoredAnalyticsConsent();
+		advertisingConsent = readStoredAdvertisingConsent();
 		settingsDialog?.showModal();
 		await tick();
 		focusSettingsTab("theme");
@@ -237,6 +245,12 @@
 		analyticsConsent = enabled;
 		writeStoredAnalyticsConsent(enabled);
 		focusSettingsControl("privacy-analytics");
+	}
+
+	function chooseAdvertisingConsent(enabled: boolean) {
+		advertisingConsent = enabled;
+		writeStoredAdvertisingConsent(enabled);
+		focusSettingsControl("privacy-advertising");
 	}
 
 	function navigateToSection(path: SiteSectionPath) {
@@ -341,6 +355,12 @@
 		if (activeSettingsTab === "privacy" && key === "a") {
 			event.preventDefault();
 			chooseAnalyticsConsent(!analyticsConsent);
+			return;
+		}
+
+		if (activeSettingsTab === "privacy" && key === "d" && advertisingConfigured) {
+			event.preventDefault();
+			chooseAdvertisingConsent(!advertisingConsent);
 		}
 	}
 
@@ -605,44 +625,73 @@
 				aria-labelledby="settings-privacy-tab"
 			>
 				<div class="privacy-panel">
-					<div class="privacy-copy">
-						<span>{m.settings_analytics_label({}, { locale: displayLocale })}</span>
-						<p>
-							{analyticsConfigured
-								? m.settings_analytics_description({}, { locale: displayLocale })
-								: m.settings_analytics_unavailable({}, { locale: displayLocale })}
-						</p>
-						<a
-							class="privacy-policy-link"
-							href={localizeSitePathname("/privacy", selectedLocale)}
-							target="_blank"
-							rel="noopener noreferrer"
-							data-settings-control="privacy-policy"
+					<div class="privacy-row">
+						<div class="privacy-copy">
+							<span>{m.settings_analytics_label({}, { locale: displayLocale })}</span>
+							<p>
+								{analyticsConfigured
+									? m.settings_analytics_description({}, { locale: displayLocale })
+									: m.settings_analytics_unavailable({}, { locale: displayLocale })}
+							</p>
+							<a
+								class="privacy-policy-link"
+								href={localizeSitePathname("/privacy", selectedLocale)}
+								target="_blank"
+								rel="noopener noreferrer"
+								data-settings-control="privacy-policy"
+								data-settings-keyboard-target
+							>
+								<FileText size={14} strokeWidth={2.1} aria-hidden="true" />
+								<span>{m.settings_privacy_policy_link({}, { locale: displayLocale })}</span>
+							</a>
+						</div>
+						<button
+							type="button"
+							class="analytics-switch"
+							class:active={analyticsConsent}
+							role="switch"
+							aria-checked={analyticsConsent}
+							aria-keyshortcuts="A"
+							disabled={!analyticsConfigured}
+							data-settings-control="privacy-analytics"
 							data-settings-keyboard-target
+							title={withShortcut(m.settings_analytics_label({}, { locale: displayLocale }), "A")}
+							onclick={() => chooseAnalyticsConsent(!analyticsConsent)}
 						>
-							<FileText size={14} strokeWidth={2.1} aria-hidden="true" />
-							<span>{m.settings_privacy_policy_link({}, { locale: displayLocale })}</span>
-						</a>
+							<span>
+								{analyticsConsent
+									? m.settings_analytics_enabled({}, { locale: displayLocale })
+									: m.settings_analytics_disabled({}, { locale: displayLocale })}
+							</span>
+						</button>
 					</div>
-					<button
-						type="button"
-						class="analytics-switch"
-						class:active={analyticsConsent}
-						role="switch"
-						aria-checked={analyticsConsent}
-						aria-keyshortcuts="A"
-						disabled={!analyticsConfigured}
-						data-settings-control="privacy-analytics"
-						data-settings-keyboard-target
-						title={withShortcut(m.settings_analytics_label({}, { locale: displayLocale }), "A")}
-						onclick={() => chooseAnalyticsConsent(!analyticsConsent)}
-					>
-						<span>
-							{analyticsConsent
-								? m.settings_analytics_enabled({}, { locale: displayLocale })
-								: m.settings_analytics_disabled({}, { locale: displayLocale })}
-						</span>
-					</button>
+
+					{#if advertisingConfigured}
+						<div class="privacy-row">
+							<div class="privacy-copy">
+								<span>{m.settings_advertising_label({}, { locale: displayLocale })}</span>
+								<p>{m.settings_advertising_description({}, { locale: displayLocale })}</p>
+							</div>
+							<button
+								type="button"
+								class="analytics-switch"
+								class:active={advertisingConsent}
+								role="switch"
+								aria-checked={advertisingConsent}
+								aria-keyshortcuts="D"
+								data-settings-control="privacy-advertising"
+								data-settings-keyboard-target
+								title={withShortcut(m.settings_advertising_label({}, { locale: displayLocale }), "D")}
+								onclick={() => chooseAdvertisingConsent(!advertisingConsent)}
+							>
+								<span>
+									{advertisingConsent
+										? m.settings_advertising_enabled({}, { locale: displayLocale })
+										: m.settings_advertising_disabled({}, { locale: displayLocale })}
+								</span>
+							</button>
+						</div>
+					{/if}
 				</div>
 			</div>
 		{/if}
@@ -832,13 +881,18 @@
 
 	.privacy-panel {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr) minmax(6.5rem, auto);
 		gap: 0.8rem;
-		align-items: center;
 		padding: 0.85rem;
 		border: 1px solid var(--mode-control-border);
 		border-radius: var(--radius-md);
 		background: color-mix(in oklch, var(--mode-control-background) 74%, transparent);
+	}
+
+	.privacy-row {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(6.5rem, auto);
+		gap: 0.8rem;
+		align-items: center;
 	}
 
 	.privacy-copy {

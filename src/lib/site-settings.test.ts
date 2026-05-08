@@ -4,6 +4,7 @@ import {
 	analyticsConsentSource,
 	analyticsCoreSource,
 	analyticsRuntimeSource,
+	advertisingConsentSource,
 	deployWorkflowSource,
 	layoutSource,
 	sidebarSource,
@@ -89,15 +90,23 @@ describe("site settings", () => {
 		expect(sidebarSource).toContain("m.settings_privacy_policy_link");
 		expect(sidebarSource).toContain('href={localizeSitePathname("/privacy", selectedLocale)}');
 		expect(sidebarSource).toContain('class="privacy-policy-link"');
-		expect(sidebarSource).toContain(
-			[
-				'href={localizeSitePathname("/privacy", selectedLocale)}',
-				'target="_blank"',
-				'rel="noopener noreferrer"',
-			].join("\n\t\t\t\t\t\t\t"),
-		);
+		expect(sidebarSource).toContain('target="_blank"');
+		expect(sidebarSource).toContain('rel="noopener noreferrer"');
 		expect(sidebarSource).toContain('role="switch"');
 		expect(sidebarSource).toContain("readStoredAnalyticsConsent");
 		expect(sidebarSource).toContain("writeStoredAnalyticsConsent");
+	});
+
+	it("loads ad providers only after explicit advertising consent", () => {
+		expect(advertisingConsentSource).toContain("siteAdvertisingConsentStorageKey");
+		expect(advertisingConsentSource).toContain("0disoft:advertising-consent");
+		expect(advertisingConsentSource).toContain("siteAdvertisingConsentChangeEvent");
+		expect(advertisingConsentSource).toContain("readStoredAdvertisingConsent");
+		expect(advertisingConsentSource).toContain("writeStoredAdvertisingConsent");
+		expect(sidebarSource).toContain("isSiteAdvertisingConfigured");
+		expect(sidebarSource).toContain("readStoredAdvertisingConsent");
+		expect(sidebarSource).toContain("writeStoredAdvertisingConsent");
+		expect(sidebarSource).toContain("m.settings_advertising_label");
+		expect(sidebarSource).toContain("m.settings_advertising_description");
 	});
 });
