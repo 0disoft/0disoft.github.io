@@ -25,10 +25,21 @@ describe("site localization", () => {
 		const inlangSettings = JSON.parse(inlangSettingsSource) as {
 			baseLocale: string;
 			locales: string[];
+			modules: string[];
+		};
+		const packageJson = JSON.parse(packageSource) as {
+			devDependencies: Record<string, string>;
 		};
 
 		expect(inlangSettings.baseLocale).toBe("en");
 		expect(inlangSettings.locales).toEqual(["en", "ko", "zh", "es", "fr", "hi"]);
+		expect(inlangSettings.modules).toEqual([
+			"./node_modules/@inlang/plugin-message-format/dist/index.js",
+			"./node_modules/@inlang/plugin-m-function-matcher/dist/index.js",
+		]);
+		expect(inlangSettings.modules.every((module) => !module.startsWith("http"))).toBe(true);
+		expect(packageJson.devDependencies["@inlang/plugin-message-format"]).toBe("4.4.0");
+		expect(packageJson.devDependencies["@inlang/plugin-m-function-matcher"]).toBe("2.2.6");
 		expect(packageSource).toContain("--strategy url cookie globalVariable baseLocale");
 		expect(viteConfigSource).toContain(
 			'strategy: ["url", "cookie", "globalVariable", "baseLocale"]',
