@@ -64,6 +64,7 @@ export const iconButtonSource = readRequiredText("../ui/icon-button.svelte");
 export const brandIconSource = readRequiredText("../ui/brand-icon.svelte");
 export const blogSurfaceSource = readRequiredText("../blog-surface.svelte");
 export const worksSurfaceSource = readRequiredText("../works-surface.svelte");
+export const manifestoSurfaceSource = readRequiredText("../manifesto-surface.svelte");
 export const adUnitSource = readRequiredText("../ad-unit.svelte");
 export const blogPostSurfaceSource = readRequiredText("../blog-post-surface.svelte");
 export const blogPostAdsSource = readRequiredText("../blog-post-ads.ts");
@@ -73,8 +74,11 @@ export const worksSource = readRequiredText("../works.ts");
 export const workCoreSource = readRequiredText("../work-core.ts");
 export const blogPostCoreSource = readRequiredText("../blog-post-core.ts");
 export const blogShareSource = readRequiredText("../blog-share.ts");
+export const clipboardSource = readRequiredText("../site-clipboard.ts");
 export const localesSource = readRequiredText("../site-locales.ts");
 export const labelsSource = readRequiredText("../site-labels.ts");
+export const manifestoSource = readRequiredText("../manifesto.ts");
+export const manifestoKoreanMarkdown = readRequiredText("../../content/manifesto/ko.md");
 export const analyticsCoreSource = readRequiredText("../site-analytics-core.ts");
 export const analyticsRuntimeSource = readRequiredText("../site-analytics.ts");
 export const analyticsBootstrapSource = readRequiredText("../site-analytics.svelte");
@@ -96,6 +100,7 @@ export const worksModuleExists = worksSource.length > 0;
 export const navigationModuleExists = navigationSource.length > 0;
 export const blogMetaFilePaths = collectRelativeFiles("../../content/blog/", "meta.json");
 export const blogMarkdownFilePaths = collectRelativeFiles("../../content/blog/", ".md");
+export const manifestoMarkdownFilePaths = collectRelativeFiles("../../content/manifesto/", ".md");
 export const workMetaFilePaths = collectRelativeFiles("../../content/works/", "meta.json");
 export const workJsonFilePaths = collectRelativeFiles("../../content/works/", ".json");
 
@@ -107,12 +112,15 @@ export const siteSurfaceSource = [
 	iconButtonSource,
 	blogSurfaceSource,
 	worksSurfaceSource,
+	manifestoSurfaceSource,
 	adUnitSource,
 	blogPostSurfaceSource,
 	blogPostAdsSource,
 	blogPostsSource,
 	worksSource,
 	workCoreSource,
+	manifestoSource,
+	clipboardSource,
 	labelsSource,
 ].join("\n");
 

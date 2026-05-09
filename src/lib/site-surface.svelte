@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
 	import BlogSurface from "$lib/blog-surface.svelte";
+	import ManifestoSurface from "$lib/manifesto-surface.svelte";
 	import SiteSidebar from "$lib/site-sidebar.svelte";
 	import WorksSurface from "$lib/works-surface.svelte";
 	import { getLocale } from "$lib/paraglide/runtime";
@@ -16,6 +17,7 @@
 
 	const displayLocale = $derived(toDisplayLocale(getLocale()));
 	const activeSection = $derived(findNavigationItemByPath(activePath));
+	const isManifestoSection = $derived(activePath === "/manifesto");
 	const isBlogSection = $derived(activePath === "/blog");
 	const isWorksSection = $derived(activePath === "/works");
 	const activeSectionLabel = $derived(
@@ -33,6 +35,8 @@
 	<main class="content-shell" class:empty-home={!activeSection && !children}>
 		{#if children}
 			{@render children()}
+		{:else if isManifestoSection}
+			<ManifestoSurface />
 		{:else if isBlogSection}
 			<BlogSurface />
 		{:else if isWorksSection}

@@ -16,6 +16,7 @@ import {
 	blogPostSeoSource,
 	blogPostSurfaceSource,
 	brandIconSource,
+	clipboardSource,
 	packageSource,
 	sampleOpenSourceNoteKoreanMarkdown,
 	sampleOpenSourceNoteMarkdown,
@@ -58,7 +59,7 @@ describe("blog post", () => {
 		expect(blogPostSurfaceSource).toContain("shareWithDevice");
 		expect(blogPostSurfaceSource).toContain("copyTextToClipboard");
 		expect(blogPostSurfaceSource).toContain("navigator.share");
-		expect(blogPostSurfaceSource).toContain("navigator.clipboard.writeText");
+		expect(clipboardSource).toContain("navigator.clipboard.writeText");
 		expect(blogPostSurfaceSource).toContain("m.blog_post_copy_link");
 		expect(blogPostSurfaceSource).toContain("m.blog_post_share_device");
 		expect(blogPostSurfaceSource).toContain('aria-live="polite"');

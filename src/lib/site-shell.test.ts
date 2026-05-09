@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { getManifestoCopy } from "./manifesto";
 import { siteProfile } from "./site-profile";
 import {
 	appHtmlSource,
@@ -7,6 +8,10 @@ import {
 	iconButtonSource,
 	layoutCss,
 	layoutSource,
+	manifestoSource,
+	manifestoKoreanMarkdown,
+	manifestoMarkdownFilePaths,
+	manifestoSurfaceSource,
 	navigationModuleExists,
 	navigationSource,
 	sectionRouteSource,
@@ -181,6 +186,62 @@ describe("site shell", () => {
 	it("uses routed navigation without a duplicate home body", () => {
 		expect(siteSurfaceSource).toContain('href={localizeSitePathname("/", selectedLocale)}');
 		expect(siteSurfaceSource).not.toContain('href="#');
+	});
+
+	it("renders the manifesto with localized copy slots and a right-side share panel", () => {
+		expect(surfaceSource).toContain('import ManifestoSurface from "$lib/manifesto-surface.svelte"');
+		expect(surfaceSource).toContain(
+			'const isManifestoSection = $derived(activePath === "/manifesto")',
+		);
+		expect(surfaceSource).toContain("<ManifestoSurface");
+		expect(manifestoKoreanMarkdown).toContain("AI와 지역 숙의로 만드는 더 나은 규칙");
+		expect(manifestoSource).toContain('import.meta.glob<string>("../content/manifesto/*.md"');
+		expect(manifestoSource).toContain('const fallbackManifestoLocale = "ko"');
+		expect(manifestoSource).toContain("manifestoCopyByLocale[locale] ?? fallbackCopy");
+		expect(manifestoMarkdownFilePaths).toEqual([
+			"en.md",
+			"es.md",
+			"fr.md",
+			"hi.md",
+			"ko.md",
+			"zh.md",
+		]);
+		expect(getManifestoCopy("en").title).toBe("AI and Local Deliberation for Better Rules");
+		expect(getManifestoCopy("es").title).toBe("IA y deliberación local para mejores reglas");
+		expect(getManifestoCopy("fr").title).toBe(
+			"L'IA et la délibération locale pour de meilleures règles",
+		);
+		expect(getManifestoCopy("hi").title).toBe("AI और स्थानीय विचार-विमर्श से बेहतर नियम");
+		expect(getManifestoCopy("zh").title).toBe("AI与地方协商共创更好规则");
+		expect(getManifestoCopy("ko").paragraphs).toContain(
+			"중앙이 모든 삶을 재단하는 방식은 이미 한계를 보이고 있다. AI가 실제로 할 수 있는 건 판을 깔아주는 것이다. 어떤 선택을 할지는 여전히 사람 몫이다.",
+		);
+		expect(manifestoMarkdownFilePaths).toHaveLength(6);
+		expect(manifestoSurfaceSource).toContain("getManifestoCopy(selectedLocale)");
+		expect(manifestoSurfaceSource).toContain('localizeSitePathname("/manifesto", selectedLocale)');
+		expect(manifestoSurfaceSource).toContain("copyShareUrl");
+		expect(manifestoSurfaceSource).toContain("shareWithDevice");
+		expect(manifestoSurfaceSource).toContain("copyTextToClipboard");
+		expect(manifestoSurfaceSource).toContain("buildBlogShareLinks");
+		expect(manifestoSurfaceSource).toContain("m.blog_post_copy_link");
+		expect(manifestoSurfaceSource).toContain("m.blog_post_share_device");
+		expect(manifestoSurfaceSource).toContain("getSharePlatformLabel");
+		expect(manifestoSurfaceSource).toContain("getSharePlatformIcon");
+		expect(manifestoSurfaceSource).toContain("<Share2");
+		expect(manifestoSurfaceSource).toContain("<Send");
+		expect(manifestoSurfaceSource).toContain("<MessageCircle");
+		expect(manifestoSurfaceSource).toContain("<BrandIcon");
+		expect(manifestoSurfaceSource).toContain('class="manifesto-reading-layout"');
+		expect(manifestoSurfaceSource).toContain('class="manifesto-sidecar"');
+		expect(manifestoSurfaceSource).toContain('class="manifesto-share"');
+		expect(manifestoSurfaceSource).toContain('class="manifesto-share-grid"');
+		expect(manifestoSurfaceSource).toContain('class="manifesto-share-icon-button"');
+		expect(manifestoSurfaceSource).toContain('grid-template-areas: "body sidecar"');
+		expect(manifestoSurfaceSource).toContain("position: sticky");
+		expect(manifestoSurfaceSource).toContain(
+			"grid-template-columns: repeat(4, var(--manifesto-share-icon-size))",
+		);
+		expect(manifestoSurfaceSource).toContain('aria-live="polite"');
 	});
 
 	it("keeps placeholder section labels available to assistive tech only", () => {

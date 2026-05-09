@@ -24,6 +24,7 @@
 		getBlogPostTocShortcut,
 		getBlogPostTocShortcutIndex,
 	} from "$lib/blog-posts";
+	import { copyTextToClipboard } from "$lib/site-clipboard";
 	import { toDisplayLocale, withShortcut } from "$lib/site-labels";
 	import { isSiteLocale, localizeSitePathname } from "$lib/site-locales";
 	import { siteProfile } from "$lib/site-profile";
@@ -443,27 +444,6 @@
 		}
 
 		await copyShareUrl();
-	}
-
-	async function copyTextToClipboard(text: string) {
-		if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
-			await navigator.clipboard.writeText(text);
-			return;
-		}
-
-		if (typeof document === "undefined") {
-			throw new Error("Clipboard is not available");
-		}
-
-		const textarea = document.createElement("textarea");
-		textarea.value = text;
-		textarea.setAttribute("readonly", "");
-		textarea.style.position = "fixed";
-		textarea.style.opacity = "0";
-		document.body.append(textarea);
-		textarea.select();
-		document.execCommand("copy");
-		textarea.remove();
 	}
 
 	function isShareAbortError(error: unknown): boolean {
