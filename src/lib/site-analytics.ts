@@ -1,5 +1,5 @@
 import { browser } from "$app/environment";
-import { PUBLIC_GA4_MEASUREMENT_ID } from "$env/static/public";
+import { env as publicEnv } from "$env/dynamic/public";
 import {
 	createGa4PageViewPayload,
 	createGa4ScriptSrc,
@@ -25,7 +25,7 @@ declare global {
 
 const ga4ScriptId = "0disoft-ga4";
 const trackedPageKeys = new Set<string>();
-const measurementId = PUBLIC_GA4_MEASUREMENT_ID.trim();
+const measurementId = publicEnv.PUBLIC_GA4_MEASUREMENT_ID?.trim() ?? "";
 
 let initializedMeasurementId: string | null = null;
 let scriptLoadPromise: Promise<boolean> | null = null;
