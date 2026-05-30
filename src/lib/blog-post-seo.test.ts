@@ -12,7 +12,7 @@ describe("blog post SEO metadata", () => {
 			summary: "Structured metadata fixture",
 			publishedAt: "2026-05-03",
 			updatedAt: "2026-05-04",
-			tags: ["strategy", "product"],
+			tags: ["business-friction", "market-entry"],
 			heroImage: {
 				src: "/images/0disoft-bird.svg",
 				alt: "0disoft bird mark",

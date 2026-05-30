@@ -63,8 +63,9 @@ describe("site settings", () => {
 	it("loads GA4 only after explicit analytics consent", () => {
 		expect(analyticsCoreSource).toContain("siteAnalyticsConsentStorageKey");
 		expect(analyticsRuntimeSource).toContain(
-			'import { PUBLIC_GA4_MEASUREMENT_ID } from "$env/static/public"',
+			'import { env as publicEnv } from "$env/dynamic/public"',
 		);
+		expect(analyticsRuntimeSource).toContain("publicEnv.PUBLIC_GA4_MEASUREMENT_ID?.trim() ??");
 		expect(deployWorkflowSource).toContain(
 			"PUBLIC_GA4_MEASUREMENT_ID: ${{ vars.PUBLIC_GA4_MEASUREMENT_ID }}",
 		);

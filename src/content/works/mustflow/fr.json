@@ -1,4 +1,0 @@
-{
-  "title": "mustflow",
-  "summary": "Un outil CLI de flux de travail qui guide les agents de codage LLM pour comprendre et respecter les règles de travail, les conventions de commande et les procédures de vérification définies dans le dépôt avant d'agir."
-}

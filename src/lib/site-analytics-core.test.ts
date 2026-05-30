@@ -30,12 +30,15 @@ describe("site analytics core", () => {
 
 		expect(
 			createGa4PageViewPayload(
-				new URL("https://0disoft.github.io/ko/blog/ai-smaller-faster-companies/?tag=strategy"),
+				new URL(
+					"https://0disoft.github.io/ko/blog/ai-smaller-faster-companies/?tag=data-ai-policy",
+				),
 				"AI가 회사를 더 작고 빠르게 바꾸고 있다",
 			),
 		).toEqual({
-			page_location: "https://0disoft.github.io/ko/blog/ai-smaller-faster-companies/?tag=strategy",
-			page_path: "/ko/blog/ai-smaller-faster-companies/?tag=strategy",
+			page_location:
+				"https://0disoft.github.io/ko/blog/ai-smaller-faster-companies/?tag=data-ai-policy",
+			page_path: "/ko/blog/ai-smaller-faster-companies/?tag=data-ai-policy",
 			page_title: "AI가 회사를 더 작고 빠르게 바꾸고 있다",
 		});
 	});

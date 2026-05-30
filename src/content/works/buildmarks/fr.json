@@ -1,0 +1,4 @@
+{
+  "title": "buildmarks",
+  "summary": "Un générateur minimaliste de cartes pour profils GitHub, mettant en valeur des indicateurs réels de maintenance (docs, tests, releases) plutôt que de simples compteurs de commits."
+}

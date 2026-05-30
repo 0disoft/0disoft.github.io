@@ -149,7 +149,7 @@ export const sampleOpenSourceNoteMetadata = {
 	id: "sample-open-source-note",
 	publishedAt: "2026-05-03",
 	updatedAt: "2026-05-04",
-	tags: ["open-source", "product"],
+	tags: ["market-entry", "licensing"],
 };
 export const sampleOpenSourceNoteMarkdown = `---
 {"title":"Sample open source note","summary":"Neutral collaboration notes","searchTags":["reuse","attribution"]}
@@ -166,7 +166,7 @@ export const sampleRichPostPath = "../content/blog/2026/04/sample-rich-post/meta
 export const sampleRichPostMetadata = {
 	id: "sample-rich-post",
 	publishedAt: "2026-04-17",
-	tags: ["design", "product"],
+	tags: ["building-rules", "compliance-cost"],
 	heroImage: {
 		src: "/images/0disoft-bird.svg",
 		alt: {

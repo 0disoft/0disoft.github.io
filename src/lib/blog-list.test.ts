@@ -211,7 +211,7 @@ describe("blog list", () => {
 				title: "Sample open source note",
 				summary: "Neutral collaboration notes",
 				publishedAt: "2026-05-03",
-				tags: ["open-source", "product"],
+				tags: ["market-entry", "licensing"],
 				searchTags: ["reuse", "attribution"],
 			},
 			{
@@ -220,7 +220,7 @@ describe("blog list", () => {
 				title: "Open source index sketch",
 				summary: "Repository search notes",
 				publishedAt: "2025-12-12",
-				tags: ["open-source", "product"],
+				tags: ["market-entry", "licensing"],
 			},
 			{
 				slug: "automation-runbook",
@@ -228,7 +228,7 @@ describe("blog list", () => {
 				title: "Automation runbook",
 				summary: "Automation notes",
 				publishedAt: "2026-02-02",
-				tags: ["engineering", "automation"],
+				tags: ["business-friction", "compliance-cost"],
 				searchTags: ["workflow"],
 			},
 			{
@@ -237,7 +237,7 @@ describe("blog list", () => {
 				title: "Design log",
 				summary: "Design notes",
 				publishedAt: "2025-11-03",
-				tags: ["design"],
+				tags: ["building-rules"],
 			},
 		] satisfies readonly BlogPost[];
 		const markdownPost = createBlogPostFromContent(
@@ -251,7 +251,7 @@ describe("blog list", () => {
 		expect(markdownPost.slug).toBe("sample-open-source-note");
 		expect(markdownPost.locale).toBe("en");
 		expect(markdownPost).toMatchObject({ updatedAt: "2026-05-04" });
-		expect(markdownPost.tags).toEqual(["open-source", "product"]);
+		expect(markdownPost.tags).toEqual(["market-entry", "licensing"]);
 		expect(markdownPost.searchTags).toContain("attribution");
 		expect(() =>
 			createBlogPostFromContent(
@@ -282,27 +282,27 @@ describe("blog list", () => {
 		).toBe("ko");
 		expect(blogTagOptions).toHaveLength(15);
 		expect(getBlogFilterOptions(posts).tags.map((tag) => tag.id)).toEqual([
-			"build-log",
-			"product",
-			"strategy",
-			"engineering",
-			"design",
-			"automation",
-			"growth",
-			"marketing",
-			"sales",
-			"pricing",
-			"finance",
-			"customers",
-			"operations",
-			"legal",
-			"open-source",
+			"korea-regulation",
+			"internet-control",
+			"building-rules",
+			"housing-policy",
+			"business-friction",
+			"compliance-cost",
+			"licensing",
+			"market-entry",
+			"state-power",
+			"professional-cartels",
+			"mobility-regulation",
+			"finance-regulation",
+			"healthcare-regulation",
+			"education-regulation",
+			"data-ai-policy",
 		]);
 		expect(getBlogFilterOptions(posts).years).toEqual(["2026", "2025"]);
-		expect(getBlogPostTagLabels(posts[0])).toEqual(["Open Source", "Product"]);
+		expect(getBlogPostTagLabels(posts[0])).toEqual(["Market Entry", "Licensing"]);
 		expect(getBlogPostSearchValues(posts[0])).toContain("reuse");
 		expect(
-			filterBlogPosts(posts, { query: "", tag: "open-source", year: "" }).map((post) => post.slug),
+			filterBlogPosts(posts, { query: "", tag: "market-entry", year: "" }).map((post) => post.slug),
 		).toEqual(["sample-open-source-note", "open-source-index-sketch"]);
 		expect(
 			filterBlogPosts(posts, { query: "attribution", tag: "", year: "" }).map((post) => post.slug),
@@ -313,7 +313,9 @@ describe("blog list", () => {
 			filterBlogPosts(posts, { query: "workflow", tag: "", year: "" }).map((post) => post.slug),
 		).toEqual(["automation-runbook"]);
 		expect(
-			filterBlogPosts(posts, { query: "", tag: "design", year: "2025" }).map((post) => post.slug),
+			filterBlogPosts(posts, { query: "", tag: "building-rules", year: "2025" }).map(
+				(post) => post.slug,
+			),
 		).toEqual(["design-log"]);
 		expect(
 			getBlogPostsForLocale(

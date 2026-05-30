@@ -1,0 +1,14 @@
+{
+  "slug": "buildmarks",
+  "status": "building",
+  "kind": "oss",
+  "license": "0BSD",
+  "updatedAt": "2026-05-29",
+  "languages": ["TypeScript"],
+  "tags": ["github", "profile-readme", "svg-card", "developer-tools"],
+  "links": {
+    "source": "https://github.com/0disoft/buildmarks",
+    "docs": null
+  },
+  "featured": false
+}

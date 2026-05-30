@@ -265,41 +265,15 @@ describe("site shell", () => {
 		expect(worksSource).toContain("getWorkFilterOptions");
 		expect(worksSource).toContain("parseWorkFilters");
 		expect(workCoreSource).toContain("workLocales = siteLocales");
-		expect(workMetaFilePaths).toEqual([
-			"mustflow/meta.json",
-			"quickquack/meta.json",
-			"tessera/meta.json",
-			"workduck/meta.json",
-		]);
+		expect(workMetaFilePaths).toEqual(["buildmarks/meta.json"]);
 		expect(workJsonFilePaths).toEqual([
-			"mustflow/en.json",
-			"mustflow/es.json",
-			"mustflow/fr.json",
-			"mustflow/hi.json",
-			"mustflow/ko.json",
-			"mustflow/meta.json",
-			"mustflow/zh.json",
-			"quickquack/en.json",
-			"quickquack/es.json",
-			"quickquack/fr.json",
-			"quickquack/hi.json",
-			"quickquack/ko.json",
-			"quickquack/meta.json",
-			"quickquack/zh.json",
-			"tessera/en.json",
-			"tessera/es.json",
-			"tessera/fr.json",
-			"tessera/hi.json",
-			"tessera/ko.json",
-			"tessera/meta.json",
-			"tessera/zh.json",
-			"workduck/en.json",
-			"workduck/es.json",
-			"workduck/fr.json",
-			"workduck/hi.json",
-			"workduck/ko.json",
-			"workduck/meta.json",
-			"workduck/zh.json",
+			"buildmarks/en.json",
+			"buildmarks/es.json",
+			"buildmarks/fr.json",
+			"buildmarks/hi.json",
+			"buildmarks/ko.json",
+			"buildmarks/meta.json",
+			"buildmarks/zh.json",
 		]);
 		expect(worksSurfaceSource).toContain('class="works-filters"');
 		expect(worksSurfaceSource).toContain('id="works-search"');

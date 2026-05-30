@@ -138,7 +138,7 @@ describe("work list content", () => {
 
 	it("filters one curated list by query, tag, and repository language", () => {
 		const works: WorkEntry[] = [
-			createWorkFixture("mustflow", "building", "2026-05-08", true, "mustflow", {
+			createWorkFixture("signal-card", "building", "2026-05-08", true, "signal card", {
 				languages: ["TypeScript", "JavaScript"],
 				tags: ["agent-workflow", "developer-tools"],
 			}),
@@ -172,7 +172,7 @@ describe("work list content", () => {
 				tag: "developer-tools",
 				language: "TypeScript",
 			}).map((work) => work.slug),
-		).toEqual(["mustflow"]);
+		).toEqual(["signal-card"]);
 	});
 
 	it("sorts one list by featured, status, update date, then title", () => {
@@ -196,75 +196,28 @@ describe("work list content", () => {
 	it("loads only curated work cards from authored work content", () => {
 		const workSlugs = Array.from(new Set(workItems.map((work) => work.slug))).sort();
 		const koreanWorks = getWorksForLocale(workItems, "ko");
-		const koreanMustflow = koreanWorks.find((work) => work.slug === "mustflow");
-		const koreanQuickquack = koreanWorks.find((work) => work.slug === "quickquack");
-		const koreanTessera = koreanWorks.find((work) => work.slug === "tessera");
-		const koreanWorkduck = koreanWorks.find((work) => work.slug === "workduck");
+		const koreanBuildmarks = koreanWorks.find((work) => work.slug === "buildmarks");
 
 		expect(workLocales).toEqual(["en", "zh", "es", "fr", "hi", "ko"]);
-		expect(workItems).toHaveLength(workLocales.length * 4);
-		expect(workSlugs).toEqual(["mustflow", "quickquack", "tessera", "workduck"]);
-		expect(koreanMustflow).toMatchObject({
-			slug: "mustflow",
+		expect(workItems).toHaveLength(workLocales.length);
+		expect(workSlugs).toEqual(["buildmarks"]);
+		expect(koreanBuildmarks).toMatchObject({
+			slug: "buildmarks",
 			locale: "ko",
 			status: "building",
-			kind: "automation",
-			license: "MIT-0",
-			languages: ["TypeScript", "JavaScript"],
-			title: "mustflow",
+			kind: "oss",
+			license: "0BSD",
+			languages: ["TypeScript"],
+			title: "buildmarks",
 			summary:
-				"LLM 코딩 에이전트가 저장소에 정의된 작업 규칙, 명령 규약, 검증 절차를 미리 파악하고 지키도록 유도하는 워크플로우 CLI 도구입니다.",
-			tags: ["agent-workflow", "developer-tools"],
+				"커밋 잔디 대신 문서화, 테스트, 릴리스 흔적처럼 실질적인 오픈소스 관리 지표를 보여주는 GitHub 프로필 카드 생성기.",
+			updatedAt: "2026-05-29",
+			tags: ["github", "profile-readme", "svg-card", "developer-tools"],
 			links: {
-				source: "https://github.com/0disoft/mustflow",
-				docs: "https://mustflow.github.io",
-			},
-			featured: true,
-		});
-		expect(koreanQuickquack).toMatchObject({
-			slug: "quickquack",
-			locale: "ko",
-			status: "building",
-			license: "",
-			languages: [],
-			title: "quickquack",
-			summary: "",
-			updatedAt: "",
-			tags: [],
-			links: {
-				source: null,
+				source: "https://github.com/0disoft/buildmarks",
 				docs: null,
 			},
-		});
-		expect(koreanTessera).toMatchObject({
-			slug: "tessera",
-			locale: "ko",
-			status: "building",
-			license: "",
-			languages: [],
-			title: "tessera",
-			summary: "",
-			updatedAt: "",
-			tags: [],
-			links: {
-				source: null,
-				docs: null,
-			},
-		});
-		expect(koreanWorkduck).toMatchObject({
-			slug: "workduck",
-			locale: "ko",
-			status: "building",
-			license: "",
-			languages: [],
-			title: "workduck",
-			summary: "",
-			updatedAt: "",
-			tags: [],
-			links: {
-				source: null,
-				docs: null,
-			},
+			featured: false,
 		});
 		expect(workSlugs).not.toContain("0disoft-github-io");
 		expect(workSlugs).not.toContain("oklch-shade");
@@ -282,20 +235,10 @@ describe("work list content", () => {
 		const koreanWorks = getWorksForLocale(workItems, "ko");
 		const fallbackWorks = getWorksForLocale(workItems, "missing");
 
-		expect(koreanWorks.map((work) => work.locale)).toEqual(["ko", "ko", "ko", "ko"]);
-		expect(fallbackWorks.map((work) => work.locale)).toEqual(["en", "en", "en", "en"]);
-		expect(koreanWorks.map((work) => work.slug)).toEqual([
-			"mustflow",
-			"quickquack",
-			"tessera",
-			"workduck",
-		]);
-		expect(fallbackWorks.map((work) => work.slug)).toEqual([
-			"mustflow",
-			"quickquack",
-			"tessera",
-			"workduck",
-		]);
+		expect(koreanWorks.map((work) => work.locale)).toEqual(["ko"]);
+		expect(fallbackWorks.map((work) => work.locale)).toEqual(["en"]);
+		expect(koreanWorks.map((work) => work.slug)).toEqual(["buildmarks"]);
+		expect(fallbackWorks.map((work) => work.slug)).toEqual(["buildmarks"]);
 	});
 });
 

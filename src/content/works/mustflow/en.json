@@ -1,4 +1,0 @@
-{
-  "title": "mustflow",
-  "summary": "A workflow CLI tool that guides LLM coding agents to understand and follow repository-defined work rules, command conventions, and verification procedures before they act."
-}
