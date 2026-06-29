@@ -24,7 +24,7 @@ jobs:
       PUBLIC_BLOG_POST_AD_SLOT: ${{ vars.PUBLIC_BLOG_POST_AD_SLOT }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
