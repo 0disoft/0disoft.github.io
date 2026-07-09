@@ -1,6 +1,6 @@
 {
   "name": "0disoft.github.io",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "license": "0BSD",
   "type": "module",
@@ -9,7 +9,7 @@
     "build": "vite build",
     "build:index": "bun run paraglide && bun run build && bun run index",
     "preview": "vite preview",
-    "index": "pagefind --site build",
+    "index": "bun scripts/pagefind-index.mjs",
     "prepare": "svelte-kit sync || echo ''",
     "check": "bun run paraglide && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "bun run paraglide && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",

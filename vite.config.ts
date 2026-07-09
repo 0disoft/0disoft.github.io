@@ -18,4 +18,11 @@ export default defineConfig({
 			ignored: ["**/build/**", "**/.playwright-cli/**"],
 		},
 	},
+	build: {
+		rolldownOptions: {
+			checks: {
+				pluginTimings: false,
+			},
+		},
+	},
 });
