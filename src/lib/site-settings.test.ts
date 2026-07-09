@@ -1,117 +1,102 @@
 import { describe, expect, it } from "vitest";
 import {
-	analyticsBootstrapSource,
+	isAdvertisingConsentValue,
+	siteAdvertisingConsentChangeEvent,
+	siteAdvertisingConsentStorageKey,
+} from "./site-advertising-consent";
+import {
+	isAnalyticsConsentValue,
+	siteAnalyticsConsentChangeEvent,
+	siteAnalyticsConsentStorageKey,
+} from "./site-analytics-core";
+import {
+	defaultSettingsTab,
+	languageShortcutByKey,
+	languageShortcutByLocale,
+	navigationPathByShortcut,
+	navigationShortcutByHref,
+	settingsTabs,
+	themeChoices,
+	themeShortcutByKey,
+} from "./site-settings-model";
+import {
 	analyticsConsentSource,
-	analyticsCoreSource,
-	analyticsRuntimeSource,
-	advertisingConsentSource,
 	deployWorkflowSource,
-	layoutSource,
+	enMessagesSource,
+	koMessagesSource,
 	sidebarSource,
-	siteSurfaceSource,
 } from "./test-support/site-test-sources";
 
 describe("site settings", () => {
-	it("opens settings on the theme tab before language choices", () => {
-		expect(siteSurfaceSource).toContain('let activeSettingsTab = $state<SettingsTab>("theme")');
-		expect(siteSurfaceSource).toContain("function selectSettingsTab(tab: SettingsTab)");
-		expect(siteSurfaceSource).toContain('onclick={() => selectSettingsTab("theme")}');
-		expect(siteSurfaceSource).toContain('onclick={() => selectSettingsTab("language")}');
-		expect(siteSurfaceSource.indexOf('id="settings-theme-panel"')).toBeLessThan(
-			siteSurfaceSource.indexOf('id="settings-language-panel"'),
-		);
+	it("keeps analytics and advertising consent as explicit opt-in values", () => {
+		expect(siteAnalyticsConsentStorageKey).toBe("0disoft:analytics-consent");
+		expect(siteAnalyticsConsentChangeEvent).toBe("0disoft:analytics-consent-change");
+		expect(isAnalyticsConsentValue("granted")).toBe(true);
+		expect(isAnalyticsConsentValue("denied")).toBe(true);
+		expect(isAnalyticsConsentValue("allowed")).toBe(false);
+
+		expect(siteAdvertisingConsentStorageKey).toBe("0disoft:advertising-consent");
+		expect(siteAdvertisingConsentChangeEvent).toBe("0disoft:advertising-consent-change");
+		expect(isAdvertisingConsentValue("granted")).toBe(true);
+		expect(isAdvertisingConsentValue("denied")).toBe(true);
+		expect(isAdvertisingConsentValue("allowed")).toBe(false);
 	});
 
-	it("exposes settings keyboard shortcuts and focus movement", () => {
-		expect(siteSurfaceSource).toContain('title={withShortcut(settingsLabel, "S")}');
-		expect(siteSurfaceSource).toContain("m.settings_trigger_label");
-		expect(siteSurfaceSource).toContain("m.sponsor_label");
-		expect(siteSurfaceSource).toContain("m.nav_manifesto");
-		expect(siteSurfaceSource).toContain("const navigationShortcutByHref");
-		expect(siteSurfaceSource).toContain('"/manifesto": "M"');
-		expect(siteSurfaceSource).toContain('"/blog": "B"');
-		expect(siteSurfaceSource).toContain('"/works": "W"');
-		expect(siteSurfaceSource).toContain('"/roadmap": "R"');
-		expect(siteSurfaceSource).toContain('"/contact": "C"');
-		expect(siteSurfaceSource).toContain("const navigationPathByShortcut");
-		expect(siteSurfaceSource).toContain('if (key === "p")');
-		expect(siteSurfaceSource).toContain('shortcut="P"');
-		expect(siteSurfaceSource).toContain('shortcut="S"');
-		expect(siteSurfaceSource).toContain('if (key === "s")');
-		expect(siteSurfaceSource).toContain("m.settings_theme_tab");
-		expect(siteSurfaceSource).toContain("m.settings_language_tab");
-		expect(siteSurfaceSource).toContain("m.theme_light");
-		expect(siteSurfaceSource).toContain('class:active={selectedTheme === "light"}');
-		expect(siteSurfaceSource).toContain('aria-pressed={selectedTheme === "light"}');
-		expect(siteSurfaceSource).not.toContain('title="Light (L)"');
-		expect(siteSurfaceSource).toContain("m.theme_dark");
-		expect(siteSurfaceSource).toContain('class:active={selectedTheme === "dark"}');
-		expect(siteSurfaceSource).toContain('aria-pressed={selectedTheme === "dark"}');
-		expect(siteSurfaceSource).toContain("m.theme_system");
-		expect(siteSurfaceSource).toContain('class:active={selectedTheme === "system"}');
-		expect(siteSurfaceSource).toContain('aria-pressed={selectedTheme === "system"}');
-		expect(siteSurfaceSource).toContain("const themeShortcutByKey");
-		expect(siteSurfaceSource).toContain('i: "light"');
-		expect(siteSurfaceSource).toContain("const languageShortcutByKey");
-		expect(siteSurfaceSource).toContain('c: "zh"');
-		expect(siteSurfaceSource).toContain("focusAdjacentSettingsControl(1)");
-		expect(siteSurfaceSource).toContain("focusAdjacentSettingsControl(-1)");
-		expect(siteSurfaceSource).toContain('key === "arrowright" || key === "arrowdown"');
-		expect(siteSurfaceSource).toContain('key === "arrowleft" || key === "arrowup"');
+	it("keeps privacy settings labels concise and localized", () => {
+		const englishMessages = JSON.parse(enMessagesSource) as Record<string, string>;
+		const koreanMessages = JSON.parse(koMessagesSource) as Record<string, string>;
+
+		expect(englishMessages.settings_privacy_tab).toBe("Privacy");
+		expect(englishMessages.settings_analytics_label).toBe("Analytics");
+		expect(englishMessages.settings_advertising_label).toBe("Ads");
+		expect(englishMessages.settings_privacy_policy_link).toBe("Privacy");
+		expect(englishMessages.analytics_consent_accept).toBe("Allow");
+		expect(koreanMessages.settings_privacy_tab).toBe("개인정보");
+		expect(koreanMessages.settings_analytics_label).toBe("분석");
+		expect(koreanMessages.settings_advertising_label).toBe("광고");
+		expect(koreanMessages.settings_privacy_policy_link).toBe("개인정보 안내");
+		expect(koreanMessages.analytics_consent_accept).toBe("허용");
 	});
 
-	it("loads GA4 only after explicit analytics consent", () => {
-		expect(analyticsCoreSource).toContain("siteAnalyticsConsentStorageKey");
-		expect(analyticsRuntimeSource).toContain(
-			'import { env as publicEnv } from "$env/dynamic/public"',
-		);
-		expect(analyticsRuntimeSource).toContain("publicEnv.PUBLIC_GA4_MEASUREMENT_ID?.trim() ??");
+	it("routes settings privacy controls through the consent storage helpers", () => {
+		expect(settingsTabs).toEqual(["theme", "language", "privacy"]);
+		expect(defaultSettingsTab).toBe("theme");
+		expect(themeChoices).toEqual(["light", "dark", "system"]);
+		expect(navigationShortcutByHref).toEqual({
+			"/manifesto": "M",
+			"/blog": "B",
+			"/works": "W",
+			"/roadmap": "R",
+			"/contact": "C",
+		});
+		expect(navigationPathByShortcut.b).toBe("/blog");
+		expect(languageShortcutByLocale).toEqual({
+			en: "E",
+			zh: "C",
+			es: "S",
+			fr: "F",
+			hi: "H",
+			ko: "K",
+		});
+		expect(languageShortcutByKey.k).toBe("ko");
+		expect(themeShortcutByKey).toEqual({ i: "light", d: "dark", s: "system" });
+		expect(sidebarSource).toContain("readStoredAnalyticsConsent");
+		expect(sidebarSource).toContain("writeStoredAnalyticsConsent");
+		expect(sidebarSource).toContain("readStoredAdvertisingConsent");
+		expect(sidebarSource).toContain("writeStoredAdvertisingConsent");
+		expect(sidebarSource).toContain('href={localizeSitePathname("/privacy", selectedLocale)}');
+		expect(analyticsConsentSource).toContain("writeConfiguredServiceConsent(true)");
+		expect(analyticsConsentSource).toContain("writeConfiguredServiceConsent(false)");
+	});
+
+	it("passes runtime privacy service configuration into the Pages build", () => {
 		expect(deployWorkflowSource).toContain(
 			"PUBLIC_GA4_MEASUREMENT_ID: ${{ vars.PUBLIC_GA4_MEASUREMENT_ID }}",
 		);
-		expect(analyticsRuntimeSource).toContain("readStoredAnalyticsConsent");
-		expect(analyticsRuntimeSource).toContain("writeStoredAnalyticsConsent");
-		expect(analyticsRuntimeSource).toContain("send_page_view: false");
-		expect(analyticsRuntimeSource).toContain("trackGa4PageView");
-		expect(analyticsBootstrapSource).toContain("afterNavigate");
-		expect(analyticsBootstrapSource).toContain("readStoredAnalyticsConsent()");
-		expect(analyticsBootstrapSource).toContain("siteAnalyticsConsentChangeEvent");
-		expect(analyticsConsentSource).toContain("readStoredAnalyticsConsentValue");
-		expect(analyticsConsentSource).toContain("readStoredAdvertisingConsentValue");
-		expect(analyticsConsentSource).toContain("writeConfiguredServiceConsent(true)");
-		expect(analyticsConsentSource).toContain("writeConfiguredServiceConsent(false)");
-		expect(analyticsConsentSource).toContain("writeStoredAnalyticsConsent(enabled)");
-		expect(analyticsConsentSource).toContain("writeStoredAdvertisingConsent(enabled)");
-		expect(analyticsConsentSource).toContain("isSiteAdvertisingConfigured");
-		expect(layoutSource).toContain('import SiteAnalytics from "$lib/site-analytics.svelte"');
-		expect(layoutSource).toContain(
-			'import SiteAnalyticsConsent from "$lib/site-analytics-consent.svelte"',
+		expect(deployWorkflowSource).toContain("PUBLIC_AD_PROVIDER: ${{ vars.PUBLIC_AD_PROVIDER }}");
+		expect(deployWorkflowSource).toContain("PUBLIC_AD_CLIENT_ID: ${{ vars.PUBLIC_AD_CLIENT_ID }}");
+		expect(deployWorkflowSource).toContain(
+			"PUBLIC_BLOG_POST_AD_SLOT: ${{ vars.PUBLIC_BLOG_POST_AD_SLOT }}",
 		);
-		expect(layoutSource).toContain("<SiteAnalytics />");
-		expect(layoutSource).toContain("<SiteAnalyticsConsent />");
-		expect(sidebarSource).toContain('type SettingsTab = "theme" | "language" | "privacy"');
-		expect(sidebarSource).toContain("m.settings_privacy_tab");
-		expect(sidebarSource).toContain("m.settings_analytics_label");
-		expect(sidebarSource).toContain("m.settings_privacy_policy_link");
-		expect(sidebarSource).toContain('href={localizeSitePathname("/privacy", selectedLocale)}');
-		expect(sidebarSource).toContain('class="privacy-policy-link"');
-		expect(sidebarSource).toContain('target="_blank"');
-		expect(sidebarSource).toContain('rel="noopener noreferrer"');
-		expect(sidebarSource).toContain('role="switch"');
-		expect(sidebarSource).toContain("readStoredAnalyticsConsent");
-		expect(sidebarSource).toContain("writeStoredAnalyticsConsent");
-	});
-
-	it("loads ad providers only after explicit advertising consent", () => {
-		expect(advertisingConsentSource).toContain("siteAdvertisingConsentStorageKey");
-		expect(advertisingConsentSource).toContain("0disoft:advertising-consent");
-		expect(advertisingConsentSource).toContain("siteAdvertisingConsentChangeEvent");
-		expect(advertisingConsentSource).toContain("readStoredAdvertisingConsent");
-		expect(advertisingConsentSource).toContain("writeStoredAdvertisingConsent");
-		expect(sidebarSource).toContain("isSiteAdvertisingConfigured");
-		expect(sidebarSource).toContain("readStoredAdvertisingConsent");
-		expect(sidebarSource).toContain("writeStoredAdvertisingConsent");
-		expect(sidebarSource).toContain("m.settings_advertising_label");
-		expect(sidebarSource).toContain("m.settings_advertising_description");
 	});
 });

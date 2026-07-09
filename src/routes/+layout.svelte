@@ -12,13 +12,19 @@
 	import SiteAnalytics from "$lib/site-analytics.svelte";
 	import SiteAnalyticsConsent from "$lib/site-analytics-consent.svelte";
 	import { birdMarkPath } from '$lib/site-assets';
-	import { getRssFeedPath } from '$lib/site-meta';
+	import {
+		getSitePlainTextAlternateLinks,
+		getSiteRssAlternateLinks,
+		siteThemeColorMeta,
+	} from "$lib/site-meta";
 	import { siteProfile } from '$lib/site-profile';
 	import { ModeWatcher } from 'mode-watcher';
 	import './layout.css';
 
 	let { children } = $props();
 	const shareImageUrl = `${siteProfile.origin}${birdMarkPath}`;
+	const rssAlternateLinks = getSiteRssAlternateLinks();
+	const plainTextAlternateLinks = getSitePlainTextAlternateLinks();
 
 	onMount(() => {
 		if (getPathLocale(window.location.pathname)) {
@@ -38,17 +44,20 @@
 	<title>{siteProfile.name}</title>
 	<meta name="description" content={siteProfile.description} />
 	<link rel="icon" href={birdMarkPath} />
-	{#each languageOptions as language (language.locale)}
+	{#each rssAlternateLinks as link (link.href)}
 		<link
-			rel="alternate"
-			type="application/rss+xml"
-			href={getRssFeedPath(language.locale)}
-			title={`${siteProfile.name} ${language.label} RSS`}
+			rel={link.rel}
+			type={link.type}
+			href={link.href}
+			title={link.title}
 		/>
 	{/each}
-	<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
-	<meta name="theme-color" content="#fbf7e8" media="(prefers-color-scheme: light)" />
-	<meta name="theme-color" content="#152814" media="(prefers-color-scheme: dark)" />
+	{#each plainTextAlternateLinks as link (link.href)}
+		<link rel={link.rel} type={link.type} href={link.href} title={link.title} />
+	{/each}
+	{#each siteThemeColorMeta as themeColor (themeColor.media)}
+		<meta name="theme-color" content={themeColor.content} media={themeColor.media} />
+	{/each}
 	<meta property="og:type" content="website" />
 	<meta property="og:site_name" content={siteProfile.name} />
 	<meta property="og:title" content={siteProfile.name} />

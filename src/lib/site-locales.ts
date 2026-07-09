@@ -18,8 +18,8 @@ export const indexedSiteLocales = siteLocales;
 
 export const siteLocaleStorageKey = "0disoft:locale";
 
-const siteLocaleCookieName = "ODISOFT_LOCALE";
-const siteLocaleCookieMaxAge = 34_560_000;
+export const siteLocaleCookieName = "ODISOFT_LOCALE";
+export const siteLocaleCookieMaxAge = 34_560_000;
 const siteLocaleSet = new Set<string>(siteLocales);
 
 export function isSiteLocale(locale: string): locale is SiteLocale {

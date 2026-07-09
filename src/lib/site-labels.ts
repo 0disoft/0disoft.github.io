@@ -12,7 +12,7 @@ export function withShortcut(label: string, shortcut: string): string {
 	return `${label} (${shortcut})`;
 }
 
-const languageDisplayNameByLocale = {
+export const languageDisplayNameByLocale = {
 	en: "English",
 	zh: "中文",
 	es: "Español",

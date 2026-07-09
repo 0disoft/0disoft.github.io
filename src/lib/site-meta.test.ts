@@ -1,5 +1,4 @@
 import { describe, expect, it } from "vitest";
-import { readFileSync } from "node:fs";
 import type { BlogPost } from "./blog-post-core";
 import { blogPosts } from "./blog-posts";
 import {
@@ -9,14 +8,16 @@ import {
 	buildRobotsText,
 	buildRssXml,
 	buildSitemapXml,
+	getSitePlainTextAlternateLinks,
+	getSiteRssAlternateLinks,
 	getRssFeedPath,
 	indexedSiteLocales,
+	siteThemeColorMeta,
 } from "./site-meta";
 import { siteProfile } from "./site-profile";
 
 const origin = siteProfile.origin;
 const supportedSiteLocales = ["en", "zh", "es", "fr", "hi", "ko"] as const;
-const layoutSource = readFileSync(new URL("../routes/+layout.svelte", import.meta.url), "utf8");
 const currentPostSlug = "ai-smaller-faster-companies";
 
 describe("site meta files", () => {
@@ -132,9 +133,6 @@ describe("site meta files", () => {
 			name: "0disoft",
 			url: "https://0disoft.github.io",
 		});
-		expect(layoutSource).toContain('meta name="description"');
-		expect(layoutSource).toContain('property="og:site_name"');
-		expect(layoutSource).toContain('name="twitter:card"');
 		expect(supportedSiteLocales.map(getRssFeedPath)).toEqual([
 			"/rss.xml",
 			"/zh/rss.xml",
@@ -143,12 +141,54 @@ describe("site meta files", () => {
 			"/hi/rss.xml",
 			"/ko/rss.xml",
 		]);
-		expect(layoutSource).toContain("getRssFeedPath(language.locale)");
+		expect(getSiteRssAlternateLinks()).toEqual([
+			{
+				rel: "alternate",
+				type: "application/rss+xml",
+				href: "/rss.xml",
+				title: "0disoft English RSS",
+			},
+			{
+				rel: "alternate",
+				type: "application/rss+xml",
+				href: "/zh/rss.xml",
+				title: "0disoft Chinese RSS",
+			},
+			{
+				rel: "alternate",
+				type: "application/rss+xml",
+				href: "/es/rss.xml",
+				title: "0disoft Spanish RSS",
+			},
+			{
+				rel: "alternate",
+				type: "application/rss+xml",
+				href: "/fr/rss.xml",
+				title: "0disoft French RSS",
+			},
+			{
+				rel: "alternate",
+				type: "application/rss+xml",
+				href: "/hi/rss.xml",
+				title: "0disoft Hindi RSS",
+			},
+			{
+				rel: "alternate",
+				type: "application/rss+xml",
+				href: "/ko/rss.xml",
+				title: "0disoft Korean RSS",
+			},
+		]);
 		for (const locale of supportedSiteLocales) {
 			expect(getRssFeedPath(locale)).toMatch(/^(?:\/[a-z]{2})?\/rss\.xml$/);
 		}
-		expect(layoutSource).toContain('rel="alternate" type="text/plain" href="/llms.txt"');
-		expect(layoutSource).not.toContain('rel="canonical"');
+		expect(getSitePlainTextAlternateLinks()).toEqual([
+			{ rel: "alternate", type: "text/plain", href: "/llms.txt", title: "llms.txt" },
+		]);
+		expect(siteThemeColorMeta).toEqual([
+			{ content: "#fbf7e8", media: "(prefers-color-scheme: light)" },
+			{ content: "#152814", media: "(prefers-color-scheme: dark)" },
+		]);
 	});
 });
 

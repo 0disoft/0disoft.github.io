@@ -1,6 +1,25 @@
 import { describe, expect, it } from "vitest";
 import { getManifestoCopy } from "./manifesto";
+import {
+	getKeyboardFocusIntent,
+	isModifiedKeyEvent,
+	resolveAdjacentFocusIndex,
+	resolveBoundaryFocusIndex,
+} from "./site-keyboard";
+import {
+	defaultSettingsTab,
+	languageShortcutByLocale,
+	navigationShortcutByHref,
+	settingsTabs,
+	themeChoices,
+} from "./site-settings-model";
+import {
+	getSiteSurfacePageTitle,
+	getSiteSurfaceSectionKind,
+	getSiteSurfaceSectionLabel,
+} from "./site-surface-model";
 import { siteProfile } from "./site-profile";
+import { WORK_FILTER_QUERY_KEYS, workItems, workLocales } from "./works";
 import {
 	appHtmlSource,
 	errorSource,
@@ -19,7 +38,6 @@ import {
 	sidebarSource,
 	siteSurfaceSource,
 	surfaceSource,
-	workCoreSource,
 	workJsonFilePaths,
 	workMetaFilePaths,
 	worksModuleExists,
@@ -136,6 +154,17 @@ describe("site shell", () => {
 		expect(siteSurfaceSource).toContain("const selectedTheme = $derived(userPrefersMode.current)");
 		expect(siteSurfaceSource).toContain("toDisplayLocale(getLocale())");
 		expect(siteSurfaceSource).toContain("function getLocalizedNavigationLabel");
+		expect(settingsTabs).toEqual(["theme", "language", "privacy"]);
+		expect(defaultSettingsTab).toBe("theme");
+		expect(themeChoices).toEqual(["light", "dark", "system"]);
+		expect(navigationShortcutByHref).toEqual({
+			"/manifesto": "M",
+			"/blog": "B",
+			"/works": "W",
+			"/roadmap": "R",
+			"/contact": "C",
+		});
+		expect(languageShortcutByLocale.ko).toBe("K");
 		expect(siteSurfaceSource).toContain('role="tablist"');
 		expect(siteSurfaceSource).toContain('aria-selected={activeSettingsTab === "theme"}');
 		expect(siteSurfaceSource).toContain('aria-selected={activeSettingsTab === "language"}');
@@ -148,18 +177,37 @@ describe("site shell", () => {
 		expect(siteSurfaceSource).toContain('rel="noopener noreferrer"');
 	});
 
-	it("supports arrow-key focus movement across sidebar controls", () => {
-		expect(siteSurfaceSource).toContain("function handleSidebarKeydown");
-		expect(siteSurfaceSource).toContain("data-sidebar-keyboard-target");
-		expect(siteSurfaceSource).toContain("getSidebarFocusTargets");
-		expect(siteSurfaceSource).toContain("focusAdjacentSidebarControl(1");
-		expect(siteSurfaceSource).toContain("focusAdjacentSidebarControl(-1");
-		expect(siteSurfaceSource).toContain("focusBoundarySidebarControl");
-		expect(siteSurfaceSource).toContain("onkeydown={handleSidebarKeydown}");
-		expect(siteSurfaceSource).toContain('key === "arrowright" || key === "arrowdown"');
-		expect(siteSurfaceSource).toContain('key === "arrowleft" || key === "arrowup"');
-		expect(siteSurfaceSource).toContain('key === "home"');
-		expect(siteSurfaceSource).toContain('key === "end"');
+	it("keeps keyboard focus movement in reusable UI helpers", () => {
+		expect(getKeyboardFocusIntent("ArrowRight")).toEqual({ kind: "adjacent", direction: 1 });
+		expect(getKeyboardFocusIntent("ArrowDown")).toEqual({ kind: "adjacent", direction: 1 });
+		expect(getKeyboardFocusIntent("ArrowLeft")).toEqual({ kind: "adjacent", direction: -1 });
+		expect(getKeyboardFocusIntent("ArrowUp")).toEqual({ kind: "adjacent", direction: -1 });
+		expect(getKeyboardFocusIntent("Home")).toEqual({ kind: "boundary", boundary: "first" });
+		expect(getKeyboardFocusIntent("End")).toEqual({ kind: "boundary", boundary: "last" });
+		expect(getKeyboardFocusIntent("B")).toBeNull();
+		expect(resolveAdjacentFocusIndex(4, 1, 1)).toBe(2);
+		expect(resolveAdjacentFocusIndex(4, 0, -1)).toBe(3);
+		expect(resolveAdjacentFocusIndex(4, -1, 1, { missing: "by-direction" })).toBe(0);
+		expect(resolveAdjacentFocusIndex(4, -1, -1, { missing: "by-direction" })).toBe(3);
+		expect(resolveAdjacentFocusIndex(4, -1, -1, { missing: "first" })).toBe(0);
+		expect(resolveAdjacentFocusIndex(0, -1, 1)).toBeNull();
+		expect(resolveBoundaryFocusIndex(4, "first")).toBe(0);
+		expect(resolveBoundaryFocusIndex(4, "last")).toBe(3);
+		expect(resolveBoundaryFocusIndex(0, "first")).toBeNull();
+		expect(
+			isModifiedKeyEvent({
+				altKey: false,
+				ctrlKey: false,
+				metaKey: false,
+				shiftKey: true,
+			}),
+		).toBe(false);
+		expect(
+			isModifiedKeyEvent(
+				{ altKey: false, ctrlKey: false, metaKey: false, shiftKey: true },
+				{ shiftKey: true },
+			),
+		).toBe(true);
 	});
 
 	it("keeps the desktop sidebar stable while page content scrolls", () => {
@@ -186,13 +234,14 @@ describe("site shell", () => {
 	it("uses routed navigation without a duplicate home body", () => {
 		expect(siteSurfaceSource).toContain('href={localizeSitePathname("/", selectedLocale)}');
 		expect(siteSurfaceSource).not.toContain('href="#');
+		expect(getSiteSurfaceSectionKind("/")).toBe("home");
+		expect(getSiteSurfacePageTitle("/", "en")).toBe(siteProfile.name);
 	});
 
 	it("renders the manifesto with localized copy slots and a right-side share panel", () => {
 		expect(surfaceSource).toContain('import ManifestoSurface from "$lib/manifesto-surface.svelte"');
-		expect(surfaceSource).toContain(
-			'const isManifestoSection = $derived(activePath === "/manifesto")',
-		);
+		expect(getSiteSurfaceSectionKind("/manifesto")).toBe("manifesto");
+		expect(getSiteSurfaceSectionLabel("/manifesto", "ko")).toBe("매니페스토");
 		expect(surfaceSource).toContain("<ManifestoSurface");
 		expect(manifestoKoreanMarkdown).toContain("AI와 지역 숙의로 만드는 더 나은 규칙");
 		expect(manifestoSource).toContain('import.meta.glob<string>("../content/manifesto/*.md"');
@@ -245,6 +294,9 @@ describe("site shell", () => {
 	});
 
 	it("keeps placeholder section labels available to assistive tech only", () => {
+		expect(getSiteSurfaceSectionKind("/roadmap")).toBe("placeholder");
+		expect(getSiteSurfaceSectionLabel("/roadmap", "en")).toBe("Roadmap");
+		expect(getSiteSurfacePageTitle("/roadmap", "en")).toBe("Roadmap · 0disoft");
 		expect(surfaceSource).toContain(
 			'<section class="content-section" aria-labelledby="section-title">',
 		);
@@ -257,14 +309,16 @@ describe("site shell", () => {
 	it("renders works as a filterable public card list", () => {
 		expect(worksModuleExists).toBe(true);
 		expect(surfaceSource).toContain('import WorksSurface from "$lib/works-surface.svelte"');
-		expect(surfaceSource).toContain('const isWorksSection = $derived(activePath === "/works")');
+		expect(getSiteSurfaceSectionKind("/works")).toBe("works");
 		expect(surfaceSource).toContain("<WorksSurface");
 		expect(worksSource).toContain('import.meta.glob("../content/works/**/meta.json"');
-		expect(worksSource).toContain("WORK_FILTER_QUERY_KEYS");
-		expect(worksSource).toContain("filterWorks");
-		expect(worksSource).toContain("getWorkFilterOptions");
-		expect(worksSource).toContain("parseWorkFilters");
-		expect(workCoreSource).toContain("workLocales = siteLocales");
+		expect(WORK_FILTER_QUERY_KEYS).toEqual({
+			query: "q",
+			tag: "tag",
+			language: "language",
+		});
+		expect(workLocales).toEqual(["en", "zh", "es", "fr", "hi", "ko"]);
+		expect(workItems.map((work) => work.slug)).toContain("buildmarks");
 		expect(workMetaFilePaths).toEqual(["buildmarks/meta.json"]);
 		expect(workJsonFilePaths).toEqual([
 			"buildmarks/en.json",

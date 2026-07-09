@@ -19,11 +19,43 @@ const LLMS_FULL_MAX_CHARACTERS = 60_000;
 const RSS_ITEM_LIMIT = 20;
 export const defaultRssFeedLocale: BlogPost["locale"] = "en";
 
+export const siteTextAlternateLinks = [{ href: "/llms.txt", title: "llms.txt" }] as const;
+
+export const siteThemeColorMeta = [
+	{ content: "#fbf7e8", media: "(prefers-color-scheme: light)" },
+	{ content: "#152814", media: "(prefers-color-scheme: dark)" },
+] as const;
+
 type LinkEntry = {
 	label: string;
 	path: string;
 	note: string;
 };
+
+export type SiteAlternateLink = {
+	rel: "alternate";
+	type: "application/rss+xml" | "text/plain";
+	href: string;
+	title: string;
+};
+
+export function getSiteRssAlternateLinks(): SiteAlternateLink[] {
+	return languageOptions.map((language) => ({
+		rel: "alternate",
+		type: "application/rss+xml",
+		href: getRssFeedPath(language.locale),
+		title: `${siteProfile.name} ${language.label} RSS`,
+	}));
+}
+
+export function getSitePlainTextAlternateLinks(): SiteAlternateLink[] {
+	return siteTextAlternateLinks.map((link) => ({
+		rel: "alternate",
+		type: "text/plain",
+		href: link.href,
+		title: link.title,
+	}));
+}
 
 export function createPlainTextResponse(content: string): Response {
 	return new Response(content, {

@@ -1,12 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { blogShareSource } from "./test-support/site-test-sources";
+import { DEFAULT_BLOG_SHARE_PLATFORMS, buildBlogShareLinks } from "./blog-share";
 
 describe("blog share", () => {
-	it("builds blog post share links from one typed source", async () => {
-		expect(blogShareSource).toContain("DEFAULT_BLOG_SHARE_PLATFORMS");
-		expect(blogShareSource).toContain("export function buildBlogShareLinks");
-
-		const { DEFAULT_BLOG_SHARE_PLATFORMS, buildBlogShareLinks } = await import("./blog-share");
+	it("builds blog post share links from one typed source", () => {
 		const links = buildBlogShareLinks({
 			title: "AI is making companies smaller and faster",
 			text: "A short note about AI-era operating models.",

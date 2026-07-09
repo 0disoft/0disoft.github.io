@@ -31,6 +31,23 @@
 		writeStoredSiteLocale,
 	} from "$lib/site-locales";
 	import {
+		defaultSettingsTab,
+		languageShortcutByKey,
+		languageShortcutByLocale,
+		navigationPathByShortcut,
+		navigationShortcutByHref,
+		themeShortcutByKey,
+		type SettingsTab,
+		type ThemeChoice,
+	} from "$lib/site-settings-model";
+	import {
+		getKeyboardFocusIntent,
+		isEditableKeyboardTarget,
+		isModifiedKeyEvent,
+		resolveAdjacentFocusIndex,
+		resolveBoundaryFocusIndex,
+	} from "$lib/site-keyboard";
+	import {
 		isSiteAnalyticsConfigured,
 		readStoredAnalyticsConsent,
 		writeStoredAnalyticsConsent,
@@ -46,12 +63,9 @@
 	import IconButton from "$lib/ui/icon-button.svelte";
 	import SidebarAction from "$lib/ui/sidebar-action.svelte";
 
-	type SettingsTab = "theme" | "language" | "privacy";
-	type ThemeChoice = "light" | "dark" | "system";
-
 	let { activePath = "/" }: { activePath?: SiteSectionPath | "/" } = $props();
 	let settingsDialog = $state<HTMLDialogElement>();
-	let activeSettingsTab = $state<SettingsTab>("theme");
+	let activeSettingsTab = $state<SettingsTab>(defaultSettingsTab);
 	const displayLocale = $derived(toDisplayLocale(getLocale()));
 	const selectedTheme = $derived(userPrefersMode.current);
 	const analyticsConfigured = isSiteAnalyticsConfigured();
@@ -67,27 +81,6 @@
 		"/contact": Contact,
 	} as const satisfies Record<SiteSectionPath, Component>;
 
-	const navigationShortcutByHref = {
-		"/manifesto": "M",
-		"/blog": "B",
-		"/works": "W",
-		"/roadmap": "R",
-		"/contact": "C",
-	} as const satisfies Record<SiteSectionPath, string>;
-
-	const navigationPathByShortcut = Object.fromEntries(
-		siteProfile.navigation.map((item) => [navigationShortcutByHref[item.href].toLowerCase(), item.href]),
-	) as Record<string, SiteSectionPath>;
-
-	const languageShortcutByLocale = {
-		en: "E",
-		zh: "C",
-		es: "S",
-		fr: "F",
-		hi: "H",
-		ko: "K",
-	} as const satisfies Record<SiteLocale, string>;
-
 	function getSettingsLocale(): SiteLocale {
 		const locale = getLocale();
 
@@ -97,33 +90,6 @@
 	let selectedLocale = $state<SiteLocale>(getSettingsLocale());
 	let analyticsConsent = $state(false);
 	let advertisingConsent = $state(false);
-
-	const languageShortcutByKey = {
-		e: "en",
-		c: "zh",
-		s: "es",
-		f: "fr",
-		h: "hi",
-		k: "ko",
-	} as const satisfies Record<string, SiteLocale>;
-
-	const themeShortcutByKey = {
-		i: "light",
-		d: "dark",
-		s: "system",
-	} as const satisfies Record<string, ThemeChoice>;
-
-	function isEditableKeyboardTarget(target: EventTarget | null): boolean {
-		if (!(target instanceof HTMLElement)) {
-			return false;
-		}
-
-		return target.matches("input, textarea, select, [contenteditable='true']");
-	}
-
-	function isModifiedKeyEvent(event: KeyboardEvent): boolean {
-		return event.altKey || event.ctrlKey || event.metaKey;
-	}
 
 	function isSettingsDialogOpen(): boolean {
 		return settingsDialog?.open === true;
@@ -150,20 +116,22 @@
 			return;
 		}
 
-		const currentIndex = targets.indexOf(document.activeElement as HTMLElement);
-		const nextIndex =
-			currentIndex === -1
-				? direction === 1
-					? 0
-					: targets.length - 1
-				: (currentIndex + direction + targets.length) % targets.length;
+		const nextIndex = resolveAdjacentFocusIndex(
+			targets.length,
+			targets.indexOf(document.activeElement as HTMLElement),
+			direction,
+			{ missing: "by-direction" },
+		);
 
-		targets[nextIndex]?.focus();
+		if (nextIndex !== null) {
+			targets[nextIndex]?.focus();
+		}
 	}
 
 	function focusBoundarySettingsControl(boundary: "first" | "last") {
 		const targets = getSettingsFocusTargets();
-		const target = boundary === "first" ? targets[0] : targets.at(-1);
+		const targetIndex = resolveBoundaryFocusIndex(targets.length, boundary);
+		const target = targetIndex === null ? undefined : targets[targetIndex];
 
 		target?.focus();
 	}
@@ -179,26 +147,28 @@
 			return;
 		}
 
-		const currentIndex = targets.indexOf(document.activeElement as HTMLElement);
-		const nextIndex =
-			currentIndex === -1
-				? direction === 1
-					? 0
-					: targets.length - 1
-				: (currentIndex + direction + targets.length) % targets.length;
+		const nextIndex = resolveAdjacentFocusIndex(
+			targets.length,
+			targets.indexOf(document.activeElement as HTMLElement),
+			direction,
+			{ missing: "by-direction" },
+		);
 
-		targets[nextIndex]?.focus();
+		if (nextIndex !== null) {
+			targets[nextIndex]?.focus();
+		}
 	}
 
 	function focusBoundarySidebarControl(boundary: "first" | "last", sidebar: HTMLElement) {
 		const targets = getSidebarFocusTargets(sidebar);
-		const target = boundary === "first" ? targets[0] : targets.at(-1);
+		const targetIndex = resolveBoundaryFocusIndex(targets.length, boundary);
+		const target = targetIndex === null ? undefined : targets[targetIndex];
 
 		target?.focus();
 	}
 
 	async function openSettingsDialog() {
-		activeSettingsTab = "theme";
+		activeSettingsTab = defaultSettingsTab;
 		analyticsConsent = readStoredAnalyticsConsent();
 		advertisingConsent = readStoredAdvertisingConsent();
 		settingsDialog?.showModal();
@@ -298,27 +268,15 @@
 
 		const key = event.key.toLowerCase();
 
-		if (key === "arrowright" || key === "arrowdown") {
-			event.preventDefault();
-			focusAdjacentSettingsControl(1);
-			return;
-		}
+		const focusIntent = getKeyboardFocusIntent(key);
 
-		if (key === "arrowleft" || key === "arrowup") {
+		if (focusIntent) {
 			event.preventDefault();
-			focusAdjacentSettingsControl(-1);
-			return;
-		}
-
-		if (key === "home") {
-			event.preventDefault();
-			focusBoundarySettingsControl("first");
-			return;
-		}
-
-		if (key === "end") {
-			event.preventDefault();
-			focusBoundarySettingsControl("last");
+			if (focusIntent.kind === "adjacent") {
+				focusAdjacentSettingsControl(focusIntent.direction);
+			} else {
+				focusBoundarySettingsControl(focusIntent.boundary);
+			}
 			return;
 		}
 
@@ -381,27 +339,15 @@
 
 		const key = event.key.toLowerCase();
 
-		if (key === "arrowright" || key === "arrowdown") {
-			event.preventDefault();
-			focusAdjacentSidebarControl(1, sidebar);
-			return;
-		}
+		const focusIntent = getKeyboardFocusIntent(key);
 
-		if (key === "arrowleft" || key === "arrowup") {
+		if (focusIntent) {
 			event.preventDefault();
-			focusAdjacentSidebarControl(-1, sidebar);
-			return;
-		}
-
-		if (key === "home") {
-			event.preventDefault();
-			focusBoundarySidebarControl("first", sidebar);
-			return;
-		}
-
-		if (key === "end") {
-			event.preventDefault();
-			focusBoundarySidebarControl("last", sidebar);
+			if (focusIntent.kind === "adjacent") {
+				focusAdjacentSidebarControl(focusIntent.direction, sidebar);
+			} else {
+				focusBoundarySidebarControl(focusIntent.boundary, sidebar);
+			}
 		}
 	}
 </script>

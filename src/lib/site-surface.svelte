@@ -5,43 +5,40 @@
 	import SiteSidebar from "$lib/site-sidebar.svelte";
 	import WorksSurface from "$lib/works-surface.svelte";
 	import { getLocale } from "$lib/paraglide/runtime";
-	import { getLocalizedNavigationLabel, toDisplayLocale } from "$lib/site-labels";
-	import type { SiteSectionPath } from "$lib/site-navigation";
-	import { findNavigationItemByPath } from "$lib/site-navigation";
+	import { toDisplayLocale } from "$lib/site-labels";
+	import {
+		getSiteSurfacePageTitle,
+		getSiteSurfaceSectionKind,
+		getSiteSurfaceSectionLabel,
+		type SiteSurfacePath,
+	} from "$lib/site-surface-model";
 	import { siteProfile } from "$lib/site-profile";
 
-	let {
-		activePath = "/",
-		children,
-	}: { activePath?: SiteSectionPath | "/"; children?: Snippet } = $props();
+	let { activePath = "/", children }: { activePath?: SiteSurfacePath; children?: Snippet } = $props();
 
 	const displayLocale = $derived(toDisplayLocale(getLocale()));
-	const activeSection = $derived(findNavigationItemByPath(activePath));
-	const isManifestoSection = $derived(activePath === "/manifesto");
-	const isBlogSection = $derived(activePath === "/blog");
-	const isWorksSection = $derived(activePath === "/works");
-	const activeSectionLabel = $derived(
-		activeSection ? getLocalizedNavigationLabel(activeSection.href, displayLocale) : siteProfile.name,
-	);
+	const sectionKind = $derived(getSiteSurfaceSectionKind(activePath));
+	const activeSectionLabel = $derived(getSiteSurfaceSectionLabel(activePath, displayLocale));
+	const pageTitle = $derived(getSiteSurfacePageTitle(activePath, displayLocale));
 </script>
 
 <svelte:head>
-	<title>{activeSection ? `${activeSectionLabel} · ${siteProfile.name}` : siteProfile.name}</title>
+	<title>{pageTitle}</title>
 </svelte:head>
 
 <div class="site-frame site-backdrop">
 	<SiteSidebar {activePath} />
 
-	<main class="content-shell" class:empty-home={!activeSection && !children}>
+	<main class="content-shell" class:empty-home={sectionKind === "home" && !children}>
 		{#if children}
 			{@render children()}
-		{:else if isManifestoSection}
+		{:else if sectionKind === "manifesto"}
 			<ManifestoSurface />
-		{:else if isBlogSection}
+		{:else if sectionKind === "blog"}
 			<BlogSurface />
-		{:else if isWorksSection}
+		{:else if sectionKind === "works"}
 			<WorksSurface />
-		{:else if activeSection}
+		{:else if sectionKind === "placeholder"}
 			<section class="content-section" aria-labelledby="section-title">
 				<h1 id="section-title" class="sr-only">{activeSectionLabel}</h1>
 			</section>

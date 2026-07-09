@@ -1,4 +1,10 @@
 import { describe, expect, it } from "vitest";
+import {
+	AD_RENDER_RESULT_TIMEOUT_MS,
+	getAdUnitAriaHidden,
+	getAdUnitDisplayStateFromProviderStatus,
+	getConsentedAdUnitConfig,
+} from "./ad-unit-core";
 import type { BlogPostBodyBlock } from "./blog-post-core";
 import { blogPostAdPlacements, createBlogPostRenderItems } from "./blog-post-ads";
 import {
@@ -10,9 +16,7 @@ import {
 } from "./site-ad-provider-google";
 import { buildAdsTxt } from "./site-advertising";
 import {
-	adUnitSource,
 	adsTxtRouteSource,
-	blogPostAdsSource,
 	blogPostSurfaceSource,
 	deployWorkflowSource,
 	googleAdProviderSource,
@@ -96,8 +100,10 @@ describe("blog post ads", () => {
 	});
 
 	it("wires manual ad units through provider-neutral surfaces", () => {
-		expect(blogPostAdsSource).toContain("beforeHeadingIndex: 3");
-		expect(blogPostAdsSource).toContain("beforeHeadingIndex: 7");
+		expect(blogPostAdPlacements).toEqual([
+			{ beforeHeadingIndex: 3, slotKey: "blog-inline" },
+			{ beforeHeadingIndex: 7, slotKey: "blog-inline" },
+		]);
 		expect(blogPostSurfaceSource).toContain('import AdUnit from "$lib/ad-unit.svelte"');
 		expect(blogPostSurfaceSource).toContain("createBlogPostRenderItems");
 		expect(blogPostSurfaceSource).toContain('item.kind === "ad"');
@@ -116,19 +122,15 @@ describe("blog post ads", () => {
 		expect(googleAdProviderSource).toContain("createGoogleAdScriptSrc");
 		expect(googleAdProviderSource).toContain("createGoogleAuthorizedSellerRecord");
 		expect(googleAdProviderSource).toContain("adsbygoogle");
-		expect(adUnitSource).toContain("Advertisements");
-		expect(adUnitSource).toContain('class="blog-ad-unit"');
-		expect(adUnitSource).toContain("AD_RENDER_RESULT_TIMEOUT_MS");
-		expect(adUnitSource).toContain("readStoredAdvertisingConsent");
-		expect(adUnitSource).toContain("siteAdvertisingConsentChangeEvent");
-		expect(adUnitSource).toContain("MutationObserver");
-		expect(adUnitSource).toContain('providerStatus === "filled"');
-		expect(adUnitSource).toContain('providerStatus === "unfilled"');
-		expect(adUnitSource).toContain("data-display-state={displayState}");
-		expect(adUnitSource).toContain('config.provider === "google"');
-		expect(adUnitSource).toContain("data-ad-client={config.clientId}");
-		expect(adUnitSource).toContain("data-ad-slot={config.slot}");
-		expect(adUnitSource).toContain("requestSiteAdRender");
+		expect(AD_RENDER_RESULT_TIMEOUT_MS).toBe(6000);
+		expect(getAdUnitDisplayStateFromProviderStatus("filled")).toBe("filled");
+		expect(getAdUnitDisplayStateFromProviderStatus("unfilled")).toBe("empty");
+		expect(getAdUnitDisplayStateFromProviderStatus("unknown")).toBeNull();
+		expect(getAdUnitAriaHidden("filled")).toBeUndefined();
+		expect(getAdUnitAriaHidden("pending")).toBe("true");
+		expect(getAdUnitAriaHidden("empty")).toBe("true");
+		expect(getConsentedAdUnitConfig({ provider: "google" }, true)).toEqual({ provider: "google" });
+		expect(getConsentedAdUnitConfig({ provider: "google" }, false)).toBeNull();
 		expect(deployWorkflowSource).toContain("PUBLIC_AD_PROVIDER: ${{ vars.PUBLIC_AD_PROVIDER }}");
 		expect(deployWorkflowSource).toContain("PUBLIC_AD_CLIENT_ID: ${{ vars.PUBLIC_AD_CLIENT_ID }}");
 		expect(deployWorkflowSource).toContain(

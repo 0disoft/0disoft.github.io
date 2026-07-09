@@ -7,20 +7,25 @@
 		requestSiteAdRender,
 	} from "$lib/site-advertising";
 	import {
+		AD_RENDER_RESULT_TIMEOUT_MS,
+		getAdUnitAriaHidden,
+		getAdUnitDisplayStateFromProviderStatus,
+		getConsentedAdUnitConfig,
+		type AdUnitDisplayState,
+	} from "$lib/ad-unit-core";
+	import {
 		readStoredAdvertisingConsent,
 		siteAdvertisingConsentChangeEvent,
 	} from "$lib/site-advertising-consent";
-
-	const AD_RENDER_RESULT_TIMEOUT_MS = 6000;
 
 	let { slotKey }: { slotKey: BlogPostAdSlotKey } = $props();
 
 	let adElement = $state<HTMLElement | undefined>();
 	let advertisingConsent = $state(false);
-	let displayState = $state<"pending" | "filled" | "empty">("pending");
+	let displayState = $state<AdUnitDisplayState>("pending");
 
 	const rawConfig = $derived(getBlogPostAdUnitConfig(slotKey));
-	const config = $derived(advertisingConsent ? rawConfig : null);
+	const config = $derived(getConsentedAdUnitConfig(rawConfig, advertisingConsent));
 
 	onMount(() => {
 		let renderTimeout: number | undefined;
@@ -29,15 +34,12 @@
 		let disposed = false;
 
 		function syncDisplayState() {
-			const providerStatus = adElement?.dataset.adStatus;
+			const syncedDisplayState = getAdUnitDisplayStateFromProviderStatus(
+				adElement?.dataset.adStatus,
+			);
 
-			if (providerStatus === "filled") {
-				displayState = "filled";
-				return;
-			}
-
-			if (providerStatus === "unfilled") {
-				displayState = "empty";
+			if (syncedDisplayState) {
+				displayState = syncedDisplayState;
 			}
 		}
 
@@ -117,7 +119,7 @@
 	<aside
 		class="blog-ad-unit"
 		aria-label="Advertisements"
-		aria-hidden={displayState === "filled" ? undefined : "true"}
+		aria-hidden={getAdUnitAriaHidden(displayState)}
 		data-display-state={displayState}
 	>
 		<span>Advertisements</span>

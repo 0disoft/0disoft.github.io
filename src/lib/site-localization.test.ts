@@ -1,9 +1,17 @@
 import { describe, expect, it } from "vitest";
-import { toDisplayLocale } from "./site-labels";
+import {
+	getLocalizedLanguageLabel,
+	languageDisplayNameByLocale,
+	toDisplayLocale,
+} from "./site-labels";
 import {
 	getBrowserSiteLocale,
 	getPathLocale,
 	localizeSitePathname,
+	languageOptions,
+	siteLocaleCookieName,
+	siteLocaleStorageKey,
+	siteLocales,
 	stripLocalePrefix,
 	toSiteLocale,
 } from "./site-locales";
@@ -13,9 +21,7 @@ import {
 	enMessagesSource,
 	inlangSettingsSource,
 	koMessagesSource,
-	labelsSource,
 	layoutSource,
-	localesSource,
 	packageSource,
 	viteConfigSource,
 } from "./test-support/site-test-sources";
@@ -44,18 +50,24 @@ describe("site localization", () => {
 		expect(viteConfigSource).toContain(
 			'strategy: ["url", "cookie", "globalVariable", "baseLocale"]',
 		);
-		expect(localesSource).toContain('locale: "en", label: "English"');
-		expect(localesSource).toContain('locale: "zh", label: "Chinese"');
-		expect(localesSource).toContain('locale: "es", label: "Spanish"');
-		expect(localesSource).toContain('locale: "fr", label: "French"');
-		expect(localesSource).toContain('locale: "hi", label: "Hindi"');
-		expect(localesSource).toContain('locale: "ko", label: "Korean"');
-		expect(labelsSource).toContain('en: "English"');
-		expect(labelsSource).toContain('zh: "中文"');
-		expect(labelsSource).toContain('es: "Español"');
-		expect(labelsSource).toContain('fr: "Français"');
-		expect(labelsSource).toContain('hi: "हिन्दी"');
-		expect(labelsSource).toContain('ko: "한국어"');
+		expect(siteLocales).toEqual(["en", "zh", "es", "fr", "hi", "ko"]);
+		expect(languageOptions).toEqual([
+			{ locale: "en", label: "English" },
+			{ locale: "zh", label: "Chinese" },
+			{ locale: "es", label: "Spanish" },
+			{ locale: "fr", label: "French" },
+			{ locale: "hi", label: "Hindi" },
+			{ locale: "ko", label: "Korean" },
+		]);
+		expect(languageDisplayNameByLocale).toEqual({
+			en: "English",
+			zh: "中文",
+			es: "Español",
+			fr: "Français",
+			hi: "हिन्दी",
+			ko: "한국어",
+		});
+		expect(getLocalizedLanguageLabel("ko", "en")).toBe("한국어");
 	});
 
 	it("switches language paths without keeping stale locale prefixes", () => {
@@ -93,12 +105,9 @@ describe("site localization", () => {
 		expect(appHtmlSource).toContain('const cookieName = "ODISOFT_LOCALE"');
 		expect(appHtmlSource).toContain("navigator.languages");
 		expect(appHtmlSource).toContain("window.location.replace");
-		expect(localesSource).toContain('siteLocaleStorageKey = "0disoft:locale"');
-		expect(localesSource).toContain("window.localStorage.getItem(siteLocaleStorageKey)");
-		expect(localesSource).toContain("window.localStorage.setItem(siteLocaleStorageKey, locale)");
-		expect(localesSource).toContain('siteLocaleCookieName = "ODISOFT_LOCALE"');
-		expect(localesSource).toContain("readCookieLocale()");
-		expect(localesSource).toContain("navigator.languages");
+		expect(siteLocaleStorageKey).toBe("0disoft:locale");
+		expect(siteLocaleCookieName).toBe("ODISOFT_LOCALE");
+		expect(getBrowserSiteLocale(["de-DE", "fr-FR", "ko-KR"])).toBe("fr");
 	});
 
 	it("keeps all locale message files structurally complete", () => {

@@ -25,6 +25,14 @@
 		getBlogPostTocShortcutIndex,
 	} from "$lib/blog-posts";
 	import { copyTextToClipboard } from "$lib/site-clipboard";
+	import {
+		getKeyboardFocusIntent,
+		isEditableKeyboardTarget,
+		isModifiedKeyEvent,
+		isWithinKeyboardTarget,
+		resolveAdjacentFocusIndex,
+		resolveBoundaryFocusIndex,
+	} from "$lib/site-keyboard";
 	import { toDisplayLocale, withShortcut } from "$lib/site-labels";
 	import { isSiteLocale, localizeSitePathname } from "$lib/site-locales";
 	import { siteProfile } from "$lib/site-profile";
@@ -289,36 +297,22 @@
 	function handleBlogPostControlKeydown(event: KeyboardEvent) {
 		if (
 			event.defaultPrevented ||
-			isModifiedKeyEvent(event) ||
+			isModifiedKeyEvent(event, { shiftKey: true }) ||
 			isEditableKeyboardTarget(event.target) ||
-			!isBlogPostKeyboardTarget(event.target)
+			!isWithinKeyboardTarget(event.target, "[data-blog-post-keyboard-target]")
 		) {
 			return;
 		}
 
-		const key = event.key.toLocaleLowerCase();
+		const focusIntent = getKeyboardFocusIntent(event.key);
 
-		if (key === "arrowright" || key === "arrowdown") {
+		if (focusIntent) {
 			event.preventDefault();
-			focusAdjacentBlogPostControl(1);
-			return;
-		}
-
-		if (key === "arrowleft" || key === "arrowup") {
-			event.preventDefault();
-			focusAdjacentBlogPostControl(-1);
-			return;
-		}
-
-		if (key === "home") {
-			event.preventDefault();
-			focusBoundaryBlogPostControl("first");
-			return;
-		}
-
-		if (key === "end") {
-			event.preventDefault();
-			focusBoundaryBlogPostControl("last");
+			if (focusIntent.kind === "adjacent") {
+				focusAdjacentBlogPostControl(focusIntent.direction);
+			} else {
+				focusBoundaryBlogPostControl(focusIntent.boundary);
+			}
 		}
 	}
 
@@ -337,40 +331,24 @@
 			return;
 		}
 
-		const currentIndex = targets.indexOf(document.activeElement as HTMLElement);
-		const nextIndex =
-			currentIndex === -1
-				? 0
-				: (currentIndex + direction + targets.length) % targets.length;
+		const nextIndex = resolveAdjacentFocusIndex(
+			targets.length,
+			targets.indexOf(document.activeElement as HTMLElement),
+			direction,
+			{ missing: "first" },
+		);
 
-		targets[nextIndex]?.focus();
+		if (nextIndex !== null) {
+			targets[nextIndex]?.focus();
+		}
 	}
 
 	function focusBoundaryBlogPostControl(boundary: "first" | "last") {
 		const targets = getBlogPostFocusTargets();
-		const target = boundary === "first" ? targets[0] : targets.at(-1);
+		const targetIndex = resolveBoundaryFocusIndex(targets.length, boundary);
+		const target = targetIndex === null ? undefined : targets[targetIndex];
 
 		target?.focus();
-	}
-
-	function isBlogPostKeyboardTarget(target: EventTarget | null): boolean {
-		return (
-			target instanceof HTMLElement &&
-			Boolean(target.closest("[data-blog-post-keyboard-target]"))
-		);
-	}
-
-	function isModifiedKeyEvent(event: KeyboardEvent): boolean {
-		return event.altKey || event.ctrlKey || event.metaKey || event.shiftKey;
-	}
-
-	function isEditableKeyboardTarget(target: EventTarget | null): boolean {
-		return (
-			target instanceof HTMLInputElement ||
-			target instanceof HTMLTextAreaElement ||
-			target instanceof HTMLSelectElement ||
-			(target instanceof HTMLElement && target.isContentEditable)
-		);
 	}
 
 	function getSharePlatformLabel(platform: BlogSharePlatform): string {
