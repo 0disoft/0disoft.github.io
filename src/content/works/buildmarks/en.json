@@ -1,4 +1,4 @@
 {
   "title": "buildmarks",
-  "summary": "A minimal GitHub profile card generator showcasing real indicators of active maintenance—like docs, tests, and releases—over raw commit streaks."
+  "summary": "A GitHub Action and TypeScript core that turns public GitHub activity into engineering signal cards and inspectable reports for profile READMEs."
 }

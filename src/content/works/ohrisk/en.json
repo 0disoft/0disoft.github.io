@@ -1,0 +1,4 @@
+{
+  "title": "Ohrisk",
+  "summary": "A local CLI that scans dependency and SBOM inputs for open-source license risk before a PR or release ships."
+}

@@ -1,0 +1,4 @@
+{
+  "title": "ssealed",
+  "summary": "CLI TypeScript qui crée des scaffolds de dépôt adaptés aux LLM pour les docs, les consignes d'agents, les contrats, les validations et les fichiers d'hygiène."
+}

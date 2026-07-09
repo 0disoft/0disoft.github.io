@@ -1,0 +1,14 @@
+{
+  "slug": "dc-code-paste",
+  "status": "live",
+  "kind": "app",
+  "license": "",
+  "updatedAt": "2026-07-09",
+  "languages": ["TypeScript", "Svelte"],
+  "tags": ["dcinside", "editor", "markdown", "ai-writing"],
+  "links": {
+    "live": "https://0disoft.github.io/dc-code-paste/",
+    "source": "https://github.com/0disoft/dc-code-paste"
+  },
+  "featured": false
+}

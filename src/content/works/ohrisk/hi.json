@@ -1,0 +1,4 @@
+{
+  "title": "Ohrisk",
+  "summary": "PR या release भेजने से पहले dependencies और SBOM inputs को scan करके open-source license risk दिखाने वाला local CLI."
+}

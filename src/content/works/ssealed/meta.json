@@ -1,0 +1,14 @@
+{
+  "slug": "ssealed",
+  "status": "live",
+  "kind": "oss",
+  "license": "MIT",
+  "updatedAt": "2026-07-09",
+  "languages": ["TypeScript"],
+  "tags": ["scaffold", "agent-workflow", "developer-tools", "cli"],
+  "links": {
+    "source": "https://github.com/0disoft/ssealed",
+    "docs": "https://github.com/0disoft/ssealed#readme"
+  },
+  "featured": false
+}

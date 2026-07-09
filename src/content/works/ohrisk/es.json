@@ -1,0 +1,4 @@
+{
+  "title": "Ohrisk",
+  "summary": "CLI local que escanea dependencias y entradas SBOM para detectar riesgos de licencias open source antes de enviar un PR o una release."
+}

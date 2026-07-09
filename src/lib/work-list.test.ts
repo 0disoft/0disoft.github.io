@@ -197,25 +197,147 @@ describe("work list content", () => {
 		const workSlugs = Array.from(new Set(workItems.map((work) => work.slug))).sort();
 		const koreanWorks = getWorksForLocale(workItems, "ko");
 		const koreanBuildmarks = koreanWorks.find((work) => work.slug === "buildmarks");
+		const koreanClarissimi = koreanWorks.find((work) => work.slug === "clarissimi");
+		const koreanDcCodePaste = koreanWorks.find((work) => work.slug === "dc-code-paste");
+		const koreanLaqu = koreanWorks.find((work) => work.slug === "laqu");
+		const koreanMustflow = koreanWorks.find((work) => work.slug === "mustflow");
+		const koreanOhrisk = koreanWorks.find((work) => work.slug === "ohrisk");
+		const koreanSsealed = koreanWorks.find((work) => work.slug === "ssealed");
 
 		expect(workLocales).toEqual(["en", "zh", "es", "fr", "hi", "ko"]);
-		expect(workItems).toHaveLength(workLocales.length);
-		expect(workSlugs).toEqual(["buildmarks"]);
+		expect(workItems).toHaveLength(workLocales.length * 7);
+		expect(workSlugs).toEqual([
+			"buildmarks",
+			"clarissimi",
+			"dc-code-paste",
+			"laqu",
+			"mustflow",
+			"ohrisk",
+			"ssealed",
+		]);
 		expect(koreanBuildmarks).toMatchObject({
 			slug: "buildmarks",
 			locale: "ko",
-			status: "building",
+			status: "live",
 			kind: "oss",
 			license: "0BSD",
 			languages: ["TypeScript"],
 			title: "buildmarks",
 			summary:
-				"커밋 잔디 대신 문서화, 테스트, 릴리스 흔적처럼 실질적인 오픈소스 관리 지표를 보여주는 GitHub 프로필 카드 생성기.",
-			updatedAt: "2026-05-29",
-			tags: ["github", "profile-readme", "svg-card", "developer-tools"],
+				"공개 GitHub 활동을 프로필 README용 엔지니어링 시그널 카드와 확인 가능한 리포트로 바꾸는 GitHub Action 및 TypeScript 코어.",
+			updatedAt: "2026-07-07",
+			tags: ["github", "profile-readme", "github-action", "developer-tools"],
 			links: {
 				source: "https://github.com/0disoft/buildmarks",
-				docs: null,
+				docs: "https://github.com/0disoft/buildmarks#readme",
+			},
+			featured: false,
+		});
+		expect(koreanClarissimi).toMatchObject({
+			slug: "clarissimi",
+			locale: "ko",
+			status: "experimental",
+			kind: "oss",
+			license: "Apache-2.0",
+			languages: ["TypeScript"],
+			title: "Clarissimi",
+			summary:
+				"의미 있는 오픈소스 merged PR을 maintainer가 승인한 프로젝트 히스토리로 남기도록 돕는 실험적 GitHub Action 및 TypeScript CLI.",
+			updatedAt: "2026-07-09",
+			tags: ["github-action", "recognition", "open-source", "automation"],
+			links: {
+				source: "https://github.com/0disoft/clarissimi",
+				docs: "https://github.com/0disoft/clarissimi#readme",
+			},
+			featured: false,
+		});
+		expect(koreanDcCodePaste).toMatchObject({
+			slug: "dc-code-paste",
+			locale: "ko",
+			status: "live",
+			kind: "app",
+			license: "",
+			languages: ["TypeScript", "Svelte"],
+			title: "dc-code-paste",
+			summary:
+				"Markdown, 코드블록, 콜아웃, AI 초안을 DCInside 글쓰기 화면에 붙여넣을 리치 텍스트 HTML로 바꾸는 정적 웹 편집기.",
+			updatedAt: "2026-07-09",
+			tags: ["dcinside", "editor", "markdown", "ai-writing"],
+			links: {
+				live: "https://0disoft.github.io/dc-code-paste/",
+				source: "https://github.com/0disoft/dc-code-paste",
+			},
+			featured: false,
+		});
+		expect(koreanLaqu).toMatchObject({
+			slug: "laqu",
+			locale: "ko",
+			status: "live",
+			kind: "library",
+			license: "MIT",
+			languages: ["TypeScript"],
+			title: "laqu",
+			summary:
+				"Node.js CLI에서 안정적인 터미널 진행률, 라이브 렌더링, 기계 판독 가능한 진행 이벤트를 다루는 엄격한 TypeScript 런타임.",
+			updatedAt: "2026-07-09",
+			tags: ["terminal", "progress-bar", "cli", "library"],
+			links: {
+				source: "https://github.com/0disoft/laqu",
+				docs: "https://github.com/0disoft/laqu#readme",
+			},
+			featured: false,
+		});
+		expect(koreanMustflow).toMatchObject({
+			slug: "mustflow",
+			locale: "ko",
+			status: "live",
+			kind: "oss",
+			license: "MIT-0",
+			languages: ["TypeScript"],
+			title: "mustflow",
+			summary:
+				"LLM 코딩 에이전트가 명시된 읽기, 명령, 검증 경계 안에서 작업하도록 묶어주는 저장소 로컬 작업 계약 및 검증 CLI.",
+			updatedAt: "2026-07-09",
+			tags: ["agent-workflow", "cli", "developer-tools", "automation"],
+			links: {
+				source: "https://github.com/0disoft/mustflow",
+				docs: "https://0disoft.github.io/mustflow/",
+			},
+			featured: false,
+		});
+		expect(koreanOhrisk).toMatchObject({
+			slug: "ohrisk",
+			locale: "ko",
+			status: "live",
+			kind: "oss",
+			license: "MIT",
+			languages: ["TypeScript"],
+			title: "Ohrisk",
+			summary:
+				"PR이나 릴리스 전에 의존성과 SBOM 입력을 스캔해 오픈소스 라이선스 리스크를 빠르게 드러내는 로컬 CLI.",
+			updatedAt: "2026-07-09",
+			tags: ["license", "compliance", "supply-chain", "cli"],
+			links: {
+				source: "https://github.com/0disoft/ohrisk",
+				docs: "https://github.com/0disoft/ohrisk#readme",
+			},
+			featured: false,
+		});
+		expect(koreanSsealed).toMatchObject({
+			slug: "ssealed",
+			locale: "ko",
+			status: "live",
+			kind: "oss",
+			license: "MIT",
+			languages: ["TypeScript"],
+			title: "ssealed",
+			summary:
+				"문서, 에이전트 지침, 계약, 검증, 저장소 위생 파일을 위한 LLM 친화적 저장소 scaffold를 만드는 TypeScript CLI.",
+			updatedAt: "2026-07-09",
+			tags: ["scaffold", "agent-workflow", "developer-tools", "cli"],
+			links: {
+				source: "https://github.com/0disoft/ssealed",
+				docs: "https://github.com/0disoft/ssealed#readme",
 			},
 			featured: false,
 		});
@@ -235,10 +357,42 @@ describe("work list content", () => {
 		const koreanWorks = getWorksForLocale(workItems, "ko");
 		const fallbackWorks = getWorksForLocale(workItems, "missing");
 
-		expect(koreanWorks.map((work) => work.locale)).toEqual(["ko"]);
-		expect(fallbackWorks.map((work) => work.locale)).toEqual(["en"]);
-		expect(koreanWorks.map((work) => work.slug)).toEqual(["buildmarks"]);
-		expect(fallbackWorks.map((work) => work.slug)).toEqual(["buildmarks"]);
+		expect(koreanWorks.map((work) => work.locale)).toEqual([
+			"ko",
+			"ko",
+			"ko",
+			"ko",
+			"ko",
+			"ko",
+			"ko",
+		]);
+		expect(fallbackWorks.map((work) => work.locale)).toEqual([
+			"en",
+			"en",
+			"en",
+			"en",
+			"en",
+			"en",
+			"en",
+		]);
+		expect(koreanWorks.map((work) => work.slug)).toEqual([
+			"dc-code-paste",
+			"laqu",
+			"mustflow",
+			"ohrisk",
+			"ssealed",
+			"buildmarks",
+			"clarissimi",
+		]);
+		expect(fallbackWorks.map((work) => work.slug)).toEqual([
+			"dc-code-paste",
+			"laqu",
+			"mustflow",
+			"ohrisk",
+			"ssealed",
+			"buildmarks",
+			"clarissimi",
+		]);
 	});
 });
 

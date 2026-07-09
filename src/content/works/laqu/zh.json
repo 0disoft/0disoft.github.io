@@ -1,0 +1,4 @@
+{
+  "title": "laqu",
+  "summary": "面向 Node.js CLI 的严格 TypeScript 运行时，用于可靠的终端进度、实时渲染和机器可读的进度事件。"
+}

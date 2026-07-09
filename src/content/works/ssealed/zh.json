@@ -1,0 +1,4 @@
+{
+  "title": "ssealed",
+  "summary": "用于生成 LLM 友好型仓库脚手架的 TypeScript CLI，覆盖文档、代理指令、契约、验证和仓库规范文件。"
+}

@@ -1,0 +1,14 @@
+{
+  "slug": "laqu",
+  "status": "live",
+  "kind": "library",
+  "license": "MIT",
+  "updatedAt": "2026-07-09",
+  "languages": ["TypeScript"],
+  "tags": ["terminal", "progress-bar", "cli", "library"],
+  "links": {
+    "source": "https://github.com/0disoft/laqu",
+    "docs": "https://github.com/0disoft/laqu#readme"
+  },
+  "featured": false
+}

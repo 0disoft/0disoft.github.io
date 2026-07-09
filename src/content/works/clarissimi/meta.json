@@ -1,0 +1,14 @@
+{
+  "slug": "clarissimi",
+  "status": "experimental",
+  "kind": "oss",
+  "license": "Apache-2.0",
+  "updatedAt": "2026-07-09",
+  "languages": ["TypeScript"],
+  "tags": ["github-action", "recognition", "open-source", "automation"],
+  "links": {
+    "source": "https://github.com/0disoft/clarissimi",
+    "docs": "https://github.com/0disoft/clarissimi#readme"
+  },
+  "featured": false
+}

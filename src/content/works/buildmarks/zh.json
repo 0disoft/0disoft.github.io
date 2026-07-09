@@ -1,4 +1,4 @@
 {
   "title": "buildmarks",
-  "summary": "极简 GitHub 个人资料卡片生成器，展示文档、测试、版本发布等项目真实维护指标，而非生硬的提交打卡。"
+  "summary": "GitHub Action 和 TypeScript 核心，将公开 GitHub 活动转化为适用于个人 README 的工程信号卡片和可检查报告。"
 }

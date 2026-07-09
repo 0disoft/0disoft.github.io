@@ -1,0 +1,4 @@
+{
+  "title": "mustflow",
+  "summary": "LLM coding agents को साफ पढ़ने, command और verification सीमाओं के भीतर रखने वाला repository-local work contract और verification CLI."
+}

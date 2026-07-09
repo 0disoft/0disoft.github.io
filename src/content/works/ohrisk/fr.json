@@ -1,0 +1,4 @@
+{
+  "title": "Ohrisk",
+  "summary": "CLI local qui analyse les dépendances et les entrées SBOM afin de repérer les risques de licence open source avant une PR ou une release."
+}

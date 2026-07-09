@@ -323,7 +323,21 @@ describe("site shell", () => {
 		});
 		expect(workLocales).toEqual(["en", "zh", "es", "fr", "hi", "ko"]);
 		expect(workItems.map((work) => work.slug)).toContain("buildmarks");
-		expect(workMetaFilePaths).toEqual(["buildmarks/meta.json"]);
+		expect(workItems.map((work) => work.slug)).toContain("clarissimi");
+		expect(workItems.map((work) => work.slug)).toContain("dc-code-paste");
+		expect(workItems.map((work) => work.slug)).toContain("laqu");
+		expect(workItems.map((work) => work.slug)).toContain("mustflow");
+		expect(workItems.map((work) => work.slug)).toContain("ohrisk");
+		expect(workItems.map((work) => work.slug)).toContain("ssealed");
+		expect(workMetaFilePaths).toEqual([
+			"buildmarks/meta.json",
+			"clarissimi/meta.json",
+			"dc-code-paste/meta.json",
+			"laqu/meta.json",
+			"mustflow/meta.json",
+			"ohrisk/meta.json",
+			"ssealed/meta.json",
+		]);
 		expect(workJsonFilePaths).toEqual([
 			"buildmarks/en.json",
 			"buildmarks/es.json",
@@ -332,6 +346,48 @@ describe("site shell", () => {
 			"buildmarks/ko.json",
 			"buildmarks/meta.json",
 			"buildmarks/zh.json",
+			"clarissimi/en.json",
+			"clarissimi/es.json",
+			"clarissimi/fr.json",
+			"clarissimi/hi.json",
+			"clarissimi/ko.json",
+			"clarissimi/meta.json",
+			"clarissimi/zh.json",
+			"dc-code-paste/en.json",
+			"dc-code-paste/es.json",
+			"dc-code-paste/fr.json",
+			"dc-code-paste/hi.json",
+			"dc-code-paste/ko.json",
+			"dc-code-paste/meta.json",
+			"dc-code-paste/zh.json",
+			"laqu/en.json",
+			"laqu/es.json",
+			"laqu/fr.json",
+			"laqu/hi.json",
+			"laqu/ko.json",
+			"laqu/meta.json",
+			"laqu/zh.json",
+			"mustflow/en.json",
+			"mustflow/es.json",
+			"mustflow/fr.json",
+			"mustflow/hi.json",
+			"mustflow/ko.json",
+			"mustflow/meta.json",
+			"mustflow/zh.json",
+			"ohrisk/en.json",
+			"ohrisk/es.json",
+			"ohrisk/fr.json",
+			"ohrisk/hi.json",
+			"ohrisk/ko.json",
+			"ohrisk/meta.json",
+			"ohrisk/zh.json",
+			"ssealed/en.json",
+			"ssealed/es.json",
+			"ssealed/fr.json",
+			"ssealed/hi.json",
+			"ssealed/ko.json",
+			"ssealed/meta.json",
+			"ssealed/zh.json",
 		]);
 		expect(worksSurfaceSource).toContain('class="works-filters"');
 		expect(worksSurfaceSource).toContain('id="works-search"');

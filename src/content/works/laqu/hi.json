@@ -1,0 +1,4 @@
+{
+  "title": "laqu",
+  "summary": "Node.js पर reliable terminal progress, live CLI rendering और machine-readable progress events के लिए strict TypeScript runtime."
+}

@@ -1,4 +1,4 @@
 {
   "title": "buildmarks",
-  "summary": "커밋 잔디 대신 문서화, 테스트, 릴리스 흔적처럼 실질적인 오픈소스 관리 지표를 보여주는 GitHub 프로필 카드 생성기."
+  "summary": "공개 GitHub 활동을 프로필 README용 엔지니어링 시그널 카드와 확인 가능한 리포트로 바꾸는 GitHub Action 및 TypeScript 코어."
 }

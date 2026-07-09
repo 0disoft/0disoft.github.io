@@ -1,0 +1,14 @@
+{
+  "slug": "ohrisk",
+  "status": "live",
+  "kind": "oss",
+  "license": "MIT",
+  "updatedAt": "2026-07-09",
+  "languages": ["TypeScript"],
+  "tags": ["license", "compliance", "supply-chain", "cli"],
+  "links": {
+    "source": "https://github.com/0disoft/ohrisk",
+    "docs": "https://github.com/0disoft/ohrisk#readme"
+  },
+  "featured": false
+}

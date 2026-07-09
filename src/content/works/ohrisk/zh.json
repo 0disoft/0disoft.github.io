@@ -1,0 +1,4 @@
+{
+  "title": "Ohrisk",
+  "summary": "在 PR 或发布之前扫描依赖和 SBOM 输入，快速发现开源许可证风险的本地 CLI。"
+}

@@ -1,0 +1,4 @@
+{
+  "title": "mustflow",
+  "summary": "CLI de contrat de travail et de vérification local au dépôt, qui garde les agents de code LLM dans des limites explicites de lecture, de commande et de validation."
+}

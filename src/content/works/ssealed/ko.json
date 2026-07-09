@@ -1,0 +1,4 @@
+{
+  "title": "ssealed",
+  "summary": "문서, 에이전트 지침, 계약, 검증, 저장소 위생 파일을 위한 LLM 친화적 저장소 scaffold를 만드는 TypeScript CLI."
+}

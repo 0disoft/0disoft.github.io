@@ -1,0 +1,4 @@
+{
+  "title": "laqu",
+  "summary": "Runtime estricto en TypeScript para progreso fiable en terminal, renderizado CLI en vivo y eventos de progreso legibles por máquinas en Node.js."
+}

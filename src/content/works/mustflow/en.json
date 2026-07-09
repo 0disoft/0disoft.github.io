@@ -1,0 +1,4 @@
+{
+  "title": "mustflow",
+  "summary": "A repository-local work contract and verification CLI that keeps LLM coding agents inside explicit read, command, and validation boundaries."
+}
