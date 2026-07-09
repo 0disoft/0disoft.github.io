@@ -51,10 +51,8 @@ describe("site shell", () => {
 		expect(siteProfile.origin).toBe("https://0disoft.github.io");
 		expect(siteProfile.navigation).toEqual([
 			{ label: "Manifesto", href: "/manifesto" },
-			{ label: "Blog", href: "/blog" },
 			{ label: "Works", href: "/works" },
-			{ label: "Roadmap", href: "/roadmap" },
-			{ label: "Contact", href: "/contact" },
+			{ label: "Blog", href: "/blog" },
 		]);
 		expect(siteProfile.navigation.map((item) => item.label)).not.toContain("홈");
 		expect(siteProfile.navigation.every((item) => !item.href.startsWith("#"))).toBe(true);
@@ -126,15 +124,17 @@ describe("site shell", () => {
 
 		expect(getSectionEntries()).toEqual([
 			{ section: "manifesto" },
-			{ section: "blog" },
 			{ section: "works" },
-			{ section: "roadmap" },
-			{ section: "contact" },
+			{ section: "blog" },
 		]);
 		expect(sectionSlugToPath("blog")).toBe("/blog");
+		expect(sectionSlugToPath("roadmap")).toBeNull();
+		expect(sectionSlugToPath("contact")).toBeNull();
 		expect(sectionSlugToPath("missing-section")).toBeNull();
 		expect(sectionSlugToPath("missing")).toBeNull();
 		expect(findNavigationItemByPath("/missing-section")).toBeUndefined();
+		expect(findNavigationItemByPath("/roadmap")).toBeUndefined();
+		expect(findNavigationItemByPath("/contact")).toBeUndefined();
 	});
 
 	it("keeps landmarks and grouped controls semantic", () => {
@@ -161,8 +161,6 @@ describe("site shell", () => {
 			"/manifesto": "M",
 			"/blog": "B",
 			"/works": "W",
-			"/roadmap": "R",
-			"/contact": "C",
 		});
 		expect(languageShortcutByLocale.ko).toBe("K");
 		expect(siteSurfaceSource).toContain('role="tablist"');
@@ -210,7 +208,7 @@ describe("site shell", () => {
 		).toBe(true);
 	});
 
-	it("keeps the desktop sidebar stable while page content scrolls", () => {
+	it("keeps the desktop sidebar stable while mobile navigation stays compact", () => {
 		expect(surfaceSource).toContain("--site-sidebar-width");
 		expect(surfaceSource).toContain("height: 100svh");
 		expect(surfaceSource).toContain(
@@ -229,6 +227,12 @@ describe("site shell", () => {
 		expect(sidebarSource).toContain("overflow-x: hidden");
 		expect(sidebarSource).toContain("overflow-y: auto");
 		expect(sidebarSource).toContain("scrollbar-width: thin");
+		expect(sidebarSource).toContain("grid-template-columns: minmax(0, 1fr) auto");
+		expect(sidebarSource).toContain("overflow-x: auto");
+		expect(sidebarSource).toContain("min-width: max-content");
+		expect(sidebarSource).toContain("width: min(9rem, 42vw)");
+		expect(sidebarSource).toContain(".settings-panel :global(.sidebar-action)");
+		expect(sidebarSource).toContain("clip-path: inset(50%)");
 	});
 
 	it("uses routed navigation without a duplicate home body", () => {
@@ -263,7 +267,7 @@ describe("site shell", () => {
 		expect(getManifestoCopy("hi").title).toBe("AI और स्थानीय विचार-विमर्श से बेहतर नियम");
 		expect(getManifestoCopy("zh").title).toBe("AI与地方协商共创更好规则");
 		expect(getManifestoCopy("ko").paragraphs).toContain(
-			"중앙이 모든 삶을 재단하는 방식은 이미 한계를 보이고 있다. AI가 실제로 할 수 있는 건 판을 깔아주는 것이다. 어떤 선택을 할지는 여전히 사람 몫이다.",
+			"중앙이 모든 삶을 재단하려는 방식은 이미 한계를 드러내고 있다. AI가 할 수 있는 일은 그 한계를 보완하는 것이지, 그 한계를 대신하는 것이 아니다. AI는 지역 실험이 더 안전하고, 더 정보에 기반한 방식으로 이루어질 수 있도록 돕는 도구일 뿐이다. 결국 어떤 사회를 만들어갈 것인지는, 여전히 우리 인간이 선택해야 할 문제다.",
 		);
 		expect(manifestoMarkdownFilePaths).toHaveLength(6);
 		expect(manifestoSurfaceSource).toContain("getManifestoCopy(selectedLocale)");
@@ -293,17 +297,17 @@ describe("site shell", () => {
 		expect(manifestoSurfaceSource).toContain('aria-live="polite"');
 	});
 
-	it("keeps placeholder section labels available to assistive tech only", () => {
-		expect(getSiteSurfaceSectionKind("/roadmap")).toBe("placeholder");
-		expect(getSiteSurfaceSectionLabel("/roadmap", "en")).toBe("Roadmap");
-		expect(getSiteSurfacePageTitle("/roadmap", "en")).toBe("Roadmap · 0disoft");
-		expect(surfaceSource).toContain(
-			'<section class="content-section" aria-labelledby="section-title">',
-		);
-		expect(surfaceSource).toContain(
-			'<h1 id="section-title" class="sr-only">{activeSectionLabel}</h1>',
-		);
-		expect(surfaceSource).not.toContain(".content-section h1");
+	it("does not expose retired roadmap or contact sections", async () => {
+		const { getSectionEntries, sectionSlugToPath } = await import("./site-navigation");
+
+		expect(getSectionEntries().map((entry) => entry.section)).not.toContain("roadmap");
+		expect(getSectionEntries().map((entry) => entry.section)).not.toContain("contact");
+		expect(sectionSlugToPath("roadmap")).toBeNull();
+		expect(sectionSlugToPath("contact")).toBeNull();
+		expect(siteSurfaceSource).not.toContain("placeholder-section");
+		expect(siteSurfaceSource).not.toContain("section_placeholder_status");
+		expect(siteSurfaceSource).not.toContain("roadmap_placeholder_body");
+		expect(siteSurfaceSource).not.toContain("contact_placeholder_body");
 	});
 
 	it("renders works as a filterable public card list", () => {
@@ -384,8 +388,10 @@ describe("site shell", () => {
 		expect(layoutCss).toContain("--wildflower: oklch(");
 		expect(layoutCss).toContain("--mode-control-background");
 		expect(layoutCss).toContain("--mode-control-foreground");
+		expect(layoutCss).toContain("--focus-ring:");
 		expect(siteSurfaceSource).toContain("var(--mode-control-background)");
 		expect(siteSurfaceSource).toContain("var(--mode-control-foreground)");
+		expect(siteSurfaceSource).toContain("var(--focus-ring)");
 		expect(siteSurfaceSource).toContain("border-bottom: 1px solid color-mix");
 	});
 

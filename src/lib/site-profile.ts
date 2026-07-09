@@ -14,10 +14,8 @@ export const siteProfile = {
 	},
 	navigation: [
 		{ label: "Manifesto", href: "/manifesto" },
-		{ label: "Blog", href: "/blog" },
 		{ label: "Works", href: "/works" },
-		{ label: "Roadmap", href: "/roadmap" },
-		{ label: "Contact", href: "/contact" },
+		{ label: "Blog", href: "/blog" },
 	],
 	links: [
 		{

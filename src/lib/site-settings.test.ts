@@ -66,8 +66,6 @@ describe("site settings", () => {
 			"/manifesto": "M",
 			"/blog": "B",
 			"/works": "W",
-			"/roadmap": "R",
-			"/contact": "C",
 		});
 		expect(navigationPathByShortcut.b).toBe("/blog");
 		expect(languageShortcutByLocale).toEqual({

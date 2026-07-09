@@ -4,14 +4,14 @@ import { findNavigationItemByPath } from "$lib/site-navigation";
 import { siteProfile } from "$lib/site-profile";
 
 export type SiteSurfacePath = SiteSectionPath | "/";
-export type SiteSurfaceSectionKind = "home" | "manifesto" | "blog" | "works" | "placeholder";
+export type SiteSurfaceSectionKind = "home" | "manifesto" | "blog" | "works";
 
 export function getSiteSurfaceSectionKind(activePath: SiteSurfacePath): SiteSurfaceSectionKind {
 	if (activePath === "/manifesto" || activePath === "/blog" || activePath === "/works") {
 		return activePath.slice(1) as SiteSurfaceSectionKind;
 	}
 
-	return findNavigationItemByPath(activePath) ? "placeholder" : "home";
+	return "home";
 }
 
 export function getSiteSurfaceSectionLabel(

@@ -122,7 +122,7 @@
 	}
 
 	.sidebar-action:focus-visible {
-		outline: 3px solid color-mix(in oklch, var(--sidebar-ring) 70%, white);
+		outline: 3px solid var(--focus-ring);
 		outline-offset: 3px;
 	}
 </style>

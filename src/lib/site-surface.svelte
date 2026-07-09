@@ -9,7 +9,6 @@
 	import {
 		getSiteSurfacePageTitle,
 		getSiteSurfaceSectionKind,
-		getSiteSurfaceSectionLabel,
 		type SiteSurfacePath,
 	} from "$lib/site-surface-model";
 	import { siteProfile } from "$lib/site-profile";
@@ -18,7 +17,6 @@
 
 	const displayLocale = $derived(toDisplayLocale(getLocale()));
 	const sectionKind = $derived(getSiteSurfaceSectionKind(activePath));
-	const activeSectionLabel = $derived(getSiteSurfaceSectionLabel(activePath, displayLocale));
 	const pageTitle = $derived(getSiteSurfacePageTitle(activePath, displayLocale));
 </script>
 
@@ -38,10 +36,6 @@
 			<BlogSurface />
 		{:else if sectionKind === "works"}
 			<WorksSurface />
-		{:else if sectionKind === "placeholder"}
-			<section class="content-section" aria-labelledby="section-title">
-				<h1 id="section-title" class="sr-only">{activeSectionLabel}</h1>
-			</section>
 		{:else}
 			<h1 class="sr-only">{siteProfile.name}</h1>
 		{/if}
@@ -73,10 +67,6 @@
 
 	.content-shell.empty-home {
 		align-content: stretch;
-	}
-
-	.content-section {
-		min-height: 45svh;
 	}
 
 	@media (max-width: 48rem) {

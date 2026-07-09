@@ -2,15 +2,13 @@
 	import type { Component } from "svelte";
 	import { tick } from "svelte";
 	import {
-		BookOpenText,
-		Briefcase,
-		Contact,
-		FileText,
-		Heart,
-		Map,
-		Monitor,
-		Moon,
-		Settings,
+	BookOpenText,
+	Briefcase,
+	FileText,
+	Heart,
+	Monitor,
+	Moon,
+	Settings,
 		Sun,
 		X,
 	} from "@lucide/svelte";
@@ -77,8 +75,6 @@
 		"/manifesto": FileText,
 		"/blog": BookOpenText,
 		"/works": Briefcase,
-		"/roadmap": Map,
-		"/contact": Contact,
 	} as const satisfies Record<SiteSectionPath, Component>;
 
 	function getSettingsLocale(): SiteLocale {
@@ -906,7 +902,7 @@
 
 	a:focus-visible,
 	button:focus-visible {
-		outline: 3px solid color-mix(in oklch, var(--sidebar-ring) 70%, white);
+		outline: 3px solid var(--focus-ring);
 		outline-offset: 3px;
 	}
 
@@ -916,22 +912,71 @@
 			top: 0;
 			height: auto;
 			min-height: 0;
-			grid-template-rows: auto auto auto;
+			grid-template-columns: minmax(0, 1fr) auto;
+			grid-template-rows: auto auto;
+			align-items: center;
+			gap: 0.65rem;
 			overflow: visible;
+			padding: 0.7rem;
 			border-right: 0;
 			border-bottom: 1px solid var(--sidebar-border);
 		}
 
+		.brand-link {
+			grid-template-columns: 2.35rem minmax(0, 1fr);
+			min-height: 2.65rem;
+			padding: 0.2rem;
+		}
+
+		.brand-link img {
+			width: 2.35rem;
+		}
+
 		.site-sidebar nav {
-			margin-inline: 0;
+			grid-column: 1 / -1;
+			margin-inline: calc(var(--sidebar-focus-ring-space) * -1);
 			margin-block: 0;
-			padding-inline: 0;
-			padding-block: 0;
-			overflow: visible;
+			padding-inline: var(--sidebar-focus-ring-space);
+			padding-block: 0.15rem;
+			overflow-x: auto;
+			overflow-y: hidden;
+			scrollbar-width: none;
 		}
 
 		.menu-list {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
+			display: flex;
+			gap: 0.35rem;
+			min-width: max-content;
+		}
+
+		.menu-list li {
+			width: min(9rem, 42vw);
+		}
+
+		.settings-panel {
+			grid-column: 2;
+			grid-row: 1;
+			display: flex;
+			gap: 0.35rem;
+			padding-top: 0;
+			border-top: 0;
+		}
+
+		.settings-panel :global(.sidebar-action) {
+			width: 2.65rem;
+			min-width: 2.65rem;
+			justify-content: center;
+			padding: 0;
+		}
+
+		.settings-panel :global(.sidebar-action > span:not(.action-icon)) {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			overflow: hidden;
+			clip: rect(0 0 0 0);
+			clip-path: inset(50%);
+			white-space: nowrap;
 		}
 	}
 </style>

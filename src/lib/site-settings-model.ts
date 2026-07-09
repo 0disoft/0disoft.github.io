@@ -14,8 +14,6 @@ export const navigationShortcutByHref = {
 	"/manifesto": "M",
 	"/blog": "B",
 	"/works": "W",
-	"/roadmap": "R",
-	"/contact": "C",
 } as const satisfies Record<SiteSectionPath, string>;
 
 export const navigationPathByShortcut = Object.fromEntries(

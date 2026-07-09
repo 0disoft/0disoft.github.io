@@ -1091,11 +1091,6 @@
 		border-bottom: 0;
 	}
 
-	.post-table-wrap :is(th, td):not(:first-child) {
-		text-align: right;
-		white-space: nowrap;
-	}
-
 	.post-adjacent {
 		display: grid;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1145,7 +1140,7 @@
 	}
 
 	.blog-post :is(a, button):focus-visible {
-		outline: 3px solid color-mix(in oklch, var(--sidebar-ring) 70%, white);
+		outline: 3px solid var(--focus-ring);
 		outline-offset: 3px;
 	}
 

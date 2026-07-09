@@ -35,6 +35,7 @@
   --border: oklch(0.755 0.04 82);
   --input: oklch(0.82 0.034 84);
   --ring: var(--water-deep);
+  --focus-ring: oklch(0.5 0.14 215);
   --chart-1: var(--water);
   --chart-2: var(--moss);
   --chart-3: var(--bronze);
@@ -92,6 +93,7 @@
   --border: oklch(0.94 0.035 91 / 16%);
   --input: oklch(0.94 0.035 91 / 20%);
   --ring: oklch(0.76 0.105 218);
+  --focus-ring: oklch(0.82 0.12 218);
   --chart-1: oklch(0.76 0.105 218);
   --chart-2: oklch(0.79 0.096 123);
   --chart-3: oklch(0.76 0.105 73);

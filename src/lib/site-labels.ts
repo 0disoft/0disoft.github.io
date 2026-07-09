@@ -29,10 +29,6 @@ export function getLocalizedNavigationLabel(href: SiteSectionPath, locale: Displ
 			return m.nav_blog({}, { locale });
 		case "/works":
 			return m.nav_works({}, { locale });
-		case "/roadmap":
-			return m.nav_roadmap({}, { locale });
-		case "/contact":
-			return m.nav_contact({}, { locale });
 	}
 }
 
