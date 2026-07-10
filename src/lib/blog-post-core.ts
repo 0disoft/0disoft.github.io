@@ -1,4 +1,6 @@
 export const blogTagOptions = [
+	{ id: "software-engineering", label: "Software Engineering" },
+	{ id: "payments", label: "Payments" },
 	{ id: "korea-regulation", label: "Korea Regulation" },
 	{ id: "internet-control", label: "Internet Control" },
 	{ id: "building-rules", label: "Building Rules" },
@@ -63,6 +65,11 @@ export type BlogPostBodyBlock =
 			kind: "table";
 			headers: string[];
 			rows: string[][];
+	  }
+	| {
+			kind: "code";
+			language?: string;
+			source: string;
 	  };
 
 export type BlogFilters = {
@@ -249,11 +256,15 @@ export function getBlogPostTagLabels(post: BlogPost): string[] {
 }
 
 export function getBlogPostBodyBlocks(post: BlogPostDetail): BlogPostBodyBlock[] {
-	return post.body
-		.replace(/\r\n/g, "\n")
-		.split(/\n{2,}/)
+	return splitBlogPostBodyBlocks(post.body)
 		.map(parseBlogPostBodyBlock)
-		.filter((block) => block.kind === "image" || block.kind === "table" || block.text.length > 0);
+		.filter((block) => {
+			if (block.kind === "paragraph" || block.kind === "heading") {
+				return block.text.length > 0;
+			}
+
+			return block.kind !== "code" || block.source.length > 0;
+		});
 }
 
 export function getBlogPostBodyParagraphs(post: BlogPostDetail): string[] {
@@ -305,6 +316,16 @@ function parseMarkdownFile(path: string, markdown: string): { frontmatter: unkno
 
 function parseBlogPostBodyBlock(rawBlock: string): BlogPostBodyBlock {
 	const normalizedBlock = rawBlock.trim();
+	const codeMatch = /^```([A-Za-z0-9_+.-]*)[ \t]*\n([\s\S]*?)\n```$/.exec(normalizedBlock);
+
+	if (codeMatch) {
+		return {
+			kind: "code",
+			...(codeMatch[1] ? { language: codeMatch[1] } : {}),
+			source: codeMatch[2],
+		};
+	}
+
 	const table = parseBlogPostTableBlock(normalizedBlock);
 	const block = normalizedBlock.replace(/\n/g, " ").trim();
 	const imageMatch = /^!\[([^\]\n]*)\]\(([^()\s]+)\)$/.exec(block);
@@ -334,6 +355,49 @@ function parseBlogPostBodyBlock(rawBlock: string): BlogPostBodyBlock {
 		kind: "paragraph",
 		text: block,
 	};
+}
+
+function splitBlogPostBodyBlocks(body: string): string[] {
+	const lines = body.replace(/\r\n/g, "\n").split("\n");
+	const blocks: string[] = [];
+	let paragraphLines: string[] = [];
+
+	const flushParagraph = () => {
+		const paragraph = paragraphLines.join("\n").trim();
+
+		if (paragraph) {
+			blocks.push(paragraph);
+		}
+
+		paragraphLines = [];
+	};
+
+	for (let index = 0; index < lines.length; index += 1) {
+		const line = lines[index];
+
+		if (/^```[A-Za-z0-9_+.-]*[ \t]*$/.test(line)) {
+			const closingFenceIndex = lines.findIndex(
+				(candidate, candidateIndex) => candidateIndex > index && /^```[ \t]*$/.test(candidate),
+			);
+
+			if (closingFenceIndex > index) {
+				flushParagraph();
+				blocks.push(lines.slice(index, closingFenceIndex + 1).join("\n"));
+				index = closingFenceIndex;
+				continue;
+			}
+		}
+
+		if (line.trim().length === 0) {
+			flushParagraph();
+			continue;
+		}
+
+		paragraphLines.push(line);
+	}
+
+	flushParagraph();
+	return blocks;
 }
 
 function parseBlogPostTableBlock(block: string): BlogPostBodyBlock | undefined {

@@ -222,6 +222,40 @@ Paragraph with **strong text** left intact.`,
 		]);
 	});
 
+	it("preserves fenced code blocks with their language and blank lines", () => {
+		const post = createBlogPostDetailFromContent(
+			"../content/blog/2026/07/code-block/meta.json",
+			{
+				id: "code-block",
+				publishedAt: "2026-07-10",
+				tags: ["software-engineering"],
+			},
+			"en",
+			`---
+{"title":"Code block fixture","summary":"A fenced code parser fixture."}
+---
+Before the code.
+
+\`\`\`rust
+let first = claim();
+
+persist(first)?;
+\`\`\`
+
+After the code.`,
+		);
+
+		expect(getBlogPostBodyBlocks(post)).toEqual([
+			{ kind: "paragraph", text: "Before the code." },
+			{
+				kind: "code",
+				language: "rust",
+				source: "let first = claim();\n\npersist(first)?;",
+			},
+			{ kind: "paragraph", text: "After the code." },
+		]);
+	});
+
 	it("keeps paragraph extraction focused on paragraph blocks", () => {
 		expect(getBlogPostBodyParagraphs(createSampleOpenSourcePost("en"))).toEqual([
 			"Open collaboration starts from a simple question: what should be easy for the next person to reuse?",

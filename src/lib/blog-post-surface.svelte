@@ -525,6 +525,10 @@
 								/>
 							</button>
 						</figure>
+					{:else if item.block.kind === "code"}
+						<pre class="post-code"><code class={item.block.language
+								? `language-${item.block.language}`
+								: undefined}>{item.block.source}</code></pre>
 					{:else if item.block.kind === "table"}
 						<div class="post-table-wrap">
 							<table>
@@ -1053,6 +1057,25 @@
 		background: var(--paper-soft);
 		box-shadow: 0 1.5rem 4rem color-mix(in oklch, black 38%, transparent);
 		user-select: none;
+	}
+
+	.post-code {
+		overflow-x: auto;
+		max-width: 100%;
+		padding: 1rem;
+		border: 1px solid color-mix(in oklch, var(--border) 72%, transparent);
+		border-radius: var(--radius-md);
+		margin: 0.35rem 0 0.85rem;
+		background: color-mix(in oklch, var(--paper-soft) 48%, transparent);
+		color: var(--foreground);
+		font-size: calc(0.84rem + 1pt);
+		line-height: 1.55;
+		tab-size: 2;
+	}
+
+	.post-code code {
+		font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+		white-space: pre;
 	}
 
 	.post-table-wrap {

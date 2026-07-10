@@ -34,7 +34,10 @@ import {
 
 describe("blog list", () => {
 	it("discovers the current localized blog content files", () => {
-		expect(blogMetaFilePaths).toEqual(["2026/05/ai-smaller-faster-companies/meta.json"]);
+		expect(blogMetaFilePaths).toEqual([
+			"2026/05/ai-smaller-faster-companies/meta.json",
+			"2026/07/credit-lot-spend-expiry-design/meta.json",
+		]);
 		expect(blogMarkdownFilePaths).toEqual([
 			"2026/05/ai-smaller-faster-companies/en.md",
 			"2026/05/ai-smaller-faster-companies/es.md",
@@ -42,6 +45,8 @@ describe("blog list", () => {
 			"2026/05/ai-smaller-faster-companies/hi.md",
 			"2026/05/ai-smaller-faster-companies/ko.md",
 			"2026/05/ai-smaller-faster-companies/zh.md",
+			"2026/07/credit-lot-spend-expiry-design/en.md",
+			"2026/07/credit-lot-spend-expiry-design/ko.md",
 		]);
 	});
 

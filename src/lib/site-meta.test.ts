@@ -84,6 +84,11 @@ describe("site meta files", () => {
 		for (const locale of supportedSiteLocales) {
 			const rssXml = buildRssXml(origin, blogPosts, locale);
 			const localePost = getCurrentPost(locale);
+			const latestLocalePost = blogPosts
+				.filter((post) => post.locale === locale)
+				.toSorted((left, right) =>
+					(right.updatedAt ?? right.publishedAt).localeCompare(left.updatedAt ?? left.publishedAt),
+				)[0];
 			const otherLocalePosts = currentLocalizedPosts.filter((post) => post.locale !== locale);
 			const itemUrls = extractRssItemUrls(rssXml);
 
@@ -96,7 +101,7 @@ describe("site meta files", () => {
 				`<atom:link href="${origin}${getRssFeedPath(locale)}" rel="self" type="application/rss+xml" />`,
 			);
 			expect(rssXml).toContain(
-				`<lastBuildDate>${formatRssDate(localePost.updatedAt ?? localePost.publishedAt)}</lastBuildDate>`,
+				`<lastBuildDate>${formatRssDate(latestLocalePost.updatedAt ?? latestLocalePost.publishedAt)}</lastBuildDate>`,
 			);
 			expect(rssXml).toContain(`<title>${escapeXmlText(localePost.title)}</title>`);
 			expect(rssXml).toContain(`<description>${escapeXmlText(localePost.summary)}</description>`);
