@@ -7,5 +7,8 @@
 </script>
 
 <SiteSurface activePath="/blog">
-	<BlogPostSurface slug={data.slug} />
+	<BlogPostSurface
+		slug={data.slug}
+		highlightedCodeByLocale={data.highlightedCodeByLocale}
+	/>
 </SiteSurface>

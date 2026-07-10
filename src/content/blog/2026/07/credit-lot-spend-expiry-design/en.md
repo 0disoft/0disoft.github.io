@@ -1,6 +1,6 @@
 ---
 {
-  "title": "Is Spending Free Credit First Enough? Designing for Expiry and Refunds",
+  "title": "Designing Credit Spend Order",
   "summary": "A single displayed balance can hide many credit lots. This article uses production Rust code to explain spend order, expiry handling, and why stale expired lots must fail closed.",
   "searchTags": ["credits", "payments", "ledger", "expiry", "refunds", "Rust", "credit lot"]
 }

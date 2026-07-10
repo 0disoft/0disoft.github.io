@@ -1,6 +1,6 @@
 {
   "name": "0disoft.github.io",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "private": true,
   "license": "0BSD",
   "type": "module",
@@ -43,6 +43,7 @@
     "oxlint": "^1.73.0",
     "pagefind": "^1.5.2",
     "shadcn-svelte": "^1.4.0",
+    "shiki": "^3.23.0",
     "simple-icons": "16.18.1",
     "svelte": "^5.56.4",
     "svelte-check": "^4.7.2",

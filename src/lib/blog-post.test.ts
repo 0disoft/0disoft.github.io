@@ -300,9 +300,11 @@ After the code.`,
 	it("keeps the route surface tied to slug entries and the blog shell", () => {
 		expect(blogPostRouteSource).toContain("getBlogPostEntries(blogPostDetails)");
 		expect(blogPostRouteSource).toContain('export const prerender = "auto"');
+		expect(blogPostRouteSource).toContain("highlightBlogPostCodeBlocks");
 		expect(blogPostRouteSource).toContain("error(404");
 		expect(blogPostRouteComponentSource).toContain('activePath="/blog"');
 		expect(blogPostRouteComponentSource).toContain("<BlogPostSurface");
+		expect(blogPostRouteComponentSource).toContain("highlightedCodeByLocale");
 	});
 });
 

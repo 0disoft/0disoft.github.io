@@ -12,6 +12,7 @@
 	} from "$lib/blog-post-seo";
 	import AdUnit from "$lib/ad-unit.svelte";
 	import { createBlogPostRenderItems } from "$lib/blog-post-ads";
+	import type { BlogPostCodeHighlights } from "$lib/blog-code-highlighting";
 	import { buildBlogShareLinks, type BlogSharePlatform } from "$lib/blog-share";
 	import {
 		BLOG_POST_TOC_SHORTCUT_LIMIT,
@@ -42,7 +43,13 @@
 		| { kind: "lucide"; name: "send" | "message-circle" }
 		| { kind: "brand"; icon: SimpleIcon };
 
-	let { slug }: { slug: string } = $props();
+	let {
+		slug,
+		highlightedCodeByLocale,
+	}: {
+		slug: string;
+		highlightedCodeByLocale: BlogPostCodeHighlights;
+	} = $props();
 
 	let canUseDeviceShare = $state(false);
 	let copyState = $state<"idle" | "copied">("idle");
@@ -526,9 +533,17 @@
 							</button>
 						</figure>
 					{:else if item.block.kind === "code"}
-						<pre class="post-code"><code class={item.block.language
-								? `language-${item.block.language}`
-								: undefined}>{item.block.source}</code></pre>
+						{@const highlightedCode =
+							highlightedCodeByLocale[selectedLocale]?.[item.blockIndex]}
+						<div class="post-code">
+							{#if highlightedCode}
+								{@html highlightedCode}
+							{:else}
+								<pre><code class={item.block.language
+										? `language-${item.block.language}`
+										: undefined}>{item.block.source}</code></pre>
+							{/if}
+						</div>
 					{:else if item.block.kind === "table"}
 						<div class="post-table-wrap">
 							<table>
@@ -1062,20 +1077,41 @@
 	.post-code {
 		overflow-x: auto;
 		max-width: 100%;
-		padding: 1rem;
 		border: 1px solid color-mix(in oklch, var(--border) 72%, transparent);
 		border-radius: var(--radius-md);
 		margin: 0.35rem 0 0.85rem;
-		background: color-mix(in oklch, var(--paper-soft) 48%, transparent);
+		background: color-mix(in oklch, var(--paper-soft) 72%, var(--card));
 		color: var(--foreground);
+	}
+
+	.post-code :global(pre) {
+		width: max-content;
+		min-width: 100%;
+		padding: 1rem;
+		margin: 0;
+		background: transparent !important;
 		font-size: calc(0.84rem + 1pt);
 		line-height: 1.55;
 		tab-size: 2;
 	}
 
-	.post-code code {
+	.post-code :global(code) {
 		font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
 		white-space: pre;
+	}
+
+	.post-code :global(.shiki span) {
+		color: var(--shiki-light);
+		font-style: var(--shiki-light-font-style);
+		font-weight: var(--shiki-light-font-weight);
+		text-decoration: var(--shiki-light-text-decoration);
+	}
+
+	:global(.dark) .post-code :global(.shiki span) {
+		color: var(--shiki-dark);
+		font-style: var(--shiki-dark-font-style);
+		font-weight: var(--shiki-dark-font-weight);
+		text-decoration: var(--shiki-dark-text-decoration);
 	}
 
 	.post-table-wrap {

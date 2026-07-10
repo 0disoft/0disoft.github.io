@@ -36,7 +36,7 @@ function collectRelativeFiles(rootPath: string, suffix: string): string[] {
 
 export const routeSource = readRequiredText("../../routes/+page.svelte");
 export const sectionRouteSource = readRequiredText("../../routes/[section]/+page.ts");
-export const blogPostRouteSource = readRequiredText("../../routes/blog/[slug]/+page.ts");
+export const blogPostRouteSource = readRequiredText("../../routes/blog/[slug]/+page.server.ts");
 export const blogPostRouteComponentSource = readRequiredText(
 	"../../routes/blog/[slug]/+page.svelte",
 );
