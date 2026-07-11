@@ -5,31 +5,47 @@
   "searchTags": ["créditos", "pagos", "libro mayor", "vencimiento", "reembolsos", "Rust", "lote de crédito"]
 }
 ---
-Un usuario ve un solo saldo: 10.000 créditos. Sin embargo, dentro de un sistema de pagos, tratar esa cifra como un saldo indiferenciado pronto causa problemas. Una recompensa de registro de 3.000 créditos puede vencer este mes, 5.000 créditos comprados pueden ser reembolsables y otros 2.000 créditos promocionales quizá solo puedan usarse en determinados productos.
+El usuario ve el saldo de créditos como una sola cifra, por ejemplo 10.000 créditos. Sin embargo, si el sistema también lo gestiona como un único balance, resulta muy difícil aplicar correctamente las políticas reales de reembolso, vencimiento y restricciones por producto.
 
-Por eso, ZDP Money Platform conserva el saldo en lotes de crédito. La cifra que ve el usuario es la suma de esos lotes, pero al gastar se siguen teniendo en cuenta el origen, el vencimiento, la posibilidad de reembolso y el ámbito de productos de cada lote.
+ZDP Money Platform gestiona los créditos por lotes. La cifra que ve el usuario es la suma de varios lotes, pero cada consumo comprueba el origen, la fecha de vencimiento, la posibilidad de reembolso y el ámbito de productos de cada uno.
 
-## Por qué un saldo necesita varios lotes
+En este artículo explicamos cómo decidimos el orden de consumo de los lotes y por qué nunca se debe omitir silenciosamente un lote vencido, utilizando código Rust de producción.
 
-Una sola fila de saldo facilita la resta: se descuenta el importe y se continúa. El problema aparece después. Una solicitud de reembolso no puede distinguir con fiabilidad los fondos comprados de las promociones, y un proceso de vencimiento no puede saber qué parte del saldo debe desaparecer.
+## Por qué el saldo debe dividirse en lotes de crédito
 
-Con lotes, los mismos 10.000 créditos pueden representarse así.
+Si los créditos se gestionan como una sola cifra, consumirlos es sencillo. Basta con restar el importe del saldo. Los problemas aparecen después.
 
-| lote | finalidad | saldo | vencimiento | reembolsable |
+Ante una solicitud de reembolso, es difícil determinar cuánto corresponde a fondos realmente comprados. Cuando vence una promoción, también es difícil saber qué importe debe eliminarse. Además, no es posible distinguir los créditos promocionales limitados a ciertos productos de los créditos comprados de uso general.
+
+Por eso ZDP conserva los mismos 10.000 créditos como varios lotes con orígenes y propiedades diferentes.
+
+## Ejemplo de lotes de crédito
+
+| ID del lote | Finalidad | Saldo | Vencimiento | Reembolsable |
 | --- | --- | --- | --- | --- |
-| signup_free | recompensa de registro | 3.000 | 31 de julio | no |
-| paid_bonus | bonificación de compra | 2.000 | 31 de agosto | no |
-| paid_base | fondos comprados | 5.000 | nunca | sí |
+| signup_free | Recompensa de registro | 3.000 | 2026-07-31 | No |
+| paid_bonus | Bonificación de compra | 2.000 | 2026-08-31 | No |
+| paid_base | Fondos comprados | 5.000 | - | Sí |
 
-El orden de consumo se convierte entonces en una política de producto. Por lo general, resulta más favorable para el usuario consumir primero el valor que desaparecerá antes y conservar hasta el final el principal reembolsable. Nuestra implementación ordena los candidatos por prioridad, vencimiento, fecha de creación e ID del lote.
+En este modelo, el orden de consumo se convierte en una política de producto. Por lo general, conviene consumir primero el valor que desaparecerá antes, como los créditos próximos a vencer o no reembolsables, y conservar el principal reembolsable durante el mayor tiempo posible.
 
-## Por qué es peligroso omitir silenciosamente un lote vencido
+La implementación actual ordena los lotes candidatos de la siguiente manera.
 
-La implementación más evidente consiste en eliminar los lotes vencidos de la lista de candidatos y continuar con el siguiente.
+Prioridad de la política → vencimiento más próximo → fecha de creación más antigua → ID del lote
 
-Eso puede ocultar un problema de datos haciendo que el usuario lo pague. Si un lote gratuito sigue en estado Active, conserva saldo positivo y ya ha vencido, significa que el proceso de vencimiento o la corrección del libro mayor llega tarde. Omitirlo silenciosamente permite que el sistema consuma los créditos comprados que aparecen detrás. El pago se completa, pero el usuario gasta dinero real mientras el valor promocional obsoleto sigue sin explicación.
+## Por qué es peligroso omitir un lote vencido
 
-La implementación actual falla explícitamente cuando un lote Active, con saldo positivo, aplicable al producto y vencido aparece en la selección.
+Muchas personas se hacen al principio la misma pregunta.
+
+“¿Por qué no eliminamos el lote vencido de los candidatos y utilizamos el siguiente?”
+
+Este patrón es peligroso porque traslada silenciosamente al usuario el coste de un problema de datos.
+
+Si un lote gratuito continúa en estado Active después de su vencimiento, el proceso de expiración llega tarde o el libro mayor no se ha corregido correctamente. Omitirlo hace que el sistema consuma en su lugar los créditos comprados que aparecen detrás.
+
+El pago se completa, pero el usuario pierde valor adquirido directamente en vez de utilizar los créditos gratuitos cuyo estado ya debería haberse resuelto.
+
+Por eso, la implementación actual devuelve un fallo explícito.
 
 ```rust
 if lot.lot_status == CreditLotStatus::Active
@@ -45,13 +61,17 @@ if lot.lot_status == CreditLotStatus::Active
 }
 ```
 
-Este fallo no es una fricción defensiva añadida porque sí. Expone una discrepancia entre el procesamiento del vencimiento y el estado del libro mayor, en lugar de pasar automáticamente al valor pagado. La capa superior puede entonces corregir el estado de vencimiento o reintentar la operación de forma deliberada.
+ExpiredLot no es un error ordinario del usuario. Es una protección que conserva la señal de que el procesamiento del vencimiento y el estado real del libro mayor se han desalineado. La capa superior puede usar este error para iniciar una corrección o elegir una estrategia de reintento deliberada.
 
-## Por qué se vuelve a validar en el límite de almacenamiento
+## Por qué la planificación y el almacenamiento validan por separado
 
-El dominio de consumo crea primero un plan que describe qué lotes deben consumirse. Que el plan sea válido no garantiza que sus datos sigan siéndolo cuando comienza la persistencia. Otra solicitud puede haber consumido el lote, o la instantánea de vencimiento adjunta al plan puede ser incoherente.
+El consumo de créditos tiene dos etapas principales.
 
-Por eso, el planificador de persistencia vuelve a comprobar la instantánea de vencimiento.
+La etapa de planificación decide qué lotes aportarán el importe solicitado. La etapa de almacenamiento registra esa decisión en la base de datos.
+
+Un plan válido no garantiza que los datos sigan siendo idénticos cuando comience la persistencia. Otra solicitud puede haber consumido primero el mismo lote, o la instantánea de vencimiento del plan puede haber quedado obsoleta.
+
+Por eso, el límite de persistencia vuelve a validar la instantánea justo antes de guardar.
 
 ```rust
 if consumption
@@ -65,11 +85,15 @@ if consumption
 }
 ```
 
-Estas comprobaciones cumplen funciones distintas. La primera es una regla de dominio que decide qué lotes pueden ser candidatos al consumo. La segunda es una invariante del límite de almacenamiento que rechaza un plan que contradice su propia instantánea. Una evita una mala decisión; la otra, un registro incorrecto.
+Las dos comprobaciones tienen finalidades distintas. La primera es una regla de dominio que pregunta: “¿Puede este lote ser candidato al consumo?”. La segunda es una regla del límite de almacenamiento que pregunta: “¿El plan que vamos a registrar se contradice a sí mismo?”.
+
+Una evita una decisión incorrecta. La otra evita un registro incorrecto.
 
 ## El vencimiento comienza en la marca temporal límite
 
-Si un lote vence a las 00:00:00, un consumo que ocurre exactamente a las 00:00:00 debe rechazarse. La implementación considera vencido el lote cuando `expires_at` es menor o igual que `occurred_at`, y la prueba fija este límite.
+Si un lote vence el 2026-07-31 a las 00:00:00, cualquier consumo que ocurra exactamente en ese instante debe rechazarse. La implementación considera vencido el lote cuando expires_at es menor o igual que occurred_at.
+
+La prueba fija este límite de forma explícita.
 
 ```rust
 assert_eq!(
@@ -80,12 +104,22 @@ assert_eq!(
 );
 ```
 
-La comparación actual depende del orden lexicográfico de las cadenas. Esto solo es seguro mientras todas las marcas temporales utilicen la misma representación UTC canónica. Si se permiten desplazamientos arbitrarios o fracciones de segundo normalizadas de forma distinta, comparar cadenas no basta. El contrato de entrada debe seguir siendo estricto o el límite debe convertir los valores a un tipo temporal real antes de compararlos.
+La comparación actual depende del orden lexicográfico de las cadenas. Solo es segura mientras todas las marcas temporales utilicen la misma representación UTC canónica. Los desplazamientos diferentes o las fracciones de segundo sin normalizar pueden producir una comparación incorrecta.
 
 ## Lo que este cambio no resuelve
 
-La validación del vencimiento no resuelve el consumo concurrente. Dos solicitudes pueden leer la misma instantánea e intentar consumir el mismo lote. La base de datos sigue necesitando una actualización condicional atómica o una estrategia de bloqueo. La validación entre la planificación y la persistencia reduce las contradicciones, pero no puede eliminar por sí sola las condiciones de carrera.
+La validación del vencimiento no resuelve todos los problemas.
 
-La recuperación operativa también importa. Un aumento de errores ExpiredLot no debe ocultarse como si fueran fallos ordinarios del usuario. Debe señalar un proceso de vencimiento retrasado, un evento perdido o una transición de estado no válida. El fallo explícito existe para que la discrepancia pueda observarse y repararse.
+Concurrencia: dos solicitudes pueden leer la misma instantánea e intentar consumir el mismo lote al mismo tiempo. La base de datos debe impedirlo mediante una actualización condicional atómica, bloqueo optimista o una estrategia de bloqueo adecuada.
 
-Consumir créditos parece una simple resta, pero en realidad es una política que decide qué valor desaparece primero y cuál debe protegerse. Una sola línea que omita crédito gratuito obsoleto puede quemar el saldo comprado del usuario. En esa situación, detenerse con precisión es mejor que forzar el éxito del pago.
+Recuperación operativa: un aumento de errores ExpiredLot no debe descartarse como si fueran fallos ordinarios del usuario. El sistema debe permitir determinar si la causa es un proceso de vencimiento retrasado, un evento perdido o una transición de estado no válida.
+
+El objetivo final del fallo explícito es hacer que el problema sea observable y reparable.
+
+## Conclusión
+
+El consumo de créditos parece una simple resta, pero en realidad es una política que decide qué valor debe utilizarse primero y cuál debe permanecer protegido.
+
+Una sola línea de código que omita silenciosamente un lote gratuito vencido puede consumir el saldo comprado del usuario. Por eso preferimos detenernos con precisión cuando el estado no es válido, en lugar de forzar el éxito del pago.
+
+Confiamos en que esta decisión nos protegerá cuando ocurra un incidente real en producción.

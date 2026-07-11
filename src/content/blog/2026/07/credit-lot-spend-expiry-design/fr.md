@@ -5,31 +5,47 @@
   "searchTags": ["crédits", "paiements", "grand livre", "expiration", "remboursements", "Rust", "lot de crédits"]
 }
 ---
-Un utilisateur voit un seul solde : 10 000 crédits. Pourtant, dans un système de paiement, traiter ce nombre comme un solde indifférencié devient vite problématique. Une récompense d'inscription de 3 000 crédits peut expirer ce mois-ci, 5 000 crédits achetés peuvent être remboursables et 2 000 autres crédits promotionnels peuvent n'être utilisables que pour certains produits.
+L'utilisateur voit son solde de crédits sous la forme d'un seul nombre, par exemple 10 000 crédits. Pourtant, si le système le gère lui aussi comme un unique balance, il devient très difficile d'appliquer correctement les politiques réelles de remboursement, d'expiration et de restriction par produit.
 
-ZDP Money Platform conserve donc le solde sous forme de lots de crédits. Le nombre affiché à l'utilisateur correspond à leur somme, mais la dépense tient toujours compte de l'origine, de l'expiration, du caractère remboursable et du périmètre de produits de chaque lot.
+ZDP Money Platform gère les crédits sous forme de lots. Le nombre affiché à l'utilisateur est la somme de plusieurs lots, mais chaque dépense vérifie l'origine, la date d'expiration, le caractère remboursable et le périmètre de produits de chacun.
 
-## Pourquoi un solde nécessite plusieurs lots
+Cet article explique comment nous décidons de l'ordre de consommation des lots et pourquoi un lot expiré ne doit jamais être ignoré silencieusement, à partir de code Rust de production.
 
-Une seule ligne de solde rend la soustraction facile : on déduit le montant et on passe à la suite. Les difficultés apparaissent plus tard. Une demande de remboursement ne peut pas distinguer de manière fiable les fonds achetés des promotions, et une tâche d'expiration ne peut pas savoir quelle partie du solde doit disparaître.
+## Pourquoi le solde doit être divisé en lots de crédits
 
-Avec des lots, les mêmes 10 000 crédits peuvent se présenter ainsi.
+Lorsque les crédits sont gérés comme un seul nombre, la dépense est simple. Il suffit de soustraire le montant du solde. Les problèmes apparaissent ensuite.
 
-| lot | finalité | solde | expiration | remboursable |
+Lors d'une demande de remboursement, il devient difficile de déterminer quelle part correspond réellement à des fonds achetés. À l'expiration d'une promotion, il est également difficile d'identifier le montant à supprimer. Le système ne peut pas non plus distinguer les crédits promotionnels limités à certains produits des crédits achetés ordinaires.
+
+C'est pourquoi ZDP conserve les mêmes 10 000 crédits sous forme de plusieurs lots aux origines et propriétés différentes.
+
+## Exemple de lots de crédits
+
+| ID du lot | Finalité | Solde | Expiration | Remboursable |
 | --- | --- | --- | --- | --- |
-| signup_free | récompense d'inscription | 3 000 | 31 juillet | non |
-| paid_bonus | bonus d'achat | 2 000 | 31 août | non |
-| paid_base | fonds achetés | 5 000 | jamais | oui |
+| signup_free | Récompense d'inscription | 3 000 | 2026-07-31 | Non |
+| paid_bonus | Bonus d'achat | 2 000 | 2026-08-31 | Non |
+| paid_base | Fonds achetés | 5 000 | - | Oui |
 
-L'ordre de consommation devient alors une politique produit. Il est généralement plus avantageux pour l'utilisateur de consommer d'abord la valeur qui disparaîtra bientôt et de préserver le principal remboursable jusqu'à la fin. Notre implémentation trie les candidats selon la priorité, l'expiration, la date de création et l'identifiant du lot.
+Dans ce modèle, l'ordre de consommation devient une politique produit. Il est généralement préférable pour l'utilisateur de consommer d'abord la valeur qui disparaîtra bientôt, comme les crédits proches de l'expiration ou non remboursables, et de préserver le principal remboursable aussi longtemps que possible.
 
-## Pourquoi ignorer silencieusement un lot expiré est dangereux
+L'implémentation actuelle trie les lots candidats dans l'ordre suivant.
 
-L'implémentation évidente consiste à retirer les lots expirés de la liste des candidats et à continuer avec le suivant.
+Priorité de la politique → expiration la plus proche → date de création la plus ancienne → ID du lot
 
-Cette approche peut masquer un problème de données en le faisant payer à l'utilisateur. Si un lot gratuit reste Active avec un solde positif après son expiration, cela signifie que le traitement de l'expiration ou la correction du grand livre est en retard. L'ignorer silencieusement permet au système de consommer les crédits achetés qui le suivent. Le paiement réussit, mais l'utilisateur dépense de l'argent réel alors que la valeur promotionnelle obsolète reste inexpliquée.
+## Pourquoi ignorer un lot expiré est dangereux
 
-L'implémentation actuelle échoue explicitement lorsqu'un lot Active, positif, applicable au produit et expiré est rencontré.
+Beaucoup de personnes se posent d'abord la même question.
+
+« Pourquoi ne pas retirer le lot expiré des candidats et utiliser le suivant ? »
+
+Ce schéma est dangereux, car il transfère silencieusement à l'utilisateur le coût d'un problème de données.
+
+Si un lot gratuit reste Active après sa date d'expiration, le traitement de l'expiration est en retard ou le grand livre n'a pas été corrigé correctement. L'ignorer conduit le système à consommer à sa place les crédits achetés qui le suivent.
+
+Le paiement réussit, mais l'utilisateur perd une valeur qu'il a directement achetée au lieu d'utiliser les crédits gratuits dont l'état aurait déjà dû être régularisé.
+
+L'implémentation actuelle renvoie donc un échec explicite.
 
 ```rust
 if lot.lot_status == CreditLotStatus::Active
@@ -45,13 +61,17 @@ if lot.lot_status == CreditLotStatus::Active
 }
 ```
 
-Cet échec n'est pas une friction défensive ajoutée pour elle-même. Il révèle un décalage entre le traitement de l'expiration et l'état du grand livre au lieu de basculer automatiquement vers la valeur payante. La couche appelante peut alors corriger l'état d'expiration ou relancer l'opération de manière délibérée.
+ExpiredLot n'est pas une erreur utilisateur ordinaire. Il s'agit d'une protection qui préserve le signal indiquant que le traitement de l'expiration et l'état réel du grand livre ont divergé. La couche appelante peut utiliser cette erreur pour déclencher une correction ou choisir une stratégie de nouvelle tentative explicite.
 
-## Pourquoi valider de nouveau à la frontière de stockage
+## Pourquoi la planification et le stockage valident séparément
 
-Le domaine de dépense crée d'abord un plan décrivant les lots à consommer. Un plan valide ne garantit pas que ses données le seront encore au début de la persistance. Une autre requête peut avoir consommé le lot, ou l'instantané d'expiration joint au plan peut être incohérent.
+La consommation de crédits comporte deux étapes principales.
 
-Le planificateur de persistance vérifie donc à nouveau l'instantané d'expiration.
+La planification décide quels lots fourniront le montant demandé. Le stockage enregistre ensuite cette décision dans la base de données.
+
+Un plan valide ne garantit pas que les données seront encore identiques au début de la persistance. Une autre requête peut avoir consommé le même lot en premier, ou l'instantané d'expiration du plan peut déjà être obsolète.
+
+La frontière de persistance valide donc une nouvelle fois l'instantané juste avant l'enregistrement.
 
 ```rust
 if consumption
@@ -65,11 +85,15 @@ if consumption
 }
 ```
 
-Ces vérifications ont des rôles différents. La première est une règle de domaine qui détermine quels lots peuvent devenir des candidats à la dépense. La seconde est un invariant de la frontière de stockage qui rejette un plan contredisant son propre instantané. L'une empêche une mauvaise décision ; l'autre empêche un enregistrement incorrect.
+Les deux vérifications ont des objectifs différents. La première est une règle de domaine qui demande : « Ce lot peut-il devenir un candidat à la dépense ? » La seconde est une règle de la frontière de stockage qui demande : « Le plan que nous allons enregistrer se contredit-il lui-même ? »
+
+L'une empêche une mauvaise décision. L'autre empêche un enregistrement incorrect.
 
 ## L'expiration commence à l'horodatage limite
 
-Si un lot expire à 00:00:00, une dépense effectuée exactement à 00:00:00 doit être rejetée. L'implémentation considère le lot comme expiré lorsque `expires_at` est inférieur ou égal à `occurred_at`, et le test fixe cette frontière.
+Si un lot expire le 2026-07-31 à 00:00:00, une dépense effectuée exactement à cet instant doit être rejetée. L'implémentation considère le lot comme expiré lorsque expires_at est inférieur ou égal à occurred_at.
+
+Le test fixe explicitement cette frontière.
 
 ```rust
 assert_eq!(
@@ -80,12 +104,22 @@ assert_eq!(
 );
 ```
 
-La comparaison actuelle repose sur l'ordre lexicographique des chaînes. Elle n'est sûre que si tous les horodatages suivent la même représentation UTC canonique. Si des décalages arbitraires ou des fractions de seconde normalisées différemment sont autorisés, une comparaison de chaînes ne suffit plus. Le contrat d'entrée doit rester strict, ou la frontière doit convertir les valeurs en un véritable type temporel avant de les comparer.
+La comparaison actuelle repose sur l'ordre lexicographique des chaînes. Elle n'est sûre que si tous les horodatages utilisent la même représentation UTC canonique. Des décalages différents ou des fractions de seconde non normalisées peuvent rendre la comparaison incorrecte.
 
 ## Ce que cette modification ne résout pas
 
-La validation de l'expiration ne résout pas les dépenses concurrentes. Deux requêtes peuvent lire le même instantané et tenter de consommer le même lot. La base de données doit toujours utiliser une mise à jour conditionnelle atomique ou une stratégie de verrouillage. La validation entre la planification et la persistance réduit les contradictions, mais ne peut pas éliminer seule les conditions de concurrence.
+La validation de l'expiration ne résout pas tous les problèmes.
 
-La reprise opérationnelle compte également. Une hausse des erreurs ExpiredLot ne doit pas être noyée parmi les échecs ordinaires des utilisateurs. Elle doit signaler une tâche d'expiration en retard, un événement perdu ou une transition d'état invalide. L'échec explicite existe pour que ce décalage puisse être observé et réparé.
+Concurrence : deux requêtes peuvent lire le même instantané et tenter de consommer le même lot au même moment. La base de données doit l'empêcher avec une mise à jour conditionnelle atomique, un verrouillage optimiste ou une stratégie de verrouillage adaptée.
 
-La dépense de crédits ressemble à une soustraction, mais il s'agit en réalité d'une politique qui décide quelle valeur disparaît en premier et laquelle doit être protégée. Une seule ligne ignorant un crédit gratuit obsolète peut brûler le solde acheté d'un utilisateur. Dans cette situation, s'arrêter avec précision vaut mieux que forcer la réussite du paiement.
+Reprise opérationnelle : une hausse des erreurs ExpiredLot ne doit pas être considérée comme une série d'échecs utilisateur ordinaires. Le système doit permettre de déterminer si la cause est une tâche d'expiration en retard, un événement perdu ou une transition d'état invalide.
+
+L'échec explicite vise finalement à rendre le problème observable et réparable.
+
+## Conclusion
+
+La consommation de crédits ressemble à une simple soustraction, mais il s'agit en réalité d'une politique qui décide quelle valeur utiliser en premier et quelle valeur protéger jusqu'au bout.
+
+Une seule ligne de code qui ignore silencieusement un lot gratuit expiré peut consommer le solde acheté d'un utilisateur. Nous préférons donc nous arrêter précisément lorsque l'état est invalide plutôt que de forcer la réussite du paiement.
+
+Nous pensons que ce choix finira par nous protéger lors d'un véritable incident de production.

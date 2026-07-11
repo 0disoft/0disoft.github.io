@@ -5,31 +5,47 @@
   "searchTags": ["क्रेडिट", "भुगतान", "लेजर", "समाप्ति", "रिफंड", "Rust", "क्रेडिट lot"]
 }
 ---
-उपयोगकर्ता को एक ही बैलेंस दिखाई देता है: 10,000 क्रेडिट। लेकिन payment system के भीतर इस संख्या को बिना किसी भेद वाले एक ही बैलेंस की तरह रखना जल्दी ही समस्या बन जाता है। 3,000 क्रेडिट का signup reward इसी महीने expire हो सकता है, खरीदे गए 5,000 क्रेडिट refundable हो सकते हैं, और promotion से मिले अन्य 2,000 क्रेडिट केवल चुने हुए products पर लागू हो सकते हैं।
+उपयोगकर्ता को credit balance एक ही संख्या के रूप में दिखाई देता है, जैसे 10,000 क्रेडिट। लेकिन यदि system के भीतर भी इसे एक साधारण balance की तरह रखा जाए, तो refund, expiry और product restrictions जैसी वास्तविक policies को सही ढंग से लागू करना बहुत कठिन हो जाता है।
 
-इसीलिए ZDP Money Platform बैलेंस को credit lots के रूप में सुरक्षित रखता है। उपयोगकर्ता को दिखाई देने वाली संख्या उन lots का योग है, लेकिन खर्च करते समय हर lot का स्रोत, expiry, refundability और product scope देखा जाता है।
+ZDP Money Platform credits को credit lots के रूप में manage करता है। उपयोगकर्ता को दिखाई देने वाली संख्या कई lots का कुल योग है, लेकिन हर spend के समय प्रत्येक lot का source, expiry time, refundability और product scope जाँचा जाता है।
 
-## एक बैलेंस के लिए कई lots क्यों ज़रूरी हैं
+इस लेख में production Rust code के साथ बताया गया है कि lots को किस क्रम में consume किया जाता है और expired lot को चुपचाप छोड़ना क्यों गलत है।
 
-बैलेंस की एक ही row subtraction को आसान बनाती है: रकम घटाओ और आगे बढ़ जाओ। समस्या बाद में शुरू होती है। Refund request खरीदे गए funds और promotions के बीच भरोसेमंद तरीके से अंतर नहीं कर सकती, और expiry job यह नहीं जान सकती कि बैलेंस का कौन-सा हिस्सा हटना चाहिए।
+## Balance को credit lots में बाँटना क्यों ज़रूरी है
 
-Lots के साथ वही 10,000 क्रेडिट इस तरह दिखाई दे सकते हैं।
+यदि credits को एक ही संख्या के रूप में रखा जाए, तो खर्च करना आसान है। Balance से amount घटाइए और काम पूरा दिखाई देता है। असली समस्याएँ उसके बाद आती हैं।
 
-| lot | उद्देश्य | शेष राशि | समाप्ति | refundable |
+Refund request आने पर यह भरोसेमंद ढंग से पता लगाना कठिन होता है कि कितनी राशि वास्तव में खरीदी गई थी। Promotion expire होने पर यह तय करना भी कठिन होता है कि कौन-सी value हटाई जानी चाहिए। इसके अलावा, केवल कुछ products पर लागू promotional credits को सामान्य purchased credits से अलग नहीं किया जा सकता।
+
+इसीलिए ZDP समान 10,000 credits को अलग-अलग source और properties वाले कई lots के रूप में सुरक्षित रखता है।
+
+## Credit lot का उदाहरण
+
+| Lot ID | उद्देश्य | शेष राशि | समाप्ति | Refundable |
 | --- | --- | --- | --- | --- |
-| signup_free | signup reward | 3,000 | 31 जुलाई | नहीं |
-| paid_bonus | purchase bonus | 2,000 | 31 अगस्त | नहीं |
-| paid_base | खरीदे गए funds | 5,000 | कभी नहीं | हाँ |
+| signup_free | Signup reward | 3,000 | 2026-07-31 | नहीं |
+| paid_bonus | Purchase bonus | 2,000 | 2026-08-31 | नहीं |
+| paid_base | खरीदे गए funds | 5,000 | - | हाँ |
 
-अब खर्च का क्रम product policy बन जाता है। आम तौर पर उपयोगकर्ता के लिए उस value को पहले खर्च करना बेहतर है जो जल्द गायब होने वाली है, जबकि refundable principal को अंत तक बचाकर रखा जाए। हमारा implementation candidates को priority, expiry, creation time और lot ID के क्रम में रखता है।
+इस model में spend order स्वयं product policy बन जाता है। आम तौर पर जल्द गायब होने वाली value, जैसे expire होने वाले या non-refundable credits, पहले consume करना और refundable principal को यथासंभव देर तक सुरक्षित रखना उपयोगकर्ता के लिए बेहतर होता है।
 
-## Expired lot को चुपचाप छोड़ना खतरनाक क्यों है
+मौजूदा implementation candidate lots को इस क्रम में sort करता है।
 
-सबसे स्पष्ट implementation expired lots को candidate list से हटाकर अगले lot पर जाने का है।
+Policy priority → सबसे जल्दी expiry → सबसे पुराना creation time → lot ID
 
-यह उपयोगकर्ता से कीमत वसूलते हुए data problem को छिपा सकता है। अगर कोई free lot expiry के बाद भी Active है और उसमें positive balance बचा है, तो expiry workflow या ledger correction देर से चल रहा है। उसे चुपचाप छोड़ने पर system उसके पीछे मौजूद खरीदे गए credits को खर्च कर सकता है। Payment सफल हो जाता है, लेकिन उपयोगकर्ता असली पैसे से खरीदी गई value खर्च करता है जबकि stale promotional value का हिसाब अब भी अस्पष्ट रहता है।
+## Expired lot को छोड़ना खतरनाक क्यों है
 
-मौजूदा implementation तब स्पष्ट रूप से विफल होता है जब कोई lot Active हो, उसमें positive balance हो, वह उस product के लिए eligible हो और expire हो चुका हो।
+शुरुआत में बहुत से लोग एक ही सवाल पूछते हैं।
+
+“Expired lot को candidates से हटाकर अगला lot क्यों न उपयोग करें?”
+
+यह खतरनाक pattern है, क्योंकि यह data problem की लागत चुपचाप उपयोगकर्ता पर डाल देता है।
+
+यदि कोई free lot expiry time के बाद भी Active रहता है, तो expiry workflow देर से चला है या ledger सही तरह से ठीक नहीं हुआ है। उस lot को छोड़ने पर system उसके पीछे मौजूद purchased credits को consume कर देता है।
+
+Payment सफल हो जाता है, लेकिन उपयोगकर्ता उन free credits के बदले अपनी खरीदी हुई value खो देता है जिनकी स्थिति पहले ही ठीक हो जानी चाहिए थी।
+
+इसीलिए मौजूदा implementation स्पष्ट failure लौटाता है।
 
 ```rust
 if lot.lot_status == CreditLotStatus::Active
@@ -45,13 +61,17 @@ if lot.lot_status == CreditLotStatus::Active
 }
 ```
 
-यह failure केवल बचाव के नाम पर अतिरिक्त रुकावट नहीं है। यह अपने आप paid value पर जाने के बजाय expiry processing और ledger state के बीच mismatch को उजागर करता है। इसके बाद caller expiry state को ठीक कर सकता है या सोच-समझकर retry कर सकता है।
+ExpiredLot कोई सामान्य user error नहीं है। यह उस signal को सुरक्षित रखने वाला guard है कि expiry processing और actual ledger state एक-दूसरे से अलग हो गए हैं। Calling layer इस error से expiry correction trigger कर सकती है या सोच-समझकर retry strategy चुन सकती है।
 
-## Storage boundary पर दोबारा validation क्यों होती है
+## Planning और storage अलग-अलग validation क्यों करते हैं
 
-Spend domain पहले यह बताने वाला plan बनाता है कि किन lots को consume करना है। Valid plan इस बात की गारंटी नहीं देता कि persistence शुरू होने तक उसका data वैसा ही रहेगा। कोई दूसरी request उस lot को consume कर चुकी हो सकती है, या plan से जुड़ा expiry snapshot असंगत हो सकता है।
+Credit spending के दो मुख्य चरण होते हैं।
 
-इसीलिए persistence planner expiry snapshot को दोबारा जाँचता है।
+Planning stage तय करता है कि requested amount किन lots से आएगा। Storage stage उस निर्णय को database में record करता है।
+
+Valid plan इस बात की guarantee नहीं देता कि persistence शुरू होने तक data वैसा ही रहेगा। कोई दूसरी request पहले उसी lot को consume कर सकती है, या plan में मौजूद expiry snapshot पहले ही पुराना हो सकता है।
+
+इसीलिए persistence boundary storage से ठीक पहले expiry snapshot को फिर से validate करती है।
 
 ```rust
 if consumption
@@ -65,11 +85,15 @@ if consumption
 }
 ```
 
-इन दोनों checks के काम अलग हैं। पहला domain rule तय करता है कि कौन-से lots spend candidates बन सकते हैं। दूसरा storage-boundary invariant उस plan को अस्वीकार करता है जो अपने snapshot से ही टकराता है। एक गलत निर्णय रोकता है; दूसरा गलत record बनने से रोकता है।
+दोनों checks के उद्देश्य अलग हैं। पहला domain rule पूछता है, “क्या यह lot spend candidate बन सकता है?” दूसरा storage-boundary rule पूछता है, “जिस plan को हम record करने वाले हैं, क्या वह अपने ही data से टकराता है?”
 
-## Expiry boundary timestamp से ही शुरू होती है
+एक गलत निर्णय रोकता है। दूसरा गलत record बनने से रोकता है।
 
-अगर कोई lot 00:00:00 पर expire होता है, तो ठीक 00:00:00 पर होने वाला spend अस्वीकार होना चाहिए। Implementation में `expires_at`, `occurred_at` से छोटा या उसके बराबर होने पर lot को expired माना जाता है, और test इस boundary को स्थिर करता है।
+## Expiry boundary timestamp से शुरू होती है
+
+यदि कोई lot 2026-07-31 00:00:00 पर expire होता है, तो ठीक उसी समय होने वाला spend अस्वीकार होना चाहिए। Implementation में expires_at के occurred_at से छोटा या बराबर होने पर lot को expired माना जाता है।
+
+Test इस boundary को स्पष्ट रूप से स्थिर करता है।
 
 ```rust
 assert_eq!(
@@ -80,12 +104,22 @@ assert_eq!(
 );
 ```
 
-मौजूदा comparison strings के lexical order पर निर्भर करता है। यह तभी सुरक्षित है जब हर timestamp एक ही canonical UTC representation का पालन करे। अगर arbitrary offsets या अलग तरह से normalized fractional seconds की अनुमति हो, तो string comparison पर्याप्त नहीं है। Input contract को सख्त रहना होगा, या boundary को तुलना से पहले values को वास्तविक time type में parse करना होगा।
+मौजूदा comparison strings के lexical order पर निर्भर करता है। यह तभी सुरक्षित है जब सभी timestamps एक ही canonical UTC representation का पालन करें। अलग offsets या non-normalized fractional seconds string comparison को गलत बना सकते हैं।
 
-## यह बदलाव क्या हल नहीं करता
+## यह बदलाव किन समस्याओं को हल नहीं करता
 
-Expiry validation concurrent spending को हल नहीं करती। दो requests एक ही snapshot पढ़कर एक ही lot को consume करने की कोशिश कर सकती हैं। Database को अब भी atomic conditional update या locking strategy की ज़रूरत है। Planning और persistence के बीच validation contradictions कम करती है, लेकिन अपने दम पर race conditions समाप्त नहीं कर सकती।
+Expiry validation हर समस्या को हल नहीं करती।
 
-Operational recovery भी महत्वपूर्ण है। ExpiredLot errors में बढ़ोतरी को सामान्य user failures की तरह नहीं दबाना चाहिए। उसे delayed expiry job, lost event या invalid state transition की ओर इशारा करना चाहिए। Explicit failure इसलिए मौजूद है ताकि mismatch को देखा और ठीक किया जा सके।
+Concurrency: दो requests एक ही snapshot पढ़कर एक ही समय पर उसी lot को consume करने की कोशिश कर सकती हैं। Database को atomic conditional update, optimistic locking या उचित locking strategy से इसे रोकना होगा।
 
-Credit spending देखने में subtraction लगता है, लेकिन वास्तव में यह तय करने वाली policy है कि कौन-सी value पहले गायब होगी और किसे बचाया जाना चाहिए। Stale free credit को छोड़ने वाली एक पंक्ति उपयोगकर्ता के खरीदे हुए balance को जला सकती है। ऐसी स्थिति में payment को जबरन सफल कराने से बेहतर है सही जगह पर रुकना।
+Operational recovery: ExpiredLot errors बढ़ने पर उन्हें सामान्य user failures मानकर छोड़ना नहीं चाहिए। System को यह पता लगाने योग्य बनाना होगा कि कारण delayed expiry job, lost event या invalid state transition है।
+
+Explicit failure का उद्देश्य अंततः समस्या को observable और repairable बनाना है।
+
+## निष्कर्ष
+
+Credit spending देखने में subtraction function जैसा लगता है, लेकिन वास्तव में यह तय करने वाली policy है कि कौन-सी value पहले उपयोग होगी और किस value को अंत तक सुरक्षित रखा जाएगा।
+
+Expired free lot को चुपचाप छोड़ने वाली code की एक line उपयोगकर्ता के purchased balance को consume कर सकती है। इसीलिए हम payment को जबरन सफल करने के बजाय invalid state पर सही जगह रुकना चुनते हैं।
+
+हमें विश्वास है कि production में किसी वास्तविक incident के समय यह निर्णय हमारी रक्षा करेगा।

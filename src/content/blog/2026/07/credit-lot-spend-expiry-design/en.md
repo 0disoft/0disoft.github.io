@@ -5,31 +5,47 @@
   "searchTags": ["credits", "payments", "ledger", "expiry", "refunds", "Rust", "credit lot"]
 }
 ---
-A user sees one balance: 10,000 credits. Inside a payment system, treating that number as one undifferentiated balance quickly becomes a problem. A 3,000-credit signup reward may expire this month, 5,000 purchased credits may be refundable, and another 2,000 promotional credits may only apply to selected products.
+A user sees a credit balance as one number, such as 10,000 credits. Inside the system, however, managing that value as a single balance makes it very difficult to apply real policies for refunds, expiry, and product restrictions correctly.
 
-ZDP Money Platform therefore preserves the balance as credit lots. The number shown to the user is their sum, but spending still considers each lot's origin, expiry, refundability, and product scope.
+ZDP Money Platform manages credits as credit lots. The number shown to the user is the sum of several lots, but every spend still checks each lot's origin, expiry time, refundability, and product scope.
 
-## Why one balance needs multiple lots
+This article explains how we decide the order in which lots are consumed and why an expired lot must never be skipped silently, using production Rust code.
 
-A single balance row makes subtraction easy. Deduct the amount and move on. The trouble starts later. A refund request cannot reliably distinguish purchased funds from promotions, and an expiry job cannot tell which part of the balance should disappear.
+## Why a balance must be split into credit lots
 
-With lots, the same 10,000 credits can look like this.
+If credits are stored as one number, spending is simple. Subtract the amount from the balance and the job appears to be done. The problems come afterward.
 
-| lot | purpose | remaining | expires | refundable |
+When a refund is requested, the system cannot reliably determine how much came from purchased funds. When a promotion expires, it cannot identify which value should be removed. It also cannot distinguish promotional credits limited to certain products from ordinary purchased credits.
+
+That is why ZDP preserves the same 10,000 credits as several lots with different origins and properties.
+
+## Credit lot example
+
+| Lot ID | Purpose | Remaining | Expires at | Refundable |
 | --- | --- | --- | --- | --- |
-| signup_free | signup reward | 3,000 | July 31 | no |
-| paid_bonus | purchase bonus | 2,000 | August 31 | no |
-| paid_base | purchased funds | 5,000 | never | yes |
+| signup_free | Signup reward | 3,000 | 2026-07-31 | No |
+| paid_bonus | Purchase bonus | 2,000 | 2026-08-31 | No |
+| paid_base | Purchased funds | 5,000 | - | Yes |
 
-Spend order now becomes product policy. It is usually better for the user to consume value that will disappear soon and preserve refundable principal for last. Our implementation orders candidates by priority, expiry, creation time, and lot ID.
+In this model, spend order becomes a product policy. It is generally better for the user to consume value that will disappear soon, such as expiring or non-refundable credits, while preserving refundable principal for as long as possible.
 
-## Why silently skipping an expired lot is dangerous
+The current implementation sorts candidate lots in the following order.
 
-The obvious implementation is to remove expired lots from the candidate list and continue with the next one.
+Policy priority → earliest expiry → oldest creation time → lot ID
 
-That can hide a data problem by charging the user. If a free lot is still Active with a positive balance after its expiry, the expiry workflow or ledger correction is late. Silently skipping it lets the system consume purchased credits behind it. The payment succeeds, but the user spends real money while stale promotional value remains unexplained.
+## Why skipping an expired lot is dangerous
 
-The current implementation fails explicitly when an Active, positive, product-eligible lot has expired.
+Many people initially ask the same question.
+
+“Why not remove the expired lot from the candidates and use the next one?”
+
+This is a dangerous pattern because it quietly transfers the cost of a data problem to the user.
+
+If a free lot remains Active after its expiry time, the expiry workflow is late or the ledger was not corrected properly. Silently skipping that lot causes the system to consume the purchased credits behind it instead.
+
+The payment succeeds, but the user loses value they bought directly instead of using the free credits that should already have been resolved.
+
+The current implementation therefore returns an explicit failure.
 
 ```rust
 if lot.lot_status == CreditLotStatus::Active
@@ -45,13 +61,17 @@ if lot.lot_status == CreditLotStatus::Active
 }
 ```
 
-This failure is not defensive friction for its own sake. It exposes a mismatch between expiry processing and ledger state instead of automatically falling through to paid value. The caller can then correct expiry state or retry deliberately.
+ExpiredLot is not an ordinary user error. It is a guard that preserves the signal that expiry processing and actual ledger state have diverged. The calling layer can use that error to trigger expiry correction or choose a deliberate retry strategy.
 
-## Why validate again at the storage boundary
+## Why planning and storage validate separately
 
-The spend domain first creates a plan describing which lots to consume. A valid plan does not guarantee that its data is still valid when persistence begins. Another request may have consumed the lot, or the expiry snapshot attached to the plan may be inconsistent.
+Credit spending has two main stages.
 
-The persistence planner therefore checks the expiry snapshot again.
+The planning stage decides which lots should provide the requested amount. The storage stage records that decision in the database.
+
+A valid plan does not guarantee that the data will still be identical when persistence begins. Another request may have consumed the same lot first, or the expiry snapshot in the plan may already be stale.
+
+The persistence boundary therefore validates the expiry snapshot once more immediately before storage.
 
 ```rust
 if consumption
@@ -65,11 +85,15 @@ if consumption
 }
 ```
 
-These checks have different jobs. The first is a domain rule deciding which lots may become spend candidates. The second is a storage-boundary invariant that rejects a plan contradicting its own snapshot. One prevents a bad decision; the other prevents a bad record.
+The two checks serve different purposes. The first is a domain rule that asks, “May this lot become a spend candidate?” The second is a storage-boundary rule that asks, “Does the plan we are about to record contradict itself?”
 
-## Expiry starts at the boundary timestamp
+One prevents a bad decision. The other prevents a bad record.
 
-If a lot expires at 00:00:00, a spend occurring exactly at 00:00:00 must be rejected. The implementation treats expires_at less than or equal to occurred_at as expired, and the test fixes that boundary in place.
+## Expiry begins at the boundary timestamp
+
+If a lot expires at 2026-07-31 00:00:00, a spend occurring at that exact time must be rejected. The implementation treats the lot as expired whenever expires_at is less than or equal to occurred_at.
+
+The test fixes this boundary explicitly.
 
 ```rust
 assert_eq!(
@@ -80,12 +104,22 @@ assert_eq!(
 );
 ```
 
-The current comparison relies on lexical string order. That is safe only while every timestamp follows the same canonical UTC representation. If arbitrary offsets or differently normalized fractional seconds are allowed, string comparison is not enough. The input contract must stay strict, or the boundary must parse values into a real time type before comparison.
+The current comparison relies on lexical string order. This is safe only while every timestamp follows the same canonical UTC representation. Different offsets or non-normalized fractional seconds can make string comparison incorrect.
 
 ## What this change does not solve
 
-Expiry validation does not solve concurrent spending. Two requests may read the same snapshot and try to consume the same lot. The database still needs an atomic conditional update or locking strategy. Validation between planning and persistence reduces contradictions, but it cannot remove races on its own.
+Expiry validation does not solve every problem.
 
-Operational recovery matters too. A rise in ExpiredLot errors should not be buried as ordinary user failures. It should point to a delayed expiry job, a lost event, or an invalid state transition. The explicit failure exists so the mismatch can be observed and repaired.
+Concurrency: two requests may read the same snapshot and try to spend the same lot at the same time. The database must prevent this with an atomic conditional update, optimistic locking, or an appropriate locking strategy.
 
-Credit spending looks like subtraction, but it is really a policy for deciding which value disappears first and which value should be protected. A single line that skips stale free credit can burn a user's purchased balance. In that situation, stopping accurately is better than forcing the payment to succeed.
+Operational recovery: an increase in ExpiredLot errors must not be dismissed as ordinary user failures. The system must make it possible to determine whether the cause is a delayed expiry job, a lost event, or an invalid state transition.
+
+The reason for returning an explicit failure is ultimately to make the problem observable and repairable.
+
+## Closing thoughts
+
+Credit spending looks like a subtraction function, but it is actually a policy that decides which value should be used first and which value should remain protected.
+
+One line of code that silently skips an expired free lot can consume a user's purchased balance. We therefore choose to stop precisely when the state is invalid instead of forcing the payment to succeed.
+
+We believe this choice will eventually save us during a real production incident.
