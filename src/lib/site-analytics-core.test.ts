@@ -30,16 +30,14 @@ describe("site analytics core", () => {
 
 		expect(
 			createGa4PageViewPayload(
-				new URL(
-					"https://0disoft.github.io/ko/blog/ai-smaller-faster-companies/?tag=data-ai-policy",
-				),
-				"AI가 회사를 더 작고 빠르게 바꾸고 있다",
+				new URL("https://0disoft.github.io/ko/blog/credit-lot-spend-expiry-design/?tag=payments"),
+				"크레딧 차감 순서를 설계하는 법",
 			),
 		).toEqual({
 			page_location:
-				"https://0disoft.github.io/ko/blog/ai-smaller-faster-companies/?tag=data-ai-policy",
-			page_path: "/ko/blog/ai-smaller-faster-companies/?tag=data-ai-policy",
-			page_title: "AI가 회사를 더 작고 빠르게 바꾸고 있다",
+				"https://0disoft.github.io/ko/blog/credit-lot-spend-expiry-design/?tag=payments",
+			page_path: "/ko/blog/credit-lot-spend-expiry-design/?tag=payments",
+			page_title: "크레딧 차감 순서를 설계하는 법",
 		});
 	});
 });

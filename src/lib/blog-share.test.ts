@@ -6,7 +6,7 @@ describe("blog share", () => {
 		const links = buildBlogShareLinks({
 			title: "AI is making companies smaller and faster",
 			text: "A short note about AI-era operating models.",
-			url: "https://0disoft.github.io/blog/ai-smaller-faster-companies",
+			url: "https://0disoft.github.io/blog/credit-lot-spend-expiry-design",
 		});
 
 		expect(DEFAULT_BLOG_SHARE_PLATFORMS).toEqual(["telegram", "line", "whatsapp", "x", "reddit"]);
@@ -21,7 +21,7 @@ describe("blog share", () => {
 		expect(
 			links.every((link) =>
 				link.href.includes(
-					encodeURIComponent("https://0disoft.github.io/blog/ai-smaller-faster-companies"),
+					encodeURIComponent("https://0disoft.github.io/blog/credit-lot-spend-expiry-design"),
 				),
 			),
 		).toBe(true);

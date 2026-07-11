@@ -124,24 +124,25 @@ export const siteSurfaceSource = [
 	labelsSource,
 ].join("\n");
 
-export const aiSmallerFasterPath = "../content/blog/2026/05/ai-smaller-faster-companies/meta.json";
-export const aiSmallerFasterMetadata = JSON.parse(
-	readRequiredText("../../content/blog/2026/05/ai-smaller-faster-companies/meta.json"),
+export const creditLotSpendPath =
+	"../content/blog/2026/07/credit-lot-spend-expiry-design/meta.json";
+export const creditLotSpendMetadata = JSON.parse(
+	readRequiredText("../../content/blog/2026/07/credit-lot-spend-expiry-design/meta.json"),
 );
-export const aiSmallerFasterKoreanMarkdown = readRequiredText(
-	"../../content/blog/2026/05/ai-smaller-faster-companies/ko.md",
+export const creditLotSpendKoreanMarkdown = readRequiredText(
+	"../../content/blog/2026/07/credit-lot-spend-expiry-design/ko.md",
 );
-export const aiSmallerFasterSpanishMarkdown = readRequiredText(
-	"../../content/blog/2026/05/ai-smaller-faster-companies/es.md",
+export const creditLotSpendSpanishMarkdown = readRequiredText(
+	"../../content/blog/2026/07/credit-lot-spend-expiry-design/es.md",
 );
-export const aiSmallerFasterFrenchMarkdown = readRequiredText(
-	"../../content/blog/2026/05/ai-smaller-faster-companies/fr.md",
+export const creditLotSpendFrenchMarkdown = readRequiredText(
+	"../../content/blog/2026/07/credit-lot-spend-expiry-design/fr.md",
 );
-export const aiSmallerFasterHindiMarkdown = readRequiredText(
-	"../../content/blog/2026/05/ai-smaller-faster-companies/hi.md",
+export const creditLotSpendHindiMarkdown = readRequiredText(
+	"../../content/blog/2026/07/credit-lot-spend-expiry-design/hi.md",
 );
-export const aiSmallerFasterChineseMarkdown = readRequiredText(
-	"../../content/blog/2026/05/ai-smaller-faster-companies/zh.md",
+export const creditLotSpendChineseMarkdown = readRequiredText(
+	"../../content/blog/2026/07/credit-lot-spend-expiry-design/zh.md",
 );
 
 export const sampleOpenSourceNotePath = "../content/blog/2026/05/sample-open-source-note/meta.json";

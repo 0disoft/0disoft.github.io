@@ -745,6 +745,8 @@
 		--post-body-width: 48rem;
 		--post-toc-min-width: 12rem;
 		--post-toc-max-width: 16rem;
+		--post-panel-background: color-mix(in oklch, var(--card) 58%, transparent);
+		--post-panel-hover-background: color-mix(in oklch, var(--card) 72%, transparent);
 
 		display: grid;
 		width: min(100%, 70rem);
@@ -944,7 +946,7 @@
 		padding: 0;
 		border: 1px solid color-mix(in oklch, var(--border) 76%, transparent);
 		border-radius: var(--radius-md);
-		background: color-mix(in oklch, var(--paper-soft) 42%, transparent);
+		background: var(--post-panel-background);
 		color: var(--foreground);
 		cursor: pointer;
 		text-decoration: none;
@@ -953,7 +955,7 @@
 
 	.post-share-icon-button:hover {
 		border-color: color-mix(in oklch, var(--sidebar-ring) 62%, var(--border));
-		background: color-mix(in oklch, var(--paper-soft) 58%, transparent);
+		background: var(--post-panel-hover-background);
 	}
 
 	.post-share-icon-button:hover,
@@ -1080,7 +1082,7 @@
 		border: 1px solid color-mix(in oklch, var(--border) 72%, transparent);
 		border-radius: var(--radius-md);
 		margin: 0.35rem 0 0.85rem;
-		background: color-mix(in oklch, var(--paper-soft) 72%, var(--card));
+		background: var(--post-panel-background);
 		color: var(--foreground);
 	}
 
@@ -1119,7 +1121,7 @@
 		margin: 0.35rem 0 0.85rem;
 		border: 1px solid color-mix(in oklch, var(--border) 72%, transparent);
 		border-radius: var(--radius-md);
-		background: color-mix(in oklch, var(--paper-soft) 14%, transparent);
+		background: var(--post-panel-background);
 	}
 
 	.post-table-wrap table {
@@ -1167,7 +1169,7 @@
 		padding: 0.78rem;
 		border: 1px solid color-mix(in oklch, var(--border) 72%, transparent);
 		border-radius: var(--radius-md);
-		background: color-mix(in oklch, var(--paper-soft) 38%, transparent);
+		background: var(--post-panel-background);
 		color: inherit;
 		line-height: 1.28;
 		text-decoration: none;
@@ -1180,7 +1182,7 @@
 
 	.post-adjacent-link:hover {
 		border-color: color-mix(in oklch, var(--sidebar-ring) 62%, var(--border));
-		background: color-mix(in oklch, var(--paper-soft) 54%, transparent);
+		background: var(--post-panel-hover-background);
 	}
 
 	.post-adjacent-link span {

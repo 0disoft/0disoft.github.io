@@ -12,15 +12,15 @@ import {
 } from "./blog-post-core";
 import { getSiteSurfaceSectionKind } from "./site-surface-model";
 import {
-	aiSmallerFasterChineseMarkdown,
-	aiSmallerFasterFrenchMarkdown,
-	aiSmallerFasterHindiMarkdown,
-	aiSmallerFasterKoreanMarkdown,
-	aiSmallerFasterMetadata,
-	aiSmallerFasterPath,
-	aiSmallerFasterSpanishMarkdown,
 	blogMarkdownFilePaths,
 	blogMetaFilePaths,
+	creditLotSpendChineseMarkdown,
+	creditLotSpendFrenchMarkdown,
+	creditLotSpendHindiMarkdown,
+	creditLotSpendKoreanMarkdown,
+	creditLotSpendMetadata,
+	creditLotSpendPath,
+	creditLotSpendSpanishMarkdown,
 	sampleOpenSourceNoteKoreanMarkdown,
 	sampleOpenSourceNoteMarkdown,
 	sampleOpenSourceNoteMetadata,
@@ -34,98 +34,72 @@ import {
 
 describe("blog list", () => {
 	it("discovers the current localized blog content files", () => {
-		expect(blogMetaFilePaths).toEqual([
-			"2026/05/ai-smaller-faster-companies/meta.json",
-			"2026/07/credit-lot-spend-expiry-design/meta.json",
-		]);
+		expect(blogMetaFilePaths).toEqual(["2026/07/credit-lot-spend-expiry-design/meta.json"]);
 		expect(blogMarkdownFilePaths).toEqual([
-			"2026/05/ai-smaller-faster-companies/en.md",
-			"2026/05/ai-smaller-faster-companies/es.md",
-			"2026/05/ai-smaller-faster-companies/fr.md",
-			"2026/05/ai-smaller-faster-companies/hi.md",
-			"2026/05/ai-smaller-faster-companies/ko.md",
-			"2026/05/ai-smaller-faster-companies/zh.md",
 			"2026/07/credit-lot-spend-expiry-design/en.md",
+			"2026/07/credit-lot-spend-expiry-design/es.md",
+			"2026/07/credit-lot-spend-expiry-design/fr.md",
+			"2026/07/credit-lot-spend-expiry-design/hi.md",
 			"2026/07/credit-lot-spend-expiry-design/ko.md",
+			"2026/07/credit-lot-spend-expiry-design/zh.md",
 		]);
 	});
 
 	it("creates localized blog cards from shared metadata and translated markdown", () => {
 		expect(
 			createBlogPostFromContent(
-				aiSmallerFasterPath,
-				aiSmallerFasterMetadata,
+				creditLotSpendPath,
+				creditLotSpendMetadata,
 				"ko",
-				aiSmallerFasterKoreanMarkdown,
+				creditLotSpendKoreanMarkdown,
 			),
 		).toMatchObject({
 			locale: "ko",
-			title: "AI 시대의 승부는 실행 속도가 아니라 결정 속도다",
-			heroImage: {
-				src: "/images/blog/2026/05/ai-smaller-faster-companies/thumbnail.webp",
-				alt: "사무실에서 여러 작업 화면을 보며 일하는 사람",
-			},
+			title: "크레딧 차감 순서를 설계하는 법",
 		});
 		expect(
 			createBlogPostFromContent(
-				aiSmallerFasterPath,
-				aiSmallerFasterMetadata,
+				creditLotSpendPath,
+				creditLotSpendMetadata,
 				"es",
-				aiSmallerFasterSpanishMarkdown,
+				creditLotSpendSpanishMarkdown,
 			),
 		).toMatchObject({
 			locale: "es",
-			title:
-				"En la era de la IA, la velocidad de decisión importa más que la velocidad de ejecución",
-			heroImage: {
-				src: "/images/blog/2026/05/ai-smaller-faster-companies/thumbnail.webp",
-				alt: "Persona trabajando frente a varias pantallas de software en una oficina",
-			},
+			title: "Cómo diseñar el orden de consumo de créditos",
 		});
 		expect(
 			createBlogPostFromContent(
-				aiSmallerFasterPath,
-				aiSmallerFasterMetadata,
+				creditLotSpendPath,
+				creditLotSpendMetadata,
 				"fr",
-				aiSmallerFasterFrenchMarkdown,
+				creditLotSpendFrenchMarkdown,
 			),
 		).toMatchObject({
 			locale: "fr",
-			title: "À l'ère de l'IA, la vitesse de décision compte plus que la vitesse d'exécution",
-			heroImage: {
-				src: "/images/blog/2026/05/ai-smaller-faster-companies/thumbnail.webp",
-				alt: "Personne travaillant devant plusieurs écrans de logiciel dans un bureau",
-			},
+			title: "Concevoir l'ordre de consommation des crédits",
 		});
 		expect(
 			createBlogPostFromContent(
-				aiSmallerFasterPath,
-				aiSmallerFasterMetadata,
+				creditLotSpendPath,
+				creditLotSpendMetadata,
 				"hi",
-				aiSmallerFasterHindiMarkdown,
+				creditLotSpendHindiMarkdown,
 			),
 		).toMatchObject({
 			locale: "hi",
-			title: "AI युग में असली मुकाबला एक्ज़ीक्यूशन स्पीड का नहीं, निर्णय लेने की गति का है",
-			heroImage: {
-				src: "/images/blog/2026/05/ai-smaller-faster-companies/thumbnail.webp",
-				alt: "कार्यालय में कई सॉफ्टवेयर स्क्रीन पर काम करता व्यक्ति",
-			},
+			title: "क्रेडिट खर्च करने का क्रम कैसे डिज़ाइन करें",
 		});
 		expect(
 			createBlogPostFromContent(
-				aiSmallerFasterPath,
-				aiSmallerFasterMetadata,
+				creditLotSpendPath,
+				creditLotSpendMetadata,
 				"zh",
-				aiSmallerFasterChineseMarkdown,
+				creditLotSpendChineseMarkdown,
 			),
 		).toMatchObject({
 			locale: "zh",
-			title: "AI 时代的关键不是执行速度，而是决策速度",
-			heroImage: {
-				src: "/images/blog/2026/05/ai-smaller-faster-companies/thumbnail.webp",
-				alt: "办公室里的人正在多个软件屏幕前工作",
-			},
+			title: "如何设计积分扣减顺序",
 		});
 	});
 
