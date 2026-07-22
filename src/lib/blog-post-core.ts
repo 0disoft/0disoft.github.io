@@ -1,4 +1,5 @@
 export const blogTagOptions = [
+	{ id: "life", label: "Life" },
 	{ id: "software-engineering", label: "Software Engineering" },
 	{ id: "payments", label: "Payments" },
 	{ id: "korea-regulation", label: "Korea Regulation" },

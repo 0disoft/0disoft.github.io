@@ -18,7 +18,7 @@ import { siteProfile } from "./site-profile";
 
 const origin = siteProfile.origin;
 const supportedSiteLocales = ["en", "zh", "es", "fr", "hi", "ko"] as const;
-const currentPostSlug = "credit-lot-spend-expiry-design";
+const currentPostSlug = "things-on-my-desk";
 
 describe("site meta files", () => {
 	it("builds crawler discovery files from the site profile", () => {

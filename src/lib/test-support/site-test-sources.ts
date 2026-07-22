@@ -124,28 +124,26 @@ export const siteSurfaceSource = [
 	labelsSource,
 ].join("\n");
 
-export const creditLotSpendPath =
-	"../content/blog/2026/07/credit-lot-spend-expiry-design/meta.json";
-export const creditLotSpendMetadata = JSON.parse(
-	readRequiredText("../../content/blog/2026/07/credit-lot-spend-expiry-design/meta.json"),
-);
-export const creditLotSpendKoreanMarkdown = readRequiredText(
-	"../../content/blog/2026/07/credit-lot-spend-expiry-design/ko.md",
-);
-export const creditLotSpendSpanishMarkdown = readRequiredText(
-	"../../content/blog/2026/07/credit-lot-spend-expiry-design/es.md",
-);
-export const creditLotSpendFrenchMarkdown = readRequiredText(
-	"../../content/blog/2026/07/credit-lot-spend-expiry-design/fr.md",
-);
-export const creditLotSpendHindiMarkdown = readRequiredText(
-	"../../content/blog/2026/07/credit-lot-spend-expiry-design/hi.md",
-);
-export const creditLotSpendChineseMarkdown = readRequiredText(
-	"../../content/blog/2026/07/credit-lot-spend-expiry-design/zh.md",
-);
-
 export const sampleOpenSourceNotePath = "../content/blog/2026/05/sample-open-source-note/meta.json";
+export const thingsOnMyDeskPath = "../content/blog/2026/07/things-on-my-desk/meta.json";
+export const thingsOnMyDeskMetadata = JSON.parse(
+	readRequiredText("../../content/blog/2026/07/things-on-my-desk/meta.json"),
+);
+export const thingsOnMyDeskKoreanMarkdown = readRequiredText(
+	"../../content/blog/2026/07/things-on-my-desk/ko.md",
+);
+export const thingsOnMyDeskSpanishMarkdown = readRequiredText(
+	"../../content/blog/2026/07/things-on-my-desk/es.md",
+);
+export const thingsOnMyDeskFrenchMarkdown = readRequiredText(
+	"../../content/blog/2026/07/things-on-my-desk/fr.md",
+);
+export const thingsOnMyDeskHindiMarkdown = readRequiredText(
+	"../../content/blog/2026/07/things-on-my-desk/hi.md",
+);
+export const thingsOnMyDeskChineseMarkdown = readRequiredText(
+	"../../content/blog/2026/07/things-on-my-desk/zh.md",
+);
 export const sampleOpenSourceNoteMetadata = {
 	id: "sample-open-source-note",
 	publishedAt: "2026-05-03",

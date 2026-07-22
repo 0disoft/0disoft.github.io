@@ -14,13 +14,6 @@ import { getSiteSurfaceSectionKind } from "./site-surface-model";
 import {
 	blogMarkdownFilePaths,
 	blogMetaFilePaths,
-	creditLotSpendChineseMarkdown,
-	creditLotSpendFrenchMarkdown,
-	creditLotSpendHindiMarkdown,
-	creditLotSpendKoreanMarkdown,
-	creditLotSpendMetadata,
-	creditLotSpendPath,
-	creditLotSpendSpanishMarkdown,
 	sampleOpenSourceNoteKoreanMarkdown,
 	sampleOpenSourceNoteMarkdown,
 	sampleOpenSourceNoteMetadata,
@@ -30,76 +23,83 @@ import {
 	sampleRichPostPath,
 	sectionRouteSource,
 	surfaceSource,
+	thingsOnMyDeskChineseMarkdown,
+	thingsOnMyDeskFrenchMarkdown,
+	thingsOnMyDeskHindiMarkdown,
+	thingsOnMyDeskKoreanMarkdown,
+	thingsOnMyDeskMetadata,
+	thingsOnMyDeskPath,
+	thingsOnMyDeskSpanishMarkdown,
 } from "./test-support/site-test-sources";
 
 describe("blog list", () => {
 	it("discovers the current localized blog content files", () => {
-		expect(blogMetaFilePaths).toEqual(["2026/07/credit-lot-spend-expiry-design/meta.json"]);
+		expect(blogMetaFilePaths).toEqual(["2026/07/things-on-my-desk/meta.json"]);
 		expect(blogMarkdownFilePaths).toEqual([
-			"2026/07/credit-lot-spend-expiry-design/en.md",
-			"2026/07/credit-lot-spend-expiry-design/es.md",
-			"2026/07/credit-lot-spend-expiry-design/fr.md",
-			"2026/07/credit-lot-spend-expiry-design/hi.md",
-			"2026/07/credit-lot-spend-expiry-design/ko.md",
-			"2026/07/credit-lot-spend-expiry-design/zh.md",
+			"2026/07/things-on-my-desk/en.md",
+			"2026/07/things-on-my-desk/es.md",
+			"2026/07/things-on-my-desk/fr.md",
+			"2026/07/things-on-my-desk/hi.md",
+			"2026/07/things-on-my-desk/ko.md",
+			"2026/07/things-on-my-desk/zh.md",
 		]);
 	});
 
 	it("creates localized blog cards from shared metadata and translated markdown", () => {
 		expect(
 			createBlogPostFromContent(
-				creditLotSpendPath,
-				creditLotSpendMetadata,
+				thingsOnMyDeskPath,
+				thingsOnMyDeskMetadata,
 				"ko",
-				creditLotSpendKoreanMarkdown,
+				thingsOnMyDeskKoreanMarkdown,
 			),
 		).toMatchObject({
 			locale: "ko",
-			title: "크레딧 차감 순서를 설계하는 법",
+			title: "책상 위에 있는 것들",
 		});
 		expect(
 			createBlogPostFromContent(
-				creditLotSpendPath,
-				creditLotSpendMetadata,
+				thingsOnMyDeskPath,
+				thingsOnMyDeskMetadata,
 				"es",
-				creditLotSpendSpanishMarkdown,
+				thingsOnMyDeskSpanishMarkdown,
 			),
 		).toMatchObject({
 			locale: "es",
-			title: "Cómo diseñar el orden de consumo de créditos",
+			title: "Cosas en mi escritorio",
 		});
 		expect(
 			createBlogPostFromContent(
-				creditLotSpendPath,
-				creditLotSpendMetadata,
+				thingsOnMyDeskPath,
+				thingsOnMyDeskMetadata,
 				"fr",
-				creditLotSpendFrenchMarkdown,
+				thingsOnMyDeskFrenchMarkdown,
 			),
 		).toMatchObject({
 			locale: "fr",
-			title: "Concevoir l'ordre de consommation des crédits",
+			title: "Les choses sur mon bureau",
 		});
 		expect(
 			createBlogPostFromContent(
-				creditLotSpendPath,
-				creditLotSpendMetadata,
+				thingsOnMyDeskPath,
+				thingsOnMyDeskMetadata,
 				"hi",
-				creditLotSpendHindiMarkdown,
+				thingsOnMyDeskHindiMarkdown,
 			),
 		).toMatchObject({
 			locale: "hi",
-			title: "क्रेडिट खर्च करने का क्रम कैसे डिज़ाइन करें",
+			title: "मेरी मेज पर की चीज़ें",
 		});
 		expect(
 			createBlogPostFromContent(
-				creditLotSpendPath,
-				creditLotSpendMetadata,
+				thingsOnMyDeskPath,
+				thingsOnMyDeskMetadata,
 				"zh",
-				creditLotSpendChineseMarkdown,
+				thingsOnMyDeskChineseMarkdown,
 			),
 		).toMatchObject({
 			locale: "zh",
-			title: "如何设计积分扣减顺序",
+			title: "我桌上的东西",
 		});
 	});
 
@@ -141,7 +141,6 @@ describe("blog list", () => {
 
 	it("filters posts by query, tag, year, and searchable aliases", () => {
 		const posts = createFilterFixturePosts();
-
 		expect(getBlogFilterOptions(posts).tags.map((tag) => tag.id)).toEqual(
 			blogTagOptions.map((tag) => tag.id),
 		);
