@@ -1,7 +1,7 @@
 ---
 {
   "title": "Things on My Desk",
-  "summary": "A few years ago I wanted nothing on my desk. Now it holds many things, and I've realized I prefer it this way.",
+  "summary": "A few years ago I wanted nothing on my desk. Now it holds many things, and they tell me what kind of day it is.",
   "searchTags": ["desk", "workspace", "solo creator", "daily life", "space"]
 }
 ---

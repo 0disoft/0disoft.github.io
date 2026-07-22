@@ -1,7 +1,7 @@
 ---
 {
   "title": "Cosas en mi escritorio",
-  "summary": "Hace unos años quería no tener nada en el escritorio. Ahora hay muchas cosas, y me he dado cuenta de que me funciona mejor así.",
+  "summary": "Hace unos años quería no tener nada en el escritorio. Ahora hay muchas cosas, y me cuentan cómo es el día.",
   "searchTags": ["escritorio", "espacio de trabajo", "creador independiente", "vida diaria", "espacio"]
 }
 ---

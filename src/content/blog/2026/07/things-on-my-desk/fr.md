@@ -1,7 +1,7 @@
 ---
 {
   "title": "Les choses sur mon bureau",
-  "summary": "Il y a quelques années, je ne voulais rien sur mon bureau. Aujourd'hui il y a beaucoup de choses, et j'ai compris que cela me convenait mieux.",
+  "summary": "Il y a quelques années, je ne voulais rien sur mon bureau. Aujourd'hui il y a beaucoup de choses, et elles me disent comment se passe la journée.",
   "searchTags": ["bureau", "espace de travail", "créateur indépendant", "quotidien", "espace"]
 }
 ---
