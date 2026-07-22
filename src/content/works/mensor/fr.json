@@ -1,0 +1,4 @@
+{
+  "title": "Mensor",
+  "summary": "Vérificateur de contrats déterministe pour applications HTML rendues serveur modifiées par agents. Valide les formulaires, entrées d'action, rôles source et frontières d'import en JSON."
+}

@@ -1,0 +1,14 @@
+{
+  "slug": "krasis",
+  "status": "experimental",
+  "kind": "oss",
+  "license": "",
+  "updatedAt": "2026-07-22",
+  "languages": ["Go"],
+  "tags": ["software-kvm", "input-sharing", "windows", "desktop-app"],
+  "links": {
+    "source": "https://github.com/0disoft/krasis",
+    "docs": "https://github.com/0disoft/krasis#readme"
+  },
+  "featured": false
+}

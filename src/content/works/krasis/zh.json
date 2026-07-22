@@ -1,0 +1,4 @@
+{
+  "title": "Krasis",
+  "summary": "在两台 Windows 笔记本之间通过 mTLS 安全共享键盘和鼠标的 Phase 0 软件 KVM。包含底层钩子和崩溃保护。"
+}

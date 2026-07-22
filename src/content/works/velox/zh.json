@@ -1,0 +1,4 @@
+{
+  "title": "Velox",
+  "summary": "无需编译的 Windows 桌面打包工具，可将 HTML/CSS/JS 转为可移植的 WebView2 应用，生成确定性 ZIP、SBOM 和来源信息。"
+}

@@ -1,0 +1,4 @@
+{
+  "title": "Krasis",
+  "summary": "Phase 0 software KVM for sharing keyboard and mouse between two Windows laptops over mTLS with low-level hooks and crash guard."
+}

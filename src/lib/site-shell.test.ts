@@ -325,18 +325,26 @@ describe("site shell", () => {
 		expect(workItems.map((work) => work.slug)).toContain("buildmarks");
 		expect(workItems.map((work) => work.slug)).toContain("clarissimi");
 		expect(workItems.map((work) => work.slug)).toContain("dc-code-paste");
+		expect(workItems.map((work) => work.slug)).toContain("fairyc");
+		expect(workItems.map((work) => work.slug)).toContain("krasis");
 		expect(workItems.map((work) => work.slug)).toContain("laqu");
+		expect(workItems.map((work) => work.slug)).toContain("mensor");
 		expect(workItems.map((work) => work.slug)).toContain("mustflow");
 		expect(workItems.map((work) => work.slug)).toContain("ohrisk");
 		expect(workItems.map((work) => work.slug)).toContain("ssealed");
+		expect(workItems.map((work) => work.slug)).toContain("velox");
 		expect(workMetaFilePaths).toEqual([
 			"buildmarks/meta.json",
 			"clarissimi/meta.json",
 			"dc-code-paste/meta.json",
+			"fairyc/meta.json",
+			"krasis/meta.json",
 			"laqu/meta.json",
+			"mensor/meta.json",
 			"mustflow/meta.json",
 			"ohrisk/meta.json",
 			"ssealed/meta.json",
+			"velox/meta.json",
 		]);
 		expect(workJsonFilePaths).toEqual([
 			"buildmarks/en.json",
@@ -360,6 +368,20 @@ describe("site shell", () => {
 			"dc-code-paste/ko.json",
 			"dc-code-paste/meta.json",
 			"dc-code-paste/zh.json",
+			"fairyc/en.json",
+			"fairyc/es.json",
+			"fairyc/fr.json",
+			"fairyc/hi.json",
+			"fairyc/ko.json",
+			"fairyc/meta.json",
+			"fairyc/zh.json",
+			"krasis/en.json",
+			"krasis/es.json",
+			"krasis/fr.json",
+			"krasis/hi.json",
+			"krasis/ko.json",
+			"krasis/meta.json",
+			"krasis/zh.json",
 			"laqu/en.json",
 			"laqu/es.json",
 			"laqu/fr.json",
@@ -367,6 +389,13 @@ describe("site shell", () => {
 			"laqu/ko.json",
 			"laqu/meta.json",
 			"laqu/zh.json",
+			"mensor/en.json",
+			"mensor/es.json",
+			"mensor/fr.json",
+			"mensor/hi.json",
+			"mensor/ko.json",
+			"mensor/meta.json",
+			"mensor/zh.json",
 			"mustflow/en.json",
 			"mustflow/es.json",
 			"mustflow/fr.json",
@@ -388,6 +417,13 @@ describe("site shell", () => {
 			"ssealed/ko.json",
 			"ssealed/meta.json",
 			"ssealed/zh.json",
+			"velox/en.json",
+			"velox/es.json",
+			"velox/fr.json",
+			"velox/hi.json",
+			"velox/ko.json",
+			"velox/meta.json",
+			"velox/zh.json",
 		]);
 		expect(worksSurfaceSource).toContain('class="works-filters"');
 		expect(worksSurfaceSource).toContain('id="works-search"');

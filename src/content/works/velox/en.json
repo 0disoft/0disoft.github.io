@@ -1,0 +1,4 @@
+{
+  "title": "Velox",
+  "summary": "Compile-free Windows desktop packager that turns HTML/CSS/JS into a portable WebView2 app with deterministic ZIP, SBOM, and provenance."
+}

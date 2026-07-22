@@ -1,0 +1,4 @@
+{
+  "title": "Fairy C",
+  "summary": "C जैसे नियंत्रण, गारbage collector के बिना और सुरक्षित ownership/aliasing/bounds/effect defaults वाला प्रायोगिक systems programming language।"
+}

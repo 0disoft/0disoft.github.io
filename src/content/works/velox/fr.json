@@ -1,0 +1,4 @@
+{
+  "title": "Velox",
+  "summary": "Empaqueteur Windows sans compilation qui transforme HTML/CSS/JS en application WebView2 portable avec ZIP déterministe, SBOM et provenance."
+}

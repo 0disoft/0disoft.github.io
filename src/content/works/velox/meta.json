@@ -1,0 +1,14 @@
+{
+  "slug": "velox",
+  "status": "experimental",
+  "kind": "oss",
+  "license": "MIT",
+  "updatedAt": "2026-07-22",
+  "languages": ["Go"],
+  "tags": ["app-packager", "webview2", "desktop-app", "compile-free"],
+  "links": {
+    "source": "https://github.com/0disoft/velox",
+    "docs": "https://github.com/0disoft/velox#readme"
+  },
+  "featured": false
+}

@@ -205,15 +205,19 @@ describe("work list content", () => {
 		const koreanSsealed = koreanWorks.find((work) => work.slug === "ssealed");
 
 		expect(workLocales).toEqual(["en", "zh", "es", "fr", "hi", "ko"]);
-		expect(workItems).toHaveLength(workLocales.length * 7);
+		expect(workItems).toHaveLength(workLocales.length * 11);
 		expect(workSlugs).toEqual([
 			"buildmarks",
 			"clarissimi",
 			"dc-code-paste",
+			"fairyc",
+			"krasis",
 			"laqu",
+			"mensor",
 			"mustflow",
 			"ohrisk",
 			"ssealed",
+			"velox",
 		]);
 		expect(koreanBuildmarks).toMatchObject({
 			slug: "buildmarks",
@@ -365,6 +369,10 @@ describe("work list content", () => {
 			"ko",
 			"ko",
 			"ko",
+			"ko",
+			"ko",
+			"ko",
+			"ko",
 		]);
 		expect(fallbackWorks.map((work) => work.locale)).toEqual([
 			"en",
@@ -374,23 +382,35 @@ describe("work list content", () => {
 			"en",
 			"en",
 			"en",
+			"en",
+			"en",
+			"en",
+			"en",
 		]);
 		expect(koreanWorks.map((work) => work.slug)).toEqual([
+			"mensor",
 			"dc-code-paste",
 			"laqu",
 			"mustflow",
 			"ohrisk",
 			"ssealed",
 			"buildmarks",
+			"fairyc",
+			"krasis",
+			"velox",
 			"clarissimi",
 		]);
 		expect(fallbackWorks.map((work) => work.slug)).toEqual([
+			"mensor",
 			"dc-code-paste",
 			"laqu",
 			"mustflow",
 			"ohrisk",
 			"ssealed",
 			"buildmarks",
+			"fairyc",
+			"krasis",
+			"velox",
 			"clarissimi",
 		]);
 	});

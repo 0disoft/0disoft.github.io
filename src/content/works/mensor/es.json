@@ -1,0 +1,4 @@
+{
+  "title": "Mensor",
+  "summary": "Comprobador de contratos determinista para aplicaciones HTML renderizadas por servidor editadas por agentes. Valida formularios, entradas de acción, roles de origen y límites de importación en JSON."
+}

@@ -1,0 +1,4 @@
+{
+  "title": "Fairy C",
+  "summary": "Experimental systems programming language with C-like control, no garbage collector, and safer ownership/aliasing/bounds/effect defaults."
+}

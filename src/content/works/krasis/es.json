@@ -1,0 +1,4 @@
+{
+  "title": "Krasis",
+  "summary": "KVM software Phase 0 para compartir teclado y ratón entre dos portátiles Windows mediante mTLS con hooks de bajo nivel y guarda de fallos."
+}
