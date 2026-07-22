@@ -1,4 +1,4 @@
 {
   "title": "Velox",
-  "summary": "HTML/CSS/JS를 컴파일 없이 WebView2 기반 포터블 Windows 데스크톱 앱으로 만드는 패키저. 결정적 ZIP, SBOM, 출처 정보를 생성한다."
+  "summary": "HTML, CSS, JS를 컴파일 없이 WebView2 기반 포터블 Windows 데스크톱 앱으로 만드는 패키저. 결정적 ZIP, SBOM, 출처 정보 제공."
 }

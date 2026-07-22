@@ -1,4 +1,4 @@
 {
   "title": "Fairy C",
-  "summary": "C 수준의 제어와 가비지 컬렉터 없이 더 안전한 ownership/aliasing/bounds/effect 기본값을 갖는 실험적 시스템 프로그래밍 언어."
+  "summary": "C 수준의 제어와 가비지 컬렉터 없이 더 안전한 ownership, aliasing, bounds, effect 기본값을 갖는 실험적 시스템 프로그래밍 언어."
 }

@@ -1,4 +1,4 @@
 {
   "title": "Krasis",
-  "summary": "Windows 노트북 두 대 사이에서 키보드와 마우스를 mTLS로 안전하게 공유하는 Phase 0 소프트웨어 KVM. 로우레벨 후크와 crash guard를 포함한다."
+  "summary": "Windows 노트북 두 대 사이에서 키보드와 마우스를 mTLS로 안전하게 공유하는 Phase 0 소프트웨어 KVM. 로우레벨 후크와 crash guard 포함."
 }
