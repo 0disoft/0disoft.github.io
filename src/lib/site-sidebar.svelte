@@ -420,7 +420,9 @@
 	onkeydown={handleSettingsDialogKeydown}
 	onclick={closeSettingsDialogOnBackdrop}
 >
-	<div class="settings-dialog-panel">
+	<div
+		class="settings-dialog-panel animate-in fade-in zoom-in-95 duration-200 ease-out motion-reduce:animate-none"
+	>
 		<header class="settings-dialog-header">
 			<h2 id="settings-dialog-title">{m.settings_dialog_title({}, { locale: displayLocale })}</h2>
 			<IconButton

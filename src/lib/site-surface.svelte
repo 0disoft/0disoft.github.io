@@ -1,6 +1,7 @@
 <script lang="ts">
-	import type { Snippet } from "svelte";
-	import BlogSurface from "$lib/blog-surface.svelte";
+import type { Snippet } from "svelte";
+import { fade } from "svelte/transition";
+import BlogSurface from "$lib/blog-surface.svelte";
 	import ManifestoSurface from "$lib/manifesto-surface.svelte";
 	import SiteSidebar from "$lib/site-sidebar.svelte";
 	import WorksSurface from "$lib/works-surface.svelte";
@@ -28,17 +29,21 @@
 	<SiteSidebar {activePath} />
 
 	<main class="content-shell" class:empty-home={sectionKind === "home" && !children}>
-		{#if children}
-			{@render children()}
-		{:else if sectionKind === "manifesto"}
-			<ManifestoSurface />
-		{:else if sectionKind === "blog"}
-			<BlogSurface />
-		{:else if sectionKind === "works"}
-			<WorksSurface />
-		{:else}
-			<h1 class="sr-only">{siteProfile.name}</h1>
-		{/if}
+		{#key activePath}
+			<div class="surface-transition" transition:fade={{ duration: 220 }}>
+				{#if children}
+					{@render children()}
+				{:else if sectionKind === "manifesto"}
+					<ManifestoSurface />
+				{:else if sectionKind === "blog"}
+					<BlogSurface />
+				{:else if sectionKind === "works"}
+					<WorksSurface />
+				{:else}
+					<h1 class="sr-only">{siteProfile.name}</h1>
+				{/if}
+			</div>
+		{/key}
 	</main>
 </div>
 

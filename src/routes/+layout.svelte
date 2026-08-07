@@ -1,8 +1,9 @@
 <script lang="ts">
-	import type { Pathname } from '$app/types';
-	import { resolve } from '$app/paths';
-	import { page } from '$app/state';
-	import { onMount } from 'svelte';
+import type { Pathname } from '$app/types';
+import { onNavigate } from '$app/navigation';
+import { resolve } from '$app/paths';
+import { page } from '$app/state';
+import { onMount } from 'svelte';
 	import {
 		getPathLocale,
 		getPreferredClientLocale,
@@ -37,6 +38,19 @@
 		if (nextPathname !== window.location.pathname) {
 			window.location.replace(`${nextPathname}${window.location.search}${window.location.hash}`);
 		}
+	});
+
+	onNavigate((navigation) => {
+		if (typeof document.startViewTransition !== "function") {
+			return;
+		}
+
+		return new Promise((resolve) => {
+			document.startViewTransition(async () => {
+				resolve();
+				await navigation.complete;
+			});
+		});
 	});
 </script>
 

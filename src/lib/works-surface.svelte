@@ -3,8 +3,9 @@
 	import { pushState } from "$app/navigation";
 	import { page } from "$app/state";
 	import { ChevronDown } from "@lucide/svelte";
-	import { onMount } from "svelte";
-	import * as m from "$lib/paraglide/messages";
+import { onMount } from "svelte";
+import { fade } from "svelte/transition";
+import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
 	import { toDisplayLocale, withShortcut } from "$lib/site-labels";
 	import { isSiteLocale, localizeSitePathname } from "$lib/site-locales";
@@ -353,6 +354,7 @@
 					work.tags.length > 0 ||
 					links.length > 0}
 				<li
+					transition:fade={{ duration: 160 }}
 					data-work-card
 					data-work-title={work.title}
 					data-work-summary={work.summary}

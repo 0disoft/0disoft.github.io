@@ -3,8 +3,9 @@
 	import { pushState } from "$app/navigation";
 	import { page } from "$app/state";
 	import { ChevronDown } from "@lucide/svelte";
-	import { onMount } from "svelte";
-	import * as m from "$lib/paraglide/messages";
+import { onMount } from "svelte";
+import { fade } from "svelte/transition";
+import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
 	import {
 		BLOG_FILTER_QUERY_KEYS,
@@ -285,7 +286,7 @@
 		<ol class="blog-list" role="list">
 			{#each filteredPosts as post (post.slug)}
 				{@const postTagLabels = getBlogPostTagLabels(post)}
-				<li>
+				<li transition:fade={{ duration: 160 }}>
 					<a
 						class="blog-list-link"
 						class:with-media={Boolean(post.heroImage)}

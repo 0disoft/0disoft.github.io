@@ -223,3 +223,31 @@
     text-shadow: none;
   }
 }
+
+::view-transition-old(root) {
+  animation: site-view-out 140ms ease-out both;
+}
+
+::view-transition-new(root) {
+  animation: site-view-in 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes site-view-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes site-view-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.4rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
