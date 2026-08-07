@@ -9,6 +9,7 @@ import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
 	import { toDisplayLocale, withShortcut } from "$lib/site-labels";
 	import { isSiteLocale, localizeSitePathname } from "$lib/site-locales";
+	import { getWorkStatusLabel } from "$lib/work-labels";
 	import {
 		WORK_FILTER_QUERY_KEYS,
 		createEmptyWorkFilters,
@@ -21,7 +22,6 @@ import * as m from "$lib/paraglide/messages";
 		type WorkFilters,
 		type WorkLinkKey,
 		type WorkLinks,
-		type WorkStatus,
 	} from "$lib/works";
 
 	type WorkLink = {
@@ -218,19 +218,6 @@ import * as m from "$lib/paraglide/messages";
 		return queryString ? `${worksAction}?${queryString}` : worksAction;
 	}
 
-	function getWorkStatusLabel(status: WorkStatus): string {
-		switch (status) {
-			case "live":
-				return m.work_status_live({}, { locale: displayLocale });
-			case "building":
-				return m.work_status_building({}, { locale: displayLocale });
-			case "experimental":
-				return m.work_status_experimental({}, { locale: displayLocale });
-			case "archived":
-				return m.work_status_archived({}, { locale: displayLocale });
-		}
-	}
-
 	function getWorkLinkLabel(key: WorkLinkKey): string {
 		switch (key) {
 			case "live":
@@ -358,7 +345,7 @@ import * as m from "$lib/paraglide/messages";
 					data-work-card
 					data-work-title={work.title}
 					data-work-summary={work.summary}
-					data-work-status={getWorkStatusLabel(work.status)}
+					data-work-status={getWorkStatusLabel(work.status, displayLocale)}
 					data-work-license={work.license}
 					data-work-tags={work.tags.map(getWorkTagLabel).join(" ")}
 					data-work-tag-ids={work.tags.join(" ")}
@@ -369,7 +356,7 @@ import * as m from "$lib/paraglide/messages";
 						<div class="work-heading">
 							<h2>{work.title}</h2>
 							<span class="work-status" data-status={work.status}>
-								{getWorkStatusLabel(work.status)}
+								{getWorkStatusLabel(work.status, displayLocale)}
 							</span>
 						</div>
 
