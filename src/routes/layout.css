@@ -254,6 +254,38 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--mode-control-border);
+  border-radius: var(--radius-md);
+  background: var(--mode-control-background);
+  color: var(--mode-control-foreground);
+  font-weight: 720;
+  text-decoration: none;
+  transform: translateY(-250%);
+  transition: transform 160ms ease;
+}
+
+.skip-link:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+  transform: translateY(0);
+}
+
 html:lang(ko) {
   font-family: "Inter Variable", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
 }

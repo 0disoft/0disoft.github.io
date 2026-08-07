@@ -4,6 +4,9 @@ import { onNavigate } from '$app/navigation';
 import { resolve } from '$app/paths';
 import { page } from '$app/state';
 import { onMount } from 'svelte';
+import * as m from '$lib/paraglide/messages';
+import { getLocale } from '$lib/paraglide/runtime';
+import { toDisplayLocale } from '$lib/site-labels';
 	import {
 		getPathLocale,
 		getPreferredClientLocale,
@@ -26,6 +29,13 @@ import { onMount } from 'svelte';
 	const shareImageUrl = `${siteProfile.origin}${birdMarkPath}`;
 	const rssAlternateLinks = getSiteRssAlternateLinks();
 	const plainTextAlternateLinks = getSitePlainTextAlternateLinks();
+	const displayLocale = $derived(toDisplayLocale(getLocale()));
+
+	function handleSkipToContent(event: MouseEvent) {
+		event.preventDefault();
+		document.getElementById("main-content")?.focus();
+		document.querySelector<HTMLElement>(".content-shell")?.scrollTo({ top: 0 });
+	}
 
 	onMount(() => {
 		if (getPathLocale(window.location.pathname)) {
@@ -86,6 +96,9 @@ import { onMount } from 'svelte';
 <ModeWatcher />
 <SiteAnalytics />
 <SiteAnalyticsConsent />
+<a class="skip-link" href="#main-content" onclick={handleSkipToContent}>
+	{m.skip_to_content_label({}, { locale: displayLocale })}
+</a>
 {@render children()}
 
 <div style="display:none">

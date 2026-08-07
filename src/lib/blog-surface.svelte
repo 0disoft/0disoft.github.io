@@ -470,8 +470,10 @@ import * as m from "$lib/paraglide/messages";
 		display: block;
 		padding: 1rem 0;
 		border-bottom: 1px solid color-mix(in oklch, var(--border) 62%, transparent);
+		border-radius: var(--radius-sm);
 		color: inherit;
 		text-decoration: none;
+		transition: background-color 160ms ease;
 	}
 
 	.blog-list-link.with-media {
@@ -479,6 +481,10 @@ import * as m from "$lib/paraglide/messages";
 		grid-template-columns: minmax(6.25rem, 8.5rem) minmax(0, 1fr);
 		gap: 0.95rem;
 		align-items: center;
+	}
+
+	.blog-list-link:hover {
+		background: color-mix(in oklch, var(--paper-soft) 58%, transparent);
 	}
 
 	.blog-list-link:hover h2 {

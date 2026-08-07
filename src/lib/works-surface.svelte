@@ -577,10 +577,18 @@ import * as m from "$lib/paraglide/messages";
 		border-radius: var(--radius-md);
 		background: color-mix(in oklch, var(--paper-soft) 72%, transparent);
 		box-shadow: 0 0.85rem 2rem color-mix(in oklch, var(--display-heading-shadow) 58%, transparent);
+		transition:
+			transform 180ms ease,
+			border-color 180ms ease;
 	}
 
 	.work-card.compact {
 		gap: 0;
+	}
+
+	.work-card:hover {
+		border-color: color-mix(in oklch, var(--moss) 42%, var(--border));
+		transform: translateY(-2px);
 	}
 
 	:global(.dark) .work-card {

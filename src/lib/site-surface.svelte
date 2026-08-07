@@ -28,7 +28,12 @@ import BlogSurface from "$lib/blog-surface.svelte";
 <div class="site-frame site-backdrop">
 	<SiteSidebar {activePath} />
 
-	<main class="content-shell" class:empty-home={sectionKind === "home" && !children}>
+	<main
+		id="main-content"
+		tabindex="-1"
+		class="content-shell"
+		class:empty-home={sectionKind === "home" && !children}
+	>
 		{#key activePath}
 			<div class="surface-transition" transition:fade={{ duration: 220 }}>
 				{#if children}
