@@ -8,6 +8,7 @@
 	Heart,
 	Monitor,
 	Moon,
+	Search,
 	Settings,
 		Sun,
 		X,
@@ -59,15 +60,18 @@
 	import type { SiteSectionPath } from "$lib/site-navigation";
 	import { siteProfile } from "$lib/site-profile";
 	import IconButton from "$lib/ui/icon-button.svelte";
+	import SearchDialog from "$lib/search-dialog.svelte";
 	import SidebarAction from "$lib/ui/sidebar-action.svelte";
 
 	let { activePath = "/" }: { activePath?: SiteSectionPath | "/" } = $props();
 	let settingsDialog = $state<HTMLDialogElement>();
+	let searchDialog = $state<{ openSearch: () => void }>();
 	let activeSettingsTab = $state<SettingsTab>(defaultSettingsTab);
 	const displayLocale = $derived(toDisplayLocale(getLocale()));
 	const selectedTheme = $derived(userPrefersMode.current);
 	const analyticsConfigured = isSiteAnalyticsConfigured();
 	const settingsLabel = $derived(m.settings_trigger_label({}, { locale: displayLocale }));
+	const searchLabel = $derived(m.search_label({}, { locale: displayLocale }));
 	const sponsorLabel = $derived(m.sponsor_label({}, { locale: displayLocale }));
 	const advertisingConfigured = isSiteAdvertisingConfigured();
 
@@ -387,6 +391,18 @@
 	</nav>
 
 	<section class="settings-panel" aria-label={settingsLabel}>
+		<SearchDialog bind:this={searchDialog} />
+
+		<SidebarAction
+			icon={Search}
+			label={searchLabel}
+			shortcut="/"
+			ariaLabel={withShortcut(searchLabel, "/")}
+			title={withShortcut(searchLabel, "/")}
+			onclick={() => searchDialog?.openSearch()}
+			onkeydown={handleSidebarKeydown}
+		/>
+
 		<SidebarAction
 			icon={Settings}
 			label={settingsLabel}
