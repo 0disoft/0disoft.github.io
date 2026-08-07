@@ -139,7 +139,8 @@ describe("site shell", () => {
 
 	it("keeps landmarks and grouped controls semantic", () => {
 		expect(siteSurfaceSource).toContain('<div class="site-frame site-backdrop">');
-		expect(siteSurfaceSource).toContain('<main class="content-shell"');
+		expect(siteSurfaceSource).toContain('id="main-content"');
+		expect(siteSurfaceSource).toContain('class="content-shell"');
 		expect(siteSurfaceSource).not.toContain('<main class="site-frame">');
 		expect(siteSurfaceSource).toContain('<ul class="menu-list"');
 		expect(siteSurfaceSource).toContain("<li>");
@@ -443,7 +444,7 @@ describe("site shell", () => {
 		expect(worksSurfaceSource).toContain("min-height: 100%");
 		expect(worksSurfaceSource).toContain("margin-top: auto");
 		expect(worksSurfaceSource).toContain("getWorksForLocale(workItems, currentLocale)");
-		expect(worksSurfaceSource).toContain("getWorkStatusLabel(work.status)");
+		expect(worksSurfaceSource).toContain("getWorkStatusLabel(work.status, displayLocale)");
 		expect(worksSurfaceSource).toContain("works_license_label");
 		expect(worksSurfaceSource).toContain("{#if work.license}");
 		expect(worksSurfaceSource).toContain("works_languages_label");
