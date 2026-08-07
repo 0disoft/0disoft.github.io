@@ -104,5 +104,15 @@
   "work_link_docs": "Docs",
   "work_link_post": "Post",
   "work_tag_agent_workflow": "Flujo de agentes",
-  "work_tag_developer_tools": "Herramientas para desarrolladores"
+  "work_tag_developer_tools": "Herramientas para desarrolladores",
+  "home_latest_post_label": "Última publicación",
+  "home_selected_works_label": "Trabajos seleccionados",
+  "home_all_posts_label": "Todas las publicaciones",
+  "home_all_works_label": "Todos los trabajos",
+  "search_label": "Buscar",
+  "search_placeholder": "Buscar publicaciones y trabajos",
+  "search_no_results": "Sin resultados",
+  "search_results_label": "Resultados",
+  "search_unavailable_label": "La búsqueda no está disponible en esta página.",
+  "skip_to_content_label": "Saltar al contenido"
 }

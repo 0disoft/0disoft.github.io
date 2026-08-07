@@ -104,5 +104,15 @@
   "work_link_docs": "Docs",
   "work_link_post": "Post",
   "work_tag_agent_workflow": "에이전트 작업 흐름",
-  "work_tag_developer_tools": "개발 도구"
+  "work_tag_developer_tools": "개발 도구",
+  "home_latest_post_label": "최신 글",
+  "home_selected_works_label": "선별한 작업",
+  "home_all_posts_label": "전체 글",
+  "home_all_works_label": "모든 작업",
+  "search_label": "검색",
+  "search_placeholder": "글과 작업 검색",
+  "search_no_results": "결과 없음",
+  "search_results_label": "결과",
+  "search_unavailable_label": "이 페이지에서는 검색을 사용할 수 없어요.",
+  "skip_to_content_label": "본문으로 건너뛰기"
 }

@@ -104,5 +104,15 @@
   "work_link_docs": "Docs",
   "work_link_post": "Post",
   "work_tag_agent_workflow": "Agent workflow",
-  "work_tag_developer_tools": "Developer tools"
+  "work_tag_developer_tools": "Developer tools",
+  "home_latest_post_label": "नवीनतम पोस्ट",
+  "home_selected_works_label": "चुनिंदा कार्य",
+  "home_all_posts_label": "सभी पोस्ट",
+  "home_all_works_label": "सभी कार्य",
+  "search_label": "खोजें",
+  "search_placeholder": "पोस्ट और कार्य खोजें",
+  "search_no_results": "कोई परिणाम नहीं",
+  "search_results_label": "परिणाम",
+  "search_unavailable_label": "इस पृष्ठ पर खोज उपलब्ध नहीं है।",
+  "skip_to_content_label": "सामग्री पर जाएँ"
 }

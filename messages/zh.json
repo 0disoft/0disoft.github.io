@@ -104,5 +104,15 @@
   "work_link_docs": "Docs",
   "work_link_post": "Post",
   "work_tag_agent_workflow": "代理工作流",
-  "work_tag_developer_tools": "开发者工具"
+  "work_tag_developer_tools": "开发者工具",
+  "home_latest_post_label": "最新文章",
+  "home_selected_works_label": "精选作品",
+  "home_all_posts_label": "所有文章",
+  "home_all_works_label": "所有作品",
+  "search_label": "搜索",
+  "search_placeholder": "搜索文章和作品",
+  "search_no_results": "无结果",
+  "search_results_label": "结果",
+  "search_unavailable_label": "此页面暂不可用搜索。",
+  "skip_to_content_label": "跳转到内容"
 }

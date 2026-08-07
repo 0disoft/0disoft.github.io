@@ -104,5 +104,15 @@
   "work_link_docs": "Docs",
   "work_link_post": "Post",
   "work_tag_agent_workflow": "Agent workflow",
-  "work_tag_developer_tools": "Developer tools"
+  "work_tag_developer_tools": "Developer tools",
+  "home_latest_post_label": "Latest post",
+  "home_selected_works_label": "Selected works",
+  "home_all_posts_label": "All posts",
+  "home_all_works_label": "All works",
+  "search_label": "Search",
+  "search_placeholder": "Search posts and works",
+  "search_no_results": "No results",
+  "search_results_label": "Results",
+  "search_unavailable_label": "Search is not available on this page.",
+  "skip_to_content_label": "Skip to content"
 }
