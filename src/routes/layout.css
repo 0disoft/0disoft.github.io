@@ -54,6 +54,7 @@
   --mode-control-foreground: var(--sidebar-foreground);
   --mode-control-border: color-mix(in oklch, var(--sidebar-border) 84%, transparent);
   --mode-control-hover-background: color-mix(in oklch, var(--water) 28%, var(--paper-soft));
+  --surface-hover: color-mix(in oklch, var(--muted) 55%, transparent);
   --selection-background: color-mix(in oklch, var(--water) 56%, var(--moss-soft));
   --selection-foreground: oklch(0.14 0.04 142);
   color-scheme: light;
@@ -111,6 +112,7 @@
   --mode-control-foreground: oklch(0.96 0.038 92);
   --mode-control-border: oklch(0.96 0.038 92 / 28%);
   --mode-control-hover-background: oklch(0.29 0.058 132);
+  --surface-hover: color-mix(in oklch, var(--muted) 52%, transparent);
   --selection-background: color-mix(in oklch, var(--water) 54%, var(--moss-soft));
   --selection-foreground: oklch(0.14 0.04 142);
   color-scheme: dark;

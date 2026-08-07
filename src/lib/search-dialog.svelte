@@ -338,16 +338,12 @@
 
 	.search-result:hover {
 		border-color: color-mix(in oklch, var(--border) 78%, transparent);
-		background: color-mix(in oklch, var(--paper-soft) 72%, transparent);
-	}
-
-	:global(.dark) .search-result:hover {
-		background: color-mix(in oklch, var(--card) 78%, transparent);
+		background: var(--surface-hover);
 	}
 
 	.search-result:focus-visible {
 		border-color: color-mix(in oklch, var(--border) 78%, transparent);
-		background: color-mix(in oklch, var(--paper-soft) 72%, transparent);
+		background: var(--surface-hover);
 		outline: 3px solid var(--focus-ring);
 		outline-offset: 3px;
 	}

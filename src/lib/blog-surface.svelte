@@ -484,7 +484,7 @@ import * as m from "$lib/paraglide/messages";
 	}
 
 	.blog-list-link:hover {
-		background: color-mix(in oklch, var(--paper-soft) 58%, transparent);
+		background: var(--surface-hover);
 	}
 
 	.blog-list-link:hover h2 {
