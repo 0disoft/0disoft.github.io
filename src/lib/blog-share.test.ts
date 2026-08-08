@@ -19,6 +19,7 @@ describe("blog share", () => {
 			"threads",
 			"bluesky",
 			"linkedin",
+			"weibo",
 		]);
 		expect(links.map((link) => link.platform)).toEqual(DEFAULT_BLOG_SHARE_PLATFORMS);
 		expect(links.find((link) => link.platform === "telegram")?.href).toContain("t.me/share/url");
@@ -39,6 +40,9 @@ describe("blog share", () => {
 		);
 		expect(links.find((link) => link.platform === "linkedin")?.href).toContain(
 			"linkedin.com/sharing/share-offsite",
+		);
+		expect(links.find((link) => link.platform === "weibo")?.href).toContain(
+			"service.weibo.com/share/share.php",
 		);
 		expect(
 			links.every((link) =>

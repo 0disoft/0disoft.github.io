@@ -5,6 +5,7 @@
 		siBluesky,
 		siFacebook,
 		siReddit,
+		siSinaweibo,
 		siThreads,
 		siWhatsapp,
 		siX,
@@ -106,6 +107,8 @@
 				return m.blog_post_share_bluesky({}, { locale: displayLocale });
 			case "linkedin":
 				return m.blog_post_share_linkedin({}, { locale: displayLocale });
+			case "weibo":
+				return m.blog_post_share_weibo({}, { locale: displayLocale });
 		}
 	}
 
@@ -129,6 +132,8 @@
 				return { kind: "brand", icon: siBluesky };
 			case "linkedin":
 				return { kind: "brand", icon: linkedInIcon };
+			case "weibo":
+				return { kind: "brand", icon: siSinaweibo };
 		}
 	}
 
