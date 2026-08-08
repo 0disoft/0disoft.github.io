@@ -5,6 +5,7 @@ export const DEFAULT_BLOG_SHARE_PLATFORMS = [
 	"x",
 	"reddit",
 	"facebook",
+	"threads",
 ] as const;
 
 export type BlogSharePlatform = (typeof DEFAULT_BLOG_SHARE_PLATFORMS)[number];
@@ -54,6 +55,8 @@ export function buildBlogShareHref(platform: BlogSharePlatform, payload: BlogSha
 			return `https://www.reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`;
 		case "facebook":
 			return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+		case "threads":
+			return `https://www.threads.net/intent/post?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`;
 		default: {
 			const exhaustiveCheck: never = platform;
 			return exhaustiveCheck;

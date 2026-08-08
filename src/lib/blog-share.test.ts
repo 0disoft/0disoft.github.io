@@ -16,6 +16,7 @@ describe("blog share", () => {
 			"x",
 			"reddit",
 			"facebook",
+			"threads",
 		]);
 		expect(links.map((link) => link.platform)).toEqual(DEFAULT_BLOG_SHARE_PLATFORMS);
 		expect(links.find((link) => link.platform === "telegram")?.href).toContain("t.me/share/url");
@@ -27,6 +28,9 @@ describe("blog share", () => {
 		expect(links.find((link) => link.platform === "reddit")?.href).toContain("reddit.com/submit");
 		expect(links.find((link) => link.platform === "facebook")?.href).toContain(
 			"facebook.com/sharer/sharer.php",
+		);
+		expect(links.find((link) => link.platform === "threads")?.href).toContain(
+			"threads.net/intent/post",
 		);
 		expect(
 			links.every((link) =>
