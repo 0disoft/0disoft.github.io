@@ -12,7 +12,7 @@
 		siX,
 		type SimpleIcon,
 	} from "simple-icons";
-	import { hackerNewsIcon, linkedInIcon } from "$lib/ui/share-brand-icons";
+	import { linkedInIcon } from "$lib/ui/share-brand-icons";
 	import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
 	import {
@@ -387,8 +387,6 @@
 				return m.blog_post_share_bluesky({}, { locale: displayLocale });
 			case "linkedin":
 				return m.blog_post_share_linkedin({}, { locale: displayLocale });
-			case "hackernews":
-				return m.blog_post_share_hackernews({}, { locale: displayLocale });
 		}
 	}
 
@@ -414,8 +412,6 @@
 				return { kind: "brand", icon: siBluesky };
 			case "linkedin":
 				return { kind: "brand", icon: linkedInIcon };
-			case "hackernews":
-				return { kind: "brand", icon: hackerNewsIcon };
 		}
 	}
 

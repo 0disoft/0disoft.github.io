@@ -8,7 +8,6 @@ export const DEFAULT_BLOG_SHARE_PLATFORMS = [
 	"threads",
 	"bluesky",
 	"linkedin",
-	"hackernews",
 ] as const;
 
 export type BlogSharePlatform = (typeof DEFAULT_BLOG_SHARE_PLATFORMS)[number];
@@ -64,8 +63,6 @@ export function buildBlogShareHref(platform: BlogSharePlatform, payload: BlogSha
 			return `https://bsky.app/intent/compose?text=${encodeURIComponent([title, url].filter(Boolean).join(" "))}`;
 		case "linkedin":
 			return `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
-		case "hackernews":
-			return `https://news.ycombinator.com/submitlink?u=${encodeURIComponent(url)}&t=${encodeURIComponent(title)}`;
 		default: {
 			const exhaustiveCheck: never = platform;
 			return exhaustiveCheck;
