@@ -41,7 +41,6 @@
 			<a class="home-post" href={latestPostPath}>
 				<time datetime={latestPost.publishedAt}>{latestPost.publishedAt}</time>
 				<h3>{latestPost.title}</h3>
-				<p>{latestPost.summary}</p>
 			</a>
 		</section>
 	{/if}
@@ -184,8 +183,7 @@
 		font-weight: 680;
 	}
 
-	.home-post h3,
-	.home-post p {
+	.home-post h3 {
 		margin: 0;
 	}
 
@@ -193,11 +191,6 @@
 		font-size: 1.2rem;
 		font-weight: 780;
 		letter-spacing: 0;
-	}
-
-	.home-post p {
-		color: var(--muted-foreground);
-		line-height: 1.55;
 	}
 
 	.home-post:hover h3 {

@@ -313,7 +313,6 @@ import * as m from "$lib/paraglide/messages";
 								<time datetime={post.publishedAt}>{post.publishedAt}</time>
 							</p>
 							<h2>{post.title}</h2>
-							<p>{post.summary}</p>
 							<ul aria-label={m.blog_post_tags_label({}, { locale: displayLocale })}>
 								{#each postTagLabels as tag (tag)}
 									<li>{tag}</li>
@@ -511,8 +510,7 @@ import * as m from "$lib/paraglide/messages";
 		user-select: none;
 	}
 
-	.blog-list-item h2,
-	.blog-list-item p {
+	.blog-list-item h2 {
 		margin: 0;
 	}
 
@@ -526,6 +524,7 @@ import * as m from "$lib/paraglide/messages";
 		color: var(--muted-foreground);
 		font-size: 0.85rem;
 		font-weight: 680;
+		margin: 0;
 	}
 
 	.blog-list-item ul {

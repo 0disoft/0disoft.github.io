@@ -523,7 +523,6 @@
 				{/if}
 			</dl>
 			<h1 id="section-title">{post.title}</h1>
-			<p>{post.summary}</p>
 			<ul aria-label={m.blog_post_tags_label({}, { locale: displayLocale })}>
 				{#each postTagLabels as tag (tag)}
 					<li>{tag}</li>
@@ -809,8 +808,7 @@
 		border-bottom: 1px solid color-mix(in oklch, var(--border) 62%, transparent);
 	}
 
-	.post-header h1,
-	.post-header p {
+	.post-header h1 {
 		margin: 0;
 	}
 
