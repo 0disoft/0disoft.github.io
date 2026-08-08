@@ -9,7 +9,14 @@ describe("blog share", () => {
 			url: "https://0disoft.github.io/blog/credit-lot-spend-expiry-design",
 		});
 
-		expect(DEFAULT_BLOG_SHARE_PLATFORMS).toEqual(["telegram", "line", "whatsapp", "x", "reddit"]);
+		expect(DEFAULT_BLOG_SHARE_PLATFORMS).toEqual([
+			"telegram",
+			"line",
+			"whatsapp",
+			"x",
+			"reddit",
+			"facebook",
+		]);
 		expect(links.map((link) => link.platform)).toEqual(DEFAULT_BLOG_SHARE_PLATFORMS);
 		expect(links.find((link) => link.platform === "telegram")?.href).toContain("t.me/share/url");
 		expect(links.find((link) => link.platform === "line")?.href).toContain(
@@ -18,6 +25,9 @@ describe("blog share", () => {
 		expect(links.find((link) => link.platform === "whatsapp")?.href).toContain("wa.me/?text=");
 		expect(links.find((link) => link.platform === "x")?.href).toContain("x.com/intent/tweet");
 		expect(links.find((link) => link.platform === "reddit")?.href).toContain("reddit.com/submit");
+		expect(links.find((link) => link.platform === "facebook")?.href).toContain(
+			"facebook.com/sharer/sharer.php",
+		);
 		expect(
 			links.every((link) =>
 				link.href.includes(

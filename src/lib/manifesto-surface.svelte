@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Copy, MessageCircle, Send, Share2 } from "@lucide/svelte";
 	import { onMount } from "svelte";
-	import { siReddit, siWhatsapp, siX, type SimpleIcon } from "simple-icons";
+	import { siFacebook, siReddit, siWhatsapp, siX, type SimpleIcon } from "simple-icons";
 	import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
 	import { buildBlogShareLinks, type BlogSharePlatform } from "$lib/blog-share";
@@ -89,6 +89,8 @@
 				return m.blog_post_share_x({}, { locale: displayLocale });
 			case "reddit":
 				return m.blog_post_share_reddit({}, { locale: displayLocale });
+			case "facebook":
+				return m.blog_post_share_facebook({}, { locale: displayLocale });
 		}
 	}
 
@@ -104,6 +106,8 @@
 				return { kind: "brand", icon: siX };
 			case "reddit":
 				return { kind: "brand", icon: siReddit };
+			case "facebook":
+				return { kind: "brand", icon: siFacebook };
 		}
 	}
 
