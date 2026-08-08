@@ -17,6 +17,9 @@ describe("blog share", () => {
 			"reddit",
 			"facebook",
 			"threads",
+			"bluesky",
+			"linkedin",
+			"hackernews",
 		]);
 		expect(links.map((link) => link.platform)).toEqual(DEFAULT_BLOG_SHARE_PLATFORMS);
 		expect(links.find((link) => link.platform === "telegram")?.href).toContain("t.me/share/url");
@@ -31,6 +34,15 @@ describe("blog share", () => {
 		);
 		expect(links.find((link) => link.platform === "threads")?.href).toContain(
 			"threads.net/intent/post",
+		);
+		expect(links.find((link) => link.platform === "bluesky")?.href).toContain(
+			"bsky.app/intent/compose",
+		);
+		expect(links.find((link) => link.platform === "linkedin")?.href).toContain(
+			"linkedin.com/sharing/share-offsite",
+		);
+		expect(links.find((link) => link.platform === "hackernews")?.href).toContain(
+			"news.ycombinator.com/submitlink",
 		);
 		expect(
 			links.every((link) =>

@@ -4,6 +4,7 @@
 	import { ArrowLeft, Copy, MessageCircle, Send, Share2 } from "@lucide/svelte";
 	import { onMount } from "svelte";
 	import {
+		siBluesky,
 		siFacebook,
 		siReddit,
 		siThreads,
@@ -11,6 +12,7 @@
 		siX,
 		type SimpleIcon,
 	} from "simple-icons";
+	import { hackerNewsIcon, linkedInIcon } from "$lib/ui/share-brand-icons";
 	import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
 	import {
@@ -381,6 +383,12 @@
 				return m.blog_post_share_facebook({}, { locale: displayLocale });
 			case "threads":
 				return m.blog_post_share_threads({}, { locale: displayLocale });
+			case "bluesky":
+				return m.blog_post_share_bluesky({}, { locale: displayLocale });
+			case "linkedin":
+				return m.blog_post_share_linkedin({}, { locale: displayLocale });
+			case "hackernews":
+				return m.blog_post_share_hackernews({}, { locale: displayLocale });
 		}
 	}
 
@@ -402,6 +410,12 @@
 				return { kind: "brand", icon: siFacebook };
 			case "threads":
 				return { kind: "brand", icon: siThreads };
+			case "bluesky":
+				return { kind: "brand", icon: siBluesky };
+			case "linkedin":
+				return { kind: "brand", icon: linkedInIcon };
+			case "hackernews":
+				return { kind: "brand", icon: hackerNewsIcon };
 		}
 	}
 
