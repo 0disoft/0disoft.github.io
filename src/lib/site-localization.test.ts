@@ -44,8 +44,8 @@ describe("site localization", () => {
 			"./node_modules/@inlang/plugin-m-function-matcher/dist/index.js",
 		]);
 		expect(inlangSettings.modules.every((module) => !module.startsWith("http"))).toBe(true);
-		expect(packageJson.devDependencies["@inlang/plugin-message-format"]).toBe("4.4.0");
-		expect(packageJson.devDependencies["@inlang/plugin-m-function-matcher"]).toBe("2.2.6");
+		expect(packageJson.devDependencies["@inlang/plugin-message-format"]).toBe("^4.4.4");
+		expect(packageJson.devDependencies["@inlang/plugin-m-function-matcher"]).toBe("^2.2.14");
 		expect(packageSource).toContain("--strategy url cookie globalVariable baseLocale");
 		expect(viteConfigSource).toContain(
 			'strategy: ["url", "cookie", "globalVariable", "baseLocale"]',
