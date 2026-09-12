@@ -5,6 +5,7 @@
 	import { ChevronDown } from "@lucide/svelte";
 import { onMount } from "svelte";
 import { fade } from "svelte/transition";
+import { prefersReducedMotion } from "svelte/motion";
 import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
 	import { toDisplayLocale, withShortcut } from "$lib/site-labels";
@@ -341,7 +342,7 @@ import * as m from "$lib/paraglide/messages";
 					work.tags.length > 0 ||
 					links.length > 0}
 				<li
-					transition:fade={{ duration: 160 }}
+					transition:fade={{ duration: prefersReducedMotion.current ? 0 : 160 }}
 					data-work-card
 					data-work-title={work.title}
 					data-work-summary={work.summary}

@@ -31,6 +31,9 @@ close/reopen races. Build the site and index first. The check requires Chrome an
 In the workspace, use the configured `zero_disoft_github_io_search_browser` intent.
 It serves build assets through browser request interception without a dev server.
 
+The browser check also toggles reduced motion at runtime and filters both blog
+and work lists, checking that list fades stop and resume with the preference.
+
 Pagefind indexes the shared main content area (`data-pagefind-body`), excluding
 sidebar/settings chrome, share tools, image previews and ad placeholders. Public
 content pages retain this boundary in every locale; error and verification pages

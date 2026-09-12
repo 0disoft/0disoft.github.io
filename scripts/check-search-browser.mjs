@@ -30,6 +30,7 @@ async function openPage(mock = false) {
 	await context.addInitScript(() => {
 		window.viewTransitionStarts = 0;
 		window.surfaceFadeDurations = [];
+		window.listFadeDurations = [];
 		const start = document.startViewTransition?.bind(document);
 		if (start)
 			document.startViewTransition = (...args) => {
@@ -38,6 +39,11 @@ async function openPage(mock = false) {
 			};
 		const animate = Element.prototype.animate;
 		Element.prototype.animate = function (frames, options) {
+			if (this.matches(".blog-list > li, .works-list > li")) {
+				window.listFadeDurations.push(
+					typeof options === "number" ? options : (options?.duration ?? 0),
+				);
+			}
 			if (this.classList.contains("surface-transition")) {
 				window.surfaceFadeDurations.push(
 					typeof options === "number" ? options : (options?.duration ?? 0),
@@ -96,6 +102,51 @@ async function assertHydratedHeading(page, title) {
 	await page.locator(".search-dialog[open]").waitFor();
 	await page.keyboard.press("Escape");
 	await page.getByRole("heading", { level: 1, name: title, exact: true }).waitFor();
+}
+
+async function assertListMotion(page, section, reduced) {
+	await page.locator(`a[href="/${section}"]`).first().click();
+	await page.waitForURL((url) => url.pathname.replace(/\/$/, "") === `/${section}`);
+	const items = page.locator(`.${section}-list > li`);
+	await items.first().waitFor();
+	const initialCount = await items.count();
+	assert.match(
+		await readFile(`src/lib/${section}-surface.svelte`, "utf8"),
+		/duration: prefersReducedMotion\.current \? 0 : 160/,
+	);
+	const title = await items.first().locator("h2").innerText();
+	await page.evaluate(() => {
+		window.listFadeDurations = [];
+	});
+	const input = page.locator(`#${section}-search`);
+	const submit = page.locator(`.${section}-filters button[type="submit"]`);
+	await input.fill(initialCount > 1 ? title : "__no_matching_motion_fixture__");
+	await submit.click();
+	await page.waitForFunction(
+		({ section, initialCount }) => {
+			const count = document.querySelectorAll(`.${section}-list > li`).length;
+			return initialCount > 1 ? count > 0 && count < initialCount : count === 0;
+		},
+		{ section, initialCount },
+	);
+	await input.fill("");
+	await submit.click();
+	await items.first().waitFor();
+	await page.waitForFunction(
+		({ section, initialCount }) =>
+			document.querySelectorAll(`.${section}-list > li`).length === initialCount,
+		{ section, initialCount },
+	);
+	if (reduced) {
+		assert.ok(
+			await page.evaluate(() => window.listFadeDurations.every((duration) => duration === 0)),
+		);
+	} else if (initialCount > 1) {
+		await page.waitForFunction(() => window.listFadeDurations.some((duration) => duration > 0));
+	}
+	console.log(
+		`PASS ${section} filter: ${reduced ? "reduced" : "default"} motion; ${initialCount > 1 ? "item transitions" : "single-item list replacement and preference binding"}`,
+	);
 }
 
 async function resolveDetails(page, term) {
@@ -231,8 +282,14 @@ try {
 	await motion.page.waitForFunction(() =>
 		window.surfaceFadeDurations.some((duration) => duration > 0),
 	);
+	for (const reduced of [true, false]) {
+		await motion.page.emulateMedia({ reducedMotion: reduced ? "reduce" : "no-preference" });
+		for (const section of ["blog", "works"]) await assertListMotion(motion.page, section, reduced);
+	}
 	await motion.context.close();
-	console.log("PASS live reduced-motion preference for view transitions and fades");
+	console.log(
+		"PASS live reduced-motion preference for view transitions, surface and filtered list fades",
+	);
 
 	const { context, page, input } = await openPage(true);
 	await page.clock.install();

@@ -5,6 +5,7 @@
 	import { ChevronDown } from "@lucide/svelte";
 import { onMount } from "svelte";
 import { fade } from "svelte/transition";
+import { prefersReducedMotion } from "svelte/motion";
 import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
 	import {
@@ -284,7 +285,7 @@ import * as m from "$lib/paraglide/messages";
 		<ol class="blog-list" role="list">
 			{#each filteredPosts as post (post.slug)}
 				{@const postTagLabels = getBlogPostTagLabels(post)}
-				<li transition:fade={{ duration: 160 }}>
+				<li transition:fade={{ duration: prefersReducedMotion.current ? 0 : 160 }}>
 					<a
 						class="blog-list-link"
 						class:with-media={Boolean(post.heroImage)}
