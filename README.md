@@ -27,6 +27,11 @@ close/reopen races. Build the site and index first. The check requires Chrome an
 In the workspace, use the configured `zero_disoft_github_io_search_browser` intent.
 It serves build assets through browser request interception without a dev server.
 
+Analytics page views are opt-in and deduplicated per completed navigation, not
+per URL. Revisiting a page (including a new navigation to the same URL) records a
+new view; analytics initialization and navigation callbacks for one visit do not
+record it twice. Delivery regression tests use an offline GA4 stub.
+
 ## License
 
 This repository is licensed under the BSD Zero Clause License (0BSD).

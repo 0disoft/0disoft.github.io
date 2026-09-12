@@ -24,7 +24,7 @@ declare global {
 }
 
 const ga4ScriptId = "0disoft-ga4";
-const trackedPageKeys = new Set<string>();
+let lastTrackedNavigation: object | null = null;
 const measurementId = publicEnv.PUBLIC_GA4_MEASUREMENT_ID?.trim() ?? "";
 
 let initializedMeasurementId: string | null = null;
@@ -106,7 +106,7 @@ export function setGa4AnalyticsConsent(enabled: boolean) {
 	});
 }
 
-export function trackGa4PageView(url: URL, title: string): boolean {
+export function trackGa4PageView(url: URL, title: string, navigation: object): boolean {
 	if (
 		!browser ||
 		!initializedMeasurementId ||
@@ -117,14 +117,12 @@ export function trackGa4PageView(url: URL, title: string): boolean {
 	}
 
 	const payload = createGa4PageViewPayload(url, title);
-	const pageKey = `${initializedMeasurementId}:${payload.page_location}`;
-
-	if (trackedPageKeys.has(pageKey)) {
+	if (lastTrackedNavigation === navigation) {
 		return false;
 	}
 
-	trackedPageKeys.add(pageKey);
 	window.gtag("event", "page_view", payload);
+	lastTrackedNavigation = navigation;
 
 	return true;
 }

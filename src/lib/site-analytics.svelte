@@ -12,6 +12,7 @@
 
 	let analyticsConsent = $state(false);
 	let analyticsReady = $state(false);
+	let currentNavigation = {};
 
 	$effect(() => {
 		if (!browser) {
@@ -49,7 +50,7 @@
 			analyticsReady = ready;
 
 			if (ready) {
-				trackGa4PageView(new URL(window.location.href), document.title);
+				trackGa4PageView(new URL(window.location.href), document.title, currentNavigation);
 			}
 		});
 
@@ -58,11 +59,13 @@
 		};
 	});
 
-	afterNavigate(({ to }) => {
+	afterNavigate(({ to, type }) => {
+		// Initial entry shares its identity with initialization; later visits never do.
+		if (type !== "enter") currentNavigation = {};
 		if (!browser || !analyticsReady || !analyticsConsent || !to?.url) {
 			return;
 		}
 
-		trackGa4PageView(to.url, document.title);
+		trackGa4PageView(to.url, document.title, currentNavigation);
 	});
 </script>
