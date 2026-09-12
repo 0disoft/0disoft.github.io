@@ -49,6 +49,9 @@ Desktop content scrolling resets on new page navigation and restores per history
 entry on back/forward. Hash targets and mobile document scrolling stay under
 SvelteKit's navigation handling.
 
+Clipboard fallback removes its temporary field and restores focus and selection
+even when copying fails. Inside a modal it uses the active dialog's DOM subtree.
+
 ## License
 
 This repository is licensed under the BSD Zero Clause License (0BSD).

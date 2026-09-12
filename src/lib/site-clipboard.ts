@@ -13,16 +13,27 @@ export async function copyTextToClipboard(text: string) {
 	}
 
 	const textarea = document.createElement("textarea");
+	const activeElement = document.activeElement as HTMLElement | null;
+	const selection = document.getSelection();
+	const ranges = selection
+		? Array.from({ length: selection.rangeCount }, (_, index) =>
+				selection.getRangeAt(index).cloneRange(),
+			)
+		: [];
 	textarea.value = text;
 	textarea.setAttribute("readonly", "");
 	textarea.style.position = "fixed";
 	textarea.style.opacity = "0";
-	document.body.append(textarea);
-	textarea.select();
-	const copied = document.execCommand("copy");
-	textarea.remove();
-
-	if (!copied) {
-		throw new Error("Clipboard copy failed");
+	try {
+		(activeElement?.closest("dialog[open]") ?? document.body).append(textarea);
+		textarea.select();
+		if (!document.execCommand("copy")) {
+			throw new Error("Clipboard copy failed");
+		}
+	} finally {
+		textarea.remove();
+		if (activeElement?.isConnected) activeElement.focus({ preventScroll: true });
+		selection?.removeAllRanges();
+		for (const range of ranges) selection?.addRange(range);
 	}
 }
