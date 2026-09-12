@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { tick } from "svelte";
+	import { onDestroy, tick } from "svelte";
 	import { X } from "@lucide/svelte";
 	import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
@@ -17,11 +17,11 @@
 	type PagefindSearchResponse = {
 		results?: Array<{
 			id: string;
-			data?: {
+			data: () => Promise<{
 				url?: string;
-				title?: string;
+				meta?: { title?: string };
 				excerpt?: string;
-			};
+			}>;
 		}>;
 	};
 
@@ -40,15 +40,27 @@
 
 	const displayLocale = $derived(toDisplayLocale(getLocale()));
 
+	onDestroy(invalidateSearch);
+
+	function invalidateSearch() {
+		requestSequence += 1;
+		clearTimeout(searchTimer);
+		searchTimer = undefined;
+	}
+
 	export function openSearch() {
+		invalidateSearch();
 		query = "";
 		results = [];
 		status = "idle";
 		dialog?.showModal();
-		void tick().then(() => searchInput?.focus());
+		void tick().then(() => {
+			if (dialog?.open) searchInput?.focus();
+		});
 	}
 
 	function closeSearch() {
+		invalidateSearch();
 		dialog?.close();
 	}
 
@@ -58,34 +70,29 @@
 		}
 	}
 
-	async function runSearch(term: string) {
-		const requestId = ++requestSequence;
-		const trimmedTerm = term.trim();
-
-		if (!trimmedTerm) {
-			results = [];
-			status = "idle";
-			return;
-		}
-
-		status = "loading";
-
+	async function runSearch(term: string, requestId: number) {
 		try {
 			pagefindModule ??= await loadPagefind();
-			const response = await pagefindModule.search(trimmedTerm);
+			if (requestId !== requestSequence) return;
+			const response = await pagefindModule.search(term);
 
 			if (requestId !== requestSequence) {
 				return;
 			}
 
-			results = (response.results ?? [])
-				.map((result) => ({
-					id: result.id,
-					url: result.data?.url ?? "",
-					title: result.data?.title ?? "",
-					excerpt: result.data?.excerpt ?? "",
-				}))
-				.filter((result) => result.url.length > 0);
+			const loadedResults = await Promise.all(
+				(response.results ?? []).map(async (result) => {
+					const data = await result.data();
+					return {
+						id: result.id,
+						url: data.url ?? "",
+						title: data.meta?.title ?? "",
+						excerpt: data.excerpt ?? "",
+					};
+				}),
+			);
+			if (requestId !== requestSequence) return;
+			results = loadedResults.filter((result) => result.url.length > 0);
 			status = "ready";
 		} catch {
 			if (requestId !== requestSequence) {
@@ -105,13 +112,17 @@
 
 	function handleInput(event: Event) {
 		const nextQuery = (event.currentTarget as HTMLInputElement).value;
+		invalidateSearch();
 		query = nextQuery;
-
-		if (searchTimer) {
-			clearTimeout(searchTimer);
-		}
-
-		searchTimer = setTimeout(() => void runSearch(nextQuery), 160);
+		results = [];
+		const term = nextQuery.trim();
+		status = term ? "loading" : "idle";
+		if (!term) return;
+		const requestId = requestSequence;
+		searchTimer = setTimeout(() => {
+			searchTimer = undefined;
+			void runSearch(term, requestId);
+		}, 160);
 	}
 
 	function handleWindowKeydown(event: KeyboardEvent) {
@@ -172,6 +183,10 @@
 	aria-labelledby="search-dialog-title"
 	onkeydown={handleDialogKeydown}
 	onclick={closeSearchOnBackdrop}
+	oncancel={invalidateSearch}
+	onclose={() => {
+		if (!dialog?.open) invalidateSearch();
+	}}
 >
 	<div
 		class="search-dialog-panel animate-in fade-in zoom-in-95 duration-200 ease-out motion-reduce:animate-none"

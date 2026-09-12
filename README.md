@@ -20,6 +20,13 @@ uvx prek run --all-files
 Pre-commit hooks format matched files, then run linting and tests. Pre-push
 hooks run Svelte checking and the production build.
 
+The bounded search browser check (`scripts/check-search-browser.mjs`) exercises
+the built Pagefind index and delayed search responses, including clear and
+close/reopen races. Build the site and index first. The check requires Chrome and
+`playwright-core`; its optional first argument is an installed driver entrypoint.
+In the workspace, use the configured `zero_disoft_github_io_search_browser` intent.
+It serves build assets through browser request interception without a dev server.
+
 ## License
 
 This repository is licensed under the BSD Zero Clause License (0BSD).
