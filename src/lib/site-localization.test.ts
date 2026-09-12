@@ -45,7 +45,7 @@ describe("site localization", () => {
 		]);
 		expect(inlangSettings.modules.every((module) => !module.startsWith("http"))).toBe(true);
 		expect(packageJson.devDependencies["@inlang/plugin-message-format"]).toBe("^4.4.4");
-		expect(packageJson.devDependencies["@inlang/plugin-m-function-matcher"]).toBe("^2.2.14");
+		expect(packageJson.devDependencies["@inlang/plugin-m-function-matcher"]).toBe("^2.2.15");
 		expect(packageSource).toContain("--strategy url cookie globalVariable baseLocale");
 		expect(viteConfigSource).toContain(
 			'strategy: ["url", "cookie", "globalVariable", "baseLocale"]',
