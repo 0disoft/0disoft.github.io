@@ -169,22 +169,37 @@ function loadGa4Script(): Promise<boolean> {
 		return scriptLoadPromise;
 	}
 
-	const existingScript = document.getElementById(ga4ScriptId);
-
-	if (existingScript) {
-		scriptLoadPromise = Promise.resolve(true);
-		return scriptLoadPromise;
-	}
-
-	scriptLoadPromise = new Promise((resolve) => {
-		const script = document.createElement("script");
-		script.id = ga4ScriptId;
-		script.async = true;
-		script.src = createGa4ScriptSrc(measurementId);
-		script.onload = () => resolve(true);
-		script.onerror = () => resolve(false);
-		document.head.append(script);
+	const attempt = new Promise<boolean>((resolve) => {
+		const existing = document.getElementById(ga4ScriptId) as HTMLScriptElement | null;
+		if (existing?.dataset.ga4Loaded === "true") {
+			resolve(true);
+			return;
+		}
+		const script = existing ?? document.createElement("script");
+		const timeout = setTimeout(() => finish(false), 10_000);
+		let settled = false;
+		function finish(loaded: boolean) {
+			if (settled) return;
+			settled = true;
+			clearTimeout(timeout);
+			script.onload = null;
+			script.onerror = null;
+			if (loaded) script.dataset.ga4Loaded = "true";
+			else script.remove();
+			resolve(loaded);
+		}
+		script.onload = () => finish(true);
+		script.onerror = () => finish(false);
+		if (!existing) {
+			script.id = ga4ScriptId;
+			script.async = true;
+			script.src = createGa4ScriptSrc(measurementId);
+			document.head.append(script);
+		}
 	});
-
-	return scriptLoadPromise;
+	scriptLoadPromise = attempt;
+	void attempt.then((loaded) => {
+		if (!loaded && scriptLoadPromise === attempt) scriptLoadPromise = null;
+	});
+	return attempt;
 }

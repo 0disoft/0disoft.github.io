@@ -42,6 +42,8 @@ Analytics consent changes update the settings and consent banner across tabs.
 When browser storage rejects a write, the current tab retains that choice until
 reload or a subsequent shared storage change. Revoking consent during script
 loading prevents analytics initialization.
+Failed or timed-out GA4 loads are removed after at most 10 seconds. A later
+navigation or consent change can retry; concurrent initialization shares one load.
 
 ## License
 

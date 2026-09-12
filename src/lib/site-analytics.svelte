@@ -56,7 +56,16 @@
 	afterNavigate(({ to, type }) => {
 		// Initial entry shares its identity with initialization; later visits never do.
 		if (type !== "enter") currentNavigation = {};
-		if (!browser || !analyticsReady || !analyticsConsent || !to?.url) {
+		if (!browser || !analyticsConsent || !to?.url) {
+			return;
+		}
+		if (!analyticsReady) {
+			const navigation = currentNavigation;
+			void initSiteAnalytics().then((ready) => {
+				if (navigation !== currentNavigation || !analyticsConsent) return;
+				analyticsReady = ready;
+				if (ready) trackGa4PageView(to.url, document.title, navigation);
+			});
 			return;
 		}
 

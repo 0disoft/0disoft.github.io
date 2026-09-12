@@ -22,10 +22,15 @@ describe("site analytics page-view delivery", () => {
 			Object.assign(new EventTarget(), { gtag, localStorage: { getItem, setItem } }),
 		);
 		// An already-loaded script keeps these delivery tests entirely offline.
-		vi.stubGlobal("document", { getElementById: () => ({ id: "0disoft-ga4" }) });
+		vi.stubGlobal("document", {
+			getElementById: () => ({ id: "0disoft-ga4", dataset: { ga4Loaded: "true" } }),
+		});
 	});
 
-	afterEach(() => vi.unstubAllGlobals());
+	afterEach(() => {
+		vi.useRealTimers();
+		vi.unstubAllGlobals();
+	});
 
 	async function readyAnalytics() {
 		const analytics = await import("./site-analytics");
@@ -80,7 +85,7 @@ describe("site analytics page-view delivery", () => {
 	});
 
 	it("does not configure GA when consent is revoked during script loading", async () => {
-		const script: { onload?: () => void } = {};
+		const script: { onload?: () => void; dataset: Record<string, string> } = { dataset: {} };
 		vi.stubGlobal("document", {
 			getElementById: () => null,
 			createElement: () => script,
@@ -93,6 +98,45 @@ describe("site analytics page-view delivery", () => {
 		expect(await pending).toBe(false);
 		expect(gtag.mock.calls.some((call) => call[0] === "config")).toBe(false);
 	});
+
+	it.each(["error", "timeout"])(
+		"retries after %s and shares concurrent loading",
+		async (failure) => {
+			vi.useFakeTimers();
+			const scripts: Array<{
+				onload?: (() => void) | null;
+				onerror?: (() => void) | null;
+				dataset: Record<string, string>;
+				remove: ReturnType<typeof vi.fn>;
+			}> = [];
+			vi.stubGlobal("document", {
+				getElementById: () => null,
+				createElement: () => {
+					const script = { dataset: {}, remove: vi.fn() };
+					scripts.push(script);
+					return script;
+				},
+				head: { append: vi.fn() },
+			});
+			const analytics = await import("./site-analytics");
+			const first = analytics.initSiteAnalytics();
+			const concurrent = analytics.initSiteAnalytics();
+			expect(scripts).toHaveLength(1);
+			const staleLoad = scripts[0].onload;
+			if (failure === "error") scripts[0].onerror?.();
+			else await vi.advanceTimersByTimeAsync(10_000);
+			expect(await first).toBe(false);
+			expect(await concurrent).toBe(false);
+			expect(scripts[0].remove).toHaveBeenCalledOnce();
+			const retry = analytics.initSiteAnalytics();
+			expect(scripts).toHaveLength(2);
+			staleLoad?.();
+			expect(scripts[0].dataset.ga4Loaded).toBeUndefined();
+			scripts[1].onload?.();
+			expect(await retry).toBe(true);
+			expect(vi.getTimerCount()).toBe(0);
+		},
+	);
 
 	it("deduplicates initialization and navigation callbacks for the same visit", async () => {
 		const { trackGa4PageView } = await readyAnalytics();
