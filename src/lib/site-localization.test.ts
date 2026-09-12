@@ -1,4 +1,6 @@
 import { describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
+import { checkDependencyPolicies } from "./test-support/dependency-policy";
 import {
 	getLocalizedLanguageLabel,
 	languageDisplayNameByLocale,
@@ -44,8 +46,24 @@ describe("site localization", () => {
 			"./node_modules/@inlang/plugin-m-function-matcher/dist/index.js",
 		]);
 		expect(inlangSettings.modules.every((module) => !module.startsWith("http"))).toBe(true);
-		expect(packageJson.devDependencies["@inlang/plugin-message-format"]).toBe("^4.4.4");
-		expect(packageJson.devDependencies["@inlang/plugin-m-function-matcher"]).toBe("^2.2.15");
+		const dependencies = [
+			["@inlang/plugin-message-format", "^4.4.4"],
+			["@inlang/plugin-m-function-matcher", "^2.2.15"],
+		] as const;
+		expect(
+			checkDependencyPolicies(
+				dependencies.map(([name, supported]) => ({
+					range: packageJson.devDependencies[name],
+					installed: JSON.parse(
+						readFileSync(
+							new URL(`../../node_modules/${name}/package.json`, import.meta.url),
+							"utf8",
+						),
+					).version,
+					supported,
+				})),
+			),
+		).toEqual([true, true]);
 		expect(packageSource).toContain("--strategy url cookie globalVariable baseLocale");
 		expect(viteConfigSource).toContain(
 			'strategy: ["url", "cookie", "globalVariable", "baseLocale"]',

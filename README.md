@@ -9,6 +9,10 @@ favicons and illustrations.
 
 ## Development Checks
 
+Localization dependency checks validate the installed stable version with Bun's
+semver parser and probe patch/minor updates plus the next major boundary.
+Equivalent range syntax and newer compatible minimum versions are accepted.
+
 Use Prek for optional Git hooks:
 
 ```sh
