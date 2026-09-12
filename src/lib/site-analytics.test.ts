@@ -8,6 +8,7 @@ vi.mock("$env/dynamic/public", () => ({
 describe("site analytics page-view delivery", () => {
 	const gtag = vi.fn();
 	const getItem = vi.fn();
+	const setItem = vi.fn();
 	const pageA = new URL("https://0disoft.github.io/");
 	const pageB = new URL("https://0disoft.github.io/blog/");
 
@@ -15,7 +16,11 @@ describe("site analytics page-view delivery", () => {
 		vi.resetModules();
 		gtag.mockReset();
 		getItem.mockReset().mockReturnValue("granted");
-		vi.stubGlobal("window", { gtag, localStorage: { getItem } });
+		setItem.mockReset().mockImplementation((_key, value) => getItem.mockReturnValue(value));
+		vi.stubGlobal(
+			"window",
+			Object.assign(new EventTarget(), { gtag, localStorage: { getItem, setItem } }),
+		);
 		// An already-loaded script keeps these delivery tests entirely offline.
 		vi.stubGlobal("document", { getElementById: () => ({ id: "0disoft-ga4" }) });
 	});
@@ -28,6 +33,66 @@ describe("site analytics page-view delivery", () => {
 		gtag.mockClear();
 		return analytics;
 	}
+
+	it("retains both consent choices in this tab when persistence fails", async () => {
+		const analytics = await import("./site-analytics");
+		const listener = vi.fn();
+		const unsubscribe = analytics.subscribeAnalyticsConsent(listener);
+		setItem.mockImplementation(() => {
+			throw new Error("Storage blocked");
+		});
+		analytics.writeStoredAnalyticsConsent(false);
+		expect(analytics.readStoredAnalyticsConsentValue()).toBe("denied");
+		expect(listener).toHaveBeenLastCalledWith("denied");
+		analytics.writeStoredAnalyticsConsent(true);
+		expect(analytics.readStoredAnalyticsConsentValue()).toBe("granted");
+		expect(listener).toHaveBeenLastCalledWith("granted");
+		unsubscribe();
+		listener.mockClear();
+		analytics.writeStoredAnalyticsConsent(false);
+		expect(listener).not.toHaveBeenCalled();
+	});
+
+	it("follows current local storage across tabs and ignores unrelated storage events", async () => {
+		const analytics = await readyAnalytics();
+		const { siteAnalyticsConsentStorageKey: key } = await import("./site-analytics-core");
+		const listener = vi.fn();
+		const unsubscribe = analytics.subscribeAnalyticsConsent(listener);
+		const emit = (eventKey: string | null, storageArea: object) => {
+			window.dispatchEvent(
+				Object.assign(new Event("storage"), { key: eventKey, storageArea, newValue: "granted" }),
+			);
+		};
+		getItem.mockReturnValue("denied");
+		emit("unrelated", window.localStorage);
+		emit(key, {});
+		expect(listener).toHaveBeenCalledTimes(1);
+		emit(key, window.localStorage);
+		expect(listener).toHaveBeenLastCalledWith("denied");
+		expect(analytics.trackGa4PageView(pageA, "Home", {})).toBe(false);
+		getItem.mockReturnValue(null);
+		emit(null, window.localStorage);
+		expect(listener).toHaveBeenLastCalledWith(null);
+		unsubscribe();
+		listener.mockClear();
+		emit(key, window.localStorage);
+		expect(listener).not.toHaveBeenCalled();
+	});
+
+	it("does not configure GA when consent is revoked during script loading", async () => {
+		const script: { onload?: () => void } = {};
+		vi.stubGlobal("document", {
+			getElementById: () => null,
+			createElement: () => script,
+			head: { append: vi.fn() },
+		});
+		const analytics = await import("./site-analytics");
+		const pending = analytics.initSiteAnalytics();
+		analytics.writeStoredAnalyticsConsent(false);
+		script.onload?.();
+		expect(await pending).toBe(false);
+		expect(gtag.mock.calls.some((call) => call[0] === "config")).toBe(false);
+	});
 
 	it("deduplicates initialization and navigation callbacks for the same visit", async () => {
 		const { trackGa4PageView } = await readyAnalytics();

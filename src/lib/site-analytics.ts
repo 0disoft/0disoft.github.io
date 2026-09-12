@@ -29,6 +29,7 @@ const measurementId = publicEnv.PUBLIC_GA4_MEASUREMENT_ID?.trim() ?? "";
 
 let initializedMeasurementId: string | null = null;
 let scriptLoadPromise: Promise<boolean> | null = null;
+let consentOverride: AnalyticsConsentValue | undefined;
 
 export function isSiteAnalyticsConfigured(): boolean {
 	return isAnalyticsMeasurementIdConfigured(measurementId);
@@ -38,6 +39,7 @@ export function readStoredAnalyticsConsentValue(): AnalyticsConsentValue | null 
 	if (!browser) {
 		return null;
 	}
+	if (consentOverride !== undefined) return consentOverride;
 
 	try {
 		const value = window.localStorage.getItem(siteAnalyticsConsentStorageKey);
@@ -61,15 +63,41 @@ export function writeStoredAnalyticsConsent(enabled: boolean) {
 
 	try {
 		window.localStorage.setItem(siteAnalyticsConsentStorageKey, value);
+		consentOverride = undefined;
 	} catch {
-		// Private browsing modes can block storage; the current tab still receives the event below.
+		// A failed write must not restore an older persisted choice in this tab.
+		consentOverride = value;
 	}
+	setGa4AnalyticsConsent(enabled);
 
 	window.dispatchEvent(
 		new CustomEvent(siteAnalyticsConsentChangeEvent, {
 			detail: { enabled, value },
 		}),
 	);
+}
+
+export function subscribeAnalyticsConsent(listener: (value: AnalyticsConsentValue | null) => void) {
+	if (!browser) return () => {};
+	const notify = () => listener(readStoredAnalyticsConsentValue());
+	const onStorage = (event: StorageEvent) => {
+		if (event.key !== null && event.key !== siteAnalyticsConsentStorageKey) return;
+		try {
+			if (event.storageArea !== window.localStorage) return;
+		} catch {
+			return;
+		}
+		consentOverride = undefined;
+		// Read the latest storage value, not a potentially stale queued event payload.
+		notify();
+	};
+	window.addEventListener(siteAnalyticsConsentChangeEvent, notify);
+	window.addEventListener("storage", onStorage);
+	notify();
+	return () => {
+		window.removeEventListener(siteAnalyticsConsentChangeEvent, notify);
+		window.removeEventListener("storage", onStorage);
+	};
 }
 
 export async function initSiteAnalytics(): Promise<boolean> {
@@ -82,7 +110,7 @@ export async function initSiteAnalytics(): Promise<boolean> {
 
 	const loaded = await loadGa4Script();
 
-	if (!loaded) {
+	if (!loaded || !readStoredAnalyticsConsent()) {
 		return false;
 	}
 

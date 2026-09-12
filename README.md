@@ -38,6 +38,11 @@ per URL. Revisiting a page (including a new navigation to the same URL) records 
 new view; analytics initialization and navigation callbacks for one visit do not
 record it twice. Delivery regression tests use an offline GA4 stub.
 
+Analytics consent changes update the settings and consent banner across tabs.
+When browser storage rejects a write, the current tab retains that choice until
+reload or a subsequent shared storage change. Revoking consent during script
+loading prevents analytics initialization.
+
 ## License
 
 This repository is licensed under the BSD Zero Clause License (0BSD).

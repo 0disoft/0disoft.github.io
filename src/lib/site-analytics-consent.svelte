@@ -5,6 +5,7 @@
 	import {
 		isSiteAnalyticsConfigured,
 		readStoredAnalyticsConsentValue,
+		subscribeAnalyticsConsent,
 		writeStoredAnalyticsConsent,
 	} from "$lib/site-analytics";
 	import {
@@ -24,9 +25,11 @@
 			return;
 		}
 
-		visible =
-			(analyticsConfigured && readStoredAnalyticsConsentValue() === null) ||
-			(advertisingConfigured && readStoredAdvertisingConsentValue() === null);
+		return subscribeAnalyticsConsent(() => {
+			visible =
+				(analyticsConfigured && readStoredAnalyticsConsentValue() === null) ||
+				(advertisingConfigured && readStoredAdvertisingConsentValue() === null);
+		});
 	});
 
 	function acceptConfiguredServices() {

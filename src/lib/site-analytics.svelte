@@ -4,11 +4,10 @@
 	import {
 		initSiteAnalytics,
 		isSiteAnalyticsConfigured,
-		readStoredAnalyticsConsent,
+		subscribeAnalyticsConsent,
 		setGa4AnalyticsConsent,
 		trackGa4PageView,
 	} from "$lib/site-analytics";
-	import { siteAnalyticsConsentChangeEvent } from "$lib/site-analytics-core";
 
 	let analyticsConsent = $state(false);
 	let analyticsReady = $state(false);
@@ -19,14 +18,9 @@
 			return;
 		}
 
-		function handleConsentChange() {
-			analyticsConsent = readStoredAnalyticsConsent();
-		}
-
-		analyticsConsent = readStoredAnalyticsConsent();
-		window.addEventListener(siteAnalyticsConsentChangeEvent, handleConsentChange);
-
-		return () => window.removeEventListener(siteAnalyticsConsentChangeEvent, handleConsentChange);
+		return subscribeAnalyticsConsent((value) => {
+			analyticsConsent = value === "granted";
+		});
 	});
 
 	$effect(() => {

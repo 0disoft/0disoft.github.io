@@ -49,6 +49,7 @@
 	import {
 		isSiteAnalyticsConfigured,
 		readStoredAnalyticsConsent,
+		subscribeAnalyticsConsent,
 		writeStoredAnalyticsConsent,
 	} from "$lib/site-analytics";
 	import {
@@ -89,6 +90,11 @@
 
 	let selectedLocale = $state<SiteLocale>(getSettingsLocale());
 	let analyticsConsent = $state(false);
+	$effect(() =>
+		subscribeAnalyticsConsent((value) => {
+			analyticsConsent = value === "granted";
+		}),
+	);
 	let advertisingConsent = $state(false);
 
 	function isSettingsDialogOpen(): boolean {
