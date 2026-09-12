@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { BlogPost } from "./blog-post-core";
-import { blogPosts } from "./blog-posts";
+import { blogPosts } from "./server/blog-posts";
 import {
 	buildAiText,
 	buildLlmsFullText,

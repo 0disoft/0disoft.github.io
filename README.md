@@ -54,6 +54,10 @@ even when copying fails. Inside a modal it uses the active dialog's DOM subtree.
 The system reduced-motion preference disables both view transitions and content
 fades, including preference changes made while the site is open.
 
+Blog Markdown is loaded only on the server. Layout data contains localized list
+metadata; article routes return only the selected post and language's code
+highlights, with metadata-only previous/next links.
+
 ## License
 
 This repository is licensed under the BSD Zero Clause License (0BSD).

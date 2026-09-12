@@ -9,11 +9,9 @@ import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
 	import {
 		BLOG_FILTER_QUERY_KEYS,
-		blogPosts,
 		createEmptyBlogFilters,
 		filterBlogPosts,
 		getBlogFilterOptions,
-		getBlogPostsForLocale,
 		getBlogPostSearchValues,
 		getBlogPostTagLabels,
 		parseBlogFilters,
@@ -28,7 +26,7 @@ import * as m from "$lib/paraglide/messages";
 	const blogAction = $derived(
 		localizeSitePathname("/blog", isSiteLocale(currentLocale) ? currentLocale : "en"),
 	);
-	const localizedBlogPosts = $derived(getBlogPostsForLocale(blogPosts, currentLocale));
+	const localizedBlogPosts = $derived(page.data.blogPosts);
 	const localizedFilterOptions = $derived(getBlogFilterOptions(localizedBlogPosts));
 	const filteredPosts = $derived(filterBlogPosts(localizedBlogPosts, filters));
 	const hasActiveFilters = $derived(

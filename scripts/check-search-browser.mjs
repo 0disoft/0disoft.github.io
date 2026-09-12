@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { readFile, readdir } from "node:fs/promises";
-import { extname, resolve, sep } from "node:path";
+import { dirname, extname, resolve, sep } from "node:path";
 import { pathToFileURL } from "node:url";
 
 const driver = process.argv[2] ? pathToFileURL(resolve(process.argv[2])).href : "playwright-core";
@@ -179,6 +179,29 @@ try {
 	await real.page.waitForURL((url) => url.pathname.replace(/\/$/, "") === "/blog");
 	await real.page.waitForFunction(() => document.querySelector(".content-shell")?.scrollTop === 0);
 	console.log("PASS desktop content scroll reset and history restoration");
+	const metadataFiles = (await readdir("src/content/blog", { recursive: true })).filter((file) =>
+		file.endsWith("meta.json"),
+	);
+	const metadata = await Promise.all(
+		metadataFiles.map(async (file) => ({
+			file: resolve("src/content/blog", file),
+			value: JSON.parse(await readFile(resolve("src/content/blog", file), "utf8")),
+		})),
+	);
+	const article = metadata.find((entry) => entry.value.id === "things-on-my-desk");
+	assert.ok(article, "The browser fixture article must have metadata");
+	for (const locale of ["en", "es", "fr", "hi", "ko", "zh"]) {
+		const markdown = await readFile(resolve(dirname(article.file), `${locale}.md`), "utf8");
+		const { title } = JSON.parse(/^---\s*\n([\s\S]*?)\n---/.exec(markdown)[1]);
+		const prefix = locale === "en" ? "" : `/${locale}`;
+		await real.page.goto(`${origin}${prefix}/blog/things-on-my-desk/`);
+		await real.page.getByRole("heading", { level: 1, name: title, exact: true }).waitFor();
+		await real.page.locator(".settings-panel > button").first().click();
+		await real.page.locator(".search-dialog[open]").waitFor();
+		await real.page.keyboard.press("Escape");
+		await real.page.getByRole("heading", { level: 1, name: title, exact: true }).waitFor();
+	}
+	console.log("PASS localized server-rendered article titles in all six locales");
 	await real.context.close();
 	console.log("PASS actual Pagefind index: query, title, result navigation");
 

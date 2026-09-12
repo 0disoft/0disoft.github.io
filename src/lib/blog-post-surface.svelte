@@ -27,10 +27,9 @@
 	import {
 		BLOG_POST_TOC_SHORTCUT_LIMIT,
 		BLOG_POST_TOC_SHORTCUT_PREFIX,
-		blogPostDetails,
-		getAdjacentBlogPosts,
+		type BlogPost,
+		type BlogPostDetail,
 		getBlogPostBodyBlocks,
-		getBlogPostForLocale,
 		getBlogPostTagLabels,
 		getBlogPostTocShortcut,
 		getBlogPostTocShortcutIndex,
@@ -54,10 +53,12 @@
 		| { kind: "brand"; icon: SimpleIcon };
 
 	let {
-		slug,
+		post,
+		adjacentPosts,
 		highlightedCodeByLocale,
 	}: {
-		slug: string;
+		post: BlogPostDetail;
+		adjacentPosts: { previous: BlogPost | null; next: BlogPost | null };
 		highlightedCodeByLocale: BlogPostCodeHighlights;
 	} = $props();
 
@@ -72,12 +73,6 @@
 
 	const currentLocale = $derived(getLocale());
 	const displayLocale = $derived(toDisplayLocale(currentLocale));
-	const post = $derived(
-		getBlogPostForLocale(blogPostDetails, slug, currentLocale),
-	);
-	const adjacentPosts = $derived(
-		getAdjacentBlogPosts(blogPostDetails, slug, currentLocale),
-	);
 	const postTagLabels = $derived(post ? getBlogPostTagLabels(post) : []);
 	const postBodyBlocks = $derived(post ? getBlogPostBodyBlocks(post) : []);
 	const postRenderItems = $derived(createBlogPostRenderItems(postBodyBlocks));

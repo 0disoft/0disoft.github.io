@@ -8,7 +8,8 @@
 
 <SiteSurface activePath="/blog">
 	<BlogPostSurface
-		slug={data.slug}
+		post={data.post}
+		adjacentPosts={data.adjacentPosts}
 		highlightedCodeByLocale={data.highlightedCodeByLocale}
 	/>
 </SiteSurface>

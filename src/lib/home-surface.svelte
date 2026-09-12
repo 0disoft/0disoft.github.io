@@ -1,7 +1,7 @@
 <script lang="ts">
 	import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
-	import { blogPosts, getBlogPostsForLocale } from "$lib/blog-posts";
+	import { page } from "$app/state";
 	import { getManifestoCopy } from "$lib/manifesto";
 	import { getLocalizedNavigationLabel, toDisplayLocale } from "$lib/site-labels";
 	import { isSiteLocale, localizeSitePathname } from "$lib/site-locales";
@@ -12,7 +12,7 @@
 	const locale = $derived(getLocale());
 	const displayLocale = $derived(toDisplayLocale(locale));
 	const siteLocale = $derived(isSiteLocale(locale) ? locale : "en");
-	const latestPost = $derived(getBlogPostsForLocale(blogPosts, locale)[0]);
+	const latestPost = $derived(page.data.blogPosts[0]);
 	const latestPostPath = $derived(
 		latestPost ? localizeSitePathname(`/blog/${latestPost.slug}`, siteLocale) : "/",
 	);

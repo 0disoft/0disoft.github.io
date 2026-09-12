@@ -1,5 +1,5 @@
 import type { RequestHandler } from "./$types";
-import { blogPosts } from "$lib/blog-posts";
+import { blogPosts } from "$lib/server/blog-posts";
 import { buildRssXml, createRssResponse, defaultRssFeedLocale } from "$lib/site-meta";
 import { getPathLocale } from "$lib/site-locales";
 import { siteProfile } from "$lib/site-profile";
