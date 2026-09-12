@@ -1,12 +1,27 @@
 import { describe, expect, it, vi } from "vitest";
 import { blogPostLocales, blogPosts } from "./blog-posts";
 import { getManifestoCopy } from "./manifesto";
+import { assertCompleteBlogTranslations } from "./blog-content-validation";
 import { load } from "../../routes/blog/[slug]/+page.server";
 import { load as loadLayout } from "../../routes/+layout.server";
 
 vi.mock("$lib/paraglide/runtime", () => ({ getLocale: () => "en" }));
 
 describe("localized blog delivery", () => {
+	it("requires every supported translation and reports missing/empty file paths", () => {
+		const directory = "../../content/blog/sample";
+		const translations = Object.fromEntries(
+			blogPostLocales.map((locale) => [`${directory}/${locale}.md`, "Translated content"]),
+		);
+		expect(() =>
+			assertCompleteBlogTranslations([`${directory}/meta.json`], translations),
+		).not.toThrow();
+		delete translations[`${directory}/ko.md`];
+		translations[`${directory}/fr.md`] = " \n ";
+		expect(() => assertCompleteBlogTranslations([`${directory}/meta.json`], translations)).toThrow(
+			`${directory}/fr.md, ${directory}/ko.md`,
+		);
+	});
 	it.each(blogPostLocales)("returns only %s content and metadata-only lists", async (locale) => {
 		const slug = blogPosts[0].slug;
 		const event = { params: { slug }, url: new URL(`https://example.test/${locale}/blog/${slug}`) };

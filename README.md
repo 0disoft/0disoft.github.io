@@ -59,6 +59,9 @@ metadata; article routes return only the selected post and language's code
 highlights, with metadata-only previous/next links.
 Manifesto Markdown also stays server-only; layout data carries only the current
 language's parsed title and paragraphs, preserving the existing Korean fallback.
+Every blog metadata entry requires non-empty Markdown for all six supported
+languages. Server module loading fails with the missing file paths before the
+static build can silently omit a translation.
 
 ## License
 

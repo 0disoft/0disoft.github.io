@@ -5,6 +5,7 @@ import {
 	type BlogPostDetail,
 	type BlogPost,
 } from "$lib/blog-post-core";
+import { assertCompleteBlogTranslations } from "./blog-content-validation";
 
 export {
 	BLOG_FILTER_QUERY_KEYS,
@@ -45,14 +46,12 @@ const blogPostMarkdownModules = import.meta.glob<string>("../../content/blog/**/
 	query: "?raw",
 });
 
+assertCompleteBlogTranslations(Object.keys(blogPostMetaModules), blogPostMarkdownModules);
+
 export const blogPosts: readonly BlogPost[] = Object.entries(blogPostMetaModules)
 	.flatMap(([path, metadata]) =>
 		blogPostLocales.flatMap((locale) => {
 			const markdown = blogPostMarkdownModules[`${path.replace(/\/meta\.json$/, "")}/${locale}.md`];
-
-			if (!markdown) {
-				return [];
-			}
 
 			return [createBlogPostFromContent(path, metadata, locale, markdown)];
 		}),
@@ -63,10 +62,6 @@ export const blogPostDetails: readonly BlogPostDetail[] = Object.entries(blogPos
 	.flatMap(([path, metadata]) =>
 		blogPostLocales.flatMap((locale) => {
 			const markdown = blogPostMarkdownModules[`${path.replace(/\/meta\.json$/, "")}/${locale}.md`];
-
-			if (!markdown) {
-				return [];
-			}
 
 			return [createBlogPostDetailFromContent(path, metadata, locale, markdown)];
 		}),
