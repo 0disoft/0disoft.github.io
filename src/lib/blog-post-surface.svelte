@@ -642,7 +642,7 @@
 			</div>
 
 			{#if postHeadings.length > 0 || shareLinks.length > 0}
-				<aside class="post-sidecar">
+				<aside class="post-sidecar" data-pagefind-ignore="all">
 					{#if postHeadings.length > 0}
 						<nav
 							class="post-toc"
@@ -747,6 +747,7 @@
 
 		<dialog
 			bind:this={imagePreviewDialog}
+			data-pagefind-ignore="all"
 			class="post-image-preview-dialog"
 			aria-label={selectedImage?.alt ?? ""}
 			onclick={handleImagePreviewDialogClick}

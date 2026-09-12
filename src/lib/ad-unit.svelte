@@ -118,6 +118,7 @@
 {#if config}
 	<aside
 		class="blog-ad-unit"
+		data-pagefind-ignore="all"
 		aria-label="Advertisements"
 		aria-hidden={getAdUnitAriaHidden(displayState)}
 		data-display-state={displayState}

@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import { extname, resolve, sep } from "node:path";
 import { pathToFileURL } from "node:url";
 
@@ -83,6 +83,50 @@ async function resolveDetails(page, term) {
 
 try {
 	const real = await openPage();
+	const htmlFiles = (await readdir(build, { recursive: true })).filter(
+		(file) =>
+			file.endsWith(".html") &&
+			!file.endsWith("404.html") &&
+			!file.startsWith("googled410e8c95b586079"),
+	);
+	assert.ok(htmlFiles.length > 0);
+	for (const file of htmlFiles) {
+		const boundary = await real.page.evaluate(
+			(html) => {
+				const doc = new DOMParser().parseFromString(html, "text/html");
+				const roots = doc.querySelectorAll("[data-pagefind-body]");
+				return (
+					roots.length === 1 &&
+					roots[0].matches("main#main-content") &&
+					roots[0].querySelector(".settings-dialog, .search-dialog") === null
+				);
+			},
+			await readFile(resolve(build, file), "utf8"),
+		);
+		assert.equal(
+			boundary,
+			true,
+			`${file} must keep its main content searchable without settings chrome.`,
+		);
+	}
+	console.log(`PASS main-content boundaries for ${htmlFiles.length} built locale pages`);
+	const lightResults = await real.page.evaluate(async () => {
+		const pagefind = await import("/pagefind/pagefind.js");
+		const response = await pagefind.search("light");
+		return Promise.all(
+			response.results.map(async (result) => {
+				const data = await result.data();
+				return { url: data.url, content: data.content };
+			}),
+		);
+	});
+	assert.ok(lightResults.length > 0, "Article text about a desk lamp must remain searchable.");
+	assert.ok(
+		lightResults.every((result) => result.url.includes("/blog/things-on-my-desk")),
+		"The Light theme control must not make unrelated pages match a content search.",
+	);
+	assert.ok(lightResults.every((result) => !result.content.includes("Light Dark System")));
+	console.log("PASS index boundary: theme controls excluded, article body retained");
 	await real.input.fill("software");
 	const realResult = real.page.locator("a[data-search-result]").first();
 	await realResult.waitFor();

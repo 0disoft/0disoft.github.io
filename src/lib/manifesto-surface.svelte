@@ -163,7 +163,7 @@
 			{/each}
 		</div>
 
-		<aside class="manifesto-sidecar">
+		<aside class="manifesto-sidecar" data-pagefind-ignore="all">
 			<section class="manifesto-share" aria-labelledby="manifesto-share-title">
 				<p id="manifesto-share-title">
 					{m.blog_post_share_label({}, { locale: displayLocale })}

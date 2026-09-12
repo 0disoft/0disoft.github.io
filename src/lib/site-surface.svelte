@@ -30,6 +30,7 @@ import BlogSurface from "$lib/blog-surface.svelte";
 
 	<main
 		id="main-content"
+		data-pagefind-body
 		tabindex="-1"
 		class="content-shell"
 		class:empty-home={sectionKind === "home" && !children}

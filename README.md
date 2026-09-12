@@ -27,6 +27,12 @@ close/reopen races. Build the site and index first. The check requires Chrome an
 In the workspace, use the configured `zero_disoft_github_io_search_browser` intent.
 It serves build assets through browser request interception without a dev server.
 
+Pagefind indexes the shared main content area (`data-pagefind-body`), excluding
+sidebar/settings chrome, share tools, image previews and ad placeholders. Public
+content pages retain this boundary in every locale; error and verification pages
+do not opt into the index. The browser check verifies both content matches and
+the exclusion of theme-control text from unrelated pages.
+
 Analytics page views are opt-in and deduplicated per completed navigation, not
 per URL. Revisiting a page (including a new navigation to the same URL) records a
 new view; analytics initialization and navigation callbacks for one visit do not
