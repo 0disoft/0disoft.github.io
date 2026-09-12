@@ -7,7 +7,7 @@ type ManifestoCopy = {
 
 const fallbackManifestoLocale = "ko" satisfies SiteLocale;
 
-const manifestoMarkdownModules = import.meta.glob<string>("../content/manifesto/*.md", {
+const manifestoMarkdownModules = import.meta.glob<string>("../../content/manifesto/*.md", {
 	eager: true,
 	import: "default",
 	query: "?raw",

@@ -90,6 +90,14 @@ async function resolveSearch(page, term) {
 	}, term);
 }
 
+async function assertHydratedHeading(page, title) {
+	await page.getByRole("heading", { level: 1, name: title, exact: true }).waitFor();
+	await page.locator(".settings-panel > button").first().click();
+	await page.locator(".search-dialog[open]").waitFor();
+	await page.keyboard.press("Escape");
+	await page.getByRole("heading", { level: 1, name: title, exact: true }).waitFor();
+}
+
 async function resolveDetails(page, term) {
 	await page.evaluate((term) => {
 		window.searchTest.details[term].resolve({
@@ -195,13 +203,13 @@ try {
 		const { title } = JSON.parse(/^---\s*\n([\s\S]*?)\n---/.exec(markdown)[1]);
 		const prefix = locale === "en" ? "" : `/${locale}`;
 		await real.page.goto(`${origin}${prefix}/blog/things-on-my-desk/`);
-		await real.page.getByRole("heading", { level: 1, name: title, exact: true }).waitFor();
-		await real.page.locator(".settings-panel > button").first().click();
-		await real.page.locator(".search-dialog[open]").waitFor();
-		await real.page.keyboard.press("Escape");
-		await real.page.getByRole("heading", { level: 1, name: title, exact: true }).waitFor();
+		await assertHydratedHeading(real.page, title);
+		const manifesto = await readFile(`src/content/manifesto/${locale}.md`, "utf8");
+		const manifestoMetadata = JSON.parse(/^---\s*\n([\s\S]*?)\n---/.exec(manifesto)[1]);
+		await real.page.goto(`${origin}${prefix}/manifesto/`);
+		await assertHydratedHeading(real.page, manifestoMetadata.title);
 	}
-	console.log("PASS localized server-rendered article titles in all six locales");
+	console.log("PASS localized article and manifesto titles through hydration in all six locales");
 	await real.context.close();
 	console.log("PASS actual Pagefind index: query, title, result navigation");
 

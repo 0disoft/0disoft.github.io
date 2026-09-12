@@ -2,7 +2,6 @@
 	import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
 	import { page } from "$app/state";
-	import { getManifestoCopy } from "$lib/manifesto";
 	import { getLocalizedNavigationLabel, toDisplayLocale } from "$lib/site-labels";
 	import { isSiteLocale, localizeSitePathname } from "$lib/site-locales";
 	import { siteProfile } from "$lib/site-profile";
@@ -17,7 +16,7 @@
 		latestPost ? localizeSitePathname(`/blog/${latestPost.slug}`, siteLocale) : "/",
 	);
 	const featuredWorks = $derived(getWorksForLocale(workItems, locale).slice(0, 3));
-	const manifestoCopy = $derived(getManifestoCopy(siteLocale));
+	const manifestoCopy = $derived(page.data.manifesto);
 </script>
 
 <section class="home-section" aria-labelledby="home-title">

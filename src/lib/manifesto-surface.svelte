@@ -15,7 +15,7 @@
 	import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
 	import { buildBlogShareLinks, type BlogSharePlatform } from "$lib/blog-share";
-	import { getManifestoCopy } from "$lib/manifesto";
+	import { page } from "$app/state";
 	import { copyTextToClipboard } from "$lib/site-clipboard";
 	import { toDisplayLocale } from "$lib/site-labels";
 	import { isSiteLocale, localizeSitePathname } from "$lib/site-locales";
@@ -33,7 +33,7 @@
 	const currentLocale = $derived(getLocale());
 	const selectedLocale = $derived(isSiteLocale(currentLocale) ? currentLocale : "en");
 	const displayLocale = $derived(toDisplayLocale(currentLocale));
-	const manifesto = $derived(getManifestoCopy(selectedLocale));
+	const manifesto = $derived(page.data.manifesto);
 	const shareUrl = $derived(
 		new URL(localizeSitePathname("/manifesto", selectedLocale), siteProfile.origin).toString(),
 	);

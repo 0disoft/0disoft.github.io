@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getManifestoCopy } from "./manifesto";
+import { getManifestoCopy } from "./server/manifesto";
 import {
 	getKeyboardFocusIntent,
 	isModifiedKeyEvent,
@@ -249,7 +249,7 @@ describe("site shell", () => {
 		expect(getSiteSurfaceSectionLabel("/manifesto", "ko")).toBe("매니페스토");
 		expect(surfaceSource).toContain("<ManifestoSurface");
 		expect(manifestoKoreanMarkdown).toContain("AI와 지역 숙의로 만드는 더 나은 규칙");
-		expect(manifestoSource).toContain('import.meta.glob<string>("../content/manifesto/*.md"');
+		expect(manifestoSource).toContain('import.meta.glob<string>("../../content/manifesto/*.md"');
 		expect(manifestoSource).toContain('const fallbackManifestoLocale = "ko"');
 		expect(manifestoSource).toContain("manifestoCopyByLocale[locale] ?? fallbackCopy");
 		expect(manifestoMarkdownFilePaths).toEqual([
@@ -271,7 +271,8 @@ describe("site shell", () => {
 			"중앙이 모든 삶을 재단하려는 방식은 이미 한계를 드러내고 있다. AI가 할 수 있는 일은 그 한계를 보완하는 것이지, 그 한계를 대신하는 것이 아니다. AI는 지역 실험이 더 안전하고, 더 정보에 기반한 방식으로 이루어질 수 있도록 돕는 도구일 뿐이다. 결국 어떤 사회를 만들어갈 것인지는, 여전히 우리 인간이 선택해야 할 문제다.",
 		);
 		expect(manifestoMarkdownFilePaths).toHaveLength(6);
-		expect(manifestoSurfaceSource).toContain("getManifestoCopy(selectedLocale)");
+		expect(manifestoSurfaceSource).toContain("page.data.manifesto");
+		expect(manifestoSurfaceSource).not.toContain("getManifestoCopy");
 		expect(manifestoSurfaceSource).toContain('localizeSitePathname("/manifesto", selectedLocale)');
 		expect(manifestoSurfaceSource).toContain("copyShareUrl");
 		expect(manifestoSurfaceSource).toContain("shareWithDevice");

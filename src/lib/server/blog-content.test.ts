@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { blogPostLocales, blogPosts } from "./blog-posts";
+import { getManifestoCopy } from "./manifesto";
 import { load } from "../../routes/blog/[slug]/+page.server";
 import { load as loadLayout } from "../../routes/+layout.server";
 
@@ -13,6 +14,8 @@ describe("localized blog delivery", () => {
 		expect(result?.post.locale).toBe(locale);
 		expect(Object.keys(result?.highlightedCodeByLocale ?? {})).toEqual([locale]);
 		const layout = await loadLayout(event as Parameters<typeof loadLayout>[0]);
+		expect(layout.manifesto).toEqual(getManifestoCopy(locale));
+		expect(Object.keys(layout.manifesto).sort()).toEqual(["paragraphs", "title"]);
 		expect(layout?.blogPosts.length).toBeGreaterThan(0);
 		expect(layout?.blogPosts.every((post) => post.locale === locale && !("body" in post))).toBe(
 			true,
