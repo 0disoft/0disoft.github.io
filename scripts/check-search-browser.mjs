@@ -135,6 +135,29 @@ try {
 	await realResult.click();
 	await real.page.waitForURL(target);
 	assert.equal(await real.page.locator(".search-dialog[open]").count(), 0);
+	await real.page.goto(`${origin}/blog/things-on-my-desk`);
+	await real.page.getByRole("button", { name: /^Search/ }).click();
+	await real.page.keyboard.press("Escape");
+	await real.page
+		.locator(".content-shell")
+		.evaluate((element) => element.scrollTo({ top: 400, behavior: "instant" }));
+	const savedScroll = await real.page
+		.locator(".content-shell")
+		.evaluate((element) => element.scrollTop);
+	assert.ok(savedScroll > 0, "Article must scroll within the desktop content pane");
+	await real.page.locator('a[href="/blog"]').first().click();
+	await real.page.waitForURL((url) => url.pathname.replace(/\/$/, "") === "/blog");
+	await real.page.waitForFunction(() => document.querySelector(".content-shell")?.scrollTop === 0);
+	await real.page.goBack();
+	await real.page.waitForURL((url) => url.pathname.replace(/\/$/, "") === "/blog/things-on-my-desk");
+	await real.page.waitForFunction(
+		(top) => Math.abs(document.querySelector(".content-shell").scrollTop - top) < 2,
+		savedScroll,
+	);
+	await real.page.goForward();
+	await real.page.waitForURL((url) => url.pathname.replace(/\/$/, "") === "/blog");
+	await real.page.waitForFunction(() => document.querySelector(".content-shell")?.scrollTop === 0);
+	console.log("PASS desktop content scroll reset and history restoration");
 	await real.context.close();
 	console.log("PASS actual Pagefind index: query, title, result navigation");
 

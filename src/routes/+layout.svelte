@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { Pathname } from '$app/types';
-import { onNavigate } from '$app/navigation';
+import { afterNavigate, onNavigate } from '$app/navigation';
+import type { Snapshot } from '@sveltejs/kit';
 import { resolve } from '$app/paths';
 import { page } from '$app/state';
 import { onMount } from 'svelte';
@@ -30,6 +31,29 @@ import { toDisplayLocale } from '$lib/site-labels';
 	const rssAlternateLinks = getSiteRssAlternateLinks();
 	const plainTextAlternateLinks = getSitePlainTextAlternateLinks();
 	const displayLocale = $derived(toDisplayLocale(getLocale()));
+
+	export const snapshot: Snapshot<{ top: number; left: number }> = {
+		capture: () => {
+			const content = document.querySelector<HTMLElement>(".content-shell");
+			return { top: content?.scrollTop ?? 0, left: content?.scrollLeft ?? 0 };
+		},
+		restore: (position) => {
+			document.querySelector<HTMLElement>(".content-shell")?.scrollTo({
+				...position,
+				behavior: "instant",
+			});
+		},
+	};
+
+	afterNavigate(({ type, to }) => {
+		// SvelteKit restores history snapshots and handles fragment targets itself.
+		if (type === "enter" || type === "popstate" || to?.url.hash) return;
+		document.querySelector<HTMLElement>(".content-shell")?.scrollTo({
+			top: 0,
+			left: 0,
+			behavior: "instant",
+		});
+	});
 
 	function handleSkipToContent(event: MouseEvent) {
 		event.preventDefault();

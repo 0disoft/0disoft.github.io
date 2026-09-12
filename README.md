@@ -45,6 +45,10 @@ loading prevents analytics initialization.
 Failed or timed-out GA4 loads are removed after at most 10 seconds. A later
 navigation or consent change can retry; concurrent initialization shares one load.
 
+Desktop content scrolling resets on new page navigation and restores per history
+entry on back/forward. Hash targets and mobile document scrolling stay under
+SvelteKit's navigation handling.
+
 ## License
 
 This repository is licensed under the BSD Zero Clause License (0BSD).
