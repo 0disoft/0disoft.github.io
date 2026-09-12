@@ -5,6 +5,7 @@ import type { Snapshot } from '@sveltejs/kit';
 import { resolve } from '$app/paths';
 import { page } from '$app/state';
 import { onMount } from 'svelte';
+import { prefersReducedMotion } from 'svelte/motion';
 import * as m from '$lib/paraglide/messages';
 import { getLocale } from '$lib/paraglide/runtime';
 import { toDisplayLocale } from '$lib/site-labels';
@@ -75,7 +76,7 @@ import { toDisplayLocale } from '$lib/site-labels';
 	});
 
 	onNavigate((navigation) => {
-		if (typeof document.startViewTransition !== "function") {
+		if (prefersReducedMotion.current || typeof document.startViewTransition !== "function") {
 			return;
 		}
 

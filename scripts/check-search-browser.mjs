@@ -27,6 +27,25 @@ const browser = await chromium.launch({ channel: "chrome", headless: true });
 
 async function openPage(mock = false) {
 	const context = await browser.newContext({ serviceWorkers: "block", locale: "en-US" });
+	await context.addInitScript(() => {
+		window.viewTransitionStarts = 0;
+		window.surfaceFadeDurations = [];
+		const start = document.startViewTransition?.bind(document);
+		if (start)
+			document.startViewTransition = (...args) => {
+				window.viewTransitionStarts++;
+				return start(...args);
+			};
+		const animate = Element.prototype.animate;
+		Element.prototype.animate = function (frames, options) {
+			if (this.classList.contains("surface-transition")) {
+				window.surfaceFadeDurations.push(
+					typeof options === "number" ? options : (options?.duration ?? 0),
+				);
+			}
+			return animate.call(this, frames, options);
+		};
+	});
 	await context.route("**/*", async (route) => {
 		const url = new URL(route.request().url());
 		if (url.origin !== origin) return route.abort();
@@ -149,7 +168,9 @@ try {
 	await real.page.waitForURL((url) => url.pathname.replace(/\/$/, "") === "/blog");
 	await real.page.waitForFunction(() => document.querySelector(".content-shell")?.scrollTop === 0);
 	await real.page.goBack();
-	await real.page.waitForURL((url) => url.pathname.replace(/\/$/, "") === "/blog/things-on-my-desk");
+	await real.page.waitForURL(
+		(url) => url.pathname.replace(/\/$/, "") === "/blog/things-on-my-desk",
+	);
 	await real.page.waitForFunction(
 		(top) => Math.abs(document.querySelector(".content-shell").scrollTop - top) < 2,
 		savedScroll,
@@ -160,6 +181,27 @@ try {
 	console.log("PASS desktop content scroll reset and history restoration");
 	await real.context.close();
 	console.log("PASS actual Pagefind index: query, title, result navigation");
+
+	const motion = await openPage();
+	await motion.page.keyboard.press("Escape");
+	await motion.page.emulateMedia({ reducedMotion: "reduce" });
+	await motion.page.locator('a[href="/blog"]').first().click();
+	await motion.page.waitForURL((url) => url.pathname.replace(/\/$/, "") === "/blog");
+	assert.equal(await motion.page.evaluate(() => window.viewTransitionStarts), 0);
+	assert.ok(
+		await motion.page.evaluate(() =>
+			window.surfaceFadeDurations.every((duration) => duration === 0),
+		),
+	);
+	await motion.page.emulateMedia({ reducedMotion: "no-preference" });
+	await motion.page.locator('a[href="/manifesto"]').first().click();
+	await motion.page.waitForURL((url) => url.pathname.replace(/\/$/, "") === "/manifesto");
+	assert.ok(await motion.page.evaluate(() => window.viewTransitionStarts > 0));
+	await motion.page.waitForFunction(() =>
+		window.surfaceFadeDurations.some((duration) => duration > 0),
+	);
+	await motion.context.close();
+	console.log("PASS live reduced-motion preference for view transitions and fades");
 
 	const { context, page, input } = await openPage(true);
 	await page.clock.install();

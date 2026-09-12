@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { Snippet } from "svelte";
 import { fade } from "svelte/transition";
+import { prefersReducedMotion } from "svelte/motion";
 import BlogSurface from "$lib/blog-surface.svelte";
 	import ManifestoSurface from "$lib/manifesto-surface.svelte";
 	import SiteSidebar from "$lib/site-sidebar.svelte";
@@ -36,7 +37,7 @@ import BlogSurface from "$lib/blog-surface.svelte";
 		class:empty-home={sectionKind === "home" && !children}
 	>
 		{#key activePath}
-			<div class="surface-transition" transition:fade={{ duration: 220 }}>
+			<div class="surface-transition" transition:fade={{ duration: prefersReducedMotion.current ? 0 : 220 }}>
 				{#if children}
 					{@render children()}
 				{:else if sectionKind === "manifesto"}

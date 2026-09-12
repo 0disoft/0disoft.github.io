@@ -51,6 +51,8 @@ SvelteKit's navigation handling.
 
 Clipboard fallback removes its temporary field and restores focus and selection
 even when copying fails. Inside a modal it uses the active dialog's DOM subtree.
+The system reduced-motion preference disables both view transitions and content
+fades, including preference changes made while the site is open.
 
 ## License
 
