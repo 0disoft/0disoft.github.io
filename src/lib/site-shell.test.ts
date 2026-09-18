@@ -26,11 +26,13 @@ import {
 	hooksSource,
 	iconButtonSource,
 	layoutCss,
+	localeFontsSource,
 	layoutSource,
 	manifestoSource,
 	manifestoKoreanMarkdown,
 	manifestoMarkdownFilePaths,
 	manifestoSurfaceSource,
+	shareToolbarSource,
 	navigationModuleExists,
 	navigationSource,
 	sectionRouteSource,
@@ -274,29 +276,31 @@ describe("site shell", () => {
 		expect(manifestoSurfaceSource).toContain("page.data.manifesto");
 		expect(manifestoSurfaceSource).not.toContain("getManifestoCopy");
 		expect(manifestoSurfaceSource).toContain('localizeSitePathname("/manifesto", selectedLocale)');
-		expect(manifestoSurfaceSource).toContain("copyShareUrl");
-		expect(manifestoSurfaceSource).toContain("shareWithDevice");
-		expect(manifestoSurfaceSource).toContain("copyTextToClipboard");
-		expect(manifestoSurfaceSource).toContain("buildBlogShareLinks");
-		expect(manifestoSurfaceSource).toContain("m.blog_post_copy_link");
-		expect(manifestoSurfaceSource).toContain("m.blog_post_share_device");
-		expect(manifestoSurfaceSource).toContain("getSharePlatformLabel");
-		expect(manifestoSurfaceSource).toContain("getSharePlatformIcon");
-		expect(manifestoSurfaceSource).toContain("<Share2");
-		expect(manifestoSurfaceSource).toContain("<Send");
-		expect(manifestoSurfaceSource).toContain("<MessageCircle");
-		expect(manifestoSurfaceSource).toContain("<BrandIcon");
+		expect(manifestoSurfaceSource).toContain('import ShareToolbar from "$lib/share-toolbar.svelte"');
+		expect(manifestoSurfaceSource).toContain("<ShareToolbar");
+		expect(manifestoSurfaceSource).toContain('headingId="manifesto-share-title"');
+		expect(shareToolbarSource).toContain("copyShareUrl");
+		expect(shareToolbarSource).toContain("shareWithDevice");
+		expect(shareToolbarSource).toContain("copyTextToClipboard");
+		expect(shareToolbarSource).toContain("buildBlogShareLinks");
+		expect(shareToolbarSource).toContain("m.blog_post_copy_link");
+		expect(shareToolbarSource).toContain("m.blog_post_share_device");
+		expect(shareToolbarSource).toContain("getSharePlatformLabel");
+		expect(shareToolbarSource).toContain("getSharePlatformIcon");
+		expect(shareToolbarSource).toContain("<Share2");
+		expect(shareToolbarSource).toContain("<Send");
+		expect(shareToolbarSource).toContain("<MessageCircle");
+		expect(shareToolbarSource).toContain("<BrandIcon");
 		expect(manifestoSurfaceSource).toContain('class="manifesto-reading-layout"');
 		expect(manifestoSurfaceSource).toContain('class="manifesto-sidecar"');
-		expect(manifestoSurfaceSource).toContain('class="manifesto-share"');
-		expect(manifestoSurfaceSource).toContain('class="manifesto-share-grid"');
-		expect(manifestoSurfaceSource).toContain('class="manifesto-share-icon-button"');
 		expect(manifestoSurfaceSource).toContain('grid-template-areas: "body sidecar"');
 		expect(manifestoSurfaceSource).toContain("position: sticky");
-		expect(manifestoSurfaceSource).toContain(
-			"grid-template-columns: repeat(4, var(--manifesto-share-icon-size))",
+		expect(shareToolbarSource).toContain('class="share-toolbar-grid"');
+		expect(shareToolbarSource).toContain('class="share-icon-button"');
+		expect(shareToolbarSource).toContain(
+			"grid-template-columns: repeat(4, var(--share-icon-size))",
 		);
-		expect(manifestoSurfaceSource).toContain('aria-live="polite"');
+		expect(shareToolbarSource).toContain('aria-live="polite"');
 	});
 
 	it("does not expose retired roadmap or contact sections", async () => {
@@ -471,6 +475,39 @@ describe("site shell", () => {
 		expect(errorSource).toContain("site-backdrop");
 		expect(siteSurfaceSource).toContain('class="sr-only"');
 		expect(siteSurfaceSource).not.toContain("visually-hidden");
+	});
+
+	it("loads Noto stylesheets only for matching CJK and Devanagari locales", () => {
+		expect(layoutCss).not.toContain("@fontsource-variable/noto-sans-kr");
+		expect(layoutCss).not.toContain("@fontsource-variable/noto-sans-sc");
+		expect(layoutCss).not.toContain("@fontsource-variable/noto-sans-devanagari");
+		expect(layoutSource).toContain("localeFontStylesheets");
+		expect(layoutSource).toContain('rel="stylesheet"');
+		expect(localeFontsSource).toContain("@fontsource-variable/noto-sans-kr/index.css?url");
+		expect(localeFontsSource).toContain("@fontsource-variable/noto-sans-sc/index.css?url");
+		expect(localeFontsSource).toContain(
+			"@fontsource-variable/noto-sans-devanagari/index.css?url",
+		);
+		expect(localeFontsSource).not.toContain("en:");
+		expect(localeFontsSource).not.toContain("es:");
+		expect(localeFontsSource).not.toContain("fr:");
+
+		const koreanRule = layoutCss.slice(
+			layoutCss.indexOf("html:lang(ko)"),
+			layoutCss.indexOf("html:lang(zh)"),
+		);
+		const chineseRule = layoutCss.slice(
+			layoutCss.indexOf("html:lang(zh)"),
+			layoutCss.indexOf("html:lang(hi)"),
+		);
+		const hindiRule = layoutCss.slice(layoutCss.indexOf("html:lang(hi)"));
+
+		expect(koreanRule).toContain("Noto Sans KR Variable");
+		expect(koreanRule).not.toContain("Inter Variable");
+		expect(chineseRule).toContain("Noto Sans SC Variable");
+		expect(chineseRule).not.toContain("Inter Variable");
+		expect(hindiRule).toContain("Noto Sans Devanagari Variable");
+		expect(hindiRule).not.toContain("Inter Variable");
 	});
 
 	it("uses shared backdrop colors as UI tokens", () => {

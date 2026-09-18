@@ -46,6 +46,7 @@ export const layoutCss = readRequiredText("../../routes/layout.css");
 export const errorSource = readRequiredText("../../routes/+error.svelte");
 export const appHtmlSource = readRequiredText("../../app.html");
 export const layoutSource = readRequiredText("../../routes/+layout.svelte");
+export const localeFontsSource = readRequiredText("../locale-fonts.ts");
 export const hooksSource = readRequiredText("../../hooks.ts");
 
 export const koMessagesSource = readRequiredText("../../../messages/ko.json");
@@ -65,6 +66,7 @@ export const brandIconSource = readRequiredText("../ui/brand-icon.svelte");
 export const blogSurfaceSource = readRequiredText("../blog-surface.svelte");
 export const worksSurfaceSource = readRequiredText("../works-surface.svelte");
 export const manifestoSurfaceSource = readRequiredText("../manifesto-surface.svelte");
+export const shareToolbarSource = readRequiredText("../share-toolbar.svelte");
 export const adUnitSource = readRequiredText("../ad-unit.svelte");
 export const blogPostSurfaceSource = readRequiredText("../blog-post-surface.svelte");
 export const blogPostAdsSource = readRequiredText("../blog-post-ads.ts");
@@ -113,6 +115,7 @@ export const siteSurfaceSource = [
 	blogSurfaceSource,
 	worksSurfaceSource,
 	manifestoSurfaceSource,
+	shareToolbarSource,
 	adUnitSource,
 	blogPostSurfaceSource,
 	blogPostAdsSource,
