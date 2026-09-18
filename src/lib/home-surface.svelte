@@ -16,16 +16,16 @@
 		latestPost ? localizeSitePathname(`/blog/${latestPost.slug}`, siteLocale) : "/",
 	);
 	const featuredWorks = $derived(getWorksForLocale(workItems, locale).slice(0, 3));
-	const manifestoCopy = $derived(page.data.manifesto);
+	const aboutCopy = $derived(page.data.about);
 </script>
 
 <section class="home-section" aria-labelledby="home-title">
 	<header class="home-intro">
 		<p class="home-eyebrow">{siteProfile.name}</p>
 		<h1 id="home-title">{siteProfile.description}</h1>
-		<p class="home-lede">{manifestoCopy.paragraphs[0]}</p>
-		<a class="home-manifesto-link" href={localizeSitePathname("/manifesto", siteLocale)}>
-			{m.nav_manifesto({}, { locale: displayLocale })}
+		<p class="home-lede">{aboutCopy.paragraphs[0]}</p>
+		<a class="home-manifesto-link" href={localizeSitePathname("/about", siteLocale)}>
+			{m.nav_about({}, { locale: displayLocale })}
 		</a>
 	</header>
 
@@ -47,9 +47,9 @@
 	{#if featuredWorks.length > 0}
 		<section class="home-block" aria-labelledby="home-works-title">
 			<div class="home-block-heading">
-				<h2 id="home-works-title">{m.home_selected_works_label({}, { locale: displayLocale })}</h2>
-				<a href={localizeSitePathname("/works", siteLocale)}>
-					{m.home_all_works_label({}, { locale: displayLocale })}
+				<h2 id="home-works-title">{m.home_selected_projects_label({}, { locale: displayLocale })}</h2>
+				<a href={localizeSitePathname("/projects", siteLocale)}>
+					{m.home_all_projects_label({}, { locale: displayLocale })}
 				</a>
 			</div>
 			<ol class="home-works" role="list">

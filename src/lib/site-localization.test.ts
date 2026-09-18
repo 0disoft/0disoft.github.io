@@ -163,7 +163,7 @@ describe("site localization", () => {
 		const frMessages = JSON.parse(additionalLocaleMessageSources.fr) as Record<string, string>;
 		const hiMessages = JSON.parse(additionalLocaleMessageSources.hi) as Record<string, string>;
 
-		expect(enMessages.nav_manifesto).toBe("Manifesto");
+		expect(enMessages.nav_about).toBe("About");
 		expect(enMessages.settings_trigger_label).toBe("Settings");
 		expect(enMessages.sponsor_label).toBe("Sponsor");
 		expect(enMessages.blog_search_label).toBe("Search");
@@ -184,7 +184,7 @@ describe("site localization", () => {
 		expect(enMessages.settings_privacy_policy_link).toBe("Privacy");
 		expect(enMessages.privacy_page_title).toBe("Privacy");
 		expect(enMessages.analytics_consent_accept).toBe("Allow");
-		expect(koMessages.nav_manifesto).toBe("매니페스토");
+		expect(koMessages.nav_about).toBe("소개");
 		expect(koMessages.settings_trigger_label).toBe("설정");
 		expect(koMessages.sponsor_label).toBe("후원하기");
 		expect(koMessages.blog_clear_filters).toBe("초기화");

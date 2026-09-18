@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getManifestoCopy } from "./server/manifesto";
+import { getAboutCopy } from "./server/about";
 import {
 	getKeyboardFocusIntent,
 	isModifiedKeyEvent,
@@ -52,9 +52,10 @@ describe("site shell", () => {
 		expect(siteProfile.name).toBe("0disoft");
 		expect(siteProfile.origin).toBe("https://0disoft.github.io");
 		expect(siteProfile.navigation).toEqual([
-			{ label: "Manifesto", href: "/manifesto" },
-			{ label: "Works", href: "/works" },
 			{ label: "Blog", href: "/blog" },
+			{ label: "Projects", href: "/projects" },
+			{ label: "About", href: "/about" },
+			{ label: "Uses", href: "/uses" },
 		]);
 		expect(siteProfile.navigation.map((item) => item.label)).not.toContain("홈");
 		expect(siteProfile.navigation.every((item) => !item.href.startsWith("#"))).toBe(true);
@@ -125,9 +126,10 @@ describe("site shell", () => {
 			await import("./site-navigation");
 
 		expect(getSectionEntries()).toEqual([
-			{ section: "manifesto" },
-			{ section: "works" },
 			{ section: "blog" },
+			{ section: "projects" },
+			{ section: "about" },
+			{ section: "uses" },
 		]);
 		expect(sectionSlugToPath("blog")).toBe("/blog");
 		expect(sectionSlugToPath("roadmap")).toBeNull();
@@ -161,9 +163,10 @@ describe("site shell", () => {
 		expect(defaultSettingsTab).toBe("theme");
 		expect(themeChoices).toEqual(["light", "dark", "system"]);
 		expect(navigationShortcutByHref).toEqual({
-			"/manifesto": "M",
 			"/blog": "B",
-			"/works": "W",
+			"/projects": "P",
+			"/about": "A",
+			"/uses": "U",
 		});
 		expect(languageShortcutByLocale.ko).toBe("K");
 		expect(siteSurfaceSource).toContain('role="tablist"');
@@ -245,61 +248,17 @@ describe("site shell", () => {
 		expect(getSiteSurfacePageTitle("/", "en")).toBe(siteProfile.name);
 	});
 
-	it("renders the manifesto with localized copy slots and a right-side share panel", () => {
-		expect(surfaceSource).toContain('import ManifestoSurface from "$lib/manifesto-surface.svelte"');
-		expect(getSiteSurfaceSectionKind("/manifesto")).toBe("manifesto");
-		expect(getSiteSurfaceSectionLabel("/manifesto", "ko")).toBe("매니페스토");
-		expect(surfaceSource).toContain("<ManifestoSurface");
-		expect(manifestoKoreanMarkdown).toContain("AI와 지역 숙의로 만드는 더 나은 규칙");
-		expect(manifestoSource).toContain('import.meta.glob<string>("../../content/manifesto/*.md"');
-		expect(manifestoSource).toContain('const fallbackManifestoLocale = "ko"');
-		expect(manifestoSource).toContain("manifestoCopyByLocale[locale] ?? fallbackCopy");
-		expect(manifestoMarkdownFilePaths).toEqual([
-			"en.md",
-			"es.md",
-			"fr.md",
-			"hi.md",
-			"ko.md",
-			"zh.md",
-		]);
-		expect(getManifestoCopy("en").title).toBe("AI and Local Deliberation for Better Rules");
-		expect(getManifestoCopy("es").title).toBe("IA y deliberación local para mejores reglas");
-		expect(getManifestoCopy("fr").title).toBe(
-			"L'IA et la délibération locale pour de meilleures règles",
-		);
-		expect(getManifestoCopy("hi").title).toBe("AI और स्थानीय विचार-विमर्श से बेहतर नियम");
-		expect(getManifestoCopy("zh").title).toBe("AI与地方协商共创更好规则");
-		expect(getManifestoCopy("ko").paragraphs).toContain(
-			"중앙이 모든 삶을 재단하려는 방식은 이미 한계를 드러내고 있다. AI가 할 수 있는 일은 그 한계를 보완하는 것이지, 그 한계를 대신하는 것이 아니다. AI는 지역 실험이 더 안전하고, 더 정보에 기반한 방식으로 이루어질 수 있도록 돕는 도구일 뿐이다. 결국 어떤 사회를 만들어갈 것인지는, 여전히 우리 인간이 선택해야 할 문제다.",
-		);
-		expect(manifestoMarkdownFilePaths).toHaveLength(6);
-		expect(manifestoSurfaceSource).toContain("page.data.manifesto");
-		expect(manifestoSurfaceSource).not.toContain("getManifestoCopy");
-		expect(manifestoSurfaceSource).toContain('localizeSitePathname("/manifesto", selectedLocale)');
-		expect(manifestoSurfaceSource).toContain('import ShareToolbar from "$lib/share-toolbar.svelte"');
-		expect(manifestoSurfaceSource).toContain("<ShareToolbar");
-		expect(manifestoSurfaceSource).toContain('headingId="manifesto-share-title"');
+	it("renders about with localized copy slots and a right-side share panel", () => {
+		expect(surfaceSource).toContain('import AboutSurface from "$lib/about-surface.svelte"');
+		expect(getSiteSurfaceSectionKind("/about")).toBe("about");
+		expect(getSiteSurfaceSectionLabel("/about", "ko")).toBe("소개");
+		expect(surfaceSource).toContain("<AboutSurface");
+		expect(getAboutCopy("en").title).toBe("About");
+		expect(getAboutCopy("ko").title).toBe("소개");
+		expect(getAboutCopy("ko").paragraphs[0]).toContain("0disoft");
 		expect(shareToolbarSource).toContain("copyShareUrl");
 		expect(shareToolbarSource).toContain("shareWithDevice");
-		expect(shareToolbarSource).toContain("copyTextToClipboard");
-		expect(shareToolbarSource).toContain("buildBlogShareLinks");
-		expect(shareToolbarSource).toContain("m.blog_post_copy_link");
-		expect(shareToolbarSource).toContain("m.blog_post_share_device");
-		expect(shareToolbarSource).toContain("getSharePlatformLabel");
-		expect(shareToolbarSource).toContain("getSharePlatformIcon");
-		expect(shareToolbarSource).toContain("<Share2");
-		expect(shareToolbarSource).toContain("<Send");
-		expect(shareToolbarSource).toContain("<MessageCircle");
-		expect(shareToolbarSource).toContain("<BrandIcon");
-		expect(manifestoSurfaceSource).toContain('class="manifesto-reading-layout"');
-		expect(manifestoSurfaceSource).toContain('class="manifesto-sidecar"');
-		expect(manifestoSurfaceSource).toContain('grid-template-areas: "body sidecar"');
-		expect(manifestoSurfaceSource).toContain("position: sticky");
 		expect(shareToolbarSource).toContain('class="share-toolbar-grid"');
-		expect(shareToolbarSource).toContain('class="share-icon-button"');
-		expect(shareToolbarSource).toContain(
-			"grid-template-columns: repeat(4, var(--share-icon-size))",
-		);
 		expect(shareToolbarSource).toContain('aria-live="polite"');
 	});
 
@@ -319,7 +278,7 @@ describe("site shell", () => {
 	it("renders works as a filterable public card list", () => {
 		expect(worksModuleExists).toBe(true);
 		expect(surfaceSource).toContain('import WorksSurface from "$lib/works-surface.svelte"');
-		expect(getSiteSurfaceSectionKind("/works")).toBe("works");
+		expect(getSiteSurfaceSectionKind("/projects")).toBe("projects");
 		expect(surfaceSource).toContain("<WorksSurface");
 		expect(worksSource).toContain('import.meta.glob("../content/works/**/meta.json"');
 		expect(WORK_FILTER_QUERY_KEYS).toEqual({

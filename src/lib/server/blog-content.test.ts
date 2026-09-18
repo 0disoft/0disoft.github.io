@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
+import { getAboutCopy } from "./about";
 import { blogPostLocales, blogPosts } from "./blog-posts";
-import { getManifestoCopy } from "./manifesto";
+import { getUsesCopy } from "./uses";
 import { assertCompleteBlogTranslations } from "./blog-content-validation";
 import { load } from "../../routes/blog/[slug]/+page.server";
 import { load as loadLayout } from "../../routes/+layout.server";
@@ -22,19 +23,24 @@ describe("localized blog delivery", () => {
 			`${directory}/fr.md, ${directory}/ko.md`,
 		);
 	});
-	it.each(blogPostLocales)("returns only %s content and metadata-only lists", async (locale) => {
+	it.each(blogPostLocales)("returns only %s layout copy and metadata-only lists", async (locale) => {
+		const event = { params: { slug: "missing" }, url: new URL(`https://example.test/${locale}/blog`) };
+		const layout = await loadLayout(event as Parameters<typeof loadLayout>[0]);
+		expect(layout.about).toEqual(getAboutCopy(locale));
+		expect(layout.uses).toEqual(getUsesCopy(locale));
+		expect(layout.blogPosts.every((post) => post.locale === locale && !("body" in post))).toBe(true);
+
+		if (blogPosts.length === 0) {
+			return;
+		}
+
 		const slug = blogPosts[0].slug;
-		const event = { params: { slug }, url: new URL(`https://example.test/${locale}/blog/${slug}`) };
-		const result = await load(event as Parameters<typeof load>[0]);
+		const result = await load({
+			params: { slug },
+			url: new URL(`https://example.test/${locale}/blog/${slug}`),
+		} as Parameters<typeof load>[0]);
 		expect(result?.post.locale).toBe(locale);
 		expect(Object.keys(result?.highlightedCodeByLocale ?? {})).toEqual([locale]);
-		const layout = await loadLayout(event as Parameters<typeof loadLayout>[0]);
-		expect(layout.manifesto).toEqual(getManifestoCopy(locale));
-		expect(Object.keys(layout.manifesto).sort()).toEqual(["paragraphs", "title"]);
-		expect(layout?.blogPosts.length).toBeGreaterThan(0);
-		expect(layout?.blogPosts.every((post) => post.locale === locale && !("body" in post))).toBe(
-			true,
-		);
 		for (const post of Object.values(result?.adjacentPosts ?? {})) {
 			if (post) expect("body" in post).toBe(false);
 		}

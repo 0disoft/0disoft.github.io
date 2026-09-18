@@ -2,9 +2,10 @@
 import type { Snippet } from "svelte";
 import { fade } from "svelte/transition";
 import { prefersReducedMotion } from "svelte/motion";
-import BlogSurface from "$lib/blog-surface.svelte";
-	import ManifestoSurface from "$lib/manifesto-surface.svelte";
+	import AboutSurface from "$lib/about-surface.svelte";
+	import BlogSurface from "$lib/blog-surface.svelte";
 	import SiteSidebar from "$lib/site-sidebar.svelte";
+	import UsesSurface from "$lib/uses-surface.svelte";
 	import WorksSurface from "$lib/works-surface.svelte";
 	import { getLocale } from "$lib/paraglide/runtime";
 	import { toDisplayLocale } from "$lib/site-labels";
@@ -40,12 +41,14 @@ import BlogSurface from "$lib/blog-surface.svelte";
 			<div class="surface-transition" transition:fade={{ duration: prefersReducedMotion.current ? 0 : 220 }}>
 				{#if children}
 					{@render children()}
-				{:else if sectionKind === "manifesto"}
-					<ManifestoSurface />
+				{:else if sectionKind === "about"}
+					<AboutSurface />
 				{:else if sectionKind === "blog"}
 					<BlogSurface />
-				{:else if sectionKind === "works"}
+				{:else if sectionKind === "projects"}
 					<WorksSurface />
+				{:else if sectionKind === "uses"}
+					<UsesSurface />
 				{:else}
 					<h1 class="sr-only">{siteProfile.name}</h1>
 				{/if}

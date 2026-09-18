@@ -63,9 +63,10 @@ describe("site settings", () => {
 		expect(defaultSettingsTab).toBe("theme");
 		expect(themeChoices).toEqual(["light", "dark", "system"]);
 		expect(navigationShortcutByHref).toEqual({
-			"/manifesto": "M",
 			"/blog": "B",
-			"/works": "W",
+			"/projects": "P",
+			"/about": "A",
+			"/uses": "U",
 		});
 		expect(navigationPathByShortcut.b).toBe("/blog");
 		expect(languageShortcutByLocale).toEqual({

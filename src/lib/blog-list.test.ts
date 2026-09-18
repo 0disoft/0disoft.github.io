@@ -34,15 +34,8 @@ import {
 
 describe("blog list", () => {
 	it("discovers the current localized blog content files", () => {
-		expect(blogMetaFilePaths).toEqual(["2026/07/things-on-my-desk/meta.json"]);
-		expect(blogMarkdownFilePaths).toEqual([
-			"2026/07/things-on-my-desk/en.md",
-			"2026/07/things-on-my-desk/es.md",
-			"2026/07/things-on-my-desk/fr.md",
-			"2026/07/things-on-my-desk/hi.md",
-			"2026/07/things-on-my-desk/ko.md",
-			"2026/07/things-on-my-desk/zh.md",
-		]);
+		expect(blogMetaFilePaths).toEqual([]);
+		expect(blogMarkdownFilePaths).toEqual([]);
 	});
 
 	it("creates localized blog cards from shared metadata and translated markdown", () => {

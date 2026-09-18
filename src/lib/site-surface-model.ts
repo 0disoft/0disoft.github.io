@@ -4,10 +4,15 @@ import { findNavigationItemByPath } from "$lib/site-navigation";
 import { siteProfile } from "$lib/site-profile";
 
 export type SiteSurfacePath = SiteSectionPath | "/";
-export type SiteSurfaceSectionKind = "home" | "manifesto" | "blog" | "works";
+export type SiteSurfaceSectionKind = "home" | "blog" | "projects" | "about" | "uses";
 
 export function getSiteSurfaceSectionKind(activePath: SiteSurfacePath): SiteSurfaceSectionKind {
-	if (activePath === "/manifesto" || activePath === "/blog" || activePath === "/works") {
+	if (
+		activePath === "/blog" ||
+		activePath === "/projects" ||
+		activePath === "/about" ||
+		activePath === "/uses"
+	) {
 		return activePath.slice(1) as SiteSurfaceSectionKind;
 	}
 

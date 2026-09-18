@@ -1,6 +1,6 @@
 export const siteProfile = {
 	name: "0disoft",
-	description: "Notes on software, open source, product work, and personal projects.",
+	description: "Launch notes, failed experiments, and the tools I actually use.",
 	origin: "https://0disoft.github.io",
 	sourceRepository: "https://github.com/0disoft/0disoft.github.io",
 	author: {
@@ -13,9 +13,10 @@ export const siteProfile = {
 		url: "https://0disoft.github.io",
 	},
 	navigation: [
-		{ label: "Manifesto", href: "/manifesto" },
-		{ label: "Works", href: "/works" },
 		{ label: "Blog", href: "/blog" },
+		{ label: "Projects", href: "/projects" },
+		{ label: "About", href: "/about" },
+		{ label: "Uses", href: "/uses" },
 	],
 	links: [
 		{

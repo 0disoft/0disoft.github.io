@@ -127,26 +127,33 @@ export const siteSurfaceSource = [
 	labelsSource,
 ].join("\n");
 
-export const sampleOpenSourceNotePath = "../content/blog/2026/05/sample-open-source-note/meta.json";
-export const thingsOnMyDeskPath = "../content/blog/2026/07/things-on-my-desk/meta.json";
-export const thingsOnMyDeskMetadata = JSON.parse(
-	readRequiredText("../../content/blog/2026/07/things-on-my-desk/meta.json"),
-);
-export const thingsOnMyDeskKoreanMarkdown = readRequiredText(
-	"../../content/blog/2026/07/things-on-my-desk/ko.md",
-);
-export const thingsOnMyDeskSpanishMarkdown = readRequiredText(
-	"../../content/blog/2026/07/things-on-my-desk/es.md",
-);
-export const thingsOnMyDeskFrenchMarkdown = readRequiredText(
-	"../../content/blog/2026/07/things-on-my-desk/fr.md",
-);
-export const thingsOnMyDeskHindiMarkdown = readRequiredText(
-	"../../content/blog/2026/07/things-on-my-desk/hi.md",
-);
-export const thingsOnMyDeskChineseMarkdown = readRequiredText(
-	"../../content/blog/2026/07/things-on-my-desk/zh.md",
-);
+export const sampleOpenSourceNotePath = "../content/blog/fixture/sample-open-source-note/meta.json";
+export const thingsOnMyDeskPath = "../content/blog/fixture/things-on-my-desk/meta.json";
+export const thingsOnMyDeskMetadata = {
+	id: "things-on-my-desk",
+	publishedAt: "2026-07-01",
+	tags: ["market-entry"],
+};
+export const thingsOnMyDeskKoreanMarkdown = `---
+{"title":"책상 위에 있는 것들","summary":"책상 메모"}
+---
+책상 위에 있는 것들.`;
+export const thingsOnMyDeskSpanishMarkdown = `---
+{"title":"Cosas en mi escritorio","summary":"Notas del escritorio"}
+---
+Cosas en mi escritorio.`;
+export const thingsOnMyDeskFrenchMarkdown = `---
+{"title":"Les choses sur mon bureau","summary":"Notes de bureau"}
+---
+Les choses sur mon bureau.`;
+export const thingsOnMyDeskHindiMarkdown = `---
+{"title":"मेरी मेज पर की चीज़ें","summary":"डेस्क नोट"}
+---
+मेरी मेज पर की चीज़ें।`;
+export const thingsOnMyDeskChineseMarkdown = `---
+{"title":"我桌上的东西","summary":"桌面笔记"}
+---
+我桌上的东西。`;
 export const sampleOpenSourceNoteMetadata = {
 	id: "sample-open-source-note",
 	publishedAt: "2026-05-03",

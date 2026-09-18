@@ -35,7 +35,7 @@ import * as m from "$lib/paraglide/messages";
 	const displayLocale = $derived(toDisplayLocale(getLocale()));
 	const currentLocale = $derived(getLocale());
 	const worksAction = $derived(
-		localizeSitePathname("/works", isSiteLocale(currentLocale) ? currentLocale : "en"),
+		localizeSitePathname("/projects", isSiteLocale(currentLocale) ? currentLocale : "en"),
 	);
 	const localizedWorks = $derived(getWorksForLocale(workItems, currentLocale));
 	const localizedFilterOptions = $derived(getWorkFilterOptions(localizedWorks));
@@ -263,7 +263,7 @@ import * as m from "$lib/paraglide/messages";
 </script>
 
 <section class="works-section" aria-labelledby="section-title">
-	<h1 id="section-title" class="sr-only">{m.nav_works({}, { locale: displayLocale })}</h1>
+	<h1 id="section-title" class="sr-only">{m.nav_projects({}, { locale: displayLocale })}</h1>
 
 	<form
 		class="works-filters"
