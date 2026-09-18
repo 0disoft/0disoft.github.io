@@ -68,6 +68,7 @@ describe("site localization", () => {
 		expect(viteConfigSource).toContain(
 			'strategy: ["url", "cookie", "globalVariable", "baseLocale"]',
 		);
+		expect(viteConfigSource).toContain("**/src/lib/paraglide/**");
 		expect(siteLocales).toEqual(["en", "zh", "es", "fr", "hi", "ko"]);
 		expect(languageOptions).toEqual([
 			{ locale: "en", label: "English" },

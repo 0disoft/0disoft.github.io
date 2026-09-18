@@ -15,7 +15,7 @@ export default defineConfig({
 	],
 	server: {
 		watch: {
-			ignored: ["**/build/**", "**/.playwright-cli/**"],
+			ignored: ["**/build/**", "**/.playwright-cli/**", "**/src/lib/paraglide/**"],
 		},
 	},
 	build: {
