@@ -1,19 +1,8 @@
 <script lang="ts">
 	import { pushState } from "$app/navigation";
 	import { page } from "$app/state";
-	import { ArrowLeft, Copy, MessageCircle, Send, Share2 } from "@lucide/svelte";
+	import { ArrowLeft } from "@lucide/svelte";
 	import { onMount } from "svelte";
-	import {
-		siBluesky,
-		siFacebook,
-		siReddit,
-		siSinaweibo,
-		siThreads,
-		siWhatsapp,
-		siX,
-		type SimpleIcon,
-	} from "simple-icons";
-	import { linkedInIcon } from "$lib/ui/share-brand-icons";
 	import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
 	import {
@@ -23,7 +12,7 @@
 	import AdUnit from "$lib/ad-unit.svelte";
 	import { createBlogPostRenderItems } from "$lib/blog-post-ads";
 	import type { BlogPostCodeHighlights } from "$lib/blog-code-highlighting";
-	import { buildBlogShareLinks, type BlogSharePlatform } from "$lib/blog-share";
+	import ShareToolbar from "$lib/share-toolbar.svelte";
 	import {
 		BLOG_POST_TOC_SHORTCUT_LIMIT,
 		BLOG_POST_TOC_SHORTCUT_PREFIX,
@@ -34,7 +23,6 @@
 		getBlogPostTocShortcut,
 		getBlogPostTocShortcutIndex,
 	} from "$lib/blog-posts";
-	import { copyTextToClipboard } from "$lib/site-clipboard";
 	import {
 		getKeyboardFocusIntent,
 		isEditableKeyboardTarget,
@@ -46,11 +34,6 @@
 	import { toDisplayLocale, withShortcut } from "$lib/site-labels";
 	import { isSiteLocale, localizeSitePathname } from "$lib/site-locales";
 	import { siteProfile } from "$lib/site-profile";
-	import BrandIcon from "$lib/ui/brand-icon.svelte";
-
-	type SharePlatformIcon =
-		| { kind: "lucide"; name: "send" | "message-circle" }
-		| { kind: "brand"; icon: SimpleIcon };
 
 	let {
 		post,
@@ -62,10 +45,7 @@
 		highlightedCodeByLocale: BlogPostCodeHighlights;
 	} = $props();
 
-	let canUseDeviceShare = $state(false);
-	let copyState = $state<"idle" | "copied">("idle");
 	let blogPostElement = $state<HTMLElement | undefined>();
-	let copyFeedbackTimer: number | undefined;
 	let tocShortcutPending = $state(false);
 	let tocShortcutTimer: number | undefined;
 	let selectedImage = $state<{ src: string; alt: string } | undefined>();
@@ -108,18 +88,6 @@
 				)
 			: "",
 	);
-	const sharePayload = $derived(
-		post && shareUrl
-			? {
-					title: post.title,
-					text: post.summary,
-					url: shareUrl,
-				}
-			: null,
-	);
-	const shareLinks = $derived(
-		sharePayload ? buildBlogShareLinks(sharePayload) : [],
-	);
 	const blogHref = $derived(localizeSitePathname("/blog", selectedLocale));
 	const previousPostShortcutTitle = $derived(
 		withShortcut(
@@ -150,8 +118,6 @@
 	});
 
 	onMount(() => {
-		canUseDeviceShare =
-			typeof navigator !== "undefined" && typeof navigator.share === "function";
 		window.addEventListener("keydown", handleTocShortcut);
 		window.addEventListener("keydown", handleAdjacentPostShortcut);
 		window.addEventListener("keydown", handleBlogPostControlKeydown);
@@ -160,10 +126,6 @@
 			window.removeEventListener("keydown", handleTocShortcut);
 			window.removeEventListener("keydown", handleAdjacentPostShortcut);
 			window.removeEventListener("keydown", handleBlogPostControlKeydown);
-
-			if (copyFeedbackTimer !== undefined) {
-				window.clearTimeout(copyFeedbackTimer);
-			}
 
 			clearTocShortcutSequence();
 		};
@@ -363,107 +325,6 @@
 		target?.focus();
 	}
 
-	function getSharePlatformLabel(platform: BlogSharePlatform): string {
-		switch (platform) {
-			case "telegram":
-				return m.blog_post_share_telegram({}, { locale: displayLocale });
-			case "line":
-				return m.blog_post_share_line({}, { locale: displayLocale });
-			case "whatsapp":
-				return m.blog_post_share_whatsapp({}, { locale: displayLocale });
-			case "x":
-				return m.blog_post_share_x({}, { locale: displayLocale });
-			case "reddit":
-				return m.blog_post_share_reddit({}, { locale: displayLocale });
-			case "facebook":
-				return m.blog_post_share_facebook({}, { locale: displayLocale });
-			case "threads":
-				return m.blog_post_share_threads({}, { locale: displayLocale });
-			case "bluesky":
-				return m.blog_post_share_bluesky({}, { locale: displayLocale });
-			case "linkedin":
-				return m.blog_post_share_linkedin({}, { locale: displayLocale });
-			case "weibo":
-				return m.blog_post_share_weibo({}, { locale: displayLocale });
-		}
-	}
-
-	function getSharePlatformIcon(
-		platform: BlogSharePlatform,
-	): SharePlatformIcon {
-		switch (platform) {
-			case "telegram":
-				return { kind: "lucide", name: "send" };
-			case "line":
-				return { kind: "lucide", name: "message-circle" };
-			case "whatsapp":
-				return { kind: "brand", icon: siWhatsapp };
-			case "x":
-				return { kind: "brand", icon: siX };
-			case "reddit":
-				return { kind: "brand", icon: siReddit };
-			case "facebook":
-				return { kind: "brand", icon: siFacebook };
-			case "threads":
-				return { kind: "brand", icon: siThreads };
-			case "bluesky":
-				return { kind: "brand", icon: siBluesky };
-			case "linkedin":
-				return { kind: "brand", icon: linkedInIcon };
-			case "weibo":
-				return { kind: "brand", icon: siSinaweibo };
-		}
-	}
-
-	async function copyShareUrl() {
-		if (!shareUrl) {
-			return;
-		}
-
-		await copyTextToClipboard(shareUrl);
-		copyState = "copied";
-
-		if (copyFeedbackTimer !== undefined) {
-			window.clearTimeout(copyFeedbackTimer);
-		}
-
-		copyFeedbackTimer = window.setTimeout(() => {
-			copyState = "idle";
-			copyFeedbackTimer = undefined;
-		}, 1500);
-	}
-
-	async function shareWithDevice() {
-		if (!sharePayload) {
-			return;
-		}
-
-		if (
-			canUseDeviceShare &&
-			typeof navigator !== "undefined" &&
-			typeof navigator.share === "function"
-		) {
-			try {
-				await navigator.share(sharePayload);
-				return;
-			} catch (error) {
-				if (isShareAbortError(error)) {
-					return;
-				}
-			}
-		}
-
-		await copyShareUrl();
-	}
-
-	function isShareAbortError(error: unknown): boolean {
-		return Boolean(
-			error &&
-			typeof error === "object" &&
-			"name" in error &&
-			error.name === "AbortError",
-		);
-	}
 </script>
 
 <svelte:head>
@@ -636,7 +497,7 @@
 				{/if}
 			</div>
 
-			{#if postHeadings.length > 0 || shareLinks.length > 0}
+			{#if postHeadings.length > 0 || shareUrl}
 				<aside class="post-sidecar" data-pagefind-ignore="all">
 					{#if postHeadings.length > 0}
 						<nav
@@ -661,80 +522,15 @@
 						</nav>
 					{/if}
 
-					{#if shareLinks.length > 0}
-						<section class="post-share" aria-labelledby="post-share-title">
-							<p id="post-share-title">
-								{m.blog_post_share_label({}, { locale: displayLocale })}
-							</p>
-							<div class="post-share-grid">
-								<button
-									class="post-share-icon-button"
-									type="button"
-									aria-label={copyState === "copied"
-										? m.blog_post_copied_link({}, { locale: displayLocale })
-										: m.blog_post_copy_link({}, { locale: displayLocale })}
-									data-tooltip={copyState === "copied"
-										? m.blog_post_copied_link({}, { locale: displayLocale })
-										: m.blog_post_copy_link({}, { locale: displayLocale })}
-									data-blog-post-keyboard-target
-									onclick={copyShareUrl}
-								>
-									<Copy aria-hidden="true" size={18} strokeWidth={2.2} />
-								</button>
-								<button
-									class="post-share-icon-button"
-									type="button"
-									aria-label={m.blog_post_share_device(
-										{},
-										{ locale: displayLocale },
-									)}
-									data-tooltip={m.blog_post_share_device(
-										{},
-										{ locale: displayLocale },
-									)}
-									data-blog-post-keyboard-target
-									onclick={shareWithDevice}
-								>
-									<Share2 aria-hidden="true" size={18} strokeWidth={2.2} />
-								</button>
-								{#each shareLinks as shareLink (shareLink.platform)}
-									{@const platformLabel = getSharePlatformLabel(
-										shareLink.platform,
-									)}
-									{@const platformIcon = getSharePlatformIcon(
-										shareLink.platform,
-									)}
-									<a
-										class="post-share-icon-button"
-										href={shareLink.href}
-										target="_blank"
-										rel="noopener noreferrer"
-										aria-label={platformLabel}
-										data-tooltip={platformLabel}
-										data-blog-post-keyboard-target
-									>
-										{#if platformIcon.kind === "lucide"}
-											{#if platformIcon.name === "send"}
-												<Send aria-hidden="true" size={18} strokeWidth={2.2} />
-											{:else}
-												<MessageCircle
-													aria-hidden="true"
-													size={18}
-													strokeWidth={2.2}
-												/>
-											{/if}
-										{:else}
-											<BrandIcon icon={platformIcon.icon} size={18} />
-										{/if}
-									</a>
-								{/each}
-							</div>
-							<span class="sr-only" aria-live="polite">
-								{copyState === "copied"
-									? m.blog_post_copied_link({}, { locale: displayLocale })
-									: ""}
-							</span>
-						</section>
+					{#if shareUrl}
+						<ShareToolbar
+							title={post.title}
+							text={post.summary}
+							url={shareUrl}
+							headingId="post-share-title"
+							keyboardTarget
+							stacked={postHeadings.length > 0}
+						/>
 					{/if}
 				</aside>
 			{/if}
@@ -909,8 +705,7 @@
 		user-select: none;
 	}
 
-	.post-toc,
-	.post-share {
+	.post-toc {
 		display: grid;
 		gap: 0.55rem;
 	}
@@ -937,86 +732,6 @@
 		color: var(--foreground);
 		text-decoration: underline;
 		text-underline-offset: 0.18em;
-	}
-
-	.post-share {
-		--post-share-icon-size: 2.35rem;
-		--post-tooltip-background: oklch(0.16 0.04 132);
-		--post-tooltip-border: oklch(0.98 0.026 92 / 46%);
-		--post-tooltip-foreground: oklch(0.98 0.026 92);
-
-		padding-top: 0.85rem;
-		border-top: 1px solid color-mix(in oklch, var(--border) 62%, transparent);
-	}
-
-	.post-share p {
-		margin: 0;
-		font-weight: 760;
-	}
-
-	.post-share-grid {
-		display: grid;
-		grid-template-columns: repeat(4, var(--post-share-icon-size));
-		gap: 0.42rem;
-	}
-
-	.post-share-icon-button {
-		display: inline-flex;
-		position: relative;
-		align-items: center;
-		justify-content: center;
-		width: var(--post-share-icon-size);
-		height: var(--post-share-icon-size);
-		padding: 0;
-		border: 1px solid color-mix(in oklch, var(--border) 76%, transparent);
-		border-radius: var(--radius-md);
-		background: var(--post-panel-background);
-		color: var(--foreground);
-		cursor: pointer;
-		text-decoration: none;
-		user-select: none;
-	}
-
-	.post-share-icon-button:hover {
-		border-color: color-mix(in oklch, var(--sidebar-ring) 62%, var(--border));
-		background: var(--post-panel-hover-background);
-	}
-
-	.post-share-icon-button:hover,
-	.post-share-icon-button:focus-visible {
-		color: var(--foreground);
-	}
-
-	.post-share-icon-button::after {
-		position: absolute;
-		bottom: calc(100% + 0.48rem);
-		left: 50%;
-		z-index: 3;
-		max-width: min(13rem, 70vw);
-		padding: 0.34rem 0.56rem;
-		border: 1px solid var(--post-tooltip-border);
-		border-radius: var(--radius-sm);
-		background: var(--post-tooltip-background);
-		box-shadow: 0 0.55rem 1.4rem color-mix(in oklch, black 32%, transparent);
-		color: var(--post-tooltip-foreground);
-		content: attr(data-tooltip);
-		font-size: 0.82rem;
-		font-weight: 520;
-		line-height: 1.2;
-		opacity: 0;
-		pointer-events: none;
-		text-align: center;
-		transform: translate(-50%, 0.18rem);
-		transition:
-			opacity 120ms ease,
-			transform 120ms ease;
-		white-space: nowrap;
-	}
-
-	.post-share-icon-button:hover::after,
-	.post-share-icon-button:focus-visible::after {
-		opacity: 1;
-		transform: translate(-50%, 0);
 	}
 
 	.post-body p {
@@ -1205,7 +920,7 @@
 	}
 
 	.post-adjacent-link:hover {
-		border-color: color-mix(in oklch, var(--sidebar-ring) 62%, var(--border));
+		border-color: color-mix(in oklch, var(--foreground) 28%, var(--border));
 		background: var(--post-panel-hover-background);
 	}
 
@@ -1245,9 +960,6 @@
 				color-mix(in oklch, var(--border) 76%, transparent);
 		}
 
-		.post-share {
-			padding-top: 0.75rem;
-		}
 	}
 
 	@media (max-width: 42rem) {
