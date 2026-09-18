@@ -3,6 +3,7 @@ import {
 	createEmptyWorkFilters,
 	createWorkFromContent,
 	filterWorks,
+	getPrimaryWorkHref,
 	getWorkFilterOptions,
 	getWorksForLocale,
 	parseWorkFilters,
@@ -134,6 +135,20 @@ describe("work list content", () => {
 				docs: null,
 			},
 		});
+	});
+
+	it("picks the first available link for card titles and returns null when empty", () => {
+		expect(
+			getPrimaryWorkHref({
+				live: "https://example.test/live",
+				source: "https://example.test/source",
+			}),
+		).toBe("https://example.test/live");
+		expect(getPrimaryWorkHref({ source: "https://example.test/source" })).toBe(
+			"https://example.test/source",
+		);
+		expect(getPrimaryWorkHref({})).toBeNull();
+		expect(getPrimaryWorkHref({ source: null, docs: null })).toBeNull();
 	});
 
 	it("filters one curated list by query, tag, and repository language", () => {

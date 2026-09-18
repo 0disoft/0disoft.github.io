@@ -28,11 +28,6 @@ import {
 	layoutCss,
 	localeFontsSource,
 	layoutSource,
-	manifestoSource,
-	manifestoKoreanMarkdown,
-	manifestoMarkdownFilePaths,
-	manifestoSurfaceSource,
-	shareToolbarSource,
 	navigationModuleExists,
 	navigationSource,
 	sectionRouteSource,
@@ -248,7 +243,7 @@ describe("site shell", () => {
 		expect(getSiteSurfacePageTitle("/", "en")).toBe(siteProfile.name);
 	});
 
-	it("renders about with localized copy slots and a right-side share panel", () => {
+	it("renders about as a short reading page", () => {
 		expect(surfaceSource).toContain('import AboutSurface from "$lib/about-surface.svelte"');
 		expect(getSiteSurfaceSectionKind("/about")).toBe("about");
 		expect(getSiteSurfaceSectionLabel("/about", "ko")).toBe("소개");
@@ -256,10 +251,6 @@ describe("site shell", () => {
 		expect(getAboutCopy("en").title).toBe("About");
 		expect(getAboutCopy("ko").title).toBe("소개");
 		expect(getAboutCopy("ko").paragraphs[0]).toContain("0disoft");
-		expect(shareToolbarSource).toContain("copyShareUrl");
-		expect(shareToolbarSource).toContain("shareWithDevice");
-		expect(shareToolbarSource).toContain('class="share-toolbar-grid"');
-		expect(shareToolbarSource).toContain('aria-live="polite"');
 	});
 
 	it("does not expose retired roadmap or contact sections", async () => {

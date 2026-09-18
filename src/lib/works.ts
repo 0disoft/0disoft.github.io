@@ -5,6 +5,7 @@ export {
 	createEmptyWorkFilters,
 	createWorkFromContent,
 	filterWorks,
+	getPrimaryWorkHref,
 	getWorkFilterOptions,
 	getWorksForLocale,
 	parseWorkFilters,

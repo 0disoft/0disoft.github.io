@@ -8,13 +8,14 @@ import { fade } from "svelte/transition";
 import { prefersReducedMotion } from "svelte/motion";
 import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
-	import { toDisplayLocale, withShortcut } from "$lib/site-labels";
+	import { getLocalizedNavigationLabel, toDisplayLocale, withShortcut } from "$lib/site-labels";
 	import { isSiteLocale, localizeSitePathname } from "$lib/site-locales";
 	import { getWorkStatusLabel } from "$lib/work-labels";
 	import {
 		WORK_FILTER_QUERY_KEYS,
 		createEmptyWorkFilters,
 		filterWorks,
+		getPrimaryWorkHref,
 		getWorkFilterOptions,
 		getWorksForLocale,
 		parseWorkFilters,
@@ -263,7 +264,7 @@ import * as m from "$lib/paraglide/messages";
 </script>
 
 <section class="works-section" aria-labelledby="section-title">
-	<h1 id="section-title" class="sr-only">{m.nav_projects({}, { locale: displayLocale })}</h1>
+	<h1 id="section-title" class="sr-only">{getLocalizedNavigationLabel("/projects", displayLocale)}</h1>
 
 	<form
 		class="works-filters"
@@ -335,6 +336,7 @@ import * as m from "$lib/paraglide/messages";
 		<ol class="works-list" role="list">
 			{#each filteredWorks as work (work.slug)}
 				{@const links = getWorkLinks(work.links)}
+				{@const primaryHref = getPrimaryWorkHref(work.links)}
 				{@const hasWorkDetails =
 					Boolean(work.summary) ||
 					Boolean(work.license) ||
@@ -355,7 +357,19 @@ import * as m from "$lib/paraglide/messages";
 				>
 					<article class="work-card" class:compact={!hasWorkDetails}>
 						<div class="work-heading">
-							<h2>{work.title}</h2>
+							<h2>
+								{#if primaryHref}
+									<a
+										href={primaryHref}
+										target={primaryHref.startsWith("http") ? "_blank" : undefined}
+										rel={primaryHref.startsWith("http") ? "noopener noreferrer" : undefined}
+									>
+										{work.title}
+									</a>
+								{:else}
+									{work.title}
+								{/if}
+							</h2>
 							<span class="work-status" data-status={work.status}>
 								{getWorkStatusLabel(work.status, displayLocale)}
 							</span>
@@ -621,6 +635,16 @@ import * as m from "$lib/paraglide/messages";
 		overflow-wrap: anywhere;
 	}
 
+	.work-heading h2 a {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.work-heading h2 a:hover {
+		text-decoration: underline;
+		text-underline-offset: 0.18em;
+	}
+
 	.work-status {
 		flex: 0 0 auto;
 		padding: 0.18rem 0.48rem;
@@ -730,6 +754,7 @@ import * as m from "$lib/paraglide/messages";
 		cursor: not-allowed;
 	}
 
+	.work-heading h2 a:focus-visible,
 	.work-links a:focus-visible {
 		outline: 3px solid var(--focus-ring);
 		outline-offset: 3px;

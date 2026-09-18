@@ -2,11 +2,11 @@
 	import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
 	import { page } from "$app/state";
-	import { getLocalizedNavigationLabel, toDisplayLocale } from "$lib/site-labels";
+	import { toDisplayLocale } from "$lib/site-labels";
 	import { isSiteLocale, localizeSitePathname } from "$lib/site-locales";
 	import { siteProfile } from "$lib/site-profile";
 	import { getWorkStatusLabel } from "$lib/work-labels";
-	import { getWorksForLocale, workItems } from "$lib/works";
+	import { getPrimaryWorkHref, getWorksForLocale, workItems } from "$lib/works";
 
 	const locale = $derived(getLocale());
 	const displayLocale = $derived(toDisplayLocale(locale));
@@ -16,17 +16,12 @@
 		latestPost ? localizeSitePathname(`/blog/${latestPost.slug}`, siteLocale) : "/",
 	);
 	const featuredWorks = $derived(getWorksForLocale(workItems, locale).slice(0, 3));
-	const aboutCopy = $derived(page.data.about);
 </script>
 
 <section class="home-section" aria-labelledby="home-title">
 	<header class="home-intro">
 		<p class="home-eyebrow">{siteProfile.name}</p>
 		<h1 id="home-title">{siteProfile.description}</h1>
-		<p class="home-lede">{aboutCopy.paragraphs[0]}</p>
-		<a class="home-manifesto-link" href={localizeSitePathname("/about", siteLocale)}>
-			{m.nav_about({}, { locale: displayLocale })}
-		</a>
 	</header>
 
 	{#if latestPost}
@@ -54,31 +49,44 @@
 			</div>
 			<ol class="home-works" role="list">
 				{#each featuredWorks as work (work.slug)}
+					{@const primaryHref = getPrimaryWorkHref(work.links)}
 					<li>
-						<article class="home-work-card">
-							<div class="home-work-heading">
-								<h3>{work.title}</h3>
-								<span class="home-work-status" data-status={work.status}>
-									{getWorkStatusLabel(work.status, displayLocale)}
-								</span>
-							</div>
-							{#if work.summary}
-								<p>{work.summary}</p>
-							{/if}
-						</article>
+						{#if primaryHref}
+							<a
+								class="home-work-card"
+								href={primaryHref}
+								target={primaryHref.startsWith("http") ? "_blank" : undefined}
+								rel={primaryHref.startsWith("http") ? "noopener noreferrer" : undefined}
+							>
+								<div class="home-work-heading">
+									<h3>{work.title}</h3>
+									<span class="home-work-status" data-status={work.status}>
+										{getWorkStatusLabel(work.status, displayLocale)}
+									</span>
+								</div>
+								{#if work.summary}
+									<p>{work.summary}</p>
+								{/if}
+							</a>
+						{:else}
+							<article class="home-work-card">
+								<div class="home-work-heading">
+									<h3>{work.title}</h3>
+									<span class="home-work-status" data-status={work.status}>
+										{getWorkStatusLabel(work.status, displayLocale)}
+									</span>
+								</div>
+								{#if work.summary}
+									<p>{work.summary}</p>
+								{/if}
+							</article>
+						{/if}
 					</li>
 				{/each}
 			</ol>
 		</section>
 	{/if}
 
-	<nav class="home-explore" aria-label={m.primary_navigation_label({}, { locale: displayLocale })}>
-		{#each siteProfile.navigation as item (item.href)}
-			<a href={localizeSitePathname(item.href, siteLocale)}>
-				{getLocalizedNavigationLabel(item.href, displayLocale)}
-			</a>
-		{/each}
-	</nav>
 </section>
 
 <style>
@@ -112,24 +120,6 @@
 		text-wrap: balance;
 	}
 
-	.home-lede {
-		display: -webkit-box;
-		margin: 0;
-		color: var(--muted-foreground);
-		-webkit-box-orient: vertical;
-		-webkit-line-clamp: 3;
-		line-clamp: 3;
-		line-height: 1.65;
-		overflow: hidden;
-	}
-
-	.home-manifesto-link {
-		width: fit-content;
-		color: var(--water-deep);
-		font-weight: 720;
-		text-decoration-color: color-mix(in oklch, var(--water-deep) 45%, transparent);
-		text-underline-offset: 0.2em;
-	}
 
 	.home-block {
 		display: grid;
@@ -220,6 +210,12 @@
 		border: 1px solid color-mix(in oklch, var(--border) 78%, transparent);
 		border-radius: var(--radius-md);
 		background: color-mix(in oklch, var(--paper-soft) 72%, transparent);
+		color: inherit;
+		text-decoration: none;
+	}
+
+	a.home-work-card:hover {
+		border-color: color-mix(in oklch, var(--foreground) 28%, var(--border));
 	}
 
 	:global(.dark) .home-work-card {
@@ -276,34 +272,9 @@
 		border-color: color-mix(in oklch, var(--wildflower) 48%, var(--border));
 	}
 
-	.home-explore {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.45rem;
-		padding-top: 0.4rem;
-	}
-
-	.home-explore a {
-		display: inline-flex;
-		min-height: 2.3rem;
-		align-items: center;
-		padding: 0 0.9rem;
-		border: 1px solid var(--mode-control-border);
-		border-radius: var(--radius-md);
-		background: var(--mode-control-background);
-		color: var(--mode-control-foreground);
-		font-weight: 720;
-		text-decoration: none;
-	}
-
-	.home-explore a:hover {
-		background: var(--mode-control-hover-background);
-	}
-
-	.home-manifesto-link:focus-visible,
 	.home-block-heading a:focus-visible,
 	.home-post:focus-visible,
-	.home-explore a:focus-visible {
+	a.home-work-card:focus-visible {
 		outline: 3px solid var(--focus-ring);
 		outline-offset: 3px;
 	}

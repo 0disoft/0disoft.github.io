@@ -85,6 +85,18 @@ export function getWorksForLocale<Work extends WorkEntry>(
 	return sortWorks(works.filter((work) => work.locale === "en"));
 }
 
+export function getPrimaryWorkHref(links: WorkLinks): string | null {
+	for (const key of workLinkKeys) {
+		const href = links[key];
+
+		if (typeof href === "string" && href.length > 0) {
+			return href;
+		}
+	}
+
+	return null;
+}
+
 export function createEmptyWorkFilters(): WorkFilters {
 	return {
 		query: "",
