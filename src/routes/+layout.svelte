@@ -9,6 +9,7 @@ import { prefersReducedMotion } from 'svelte/motion';
 import * as m from '$lib/paraglide/messages';
 import { getLocale } from '$lib/paraglide/runtime';
 import { toDisplayLocale } from '$lib/site-labels';
+	import { localeFontStylesheets } from '$lib/locale-fonts';
 	import {
 		getPathLocale,
 		getPreferredClientLocale,
@@ -32,6 +33,12 @@ import { toDisplayLocale } from '$lib/site-labels';
 	const rssAlternateLinks = getSiteRssAlternateLinks();
 	const plainTextAlternateLinks = getSitePlainTextAlternateLinks();
 	const displayLocale = $derived(toDisplayLocale(getLocale()));
+	const currentLocale = $derived(getLocale());
+	const localeFontStylesheet = $derived(
+		currentLocale === "hi" || currentLocale === "ko" || currentLocale === "zh"
+			? localeFontStylesheets[currentLocale]
+			: undefined,
+	);
 
 	export const snapshot: Snapshot<{ top: number; left: number }> = {
 		capture: () => {
@@ -93,6 +100,9 @@ import { toDisplayLocale } from '$lib/site-labels';
 	<title>{siteProfile.name}</title>
 	<meta name="description" content={siteProfile.description} />
 	<link rel="icon" href={birdMarkPath} />
+	{#if localeFontStylesheet}
+		<link rel="stylesheet" href={localeFontStylesheet} />
+	{/if}
 	{#each rssAlternateLinks as link (link.href)}
 		<link
 			rel={link.rel}

@@ -46,17 +46,17 @@
   --sidebar-foreground: var(--ink);
   --sidebar-primary: var(--moss);
   --sidebar-primary-foreground: oklch(0.985 0.018 95);
-  --sidebar-accent: oklch(0.88 0.063 209);
-  --sidebar-accent-foreground: oklch(0.245 0.052 205);
+  --sidebar-accent: oklch(0.9 0.028 80);
+  --sidebar-accent-foreground: var(--ink);
   --sidebar-border: var(--border);
   --sidebar-ring: var(--water-deep);
   --mode-control-background: color-mix(in oklch, var(--paper-soft) 64%, transparent);
   --mode-control-foreground: var(--sidebar-foreground);
   --mode-control-border: color-mix(in oklch, var(--sidebar-border) 84%, transparent);
-  --mode-control-hover-background: color-mix(in oklch, var(--water) 28%, var(--paper-soft));
+  --mode-control-hover-background: color-mix(in oklch, var(--bronze) 12%, var(--paper-soft));
   --surface-hover: color-mix(in oklch, var(--muted) 55%, transparent);
-  --selection-background: color-mix(in oklch, var(--water) 56%, var(--moss-soft));
-  --selection-foreground: oklch(0.14 0.04 142);
+  --selection-background: color-mix(in oklch, var(--bronze) 40%, var(--paper));
+  --selection-foreground: var(--ink);
   color-scheme: light;
   --app-background: linear-gradient(
     180deg,
@@ -76,60 +76,62 @@
 }
 
 .dark {
-  --background: oklch(0.22 0.044 142);
-  --foreground: oklch(0.94 0.035 91);
-  --card: oklch(0.265 0.046 133);
-  --card-foreground: oklch(0.94 0.035 91);
-  --popover: oklch(0.265 0.046 133);
-  --popover-foreground: oklch(0.94 0.035 91);
-  --primary: oklch(0.79 0.096 123);
-  --primary-foreground: oklch(0.21 0.04 134);
-  --secondary: oklch(0.34 0.06 211);
-  --secondary-foreground: oklch(0.92 0.036 205);
-  --muted: oklch(0.32 0.034 122);
-  --muted-foreground: oklch(0.78 0.035 91);
+  --paper: oklch(0.2 0.02 85);
+  --paper-soft: oklch(0.24 0.022 90);
+  --background: oklch(0.2 0.02 85);
+  --foreground: oklch(0.93 0.02 88);
+  --card: oklch(0.24 0.022 90);
+  --card-foreground: oklch(0.93 0.02 88);
+  --popover: oklch(0.24 0.022 90);
+  --popover-foreground: oklch(0.93 0.02 88);
+  --primary: oklch(0.78 0.09 123);
+  --primary-foreground: oklch(0.18 0.02 88);
+  --secondary: oklch(0.3 0.045 215);
+  --secondary-foreground: oklch(0.92 0.025 90);
+  --muted: oklch(0.28 0.022 86);
+  --muted-foreground: oklch(0.78 0.022 80);
   --accent: oklch(0.76 0.105 73);
-  --accent-foreground: oklch(0.22 0.044 61);
+  --accent-foreground: oklch(0.18 0.025 70);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(0.94 0.035 91 / 16%);
-  --input: oklch(0.94 0.035 91 / 20%);
-  --ring: oklch(0.76 0.105 218);
-  --focus-ring: oklch(0.82 0.12 218);
+  --border: oklch(0.93 0.02 88 / 16%);
+  --input: oklch(0.93 0.02 88 / 20%);
+  --ring: oklch(0.76 0.1 215);
+  --focus-ring: oklch(0.8 0.11 215);
   --chart-1: oklch(0.76 0.105 218);
-  --chart-2: oklch(0.79 0.096 123);
+  --chart-2: oklch(0.78 0.09 123);
   --chart-3: oklch(0.76 0.105 73);
   --chart-4: oklch(0.66 0.035 82);
   --chart-5: oklch(0.72 0.14 326);
-  --sidebar: oklch(0.265 0.046 133);
-  --sidebar-foreground: oklch(0.94 0.035 91);
-  --sidebar-primary: oklch(0.79 0.096 123);
-  --sidebar-primary-foreground: oklch(0.21 0.04 134);
-  --sidebar-accent: oklch(0.34 0.06 211);
-  --sidebar-accent-foreground: oklch(0.92 0.036 205);
+  --sidebar: oklch(0.175 0.02 88);
+  --sidebar-foreground: oklch(0.93 0.02 88);
+  --sidebar-primary: oklch(0.78 0.09 123);
+  --sidebar-primary-foreground: oklch(0.18 0.02 88);
+  --sidebar-accent: oklch(0.28 0.028 80);
+  --sidebar-accent-foreground: oklch(0.93 0.02 88);
   --sidebar-border: var(--border);
-  --sidebar-ring: oklch(0.76 0.105 218);
-  --mode-control-background: oklch(0.19 0.044 132);
-  --mode-control-foreground: oklch(0.96 0.038 92);
-  --mode-control-border: oklch(0.96 0.038 92 / 28%);
-  --mode-control-hover-background: oklch(0.29 0.058 132);
+  --sidebar-ring: oklch(0.76 0.1 215);
+  --mode-control-background: oklch(0.16 0.02 85);
+  --mode-control-foreground: oklch(0.94 0.022 88);
+  --mode-control-border: oklch(0.93 0.02 88 / 28%);
+  --mode-control-hover-background: oklch(0.26 0.025 80);
   --surface-hover: color-mix(in oklch, var(--muted) 52%, transparent);
-  --selection-background: color-mix(in oklch, var(--water) 54%, var(--moss-soft));
-  --selection-foreground: oklch(0.14 0.04 142);
+  --selection-background: color-mix(in oklch, var(--bronze) 38%, oklch(0.86 0.03 88));
+  --selection-foreground: oklch(0.18 0.02 85);
   color-scheme: dark;
   --app-background: linear-gradient(
     180deg,
-    oklch(0.18 0.038 136) 0%,
-    oklch(0.215 0.044 142) 52%,
-    oklch(0.255 0.052 132) 100%
+    oklch(0.165 0.02 88) 0%,
+    oklch(0.2 0.02 85) 48%,
+    oklch(0.22 0.028 78) 100%
   );
-  --backdrop-water: color-mix(in oklch, var(--water) 18%, transparent);
-  --backdrop-moss: color-mix(in oklch, var(--moss-soft) 18%, transparent);
-  --backdrop-stone: color-mix(in oklch, var(--stone) 10%, transparent);
-  --backdrop-grid: color-mix(in oklch, var(--foreground) 9%, transparent);
-  --backdrop-grid-cross: color-mix(in oklch, var(--foreground) 7%, transparent);
-  --backdrop-opacity: 0.52;
+  --backdrop-water: color-mix(in oklch, var(--water) 20%, transparent);
+  --backdrop-moss: color-mix(in oklch, var(--moss-soft) 14%, transparent);
+  --backdrop-stone: color-mix(in oklch, var(--stone) 16%, transparent);
+  --backdrop-grid: color-mix(in oklch, var(--foreground) 8%, transparent);
+  --backdrop-grid-cross: color-mix(in oklch, var(--foreground) 6%, transparent);
+  --backdrop-opacity: 0.6;
   --backdrop-grid-opacity: 0.12;
-  --display-heading-shadow: color-mix(in oklch, black 36%, transparent);
+  --display-heading-shadow: color-mix(in oklch, var(--bronze) 22%, transparent);
   accent-color: var(--accent);
 }
 
@@ -219,7 +221,7 @@
     background: var(--app-background);
   }
   html {
-    @apply font-sans;
+    font-family: var(--font-sans);
   }
   ::selection {
     background: var(--selection-background);
@@ -288,14 +290,14 @@
   transform: translateY(0);
 }
 
-html:lang(ko) {
-  font-family: "Inter Variable", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
-}
-
-html:lang(zh) {
-  font-family: "Inter Variable", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
-}
-
-html:lang(hi) {
-  font-family: "Inter Variable", "Noto Sans Devanagari", "Nirmala UI", "Mangal", sans-serif;
+@layer utilities {
+  html:lang(ko) {
+    font-family: "Noto Sans KR Variable", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  }
+  html:lang(zh) {
+    font-family: "Noto Sans SC Variable", "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  html:lang(hi) {
+    font-family: "Noto Sans Devanagari Variable", "Nirmala UI", "Mangal", sans-serif;
+  }
 }
