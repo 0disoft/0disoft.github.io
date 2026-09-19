@@ -341,7 +341,6 @@ import * as m from "$lib/paraglide/messages";
 					Boolean(work.summary) ||
 					Boolean(work.license) ||
 					work.languages.length > 0 ||
-					work.tags.length > 0 ||
 					links.length > 0}
 				<li
 					transition:fade={{ duration: prefersReducedMotion.current ? 0 : 160 }}
