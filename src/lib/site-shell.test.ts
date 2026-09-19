@@ -62,6 +62,12 @@ describe("site shell", () => {
 		]);
 	});
 
+	it("gives the projects shortcut to navigation, not the sponsor link", () => {
+		expect(sidebarSource).toContain("navigationPathByShortcut[key]");
+		expect(sidebarSource).not.toContain("openSponsorLink");
+		expect(sidebarSource).not.toContain('shortcut="P"');
+	});
+
 	it("exports an explicit empty transport hook for SvelteKit", () => {
 		expect(hooksSource).toContain("Transport");
 		expect(hooksSource).toContain("export const transport: Transport = {}");

@@ -235,10 +235,6 @@
 		window.location.assign(localizeSitePathname(path, getSettingsLocale()));
 	}
 
-	function openSponsorLink() {
-		window.open(siteProfile.links[0].href, "_blank", "noopener,noreferrer");
-	}
-
 	function handleGlobalKeydown(event: KeyboardEvent) {
 		if (event.defaultPrevented || isModifiedKeyEvent(event) || isEditableKeyboardTarget(event.target)) {
 			return;
@@ -254,12 +250,6 @@
 		if (key === "s") {
 			event.preventDefault();
 			void openSettingsDialog();
-			return;
-		}
-
-		if (key === "p") {
-			event.preventDefault();
-			openSponsorLink();
 			return;
 		}
 
@@ -426,8 +416,6 @@
 				icon={Heart}
 				label={sponsorLabel}
 				href={link.href}
-				shortcut="P"
-				title={withShortcut(sponsorLabel, "P")}
 				rel="noopener noreferrer"
 				target="_blank"
 				tone="sponsor"
