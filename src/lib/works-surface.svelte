@@ -405,14 +405,6 @@ import * as m from "$lib/paraglide/messages";
 							</dl>
 						{/if}
 
-						{#if work.tags.length > 0}
-							<ul class="work-tags" aria-label={m.works_tags_label({}, { locale: displayLocale })}>
-								{#each work.tags as tag (tag)}
-									<li data-tag={tag}>{getWorkTagLabel(tag)}</li>
-								{/each}
-							</ul>
-						{/if}
-
 						{#if links.length > 0}
 							<nav class="work-links" aria-label={m.works_links_label({}, { locale: displayLocale })}>
 								{#each links as link (link.key)}
@@ -482,7 +474,6 @@ import * as m from "$lib/paraglide/messages";
 	.filter-actions button,
 	.filter-actions a,
 	.works-result-status,
-	.work-tags li,
 	.work-languages li,
 	.work-links a,
 	.work-links button {
@@ -691,7 +682,6 @@ import * as m from "$lib/paraglide/messages";
 		font-weight: 760;
 	}
 
-	.work-tags,
 	.work-languages,
 	.work-links {
 		display: flex;
@@ -699,14 +689,12 @@ import * as m from "$lib/paraglide/messages";
 		gap: 0.35rem;
 	}
 
-	.work-tags,
 	.work-languages {
 		padding: 0;
 		margin: 0;
 		list-style: none;
 	}
 
-	.work-tags li,
 	.work-languages li,
 	.work-links a,
 	.work-links button {
@@ -714,12 +702,6 @@ import * as m from "$lib/paraglide/messages";
 		font-size: 0.82rem;
 		font-weight: 700;
 		user-select: none;
-	}
-
-	.work-tags li {
-		padding: 0.15rem 0.45rem;
-		border: 1px solid color-mix(in oklch, var(--border) 78%, transparent);
-		color: var(--muted-foreground);
 	}
 
 	.work-languages li {

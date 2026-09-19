@@ -92,12 +92,12 @@ describe("work list content", () => {
 				{
 					...sampleMeta,
 					slug: "too-many-tags",
-					tags: ["a", "b", "c", "d", "e"],
+					tags: ["a", "b", "c"],
 				},
 				"ko",
 				sampleCopy,
 			),
-		).toThrow("Work tags must include zero to four tags");
+		).toThrow("Work tags must include zero to two tags");
 	});
 
 	it("supports intentionally blank planned cards with disabled evidence links", () => {
@@ -245,7 +245,7 @@ describe("work list content", () => {
 			summary:
 				"공개 GitHub 활동을 프로필 README용 엔지니어링 시그널 카드와 확인 가능한 리포트로 바꾸는 GitHub Action 및 TypeScript 코어.",
 			updatedAt: "2026-07-07",
-			tags: ["github", "profile-readme", "github-action", "developer-tools"],
+			tags: ["github-action", "developer-tools"],
 			links: {
 				source: "https://github.com/0disoft/buildmarks",
 				docs: "https://github.com/0disoft/buildmarks#readme",
@@ -263,7 +263,7 @@ describe("work list content", () => {
 			summary:
 				"의미 있는 오픈소스 merged PR을 maintainer가 승인한 프로젝트 히스토리로 남기도록 돕는 실험적 GitHub Action 및 TypeScript CLI.",
 			updatedAt: "2026-07-09",
-			tags: ["github-action", "recognition", "open-source", "automation"],
+			tags: ["github-action", "automation"],
 			links: {
 				source: "https://github.com/0disoft/clarissimi",
 				docs: "https://github.com/0disoft/clarissimi#readme",
@@ -281,7 +281,7 @@ describe("work list content", () => {
 			summary:
 				"Markdown, 코드블록, 콜아웃, AI 초안을 DCInside 글쓰기 화면에 붙여넣을 리치 텍스트 HTML로 바꾸는 정적 웹 편집기.",
 			updatedAt: "2026-07-09",
-			tags: ["dcinside", "editor", "markdown", "ai-writing"],
+			tags: ["editor", "ai-writing"],
 			links: {
 				live: "https://0disoft.github.io/dc-code-paste/",
 				source: "https://github.com/0disoft/dc-code-paste",
@@ -299,7 +299,7 @@ describe("work list content", () => {
 			summary:
 				"Node.js CLI에서 안정적인 터미널 진행률, 라이브 렌더링, 기계 판독 가능한 진행 이벤트를 다루는 엄격한 TypeScript 런타임.",
 			updatedAt: "2026-07-09",
-			tags: ["terminal", "progress-bar", "cli", "library"],
+			tags: ["terminal", "cli"],
 			links: {
 				source: "https://github.com/0disoft/laqu",
 				docs: "https://github.com/0disoft/laqu#readme",
@@ -317,7 +317,7 @@ describe("work list content", () => {
 			summary:
 				"LLM 코딩 에이전트가 명시된 읽기, 명령, 검증 경계 안에서 작업하도록 묶어주는 저장소 로컬 작업 계약 및 검증 CLI.",
 			updatedAt: "2026-07-09",
-			tags: ["agent-workflow", "cli", "developer-tools", "automation"],
+			tags: ["agent-workflow", "automation"],
 			links: {
 				source: "https://github.com/0disoft/mustflow",
 				docs: "https://0disoft.github.io/mustflow/",
@@ -335,7 +335,7 @@ describe("work list content", () => {
 			summary:
 				"PR이나 릴리스 전에 의존성과 SBOM 입력을 스캔해 오픈소스 라이선스 리스크를 빠르게 드러내는 로컬 CLI.",
 			updatedAt: "2026-07-09",
-			tags: ["license", "compliance", "supply-chain", "cli"],
+			tags: ["license", "cli"],
 			links: {
 				source: "https://github.com/0disoft/ohrisk",
 				docs: "https://github.com/0disoft/ohrisk#readme",
@@ -353,7 +353,7 @@ describe("work list content", () => {
 			summary:
 				"문서, 에이전트 지침, 계약, 검증, 저장소 위생 파일을 위한 LLM 친화적 저장소 scaffold를 만드는 TypeScript CLI.",
 			updatedAt: "2026-07-09",
-			tags: ["scaffold", "agent-workflow", "developer-tools", "cli"],
+			tags: ["scaffold", "cli"],
 			links: {
 				source: "https://github.com/0disoft/ssealed",
 				docs: "https://github.com/0disoft/ssealed#readme",

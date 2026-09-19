@@ -5,7 +5,7 @@
   "license": "MIT",
   "updatedAt": "2026-07-09",
   "languages": ["TypeScript"],
-  "tags": ["license", "compliance", "supply-chain", "cli"],
+  "tags": ["license", "cli"],
   "links": {
     "source": "https://github.com/0disoft/ohrisk",
     "docs": "https://github.com/0disoft/ohrisk#readme"

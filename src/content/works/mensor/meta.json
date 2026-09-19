@@ -5,7 +5,7 @@
   "license": "MIT-0",
   "updatedAt": "2026-07-22",
   "languages": ["TypeScript"],
-  "tags": ["contract-checker", "static-analysis", "developer-tools", "agent-workflow"],
+  "tags": ["static-analysis", "agent-workflow"],
   "links": {
     "source": "https://github.com/0disoft/mensor",
     "docs": "https://github.com/0disoft/mensor#readme"

@@ -5,7 +5,7 @@
   "license": "MIT",
   "updatedAt": "2026-07-22",
   "languages": ["Go"],
-  "tags": ["app-packager", "webview2", "desktop-app", "compile-free"],
+  "tags": ["app-packager", "desktop-app"],
   "links": {
     "source": "https://github.com/0disoft/velox",
     "docs": "https://github.com/0disoft/velox#readme"

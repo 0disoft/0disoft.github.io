@@ -408,11 +408,9 @@ describe("site shell", () => {
 		expect(worksSurfaceSource).not.toContain("work.updatedAt");
 		expect(worksSurfaceSource).toContain("hasWorkDetails");
 		expect(worksSurfaceSource).toContain("{#if work.summary}");
-		expect(worksSurfaceSource).toContain("{#if work.tags.length > 0}");
+		expect(worksSurfaceSource).not.toContain('class="work-tags"');
 		expect(worksSurfaceSource).toContain("getWorkTagLabel(tag)");
 		expect(worksSurfaceSource).toContain("getWorkLinks(work.links)");
-		expect(worksSurfaceSource).toContain('class="work-link-disabled"');
-		expect(worksSurfaceSource).toContain("disabled");
 		expect(worksSurfaceSource).toContain("noopener noreferrer");
 		expect(worksSurfaceSource).not.toContain("work_tag_deploy_soon");
 		expect(worksSurfaceSource).not.toContain("deploy-soon");

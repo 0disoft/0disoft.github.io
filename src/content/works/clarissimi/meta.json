@@ -5,7 +5,7 @@
   "license": "Apache-2.0",
   "updatedAt": "2026-07-09",
   "languages": ["TypeScript"],
-  "tags": ["github-action", "recognition", "open-source", "automation"],
+  "tags": ["github-action", "automation"],
   "links": {
     "source": "https://github.com/0disoft/clarissimi",
     "docs": "https://github.com/0disoft/clarissimi#readme"

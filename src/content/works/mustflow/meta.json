@@ -5,7 +5,7 @@
   "license": "MIT-0",
   "updatedAt": "2026-07-09",
   "languages": ["TypeScript"],
-  "tags": ["agent-workflow", "cli", "developer-tools", "automation"],
+  "tags": ["agent-workflow", "automation"],
   "links": {
     "source": "https://github.com/0disoft/mustflow",
     "docs": "https://0disoft.github.io/mustflow/"

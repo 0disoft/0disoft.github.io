@@ -287,8 +287,8 @@ function readLanguages(value: unknown, path: string): string[] {
 }
 
 function readTags(value: unknown, path: string): string[] {
-	if (!Array.isArray(value) || value.length > 4) {
-		throw new Error(`Work tags must include zero to four tags: ${path}`);
+	if (!Array.isArray(value) || value.length > 2) {
+		throw new Error(`Work tags must include zero to two tags: ${path}`);
 	}
 
 	return value.map((tag) => {

@@ -5,7 +5,7 @@
   "license": "0BSD",
   "updatedAt": "2026-07-07",
   "languages": ["TypeScript"],
-  "tags": ["github", "profile-readme", "github-action", "developer-tools"],
+  "tags": ["github-action", "developer-tools"],
   "links": {
     "source": "https://github.com/0disoft/buildmarks",
     "docs": "https://github.com/0disoft/buildmarks#readme"

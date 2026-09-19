@@ -5,7 +5,7 @@
   "license": "",
   "updatedAt": "2026-07-22",
   "languages": ["Go"],
-  "tags": ["programming-language", "compiler", "systems-programming", "language-design"],
+  "tags": ["programming-language", "compiler"],
   "links": {
     "source": "https://github.com/0disoft/fairyc",
     "docs": "https://github.com/0disoft/fairyc#readme"
