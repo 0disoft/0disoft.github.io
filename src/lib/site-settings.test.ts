@@ -69,6 +69,7 @@ describe("site settings", () => {
 			"/uses": "U",
 		});
 		expect(navigationPathByShortcut.b).toBe("/blog");
+		expect(navigationPathByShortcut.p).toBe("/projects");
 		expect(languageShortcutByLocale).toEqual({
 			en: "E",
 			zh: "C",
