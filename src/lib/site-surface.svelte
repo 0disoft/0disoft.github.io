@@ -2,11 +2,8 @@
 import type { Snippet } from "svelte";
 import { fade } from "svelte/transition";
 import { prefersReducedMotion } from "svelte/motion";
-	import AboutSurface from "$lib/about-surface.svelte";
-	import BlogSurface from "$lib/blog-surface.svelte";
+	import IndiehackersSurface from "$lib/indiehackers-surface.svelte";
 	import SiteSidebar from "$lib/site-sidebar.svelte";
-	import UsesSurface from "$lib/uses-surface.svelte";
-	import WorksSurface from "$lib/works-surface.svelte";
 	import { getLocale } from "$lib/paraglide/runtime";
 	import { toDisplayLocale } from "$lib/site-labels";
 	import {
@@ -41,14 +38,8 @@ import { prefersReducedMotion } from "svelte/motion";
 			<div class="surface-transition" transition:fade={{ duration: prefersReducedMotion.current ? 0 : 220 }}>
 				{#if children}
 					{@render children()}
-				{:else if sectionKind === "about"}
-					<AboutSurface />
-				{:else if sectionKind === "blog"}
-					<BlogSurface />
-				{:else if sectionKind === "projects"}
-					<WorksSurface />
-				{:else if sectionKind === "uses"}
-					<UsesSurface />
+				{:else if sectionKind === "indiehackers"}
+					<IndiehackersSurface />
 				{:else}
 					<h1 class="sr-only">{siteProfile.name}</h1>
 				{/if}

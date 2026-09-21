@@ -1,6 +1,6 @@
 export const siteProfile = {
 	name: "0disoft",
-	description: "Launch notes, failed experiments, and the tools I actually use.",
+	description: "Notes on indie hackers around the world.",
 	origin: "https://0disoft.github.io",
 	sourceRepository: "https://github.com/0disoft/0disoft.github.io",
 	author: {
@@ -12,12 +12,7 @@ export const siteProfile = {
 		name: "0disoft",
 		url: "https://0disoft.github.io",
 	},
-	navigation: [
-		{ label: "Blog", href: "/blog" },
-		{ label: "Projects", href: "/projects" },
-		{ label: "About", href: "/about" },
-		{ label: "Uses", href: "/uses" },
-	],
+	navigation: [{ label: "Indiehackers", href: "/indiehackers" }],
 	links: [
 		{
 			label: "Sponsor",

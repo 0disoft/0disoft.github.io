@@ -36,11 +36,6 @@ function collectRelativeFiles(rootPath: string, suffix: string): string[] {
 
 export const routeSource = readRequiredText("../../routes/+page.svelte");
 export const sectionRouteSource = readRequiredText("../../routes/[section]/+page.ts");
-export const blogPostRouteSource = readRequiredText("../../routes/blog/[slug]/+page.server.ts");
-export const blogPostRouteComponentSource = readRequiredText(
-	"../../routes/blog/[slug]/+page.svelte",
-);
-export const adsTxtRouteSource = readRequiredText("../../routes/ads.txt/+server.ts");
 export const privacyRouteSource = readRequiredText("../../routes/privacy/+page.svelte");
 export const layoutCss = readRequiredText("../../routes/layout.css");
 export const errorSource = readRequiredText("../../routes/+error.svelte");
@@ -63,18 +58,7 @@ export const sidebarSource = readRequiredText("../site-sidebar.svelte");
 export const sidebarActionSource = readRequiredText("../ui/sidebar-action.svelte");
 export const iconButtonSource = readRequiredText("../ui/icon-button.svelte");
 export const brandIconSource = readRequiredText("../ui/brand-icon.svelte");
-export const blogSurfaceSource = readRequiredText("../blog-surface.svelte");
-export const worksSurfaceSource = readRequiredText("../works-surface.svelte");
-export const shareToolbarSource = readRequiredText("../share-toolbar.svelte");
-export const adUnitSource = readRequiredText("../ad-unit.svelte");
-export const blogPostSurfaceSource = readRequiredText("../blog-post-surface.svelte");
-export const blogPostAdsSource = readRequiredText("../blog-post-ads.ts");
-export const blogPostSeoSource = readRequiredText("../blog-post-seo.ts");
-export const blogPostsSource = readRequiredText("../server/blog-posts.ts");
-export const worksSource = readRequiredText("../works.ts");
-export const workCoreSource = readRequiredText("../work-core.ts");
-export const blogPostCoreSource = readRequiredText("../blog-post-core.ts");
-export const blogShareSource = readRequiredText("../blog-share.ts");
+export const indiehackersSurfaceSource = readRequiredText("../indiehackers-surface.svelte");
 export const clipboardSource = readRequiredText("../site-clipboard.ts");
 export const localesSource = readRequiredText("../site-locales.ts");
 export const labelsSource = readRequiredText("../site-labels.ts");
@@ -94,13 +78,8 @@ export const svelteConfigSource = readRequiredText("../../../svelte.config.js");
 export const deployWorkflowSource = readRequiredText("../../../.github/workflows/deploy.yml");
 export const publicBirdImageSource = readRequiredText("../../../static/images/0disoft-bird.svg");
 
-export const blogPostsModuleExists = blogPostsSource.length > 0;
-export const worksModuleExists = worksSource.length > 0;
+export const worksModuleExists = false;
 export const navigationModuleExists = navigationSource.length > 0;
-export const blogMetaFilePaths = collectRelativeFiles("../../content/blog/", "meta.json");
-export const blogMarkdownFilePaths = collectRelativeFiles("../../content/blog/", ".md");
-export const workMetaFilePaths = collectRelativeFiles("../../content/works/", "meta.json");
-export const workJsonFilePaths = collectRelativeFiles("../../content/works/", ".json");
 
 export const siteSurfaceSource = [
 	routeSource,
@@ -108,15 +87,6 @@ export const siteSurfaceSource = [
 	sidebarSource,
 	sidebarActionSource,
 	iconButtonSource,
-	blogSurfaceSource,
-	worksSurfaceSource,
-	shareToolbarSource,
-	adUnitSource,
-	blogPostSurfaceSource,
-	blogPostAdsSource,
-	blogPostsSource,
-	worksSource,
-	workCoreSource,
 	clipboardSource,
 	labelsSource,
 ].join("\n");

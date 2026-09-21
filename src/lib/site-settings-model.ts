@@ -11,10 +11,7 @@ export type ThemeChoice = (typeof themeChoices)[number];
 export const defaultSettingsTab: SettingsTab = "theme";
 
 export const navigationShortcutByHref = {
-	"/blog": "B",
-	"/projects": "P",
-	"/about": "A",
-	"/uses": "U",
+	"/indiehackers": "I",
 } as const satisfies Record<SiteSectionPath, string>;
 
 export const navigationPathByShortcut = Object.fromEntries(

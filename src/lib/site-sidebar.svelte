@@ -2,8 +2,6 @@
 	import type { Component } from "svelte";
 	import { tick } from "svelte";
 	import {
-		BookOpenText,
-		Briefcase,
 		FileText,
 		Heart,
 		Monitor,
@@ -11,7 +9,7 @@
 		Search,
 		Settings,
 		Sun,
-		Wrench,
+		Users,
 		X,
 	} from "@lucide/svelte";
 	import { resetMode, setMode, userPrefersMode } from "mode-watcher";
@@ -78,10 +76,7 @@
 	const advertisingConfigured = isSiteAdvertisingConfigured();
 
 	const navigationIconByHref = {
-		"/blog": BookOpenText,
-		"/projects": Briefcase,
-		"/about": FileText,
-		"/uses": Wrench,
+		"/indiehackers": Users,
 	} as const satisfies Record<SiteSectionPath, Component>;
 
 	function getSettingsLocale(): SiteLocale {

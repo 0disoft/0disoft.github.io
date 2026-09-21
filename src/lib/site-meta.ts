@@ -1,5 +1,3 @@
-import type { BlogPost } from "$lib/blog-post-core";
-import { blogPostLocales, getBlogPostTagLabels } from "$lib/blog-post-core";
 import { siteNavigation } from "$lib/site-navigation";
 import {
 	indexedSiteLocales,
@@ -16,8 +14,7 @@ const XML_CONTENT_TYPE = "application/xml; charset=utf-8";
 const RSS_CONTENT_TYPE = "application/rss+xml; charset=utf-8";
 const DEFAULT_CACHE_CONTROL = "public, max-age=3600";
 const LLMS_FULL_MAX_CHARACTERS = 60_000;
-const RSS_ITEM_LIMIT = 20;
-export const defaultRssFeedLocale: BlogPost["locale"] = "en";
+export const defaultRssFeedLocale = "en";
 
 export const siteTextAlternateLinks = [{ href: "/llms.txt", title: "llms.txt" }] as const;
 
@@ -96,8 +93,8 @@ export function buildRobotsText(origin: string): string {
 	].join("\n");
 }
 
-export function buildSitemapXml(origin: string, posts: readonly BlogPost[] = []): string {
-	const urls = getIndexedSitePaths(posts)
+export function buildSitemapXml(origin: string, _posts: readonly unknown[] = []): string {
+	const urls = getIndexedSitePaths(_posts)
 		.map((path) => toAbsoluteUrl(origin, path))
 		.toSorted((left, right) => left.localeCompare(right))
 		.map((url) => `  <url><loc>${escapeXml(url)}</loc></url>`)
@@ -114,30 +111,25 @@ export function buildSitemapXml(origin: string, posts: readonly BlogPost[] = [])
 
 export function buildRssXml(
 	origin: string,
-	posts: readonly BlogPost[],
-	locale: BlogPost["locale"] = defaultRssFeedLocale,
+	_posts: readonly unknown[] = [],
+	locale: SiteLocale = defaultRssFeedLocale,
 ): string {
-	const feedPosts = getExactLocalePosts(posts, locale).slice(0, RSS_ITEM_LIMIT);
-	const lastBuildDate = getLastBuildDate(feedPosts);
-
 	return [
 		'<?xml version="1.0" encoding="UTF-8"?>',
 		'<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
 		"  <channel>",
 		`    <title>${escapeXml(siteProfile.name)}</title>`,
-		`    <link>${escapeXml(toAbsoluteUrl(origin, withTrailingSlash(localizeSitePathname("/blog", locale))))}</link>`,
+		`    <link>${escapeXml(toAbsoluteUrl(origin, withTrailingSlash(localizeSitePathname("/indiehackers", locale))))}</link>`,
 		`    <description>${escapeXml(siteProfile.description)}</description>`,
 		`    <language>${locale}</language>`,
 		`    <atom:link href="${escapeXml(toAbsoluteUrl(origin, getRssFeedPath(locale)))}" rel="self" type="application/rss+xml" />`,
-		...(lastBuildDate ? [`    <lastBuildDate>${lastBuildDate}</lastBuildDate>`] : []),
-		...feedPosts.flatMap((post) => formatRssItem(origin, post, locale)),
 		"  </channel>",
 		"</rss>",
 		"",
 	].join("\n");
 }
 
-export function getRssFeedPath(locale: BlogPost["locale"]): string {
+export function getRssFeedPath(locale: SiteLocale): string {
 	return localizeSitePathname("/rss.xml", locale);
 }
 
@@ -175,11 +167,9 @@ export function buildAiText(origin: string): string {
 	].join("\n");
 }
 
-export function buildLlmsText(origin: string, posts: readonly BlogPost[]): string {
+export function buildLlmsText(origin: string, _posts: readonly unknown[] = []): string {
 	const coreLinks = getCoreLinks();
 	const machineLinks = getMachineReadableLinks();
-	const blogIndexLinks = getBlogIndexLinks();
-	const defaultLocalePosts = getExactLocalePosts(posts, "en").slice(0, 8);
 
 	return [
 		`# ${siteProfile.name}`,
@@ -189,19 +179,13 @@ export function buildLlmsText(origin: string, posts: readonly BlogPost[]): strin
 		"## Core",
 		...coreLinks.map((link) => formatLlmsLink(origin, link)),
 		"",
-		"## Blog",
-		...blogIndexLinks.map((link) => formatLlmsLink(origin, link)),
-		...defaultLocalePosts.map((post) => {
-			return `- [${post.title}](${toAbsoluteUrl(origin, withTrailingSlash(`/blog/${post.slug}`))}): ${post.summary}`;
-		}),
-		"",
 		"## Machine-readable",
 		...machineLinks.map((link) => formatLlmsLink(origin, link)),
 		"",
 	].join("\n");
 }
 
-export function buildLlmsFullText(origin: string, posts: readonly BlogPost[]): string {
+export function buildLlmsFullText(origin: string, _posts: readonly unknown[] = []): string {
 	const lines = [
 		`# ${siteProfile.name} (llms-full)`,
 		"",
@@ -219,65 +203,24 @@ export function buildLlmsFullText(origin: string, posts: readonly BlogPost[]): s
 		"## Machine-readable",
 		...getMachineReadableLinks().map((link) => formatLlmsLink(origin, link)),
 		"",
-		"## Blog Posts",
-		...indexedSiteLocales.flatMap((locale) => buildLlmsFullPostSection(origin, locale, posts)),
-		"",
 		"## Notes",
-		"- Generated from site profile, navigation, and blog metadata.",
+		"- Generated from site profile and navigation.",
 		"- Localized public pages are listed for every supported interface language.",
-		"- Blog post entries are listed only when matching localized post content exists.",
 		"",
 	].join("\n");
 
 	return clampText(lines, LLMS_FULL_MAX_CHARACTERS);
 }
 
-export function getIndexedSitePaths(posts: readonly BlogPost[]): string[] {
+export function getIndexedSitePaths(_posts: readonly unknown[] = []): string[] {
 	const canonicalSitePaths = ["/", ...siteNavigation.map((item) => item.href)];
 	const localizedSitePaths = canonicalSitePaths.flatMap((path) =>
 		indexedSiteLocales.map((locale) => withTrailingSlash(localizeSitePathname(path, locale))),
 	);
-	const localizedPostPaths = posts.map((post) =>
-		withTrailingSlash(localizeSitePathname(`/blog/${post.slug}`, post.locale)),
-	);
 
-	return Array.from(new Set([...localizedSitePaths, ...localizedPostPaths]));
+	return Array.from(new Set(localizedSitePaths));
 }
 
-function buildLlmsFullPostSection(
-	origin: string,
-	locale: SiteLocale,
-	posts: readonly BlogPost[],
-): string[] {
-	const blogLocale = toBlogPostLocale(locale);
-
-	if (!blogLocale) {
-		return [];
-	}
-
-	const localizedPosts = getExactLocalePosts(posts, blogLocale);
-
-	if (localizedPosts.length === 0) {
-		return [];
-	}
-
-	return [
-		`### ${locale}`,
-		`- Locale: ${locale}`,
-		...localizedPosts.map((post) => {
-			const path = localizeSitePathname(`/blog/${post.slug}`, locale);
-			const tags = getBlogPostTagLabels(post).join(", ");
-
-			return [
-				`- [${post.title}](${toAbsoluteUrl(origin, withTrailingSlash(path))})`,
-				`  - Published: ${post.publishedAt}`,
-				`  - Summary: ${post.summary}`,
-				`  - Tags: ${tags}`,
-			].join("\n");
-		}),
-		"",
-	];
-}
 
 function getCoreLinks(): LinkEntry[] {
 	return [
@@ -290,81 +233,17 @@ function getCoreLinks(): LinkEntry[] {
 	];
 }
 
-function getBlogIndexLinks(): LinkEntry[] {
-	return indexedSiteLocales.map((locale) => {
-		const localeLabel = getSiteLocaleLabel(locale);
-
-		return {
-			label: locale === "en" ? "Blog" : `${localeLabel} blog`,
-			path: localizeSitePathname("/blog", locale),
-			note: `${localeLabel} blog index`,
-		};
-	});
-}
-
 function getMachineReadableLinks(): LinkEntry[] {
 	return [
-		{ label: "robots.txt", path: "/robots.txt", note: "Crawler access policy" },
-		{ label: "sitemap.xml", path: "/sitemap.xml", note: "Search engine sitemap" },
-		{ label: "rss.xml", path: "/rss.xml", note: "Default blog RSS feed" },
+		{ label: "rss.xml", path: "/rss.xml", note: "Default site feed" },
 		{ label: "ai.txt", path: "/ai.txt", note: "AI usage and attribution guidance" },
 		{ label: "llms.txt", path: "/llms.txt", note: "Compact assistant index" },
 		{ label: "llms-full.txt", path: "/llms-full.txt", note: "Expanded assistant index" },
 	];
 }
 
-function formatRssItem(origin: string, post: BlogPost, locale: BlogPost["locale"]): string[] {
-	const postUrl = toAbsoluteUrl(
-		origin,
-		withTrailingSlash(localizeSitePathname(`/blog/${post.slug}`, locale)),
-	);
-
-	return [
-		"    <item>",
-		`      <title>${escapeXml(post.title)}</title>`,
-		`      <link>${escapeXml(postUrl)}</link>`,
-		`      <guid isPermaLink="true">${escapeXml(postUrl)}</guid>`,
-		`      <description>${escapeXml(post.summary)}</description>`,
-		`      <pubDate>${formatRssDate(post.publishedAt)}</pubDate>`,
-		...getBlogPostTagLabels(post).map(
-			(category) => `      <category>${escapeXml(category)}</category>`,
-		),
-		"    </item>",
-	];
-}
-
-function getLastBuildDate(posts: readonly BlogPost[]): string | null {
-	const latestDate = posts
-		.map((post) => post.updatedAt ?? post.publishedAt)
-		.toSorted((left, right) => right.localeCompare(left))[0];
-
-	return latestDate ? formatRssDate(latestDate) : null;
-}
-
-function formatRssDate(date: string): string {
-	return new Date(`${date}T00:00:00.000Z`).toUTCString();
-}
-
 function formatLlmsLink(origin: string, link: LinkEntry): string {
 	return `- [${link.label}](${toAbsoluteUrl(origin, withTrailingSlashForPage(link.path))}): ${link.note}`;
-}
-
-function getExactLocalePosts(posts: readonly BlogPost[], locale: BlogPost["locale"]): BlogPost[] {
-	return posts.filter((post) => post.locale === locale).sort(comparePosts);
-}
-
-function comparePosts(left: BlogPost, right: BlogPost): number {
-	return right.publishedAt.localeCompare(left.publishedAt) || left.title.localeCompare(right.title);
-}
-
-function getSiteLocaleLabel(locale: SiteLocale): string {
-	return languageOptions.find((item) => item.locale === locale)?.label ?? locale;
-}
-
-function toBlogPostLocale(locale: SiteLocale): BlogPost["locale"] | null {
-	return blogPostLocales.includes(locale as BlogPost["locale"])
-		? (locale as BlogPost["locale"])
-		: null;
 }
 
 function withTrailingSlashForPage(path: string): string {

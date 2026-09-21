@@ -1,4 +1,0 @@
-{
-  "title": "Velox",
-  "summary": "Empaquetador de escritorio Windows sin compilación que convierte HTML/CSS/JS en una app WebView2 portable con ZIP determinista, SBOM y proveniencia."
-}

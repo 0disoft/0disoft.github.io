@@ -1,4 +1,0 @@
-{
-  "title": "buildmarks",
-  "summary": "A GitHub Action and TypeScript core that turns public GitHub activity into engineering signal cards and inspectable reports for profile READMEs."
-}

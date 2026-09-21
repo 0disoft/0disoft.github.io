@@ -1,6 +1,4 @@
 import { describe, expect, it } from "vitest";
-import type { BlogPost } from "./blog-post-core";
-import { blogPosts } from "./server/blog-posts";
 import {
 	buildAiText,
 	buildLlmsFullText,
@@ -18,37 +16,29 @@ import { siteProfile } from "./site-profile";
 
 const origin = siteProfile.origin;
 const supportedSiteLocales = ["en", "zh", "es", "fr", "hi", "ko"] as const;
-const currentPostSlug = "things-on-my-desk";
 
 describe("site meta files", () => {
 	it("builds crawler discovery files from the site profile", () => {
 		const robotsText = buildRobotsText(origin);
-		const sitemapXml = buildSitemapXml(origin, blogPosts);
+		const sitemapXml = buildSitemapXml(origin, []);
 		const sitemapUrls = extractSitemapUrls(sitemapXml);
 
-		expect(Array.isArray(blogPosts)).toBe(true);
 		expect(indexedSiteLocales).toEqual(supportedSiteLocales);
 		expect(robotsText).toContain("User-agent: *");
 		expect(robotsText).toContain(`Sitemap: ${origin}/sitemap.xml`);
 		expect(sitemapXml).toContain('<?xml version="1.0" encoding="UTF-8"?>');
 		expect(sitemapXml).toContain(`<loc>${origin}/</loc>`);
-		expect(sitemapXml).toContain(`<loc>${origin}/blog/</loc>`);
+		expect(sitemapXml).toContain(`<loc>${origin}/indiehackers/</loc>`);
 		for (const locale of supportedSiteLocales.filter((locale) => locale !== "en")) {
-			expect(sitemapXml).toContain(`<loc>${origin}/${locale}/blog/</loc>`);
-		}
-		for (const post of blogPosts) {
-			expect(sitemapXml).toContain(`<loc>${toAbsoluteLocalizedPostUrl(post)}</loc>`);
+			expect(sitemapXml).toContain(`<loc>${origin}/${locale}/indiehackers/</loc>`);
 		}
 		expect(new Set(sitemapUrls).size).toBe(sitemapUrls.length);
 	});
 
-	it("builds assistant-readable indexes from the current site profile and posts", () => {
+	it("builds assistant-readable indexes from the current site profile", () => {
 		const aiText = buildAiText(origin);
-		const llmsText = buildLlmsText(origin, blogPosts);
-		const llmsFullText = buildLlmsFullText(origin, blogPosts);
-		const englishPost = blogPosts.find(
-			(candidate) => candidate.slug === currentPostSlug && candidate.locale === "en",
-		);
+		const llmsText = buildLlmsText(origin, []);
+		const llmsFullText = buildLlmsFullText(origin, []);
 
 		expect(aiText).toContain("## identity\n\n- name: 0disoft");
 		expect(aiText).toContain("- url: https://0disoft.github.io");
@@ -57,87 +47,34 @@ describe("site meta files", () => {
 			"## contact\n\n- github: https://github.com/0disoft/0disoft.github.io",
 		);
 		expect(llmsText).toContain("# 0disoft");
-		expect(llmsText).toContain(`- [Blog](${origin}/blog/):`);
-		expect(llmsText).toContain(`- [Chinese blog](${origin}/zh/blog/):`);
-		expect(llmsText).toContain(`- [Spanish blog](${origin}/es/blog/):`);
-		expect(llmsText).toContain(`- [French blog](${origin}/fr/blog/):`);
-		expect(llmsText).toContain(`- [Hindi blog](${origin}/hi/blog/):`);
-		expect(llmsText).toContain(`- [Korean blog](${origin}/ko/blog/):`);
-		if (englishPost) {
-			expect(llmsText).toContain(
-				`- [${englishPost.title}](${toAbsoluteLocalizedPostUrl(englishPost)}):`,
-			);
-		}
+		expect(llmsText).toContain(`- [Indiehackers](${origin}/indiehackers/):`);
 		expect(llmsText).toContain(`- [rss.xml](${origin}/rss.xml):`);
 		expect(llmsText).toContain(`- [ai.txt](${origin}/ai.txt):`);
-		expect(llmsFullText).toContain("## Blog Posts");
+		expect(llmsFullText).toContain("## Core Navigation");
 		expect(llmsFullText).toContain("- Indexed locales: en, zh, es, fr, hi, ko");
-		for (const post of blogPosts) {
-			expect(llmsFullText).toContain(`- Locale: ${post.locale}`);
-			expect(llmsFullText).toContain(`- [${post.title}](${toAbsoluteLocalizedPostUrl(post)})`);
-			expect(llmsFullText).toContain(`  - Published: ${post.publishedAt}`);
-		}
 		expect(llmsFullText.length).toBeLessThanOrEqual(60_000);
 	});
 
-	it("builds RSS feeds from matching-locale blog posts", () => {
-		if (blogPosts.length === 0) {
-			for (const locale of supportedSiteLocales) {
-				const rssXml = buildRssXml(origin, blogPosts, locale);
-				expect(extractRssItemUrls(rssXml)).toEqual([]);
-			}
-			return;
-		}
-
-		const currentLocalizedPosts = supportedSiteLocales.map((locale) => getCurrentPost(locale));
-
+	it("builds empty RSS feeds that point at the indiehackers section", () => {
 		for (const locale of supportedSiteLocales) {
-			const rssXml = buildRssXml(origin, blogPosts, locale);
-			const localePost = getCurrentPost(locale);
-			const latestLocalePost = blogPosts
-				.filter((post) => post.locale === locale)
-				.toSorted((left, right) =>
-					(right.updatedAt ?? right.publishedAt).localeCompare(left.updatedAt ?? left.publishedAt),
-				)[0];
-			const otherLocalePosts = currentLocalizedPosts.filter((post) => post.locale !== locale);
-			const itemUrls = extractRssItemUrls(rssXml);
+			const rssXml = buildRssXml(origin, [], locale);
 
 			expect(rssXml).toContain('<?xml version="1.0" encoding="UTF-8"?>');
 			expect(rssXml).toContain('<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">');
 			expect(rssXml).toContain(`<title>${siteProfile.name}</title>`);
-			expect(rssXml).toContain(`<link>${toAbsoluteLocalizedBlogUrl(locale)}</link>`);
+			expect(rssXml).toContain(
+				`<link>${origin}${locale === "en" ? "" : `/${locale}`}/indiehackers/</link>`,
+			);
 			expect(rssXml).toContain(`<language>${locale}</language>`);
 			expect(rssXml).toContain(
 				`<atom:link href="${origin}${getRssFeedPath(locale)}" rel="self" type="application/rss+xml" />`,
 			);
-			expect(rssXml).toContain(
-				`<lastBuildDate>${formatRssDate(latestLocalePost.updatedAt ?? latestLocalePost.publishedAt)}</lastBuildDate>`,
-			);
-			expect(rssXml).toContain(`<title>${escapeXmlText(localePost.title)}</title>`);
-			expect(rssXml).toContain(`<description>${escapeXmlText(localePost.summary)}</description>`);
-			expect(rssXml).toContain(
-				`<guid isPermaLink="true">${toAbsoluteLocalizedPostUrl(localePost)}</guid>`,
-			);
-			expect(rssXml).toContain(`<pubDate>${formatRssDate(localePost.publishedAt)}</pubDate>`);
-			expect(itemUrls).toEqual(
-				blogPosts
-					.filter((post) => post.locale === locale)
-					.toSorted(
-						(left, right) =>
-							right.publishedAt.localeCompare(left.publishedAt) ||
-							left.title.localeCompare(right.title),
-					)
-					.map(toAbsoluteLocalizedPostUrl),
-			);
-			for (const otherLocalePost of otherLocalePosts) {
-				expect(rssXml).not.toContain(`<title>${escapeXmlText(otherLocalePost.title)}</title>`);
-				expect(itemUrls).not.toContain(toAbsoluteLocalizedPostUrl(otherLocalePost));
-			}
+			expect(extractRssItemUrls(rssXml)).toEqual([]);
 		}
 	});
 
 	it("exposes safe global head metadata without a misleading page canonical", () => {
-		expect(siteProfile.description).toContain("Launch notes");
+		expect(siteProfile.description).toContain("indie hackers");
 		expect(siteProfile.sourceRepository).toBe("https://github.com/0disoft/0disoft.github.io");
 		expect(siteProfile.author).toEqual({
 			name: "0disoft",
@@ -213,39 +150,4 @@ function extractSitemapUrls(sitemapXml: string): string[] {
 
 function extractRssItemUrls(rssXml: string): string[] {
 	return Array.from(rssXml.matchAll(/<guid isPermaLink="true">(.*?)<\/guid>/g), ([, url]) => url);
-}
-
-function getCurrentPost(locale: BlogPost["locale"]): BlogPost {
-	const post = blogPosts.find(
-		(candidate) => candidate.slug === currentPostSlug && candidate.locale === locale,
-	);
-
-	if (!post) {
-		throw new Error(`Missing ${locale} post fixture for ${currentPostSlug}`);
-	}
-
-	return post;
-}
-
-function toAbsoluteLocalizedPostUrl(post: BlogPost): string {
-	const localePrefix = post.locale === "en" ? "" : `/${post.locale}`;
-
-	return `${origin}${localePrefix}/blog/${post.slug}/`;
-}
-
-function toAbsoluteLocalizedBlogUrl(locale: BlogPost["locale"]): string {
-	return `${origin}${locale === "en" ? "" : `/${locale}`}/blog/`;
-}
-
-function formatRssDate(date: string): string {
-	return new Date(`${date}T00:00:00.000Z`).toUTCString();
-}
-
-function escapeXmlText(value: string): string {
-	return value
-		.replaceAll("&", "&amp;")
-		.replaceAll("<", "&lt;")
-		.replaceAll(">", "&gt;")
-		.replaceAll('"', "&quot;")
-		.replaceAll("'", "&apos;");
 }

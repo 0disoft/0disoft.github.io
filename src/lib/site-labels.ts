@@ -23,14 +23,8 @@ export const languageDisplayNameByLocale = {
 
 export function getLocalizedNavigationLabel(href: SiteSectionPath, locale: DisplayLocale): string {
 	switch (href) {
-		case "/blog":
-			return m.nav_blog({}, { locale });
-		case "/projects":
-			return m.nav_projects({}, { locale });
-		case "/about":
-			return m.nav_about({}, { locale });
-		case "/uses":
-			return m.nav_uses({}, { locale });
+		case "/indiehackers":
+			return m.nav_indiehackers({}, { locale });
 	}
 }
 

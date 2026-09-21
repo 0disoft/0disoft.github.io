@@ -1,5 +1,4 @@
 import { env as publicEnv } from "$env/dynamic/public";
-import type { BlogPostAdSlotKey } from "$lib/blog-post-ads";
 import {
 	isGoogleAdClientIdConfigured,
 	isGoogleAdSlotConfigured,
@@ -33,7 +32,7 @@ export function buildAdsTxt(provider: string | undefined, clientId: string | und
 	return record ? `${record}\n` : "";
 }
 
-export function getBlogPostAdUnitConfig(slotKey: BlogPostAdSlotKey): SiteAdUnitConfig | null {
+export function getBlogPostAdUnitConfig(slotKey: "blog-inline"): SiteAdUnitConfig | null {
 	if (slotKey !== "blog-inline" || !isSiteAdvertisingConfigured()) {
 		return null;
 	}

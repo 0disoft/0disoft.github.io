@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getAboutCopy } from "./server/about";
+import { getIndiehackersCopy } from "./server/indiehackers";
 import {
 	getKeyboardFocusIntent,
 	isModifiedKeyEvent,
@@ -19,12 +19,12 @@ import {
 	getSiteSurfaceSectionLabel,
 } from "./site-surface-model";
 import { siteProfile } from "./site-profile";
-import { WORK_FILTER_QUERY_KEYS, workItems, workLocales } from "./works";
 import {
 	appHtmlSource,
 	errorSource,
 	hooksSource,
 	iconButtonSource,
+	indiehackersSurfaceSource,
 	layoutCss,
 	localeFontsSource,
 	layoutSource,
@@ -35,23 +35,13 @@ import {
 	sidebarSource,
 	siteSurfaceSource,
 	surfaceSource,
-	workJsonFilePaths,
-	workMetaFilePaths,
-	worksModuleExists,
-	worksSource,
-	worksSurfaceSource,
 } from "./test-support/site-test-sources";
 
 describe("site shell", () => {
 	it("keeps public profile facts in one source", () => {
 		expect(siteProfile.name).toBe("0disoft");
 		expect(siteProfile.origin).toBe("https://0disoft.github.io");
-		expect(siteProfile.navigation).toEqual([
-			{ label: "Blog", href: "/blog" },
-			{ label: "Projects", href: "/projects" },
-			{ label: "About", href: "/about" },
-			{ label: "Uses", href: "/uses" },
-		]);
+		expect(siteProfile.navigation).toEqual([{ label: "Indiehackers", href: "/indiehackers" }]);
 		expect(siteProfile.navigation.map((item) => item.label)).not.toContain("홈");
 		expect(siteProfile.navigation.every((item) => !item.href.startsWith("#"))).toBe(true);
 		expect(siteProfile.links).toEqual([
@@ -126,13 +116,12 @@ describe("site shell", () => {
 		const { findNavigationItemByPath, getSectionEntries, sectionSlugToPath } =
 			await import("./site-navigation");
 
-		expect(getSectionEntries()).toEqual([
-			{ section: "blog" },
-			{ section: "projects" },
-			{ section: "about" },
-			{ section: "uses" },
-		]);
-		expect(sectionSlugToPath("blog")).toBe("/blog");
+		expect(getSectionEntries()).toEqual([{ section: "indiehackers" }]);
+		expect(sectionSlugToPath("indiehackers")).toBe("/indiehackers");
+		expect(sectionSlugToPath("blog")).toBeNull();
+		expect(sectionSlugToPath("projects")).toBeNull();
+		expect(sectionSlugToPath("about")).toBeNull();
+		expect(sectionSlugToPath("uses")).toBeNull();
 		expect(sectionSlugToPath("roadmap")).toBeNull();
 		expect(sectionSlugToPath("contact")).toBeNull();
 		expect(sectionSlugToPath("missing-section")).toBeNull();
@@ -163,12 +152,7 @@ describe("site shell", () => {
 		expect(settingsTabs).toEqual(["theme", "language", "privacy"]);
 		expect(defaultSettingsTab).toBe("theme");
 		expect(themeChoices).toEqual(["light", "dark", "system"]);
-		expect(navigationShortcutByHref).toEqual({
-			"/blog": "B",
-			"/projects": "P",
-			"/about": "A",
-			"/uses": "U",
-		});
+		expect(navigationShortcutByHref).toEqual({ "/indiehackers": "I" });
 		expect(languageShortcutByLocale.ko).toBe("K");
 		expect(siteSurfaceSource).toContain('role="tablist"');
 		expect(siteSurfaceSource).toContain('aria-selected={activeSettingsTab === "theme"}');
@@ -249,14 +233,14 @@ describe("site shell", () => {
 		expect(getSiteSurfacePageTitle("/", "en")).toBe(siteProfile.name);
 	});
 
-	it("renders about as a short reading page", () => {
-		expect(surfaceSource).toContain('import AboutSurface from "$lib/about-surface.svelte"');
-		expect(getSiteSurfaceSectionKind("/about")).toBe("about");
-		expect(getSiteSurfaceSectionLabel("/about", "ko")).toBe("소개");
-		expect(surfaceSource).toContain("<AboutSurface");
-		expect(getAboutCopy("en").title).toBe("About");
-		expect(getAboutCopy("ko").title).toBe("소개");
-		expect(getAboutCopy("ko").paragraphs[0]).toContain("0disoft");
+	it("renders indiehackers as a short reading page", () => {
+		expect(surfaceSource).toContain('import IndiehackersSurface from "$lib/indiehackers-surface.svelte"');
+		expect(getSiteSurfaceSectionKind("/indiehackers")).toBe("indiehackers");
+		expect(getSiteSurfaceSectionLabel("/indiehackers", "ko")).toBe("인디해커들");
+		expect(surfaceSource).toContain("<IndiehackersSurface");
+		expect(getIndiehackersCopy("en").title).toBe("Indiehackers");
+		expect(getIndiehackersCopy("ko").title).toBe("인디해커들");
+		expect(getIndiehackersCopy("ko").paragraphs[0]).toContain("인디해커");
 	});
 
 	it("does not expose retired roadmap or contact sections", async () => {
@@ -272,155 +256,21 @@ describe("site shell", () => {
 		expect(siteSurfaceSource).not.toContain("contact_placeholder_body");
 	});
 
-	it("renders works as a filterable public card list", () => {
-		expect(worksModuleExists).toBe(true);
-		expect(surfaceSource).toContain('import WorksSurface from "$lib/works-surface.svelte"');
-		expect(getSiteSurfaceSectionKind("/projects")).toBe("projects");
-		expect(surfaceSource).toContain("<WorksSurface");
-		expect(worksSource).toContain('import.meta.glob("../content/works/**/meta.json"');
-		expect(WORK_FILTER_QUERY_KEYS).toEqual({
-			query: "q",
-			tag: "tag",
-			language: "language",
-		});
-		expect(workLocales).toEqual(["en", "zh", "es", "fr", "hi", "ko"]);
-		expect(workItems.map((work) => work.slug)).toContain("buildmarks");
-		expect(workItems.map((work) => work.slug)).toContain("clarissimi");
-		expect(workItems.map((work) => work.slug)).toContain("dc-code-paste");
-		expect(workItems.map((work) => work.slug)).toContain("fairyc");
-		expect(workItems.map((work) => work.slug)).toContain("krasis");
-		expect(workItems.map((work) => work.slug)).toContain("laqu");
-		expect(workItems.map((work) => work.slug)).toContain("mensor");
-		expect(workItems.map((work) => work.slug)).toContain("mustflow");
-		expect(workItems.map((work) => work.slug)).toContain("ohrisk");
-		expect(workItems.map((work) => work.slug)).toContain("ssealed");
-		expect(workItems.map((work) => work.slug)).toContain("velox");
-		expect(workMetaFilePaths).toEqual([
-			"buildmarks/meta.json",
-			"clarissimi/meta.json",
-			"dc-code-paste/meta.json",
-			"fairyc/meta.json",
-			"krasis/meta.json",
-			"laqu/meta.json",
-			"mensor/meta.json",
-			"mustflow/meta.json",
-			"ohrisk/meta.json",
-			"ssealed/meta.json",
-			"velox/meta.json",
-		]);
-		expect(workJsonFilePaths).toEqual([
-			"buildmarks/en.json",
-			"buildmarks/es.json",
-			"buildmarks/fr.json",
-			"buildmarks/hi.json",
-			"buildmarks/ko.json",
-			"buildmarks/meta.json",
-			"buildmarks/zh.json",
-			"clarissimi/en.json",
-			"clarissimi/es.json",
-			"clarissimi/fr.json",
-			"clarissimi/hi.json",
-			"clarissimi/ko.json",
-			"clarissimi/meta.json",
-			"clarissimi/zh.json",
-			"dc-code-paste/en.json",
-			"dc-code-paste/es.json",
-			"dc-code-paste/fr.json",
-			"dc-code-paste/hi.json",
-			"dc-code-paste/ko.json",
-			"dc-code-paste/meta.json",
-			"dc-code-paste/zh.json",
-			"fairyc/en.json",
-			"fairyc/es.json",
-			"fairyc/fr.json",
-			"fairyc/hi.json",
-			"fairyc/ko.json",
-			"fairyc/meta.json",
-			"fairyc/zh.json",
-			"krasis/en.json",
-			"krasis/es.json",
-			"krasis/fr.json",
-			"krasis/hi.json",
-			"krasis/ko.json",
-			"krasis/meta.json",
-			"krasis/zh.json",
-			"laqu/en.json",
-			"laqu/es.json",
-			"laqu/fr.json",
-			"laqu/hi.json",
-			"laqu/ko.json",
-			"laqu/meta.json",
-			"laqu/zh.json",
-			"mensor/en.json",
-			"mensor/es.json",
-			"mensor/fr.json",
-			"mensor/hi.json",
-			"mensor/ko.json",
-			"mensor/meta.json",
-			"mensor/zh.json",
-			"mustflow/en.json",
-			"mustflow/es.json",
-			"mustflow/fr.json",
-			"mustflow/hi.json",
-			"mustflow/ko.json",
-			"mustflow/meta.json",
-			"mustflow/zh.json",
-			"ohrisk/en.json",
-			"ohrisk/es.json",
-			"ohrisk/fr.json",
-			"ohrisk/hi.json",
-			"ohrisk/ko.json",
-			"ohrisk/meta.json",
-			"ohrisk/zh.json",
-			"ssealed/en.json",
-			"ssealed/es.json",
-			"ssealed/fr.json",
-			"ssealed/hi.json",
-			"ssealed/ko.json",
-			"ssealed/meta.json",
-			"ssealed/zh.json",
-			"velox/en.json",
-			"velox/es.json",
-			"velox/fr.json",
-			"velox/hi.json",
-			"velox/ko.json",
-			"velox/meta.json",
-			"velox/zh.json",
-		]);
-		expect(worksSurfaceSource).toContain('class="works-filters"');
-		expect(worksSurfaceSource).toContain('id="works-search"');
-		expect(worksSurfaceSource).toContain('id="works-tag"');
-		expect(worksSurfaceSource).toContain('id="works-language"');
-		expect(worksSurfaceSource).toContain("filterWorks(localizedWorks, filters)");
-		expect(worksSurfaceSource).toContain("getWorkFilterOptions(localizedWorks)");
-		expect(worksSurfaceSource).toContain("parseWorkFilters");
-		expect(worksSurfaceSource).toContain("works_clear_filters");
-		expect(worksSurfaceSource).toContain("works_results_label");
-		expect(worksSurfaceSource).toContain('class="works-list"');
-		expect(worksSurfaceSource).toContain('class="work-card"');
-		expect(worksSurfaceSource).toContain("repeat(auto-fill");
-		expect(worksSurfaceSource).not.toContain("repeat(auto-fit");
-		expect(worksSurfaceSource).toContain("grid-auto-rows: 1fr");
-		expect(worksSurfaceSource).toContain("align-items: stretch");
-		expect(worksSurfaceSource).toContain("min-height: 100%");
-		expect(worksSurfaceSource).toContain("margin-top: auto");
-		expect(worksSurfaceSource).toContain("getWorksForLocale(workItems, currentLocale)");
-		expect(worksSurfaceSource).toContain("getWorkStatusLabel(work.status, displayLocale)");
-		expect(worksSurfaceSource).toContain("works_license_label");
-		expect(worksSurfaceSource).toContain("{#if work.license}");
-		expect(worksSurfaceSource).toContain("works_languages_label");
-		expect(worksSurfaceSource).toContain("work.languages");
-		expect(worksSurfaceSource).not.toContain("works_updated_label");
-		expect(worksSurfaceSource).not.toContain("work.updatedAt");
-		expect(worksSurfaceSource).toContain("hasWorkDetails");
-		expect(worksSurfaceSource).toContain("{#if work.summary}");
-		expect(worksSurfaceSource).not.toContain('class="work-tags"');
-		expect(worksSurfaceSource).toContain("getWorkTagLabel(tag)");
-		expect(worksSurfaceSource).toContain("getWorkLinks(work.links)");
-		expect(worksSurfaceSource).toContain("noopener noreferrer");
-		expect(worksSurfaceSource).not.toContain("work_tag_deploy_soon");
-		expect(worksSurfaceSource).not.toContain("deploy-soon");
-		expect(worksSurfaceSource).not.toContain("category");
+	it("does not expose retired blog, projects, about, or uses sections", async () => {
+		const { getSectionEntries, sectionSlugToPath } = await import("./site-navigation");
+
+		expect(getSectionEntries().map((entry) => entry.section)).not.toContain("blog");
+		expect(getSectionEntries().map((entry) => entry.section)).not.toContain("projects");
+		expect(getSectionEntries().map((entry) => entry.section)).not.toContain("about");
+		expect(getSectionEntries().map((entry) => entry.section)).not.toContain("uses");
+		expect(sectionSlugToPath("blog")).toBeNull();
+		expect(sectionSlugToPath("projects")).toBeNull();
+		expect(sectionSlugToPath("about")).toBeNull();
+		expect(sectionSlugToPath("uses")).toBeNull();
+		expect(surfaceSource).not.toContain("BlogSurface");
+		expect(surfaceSource).not.toContain("WorksSurface");
+		expect(surfaceSource).not.toContain("AboutSurface");
+		expect(surfaceSource).not.toContain("UsesSurface");
 	});
 
 	it("uses Tailwind v4 utilities for shared styling primitives", () => {
@@ -494,7 +344,7 @@ describe("site shell", () => {
 		expect(layoutCss).toContain("--backdrop-water");
 		expect(layoutCss).toContain("--backdrop-grid");
 		expect(layoutCss).toContain("--display-heading-shadow");
-		expect(siteSurfaceSource).toContain("var(--display-heading-shadow)");
+		expect(indiehackersSurfaceSource).toContain("var(--display-heading-shadow)");
 	});
 
 	it("renders a readable custom error surface", () => {
