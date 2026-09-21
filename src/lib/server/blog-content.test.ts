@@ -13,6 +13,9 @@ describe("localized indiehackers delivery", () => {
 
 			expect(layout.indiehackers).toEqual(getIndiehackersCopy(locale));
 			expect(Object.keys(layout.indiehackers).sort()).toEqual(["paragraphs", "title"]);
+			if (locale === "ko") {
+				expect(layout.indiehackers.paragraphs.length).toBeGreaterThan(2);
+			}
 		}
 	});
 });

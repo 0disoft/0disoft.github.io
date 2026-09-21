@@ -240,8 +240,9 @@ describe("site shell", () => {
 		expect(getSiteSurfaceSectionLabel("/indiehackers", "ko")).toBe("인디해커들");
 		expect(surfaceSource).toContain("<IndiehackersSurface");
 		expect(getIndiehackersCopy("en").title).toBe("Indiehackers");
-		expect(getIndiehackersCopy("ko").title).toBe("인디해커들");
+		expect(getIndiehackersCopy("ko").title).toBe("한 페이지 사이트로 연 100만 달러까지");
 		expect(getIndiehackersCopy("ko").paragraphs[0]).toContain("인디해커");
+		expect(getIndiehackersCopy("ko").paragraphs.at(-1)).toContain("연간 19달러");
 		expect(indiehackersSurfaceSource).toContain("<IndiehackersShareToolbar");
 		expect(indiehackersSurfaceSource).toContain('headingId="indiehackers-share-title"');
 		expect(indiehackersSurfaceSource).toContain("indiehackers-reading-layout");
