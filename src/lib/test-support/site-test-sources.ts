@@ -59,6 +59,7 @@ export const sidebarActionSource = readRequiredText("../ui/sidebar-action.svelte
 export const iconButtonSource = readRequiredText("../ui/icon-button.svelte");
 export const brandIconSource = readRequiredText("../ui/brand-icon.svelte");
 export const indiehackersSurfaceSource = readRequiredText("../indiehackers-surface.svelte");
+export const indiehackersShareToolbarSource = readRequiredText("../indiehackers-share-toolbar.svelte");
 export const clipboardSource = readRequiredText("../site-clipboard.ts");
 export const localesSource = readRequiredText("../site-locales.ts");
 export const labelsSource = readRequiredText("../site-labels.ts");

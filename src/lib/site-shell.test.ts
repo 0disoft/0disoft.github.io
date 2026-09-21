@@ -24,6 +24,7 @@ import {
 	errorSource,
 	hooksSource,
 	iconButtonSource,
+	indiehackersShareToolbarSource,
 	indiehackersSurfaceSource,
 	layoutCss,
 	localeFontsSource,
@@ -241,6 +242,11 @@ describe("site shell", () => {
 		expect(getIndiehackersCopy("en").title).toBe("Indiehackers");
 		expect(getIndiehackersCopy("ko").title).toBe("인디해커들");
 		expect(getIndiehackersCopy("ko").paragraphs[0]).toContain("인디해커");
+		expect(indiehackersSurfaceSource).toContain("<IndiehackersShareToolbar");
+		expect(indiehackersSurfaceSource).toContain('headingId="indiehackers-share-title"');
+		expect(indiehackersSurfaceSource).toContain("indiehackers-reading-layout");
+		expect(indiehackersShareToolbarSource).toContain("<BrandIcon");
+		expect(indiehackersShareToolbarSource).toContain("siFacebook");
 	});
 
 	it("does not expose retired roadmap or contact sections", async () => {
