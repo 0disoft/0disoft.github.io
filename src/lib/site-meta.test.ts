@@ -13,11 +13,41 @@ import {
 	siteThemeColorMeta,
 } from "./site-meta";
 import { siteProfile } from "./site-profile";
+import type { IndiehackersPost } from "./indiehackers-posts";
 
 const origin = siteProfile.origin;
 const supportedSiteLocales = ["en", "zh", "es", "fr", "hi", "ko"] as const;
 
 describe("site meta files", () => {
+	it("publishes localized RSS items newest first with escaped text and no future posts", () => {
+		const base: IndiehackersPost = {
+			slug: "sample",
+			locale: "ko",
+			title: "A & <B>",
+			summary: 'A "quote" & summary',
+			publishedAt: "2026-09-22",
+			tags: ["saas"],
+		};
+		const xml = buildRssXml(
+			origin,
+			[
+				{ ...base, slug: "old", publishedAt: "2024-01-01" },
+				base,
+				{ ...base, locale: "en" },
+				{ ...base, slug: "future", publishedAt: "2026-09-23" },
+			],
+			"ko",
+			new Date("2026-09-22T12:00:00Z"),
+		);
+		expect(extractRssItemUrls(xml)).toEqual([
+			`${origin}/ko/indiehackers/sample/`,
+			`${origin}/ko/indiehackers/old/`,
+		]);
+		expect(xml).toContain("<title>A &amp; &lt;B&gt;</title>");
+		expect(xml).toContain("<description>A &quot;quote&quot; &amp; summary</description>");
+		expect(xml).toContain("<pubDate>Tue, 22 Sep 2026 00:00:00 GMT</pubDate>");
+		expect(xml).toContain("<category>SaaS</category>");
+	});
 	it("builds crawler discovery files from the site profile", () => {
 		const robotsText = buildRobotsText(origin);
 		const sitemapXml = buildSitemapXml(origin, []);
@@ -33,9 +63,9 @@ describe("site meta files", () => {
 			expect(sitemapXml).toContain(`<loc>${origin}/${locale}/indiehackers/</loc>`);
 		}
 		expect(new Set(sitemapUrls).size).toBe(sitemapUrls.length);
-		expect(
-			buildSitemapXml(origin, [{ slug: "carrd", locale: "ko" }]),
-		).toContain(`${origin}/ko/indiehackers/carrd/`);
+		expect(buildSitemapXml(origin, [{ slug: "carrd", locale: "ko" }])).toContain(
+			`${origin}/ko/indiehackers/carrd/`,
+		);
 	});
 
 	it("builds assistant-readable indexes from the current site profile", () => {

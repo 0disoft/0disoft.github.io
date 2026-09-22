@@ -6,6 +6,7 @@ import {
 	type SiteLocale,
 } from "$lib/site-locales";
 import { siteProfile } from "$lib/site-profile";
+import { getIndiehackersPostTagLabels, type IndiehackersPost } from "$lib/indiehackers-posts";
 
 export { indexedSiteLocales };
 
@@ -114,9 +115,37 @@ export function buildSitemapXml(
 
 export function buildRssXml(
 	origin: string,
-	_posts: readonly unknown[] = [],
+	posts: readonly IndiehackersPost[] = [],
 	locale: SiteLocale = defaultRssFeedLocale,
+	now: Date = new Date(),
 ): string {
+	const today = now.toISOString().slice(0, 10);
+	const items = posts
+		.filter((post) => post.locale === locale && post.publishedAt <= today)
+		.toSorted(
+			(left, right) =>
+				right.publishedAt.localeCompare(left.publishedAt) || left.slug.localeCompare(right.slug),
+		)
+		.map((post) => {
+			const url = escapeXml(
+				toAbsoluteUrl(
+					origin,
+					withTrailingSlash(localizeSitePathname(`/indiehackers/${post.slug}`, locale)),
+				),
+			);
+			return [
+				"    <item>",
+				`      <title>${escapeXml(post.title)}</title>`,
+				`      <link>${url}</link>`,
+				`      <guid isPermaLink="true">${url}</guid>`,
+				`      <description>${escapeXml(post.summary)}</description>`,
+				`      <pubDate>${new Date(`${post.publishedAt}T00:00:00Z`).toUTCString()}</pubDate>`,
+				...getIndiehackersPostTagLabels(post).map(
+					(tag) => `      <category>${escapeXml(tag)}</category>`,
+				),
+				"    </item>",
+			].join("\n");
+		});
 	return [
 		'<?xml version="1.0" encoding="UTF-8"?>',
 		'<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
@@ -126,6 +155,7 @@ export function buildRssXml(
 		`    <description>${escapeXml(siteProfile.description)}</description>`,
 		`    <language>${locale}</language>`,
 		`    <atom:link href="${escapeXml(toAbsoluteUrl(origin, getRssFeedPath(locale)))}" rel="self" type="application/rss+xml" />`,
+		...items,
 		"  </channel>",
 		"</rss>",
 		"",
@@ -228,7 +258,6 @@ export function getIndexedSitePaths(
 
 	return Array.from(new Set([...localizedSitePaths, ...localizedPostPaths]));
 }
-
 
 function getCoreLinks(): LinkEntry[] {
 	return [

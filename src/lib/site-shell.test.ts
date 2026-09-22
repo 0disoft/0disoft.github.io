@@ -35,7 +35,6 @@ import {
 	layoutSource,
 	navigationModuleExists,
 	navigationSource,
-	sectionRouteSource,
 	sidebarActionSource,
 	sidebarSource,
 	siteSurfaceSource,
@@ -115,8 +114,6 @@ describe("site shell", () => {
 		expect(navigationSource).toContain("SiteSectionPath");
 		expect(navigationSource).toContain("SiteSectionSlug");
 		expect(navigationSource).toContain("satisfies");
-		expect(sectionRouteSource).toContain("getSectionEntries");
-		expect(sectionRouteSource).toContain("sectionSlugToPath");
 
 		const { findNavigationItemByPath, getSectionEntries, sectionSlugToPath } =
 			await import("./site-navigation");
@@ -259,7 +256,9 @@ describe("site shell", () => {
 		expect(indiehackersListSource).toContain("recent-chip");
 		expect(indiehackersListSource).toContain('class="chip recent-chip"');
 		expect(indiehackersListSource).not.toContain("chip-toggle");
-		const tagSection = indiehackersListSource.split('<fieldset class="tag-row">')[1]?.split("</form>")[0];
+		const tagSection = indiehackersListSource
+			.split('<fieldset class="tag-row">')[1]
+			?.split("</form>")[0];
 		expect(tagSection).toContain("recent-chip");
 		expect(indiehackersListSource.split('<fieldset class="tag-row">')[0]).not.toContain(
 			'class="chip recent-chip"',
