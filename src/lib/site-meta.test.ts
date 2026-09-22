@@ -33,6 +33,9 @@ describe("site meta files", () => {
 			expect(sitemapXml).toContain(`<loc>${origin}/${locale}/indiehackers/</loc>`);
 		}
 		expect(new Set(sitemapUrls).size).toBe(sitemapUrls.length);
+		expect(
+			buildSitemapXml(origin, [{ slug: "carrd", locale: "ko" }]),
+		).toContain(`${origin}/ko/indiehackers/carrd/`);
 	});
 
 	it("builds assistant-readable indexes from the current site profile", () => {

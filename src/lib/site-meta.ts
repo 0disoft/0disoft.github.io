@@ -93,8 +93,11 @@ export function buildRobotsText(origin: string): string {
 	].join("\n");
 }
 
-export function buildSitemapXml(origin: string, _posts: readonly unknown[] = []): string {
-	const urls = getIndexedSitePaths(_posts)
+export function buildSitemapXml(
+	origin: string,
+	posts: readonly { slug: string; locale: SiteLocale }[] = [],
+): string {
+	const urls = getIndexedSitePaths(posts)
 		.map((path) => toAbsoluteUrl(origin, path))
 		.toSorted((left, right) => left.localeCompare(right))
 		.map((url) => `  <url><loc>${escapeXml(url)}</loc></url>`)
@@ -212,13 +215,18 @@ export function buildLlmsFullText(origin: string, _posts: readonly unknown[] = [
 	return clampText(lines, LLMS_FULL_MAX_CHARACTERS);
 }
 
-export function getIndexedSitePaths(_posts: readonly unknown[] = []): string[] {
+export function getIndexedSitePaths(
+	posts: readonly { slug: string; locale: SiteLocale }[] = [],
+): string[] {
 	const canonicalSitePaths = ["/", ...siteNavigation.map((item) => item.href)];
 	const localizedSitePaths = canonicalSitePaths.flatMap((path) =>
 		indexedSiteLocales.map((locale) => withTrailingSlash(localizeSitePathname(path, locale))),
 	);
+	const localizedPostPaths = posts.map((post) =>
+		withTrailingSlash(localizeSitePathname(`/indiehackers/${post.slug}`, post.locale)),
+	);
 
-	return Array.from(new Set(localizedSitePaths));
+	return Array.from(new Set([...localizedSitePaths, ...localizedPostPaths]));
 }
 
 

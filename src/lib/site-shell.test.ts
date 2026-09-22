@@ -24,6 +24,10 @@ import {
 	errorSource,
 	hooksSource,
 	iconButtonSource,
+	indiehackersListRouteSource,
+	indiehackersListSource,
+	indiehackersPostRouteSource,
+	indiehackersPostSurfaceSource,
 	indiehackersShareToolbarSource,
 	indiehackersSurfaceSource,
 	layoutCss,
@@ -234,18 +238,23 @@ describe("site shell", () => {
 		expect(getSiteSurfacePageTitle("/", "en")).toBe(siteProfile.name);
 	});
 
-	it("renders indiehackers as a short reading page", () => {
-		expect(surfaceSource).toContain('import IndiehackersSurface from "$lib/indiehackers-surface.svelte"');
+	it("renders indiehackers as a filterable post list", () => {
+		expect(surfaceSource).toContain('import IndiehackersList from "$lib/indiehackers-list.svelte"');
 		expect(getSiteSurfaceSectionKind("/indiehackers")).toBe("indiehackers");
 		expect(getSiteSurfaceSectionLabel("/indiehackers", "ko")).toBe("인디해커들");
-		expect(surfaceSource).toContain("<IndiehackersSurface");
+		expect(surfaceSource).toContain("<IndiehackersList");
 		expect(getIndiehackersCopy("en").title).toBe("Indiehackers");
-		expect(getIndiehackersCopy("ko").title).toBe("한 페이지 사이트로 연 100만 달러까지");
+		expect(getIndiehackersCopy("ko").title).toBe("인디해커들");
 		expect(getIndiehackersCopy("ko").paragraphs[0]).toContain("인디해커");
-		expect(getIndiehackersCopy("ko").paragraphs.at(-1)).toContain("연간 19달러");
-		expect(indiehackersSurfaceSource).toContain("<IndiehackersShareToolbar");
-		expect(indiehackersSurfaceSource).toContain('headingId="indiehackers-share-title"');
-		expect(indiehackersSurfaceSource).toContain("indiehackers-reading-layout");
+		expect(indiehackersListSource).toContain("indiehackers-filters");
+		expect(indiehackersListSource).toContain("filterIndiehackersPosts");
+		expect(indiehackersListSource).toContain("parseIndiehackersFilters");
+		expect(indiehackersListSource).toContain("indiehackers-cards");
+		expect(indiehackersListRouteSource).toContain("<IndiehackersList");
+		expect(indiehackersPostRouteSource).toContain("getIndiehackersPostForLocale");
+		expect(indiehackersPostRouteSource).toContain("getIndiehackersPostEntries");
+		expect(indiehackersPostSurfaceSource).toContain("<IndiehackersShareToolbar");
+		expect(indiehackersPostSurfaceSource).toContain("indiehackers-reading-layout");
 		expect(indiehackersShareToolbarSource).toContain("<BrandIcon");
 		expect(indiehackersShareToolbarSource).toContain("siFacebook");
 	});

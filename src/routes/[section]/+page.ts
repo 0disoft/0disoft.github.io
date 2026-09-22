@@ -4,7 +4,8 @@ import { getSectionEntries, sectionSlugToPath } from "$lib/site-navigation";
 
 export const prerender = true;
 
-export const entries: EntryGenerator = () => getSectionEntries();
+export const entries: EntryGenerator = () =>
+	getSectionEntries().filter((entry) => entry.section !== "indiehackers");
 
 export const load: PageLoad = ({ params }) => {
 	const activePath = sectionSlugToPath(params.section);

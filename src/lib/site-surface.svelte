@@ -2,7 +2,7 @@
 import type { Snippet } from "svelte";
 import { fade } from "svelte/transition";
 import { prefersReducedMotion } from "svelte/motion";
-	import IndiehackersSurface from "$lib/indiehackers-surface.svelte";
+	import IndiehackersList from "$lib/indiehackers-list.svelte";
 	import SiteSidebar from "$lib/site-sidebar.svelte";
 	import { getLocale } from "$lib/paraglide/runtime";
 	import { toDisplayLocale } from "$lib/site-labels";
@@ -39,7 +39,7 @@ import { prefersReducedMotion } from "svelte/motion";
 				{#if children}
 					{@render children()}
 				{:else if sectionKind === "indiehackers"}
-					<IndiehackersSurface />
+					<IndiehackersList />
 				{:else}
 					<h1 class="sr-only">{siteProfile.name}</h1>
 				{/if}

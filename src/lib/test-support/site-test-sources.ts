@@ -36,6 +36,10 @@ function collectRelativeFiles(rootPath: string, suffix: string): string[] {
 
 export const routeSource = readRequiredText("../../routes/+page.svelte");
 export const sectionRouteSource = readRequiredText("../../routes/[section]/+page.ts");
+export const indiehackersListRouteSource = readRequiredText("../../routes/indiehackers/+page.svelte");
+export const indiehackersPostRouteSource = readRequiredText(
+	"../../routes/indiehackers/[slug]/+page.server.ts",
+);
 export const privacyRouteSource = readRequiredText("../../routes/privacy/+page.svelte");
 export const layoutCss = readRequiredText("../../routes/layout.css");
 export const errorSource = readRequiredText("../../routes/+error.svelte");
@@ -59,6 +63,8 @@ export const sidebarActionSource = readRequiredText("../ui/sidebar-action.svelte
 export const iconButtonSource = readRequiredText("../ui/icon-button.svelte");
 export const brandIconSource = readRequiredText("../ui/brand-icon.svelte");
 export const indiehackersSurfaceSource = readRequiredText("../indiehackers-surface.svelte");
+export const indiehackersListSource = readRequiredText("../indiehackers-list.svelte");
+export const indiehackersPostSurfaceSource = readRequiredText("../indiehackers-post-surface.svelte");
 export const indiehackersShareToolbarSource = readRequiredText("../indiehackers-share-toolbar.svelte");
 export const clipboardSource = readRequiredText("../site-clipboard.ts");
 export const localesSource = readRequiredText("../site-locales.ts");

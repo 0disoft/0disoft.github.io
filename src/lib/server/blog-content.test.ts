@@ -13,9 +13,16 @@ describe("localized indiehackers delivery", () => {
 
 			expect(layout.indiehackers).toEqual(getIndiehackersCopy(locale));
 			expect(Object.keys(layout.indiehackers).sort()).toEqual(["paragraphs", "title"]);
-			if (locale === "ko") {
-				expect(layout.indiehackers.paragraphs.length).toBeGreaterThan(2);
-			}
 		}
+	});
+
+	it("returns localized indiehackers posts from the layout", async () => {
+		const layout = await loadLayout({
+			url: new URL("https://example.test/ko/indiehackers"),
+		} as Parameters<typeof loadLayout>[0]);
+
+		expect(layout.indiehackersPosts.length).toBeGreaterThan(0);
+		expect(layout.indiehackersPosts[0].slug).toBe("carrd");
+		expect(layout.indiehackersPosts[0].title).toContain("100만");
 	});
 });
