@@ -180,6 +180,8 @@ describe("site localization", () => {
 		expect(enMessages.indiehackers_share_label).toBe("Share");
 		expect(enMessages.indiehackers_copy_link).toBe("Copy link");
 		expect(enMessages.indiehackers_share_device).toBe("Share with device");
+		expect(enMessages.indiehackers_share_whatsapp).toBe("WhatsApp");
+		expect(enMessages.indiehackers_share_reddit).toBe("Reddit");
 		expect(enMessages.settings_trigger_label).toBe("Settings");
 		expect(enMessages.sponsor_label).toBe("Sponsor");
 		expect(enMessages.settings_privacy_tab).toBe("Privacy");
@@ -205,6 +207,8 @@ describe("site localization", () => {
 		expect(koMessages.indiehackers_share_label).toBe("공유하기");
 		expect(koMessages.indiehackers_copy_link).toBe("링크 복사");
 		expect(koMessages.indiehackers_share_device).toBe("기기에서 공유");
+		expect(koMessages.indiehackers_share_whatsapp).toBe("왓츠앱");
+		expect(koMessages.indiehackers_share_reddit).toBe("레딧");
 		expect(koMessages.settings_trigger_label).toBe("설정");
 		expect(koMessages.sponsor_label).toBe("후원하기");
 		expect(koMessages.settings_privacy_tab).toBe("개인정보");

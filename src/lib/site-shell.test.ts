@@ -256,7 +256,8 @@ describe("site shell", () => {
 		expect(indiehackersPostSurfaceSource).toContain("<IndiehackersShareToolbar");
 		expect(indiehackersPostSurfaceSource).toContain("indiehackers-reading-layout");
 		expect(indiehackersShareToolbarSource).toContain("<BrandIcon");
-		expect(indiehackersShareToolbarSource).toContain("siFacebook");
+		expect(indiehackersShareToolbarSource).toContain("siWhatsapp");
+		expect(indiehackersShareToolbarSource).toContain("siReddit");
 	});
 
 	it("does not expose retired roadmap or contact sections", async () => {

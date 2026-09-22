@@ -41,9 +41,9 @@
 
 <style>
 	.indiehackers {
-		--indiehackers-body-width: 48rem;
-		--indiehackers-sidecar-min-width: 12rem;
-		--indiehackers-sidecar-max-width: 16rem;
+		--indiehackers-body-width: 56rem;
+		--indiehackers-sidecar-min-width: 9.5rem;
+		--indiehackers-sidecar-max-width: 11rem;
 
 		display: grid;
 		width: min(100%, 70rem);

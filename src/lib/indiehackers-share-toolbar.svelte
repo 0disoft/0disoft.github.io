@@ -1,7 +1,16 @@
 <script lang="ts">
-	import { Copy, Send, Share2 } from "@lucide/svelte";
+	import { Copy, MessageCircle, Send, Share2 } from "@lucide/svelte";
 	import { onMount } from "svelte";
-	import { siFacebook, siX, type SimpleIcon } from "simple-icons";
+	import {
+		siBluesky,
+		siFacebook,
+		siReddit,
+		siSinaweibo,
+		siThreads,
+		siWhatsapp,
+		siX,
+		type SimpleIcon,
+	} from "simple-icons";
 	import { linkedInIcon } from "$lib/ui/share-brand-icons";
 	import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
@@ -14,7 +23,7 @@
 	import BrandIcon from "$lib/ui/brand-icon.svelte";
 
 	type SharePlatformIcon =
-		| { kind: "lucide"; name: "send" }
+		| { kind: "lucide"; name: "send" | "message-circle" }
 		| { kind: "brand"; icon: SimpleIcon };
 
 	let {
@@ -92,14 +101,26 @@
 
 	function getSharePlatformLabel(platform: IndiehackersSharePlatform): string {
 		switch (platform) {
-			case "x":
-				return m.indiehackers_share_x({}, { locale: displayLocale });
-			case "facebook":
-				return m.indiehackers_share_facebook({}, { locale: displayLocale });
-			case "linkedin":
-				return m.indiehackers_share_linkedin({}, { locale: displayLocale });
 			case "telegram":
 				return m.indiehackers_share_telegram({}, { locale: displayLocale });
+			case "line":
+				return m.indiehackers_share_line({}, { locale: displayLocale });
+			case "whatsapp":
+				return m.indiehackers_share_whatsapp({}, { locale: displayLocale });
+			case "x":
+				return m.indiehackers_share_x({}, { locale: displayLocale });
+			case "reddit":
+				return m.indiehackers_share_reddit({}, { locale: displayLocale });
+			case "facebook":
+				return m.indiehackers_share_facebook({}, { locale: displayLocale });
+			case "threads":
+				return m.indiehackers_share_threads({}, { locale: displayLocale });
+			case "bluesky":
+				return m.indiehackers_share_bluesky({}, { locale: displayLocale });
+			case "linkedin":
+				return m.indiehackers_share_linkedin({}, { locale: displayLocale });
+			case "weibo":
+				return m.indiehackers_share_weibo({}, { locale: displayLocale });
 		}
 	}
 
@@ -107,12 +128,24 @@
 		switch (platform) {
 			case "telegram":
 				return { kind: "lucide", name: "send" };
+			case "line":
+				return { kind: "lucide", name: "message-circle" };
+			case "whatsapp":
+				return { kind: "brand", icon: siWhatsapp };
 			case "x":
 				return { kind: "brand", icon: siX };
+			case "reddit":
+				return { kind: "brand", icon: siReddit };
 			case "facebook":
 				return { kind: "brand", icon: siFacebook };
+			case "threads":
+				return { kind: "brand", icon: siThreads };
+			case "bluesky":
+				return { kind: "brand", icon: siBluesky };
 			case "linkedin":
 				return { kind: "brand", icon: linkedInIcon };
+			case "weibo":
+				return { kind: "brand", icon: siSinaweibo };
 		}
 	}
 
@@ -145,17 +178,22 @@
 			<Share2 aria-hidden="true" size={18} strokeWidth={2.2} />
 		</button>
 		{#each shareLinks as shareLink (shareLink.platform)}
+			{@const platformLabel = getSharePlatformLabel(shareLink.platform)}
 			{@const platformIcon = getSharePlatformIcon(shareLink.platform)}
 			<a
 				class="share-icon-button"
 				href={shareLink.href}
 				target="_blank"
 				rel="noopener noreferrer"
-				aria-label={getSharePlatformLabel(shareLink.platform)}
-				data-tooltip={getSharePlatformLabel(shareLink.platform)}
+				aria-label={platformLabel}
+				data-tooltip={platformLabel}
 			>
 				{#if platformIcon.kind === "lucide"}
-					<Send aria-hidden="true" size={18} strokeWidth={2.2} />
+					{#if platformIcon.name === "send"}
+						<Send aria-hidden="true" size={18} strokeWidth={2.2} />
+					{:else}
+						<MessageCircle aria-hidden="true" size={18} strokeWidth={2.2} />
+					{/if}
 				{:else}
 					<BrandIcon icon={platformIcon.icon} size={18} />
 				{/if}
@@ -183,7 +221,7 @@
 
 	.share-toolbar-grid {
 		display: grid;
-		grid-template-columns: repeat(3, var(--share-icon-size));
+		grid-template-columns: repeat(4, var(--share-icon-size));
 		gap: 0.42rem;
 	}
 
