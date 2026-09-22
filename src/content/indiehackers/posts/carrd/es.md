@@ -1,5 +1,8 @@
 ---
-{"title":"Con sitios de una página hasta 1 millón de dólares al año","summary":"Cómo Carrd llegó a 1 millón de dólares de ingresos recurrentes anuales con un solo producto de sitios de una página."}
+{
+  "title": "Con sitios de una página hasta 1 millón de dólares al año",
+  "summary": "Cómo Carrd llegó a 1 millón de dólares de ingresos recurrentes anuales con un solo producto de sitios de una página."
+}
 ---
 
 Antes de Carrd, AJ ya ganaba dinero con el diseño web. En HTML5 UP publicaba plantillas gratuitas y en Pixelarity vendía plantillas de pago. Años de plantillas le enseñaron qué diseños gustaban y qué les costaba a las personas al crear un sitio. Carrd fue su siguiente negocio, construido sobre esa experiencia y ese conocimiento de los clientes.

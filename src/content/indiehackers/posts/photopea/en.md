@@ -1,5 +1,8 @@
 ---
-{"title":"Opening Photoshop files in the browser","summary":"How Photopea grew from a solo web editor to 350 million uses in a year."}
+{
+  "title": "Opening Photoshop files in the browser",
+  "summary": "How Photopea grew from a solo web editor to 350 million uses in a year."
+}
 ---
 
 In 2012, Ivan Kutskir was studying computer science in Prague when he wanted to open Photoshop PSD files on the web. The starting point was a tool showing the layers composing an image, hiding or showing each layer. He was already earning $100–400 a month from ads on web games he had made, and he enjoyed building new programs. He started Photopea in spare time alongside his studies.

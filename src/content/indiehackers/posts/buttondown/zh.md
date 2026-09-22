@@ -1,5 +1,8 @@
 ---
-{"title":"在浏览器里收 newsletter：从 TinyLetter 的不爽开始","summary":"Buttondown 如何从 TinyLetter 的不爽出发，靠口碑长成 newsletter 公司。"}
+{
+  "title": "在浏览器里收 newsletter：从 TinyLetter 的不爽开始",
+  "summary": "Buttondown 如何从 TinyLetter 的不爽出发，靠口碑长成 newsletter 公司。"
+}
 ---
 
 Justin Duke 做 Buttondown 的起点，是自己用的 newsletter 服务 TinyLetter 让他不爽。TinyLetter 写和发很简单，但 Markdown 处理不稳，调图片大小也不行。编辑器很久没有像样的改进。Duke 想留住这种省事的用法，同时把自己每次都撞到的问题修好。

@@ -1,5 +1,8 @@
 ---
-{"title":"Ver cómo trabaja un equipo antes de postular","summary":"Cómo Key Values creció hasta mostrar el trabajo de los equipos antes de postular."}
+{
+  "title": "Ver cómo trabaja un equipo antes de postular",
+  "summary": "Cómo Key Values creció hasta mostrar el trabajo de los equipos antes de postular."
+}
 ---
 
 Lynne Tye encontró un orden extraño en la contratación mientras buscaba un empleo de desarrollo a tiempo completo. Los candidatos escribían cartas, hacían entrevistas telefónicas, a veces hasta tareas de ocho horas, pero solo tarde sabían cómo colaboraban las personas con quienes trabajarían. Con experiencia en muchos equipos como freelance, trataba con quién y cómo se trabaja como un criterio importante. Key Values se hizo para ver esa información antes de postular.

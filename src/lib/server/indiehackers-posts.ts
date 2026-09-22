@@ -28,10 +28,13 @@ export {
 	type IndiehackersTagId,
 } from "$lib/indiehackers-posts";
 
-const indiehackersPostMetaModules = import.meta.glob("../../content/indiehackers/posts/*/meta.json", {
-	eager: true,
-	import: "default",
-});
+const indiehackersPostMetaModules = import.meta.glob(
+	"../../content/indiehackers/posts/*/meta.json",
+	{
+		eager: true,
+		import: "default",
+	},
+);
 
 const indiehackersPostMarkdownModules = import.meta.glob<string>(
 	"../../content/indiehackers/posts/*/*.md",
@@ -56,7 +59,9 @@ export const indiehackersPosts: readonly IndiehackersPost[] = Object.entries(
 				indiehackersPostMarkdownModules[`${path.replace(/\/meta\.json$/, "")}/${locale}.md`];
 
 			if (typeof markdown !== "string") {
-				throw new Error(`Missing indiehackers post translation: ${path.replace(/\/meta\.json$/, "")}/${locale}.md`);
+				throw new Error(
+					`Missing indiehackers post translation: ${path.replace(/\/meta\.json$/, "")}/${locale}.md`,
+				);
 			}
 
 			return createIndiehackersPostFromContent(path, metadata, locale, markdown);
@@ -73,7 +78,9 @@ export const indiehackersPostDetails: readonly IndiehackersPostDetail[] = Object
 				indiehackersPostMarkdownModules[`${path.replace(/\/meta\.json$/, "")}/${locale}.md`];
 
 			if (typeof markdown !== "string") {
-				throw new Error(`Missing indiehackers post translation: ${path.replace(/\/meta\.json$/, "")}/${locale}.md`);
+				throw new Error(
+					`Missing indiehackers post translation: ${path.replace(/\/meta\.json$/, "")}/${locale}.md`,
+				);
 			}
 
 			return createIndiehackersPostDetailFromContent(path, metadata, locale, markdown);

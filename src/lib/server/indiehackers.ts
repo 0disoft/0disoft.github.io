@@ -7,14 +7,11 @@ export type IndiehackersCopy = {
 
 const fallbackIndiehackersLocale = "ko" satisfies SiteLocale;
 
-const indiehackersMarkdownModules = import.meta.glob<string>(
-	"../../content/indiehackers/*.md",
-	{
-		eager: true,
-		import: "default",
-		query: "?raw",
-	},
-);
+const indiehackersMarkdownModules = import.meta.glob<string>("../../content/indiehackers/*.md", {
+	eager: true,
+	import: "default",
+	query: "?raw",
+});
 
 export const indiehackersCopyByLocale = Object.fromEntries(
 	Object.entries(indiehackersMarkdownModules).flatMap(([path, markdown]) => {

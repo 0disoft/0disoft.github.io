@@ -1,5 +1,8 @@
 ---
-{"title":"Starting from a newsletter's annoyances","summary":"How Buttondown grew on word of mouth from TinyLetter's annoyances."}
+{
+  "title": "Starting from a newsletter's annoyances",
+  "summary": "How Buttondown grew on word of mouth from TinyLetter's annoyances."
+}
 ---
 
 Justin Duke started Buttondown from frustration with TinyLetter, the newsletter service he used. TinyLetter kept writing and sending simple, but its Markdown handling was unreliable and image resizing was weak. The editor went unimproved for a long time. Duke wanted to keep that spare way of working while fixing the problems he kept hitting.

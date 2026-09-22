@@ -33,7 +33,9 @@ const PLATFORMS: readonly IndiehackersSharePlatform[] = [
 	"weibo",
 ];
 
-export function buildIndiehackersShareLinks(payload: IndiehackersSharePayload): IndiehackersShareLink[] {
+export function buildIndiehackersShareLinks(
+	payload: IndiehackersSharePayload,
+): IndiehackersShareLink[] {
 	const url = payload.url.trim();
 	const title = payload.title.trim();
 

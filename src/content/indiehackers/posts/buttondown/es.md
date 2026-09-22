@@ -1,5 +1,8 @@
 ---
-{"title":"Empezar desde las molestias de un boletín","summary":"Cómo Buttondown creció de boca en boca desde las molestias de TinyLetter."}
+{
+  "title": "Empezar desde las molestias de un boletín",
+  "summary": "Cómo Buttondown creció de boca en boca desde las molestias de TinyLetter."
+}
 ---
 
 El punto de partida de Justin Duke para crear Buttondown fue su molestia con TinyLetter, el servicio de boletines que usaba. TinyLetter mantenía simple escribir y enviar, pero su manejo de Markdown era inestable y le faltaba control de tamaño de imágenes. El editor pasó mucho tiempo sin mejoras reales. Duke quería mantener esa forma sobria de trabajar mientras resolvía los problemas con los que chocaba cada vez.

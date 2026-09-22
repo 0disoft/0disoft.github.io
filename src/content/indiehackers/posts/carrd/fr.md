@@ -1,5 +1,8 @@
 ---
-{"title":"Jusqu’à 1 million de dollars par an avec des sites d’une page","summary":"Comment Carrd a atteint 1 million de dollars de revenus récurrents annuels avec un seul produit de sites d’une page."}
+{
+  "title": "Jusqu’à 1 million de dollars par an avec des sites d’une page",
+  "summary": "Comment Carrd a atteint 1 million de dollars de revenus récurrents annuels avec un seul produit de sites d’une page."
+}
 ---
 
 Avant Carrd, AJ gagnait déjà sa vie avec le design web. Sur HTML5 UP, il publiait des modèles gratuits, et sur Pixelarity il vendait des modèles payants. Des années de modèles lui ont appris quels designs plaisaient et ce qui bloquait les gens face à un site. Carrd fut son entreprise suivante, bâtie sur cette expérience et cette connaissance des clients.

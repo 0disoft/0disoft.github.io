@@ -1,5 +1,5 @@
 ---
-{"title":"Indiehackers"}
+{ "title": "Indiehackers" }
 ---
 
 A place for introducing indie hackers around the world.

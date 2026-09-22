@@ -1,5 +1,8 @@
 ---
-{"title":"Ouvrir des fichiers Photoshop dans le navigateur","summary":"Comment Photopea est passé d’un éditeur web solo à 350 millions d’utilisations en un an."}
+{
+  "title": "Ouvrir des fichiers Photoshop dans le navigateur",
+  "summary": "Comment Photopea est passé d’un éditeur web solo à 350 millions d’utilisations en un an."
+}
 ---
 
 En 2012, Ivan Kutskir étudiait l’informatique à Prague quand il voulut ouvrir des fichiers PSD de Photoshop sur le web. Le point de départ fut un outil affichant les calques d’une image, chacun masquable ou réaffichable. Il gagnait déjà 100 à 400 dollars par mois grâce aux annonces de jeux web qu’il avait faits, et il aimait créer des programmes. Il commença Photopea sur son temps libre à côté des études.

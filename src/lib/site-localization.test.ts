@@ -167,7 +167,7 @@ describe("site localization", () => {
 		expect(enMessages.indiehackers_filter_title).toBe("Filters");
 		expect(enMessages.indiehackers_search_label).toBe("Search");
 		expect(enMessages.indiehackers_search_placeholder).toBe("Title, summary, or tag");
-		expect(enMessages.indiehackers_tag_label).toBe("Tags (any)");
+		expect(enMessages.indiehackers_tag_label).toBe("Tags");
 		expect(enMessages.indiehackers_all_tags).toBe("All tags");
 		expect(enMessages.indiehackers_recent_label).toBe("Recent posts");
 		expect(enMessages.indiehackers_recent_tooltip).toBe("Posts published within the last year");
@@ -192,7 +192,7 @@ describe("site localization", () => {
 		expect(koMessages.indiehackers_filter_title).toBe("필터");
 		expect(koMessages.indiehackers_search_label).toBe("검색");
 		expect(koMessages.indiehackers_search_placeholder).toBe("제목, 요약, 태그");
-		expect(koMessages.indiehackers_tag_label).toBe("태그 (하나라도)");
+		expect(koMessages.indiehackers_tag_label).toBe("태그");
 		expect(koMessages.indiehackers_all_tags).toBe("전체 태그");
 		expect(koMessages.indiehackers_recent_label).toBe("최근발행");
 		expect(koMessages.indiehackers_recent_tooltip).toBe("1년 이내 발행된 게시글");

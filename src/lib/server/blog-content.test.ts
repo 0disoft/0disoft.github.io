@@ -22,7 +22,9 @@ describe("localized indiehackers delivery", () => {
 		} as Parameters<typeof loadLayout>[0]);
 
 		expect(layout.indiehackersPosts.length).toBeGreaterThan(3);
-		expect(layout.indiehackersPosts[0].slug).toBe("key-values");
+		expect(layout.indiehackersPosts.every((post) => post.locale === "ko")).toBe(true);
+		const dates = layout.indiehackersPosts.map((post) => post.publishedAt);
+		expect(dates).toEqual([...dates].sort().reverse());
 		expect(layout.indiehackersPosts.map((post) => post.slug)).toEqual(
 			expect.arrayContaining(["key-values", "buttondown", "photopea", "carrd"]),
 		);

@@ -1,0 +1,11 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "overrides": [
+    {
+      "files": ["src/content/indiehackers/**/*.md"],
+      "options": {
+        "trailingComma": "none"
+      }
+    }
+  ]
+}

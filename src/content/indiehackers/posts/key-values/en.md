@@ -1,5 +1,8 @@
 ---
-{"title":"Seeing how a team works before applying","summary":"How Key Values grew into a service showing teams' work styles before applications."}
+{
+  "title": "Seeing how a team works before applying",
+  "summary": "How Key Values grew into a service showing teams' work styles before applications."
+}
 ---
 
 Lynne Tye found a strange order in the hiring process while looking for a full-time developer job. Applicants wrote cover letters, did phone interviews, sometimes even eight-hour assignments, yet only learned late how the people they would work with actually collaborated. Having worked with many teams as a freelancer, she treated who she worked with and how as an important choice. Key Values was built to check that information before applying.

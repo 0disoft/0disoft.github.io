@@ -10,7 +10,8 @@ const roots = [
 	resolve(".svelte-kit/output/client"),
 	resolve("static"),
 ];
-const origin = "https://filters.test";
+const live = process.argv.includes("--live");
+const origin = live ? "https://0disoft.github.io" : "https://filters.test";
 const output = resolve(".mustflow/state/taxonomy-screenshots");
 const mime = {
 	".html": "text/html",
@@ -32,31 +33,35 @@ try {
 			serviceWorkers: "block",
 			locale: "ko-KR",
 		});
-		await context.route("**/*", async (route) => {
-			const url = new URL(route.request().url());
-			if (url.origin !== origin) return route.abort();
-			// Keep optional public integrations disabled in this isolated UI smoke test.
-			if (url.pathname === "/_app/env.js") {
-				return route.fulfill({ contentType: "application/javascript", body: "export const env = {};" });
-			}
-			const candidates = roots.flatMap((root) => {
-				const file = resolve(root, `.${decodeURIComponent(url.pathname)}`);
-				return file === root || file.startsWith(root + sep)
-					? [file, `${file}.html`, resolve(file, "index.html")]
-					: [];
-			});
-			for (const candidate of candidates) {
-				try {
-					return await route.fulfill({
-						body: await readFile(candidate),
-						contentType: mime[extname(candidate)] ?? "application/octet-stream",
+		if (!live)
+			await context.route("**/*", async (route) => {
+				const url = new URL(route.request().url());
+				if (url.origin !== origin) return route.abort();
+				// Keep optional public integrations disabled in this isolated UI smoke test.
+				if (url.pathname === "/_app/env.js") {
+					return route.fulfill({
+						contentType: "application/javascript",
+						body: "export const env = {};",
 					});
-				} catch (error) {
-					if (!["ENOENT", "EISDIR", "ENOTDIR"].includes(error.code)) throw error;
 				}
-			}
-			return route.fulfill({ status: 404, body: "Not found" });
-		});
+				const candidates = roots.flatMap((root) => {
+					const file = resolve(root, `.${decodeURIComponent(url.pathname)}`);
+					return file === root || file.startsWith(root + sep)
+						? [file, `${file}.html`, resolve(file, "index.html")]
+						: [];
+				});
+				for (const candidate of candidates) {
+					try {
+						return await route.fulfill({
+							body: await readFile(candidate),
+							contentType: mime[extname(candidate)] ?? "application/octet-stream",
+						});
+					} catch (error) {
+						if (!["ENOENT", "EISDIR", "ENOTDIR"].includes(error.code)) throw error;
+					}
+				}
+				return route.fulfill({ status: 404, body: "Not found" });
+			});
 		const page = await context.newPage();
 		const errors = [];
 		page.on("pageerror", (error) => {

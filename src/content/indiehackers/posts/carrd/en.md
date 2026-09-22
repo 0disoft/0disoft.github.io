@@ -1,5 +1,8 @@
 ---
-{"title":"To $1M a year with one-page sites","summary":"How Carrd reached $1M in annual recurring revenue with a single one-page-site product."}
+{
+  "title": "To $1M a year with one-page sites",
+  "summary": "How Carrd reached $1M in annual recurring revenue with a single one-page-site product."
+}
 ---
 
 Before Carrd, AJ was already making money from website design. On HTML5 UP he gave away free website templates, and on Pixelarity he sold paid templates. Years of template work taught him which designs people liked and what they struggled with when making a site. Carrd was his next business, built on that production experience and customer understanding.

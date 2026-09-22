@@ -1,5 +1,8 @@
 ---
-{"title":"Voir comment une équipe travaille avant de postuler","summary":"Comment Key Values a grandi jusqu’à montrer le travail des équipes avant les candidatures."}
+{
+  "title": "Voir comment une équipe travaille avant de postuler",
+  "summary": "Comment Key Values a grandi jusqu’à montrer le travail des équipes avant les candidatures."
+}
 ---
 
 Lynne Tye trouva un ordre étrange dans l’embauche en cherchant un emploi de développeuse à temps plein. Les candidats écrivaient des lettres, passaient des entretiens téléphoniques, parfois même des tâches de huit heures, mais n’apprenaient que tard comment collaboraient les gens avec qui ils travailleraient. Avec l’expérience de beaucoup d’équipes en freelance, elle traitait avec qui et comment on travaille comme un critère important. Key Values fut fait pour voir cette information avant de postuler.
