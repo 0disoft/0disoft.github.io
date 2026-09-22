@@ -413,6 +413,9 @@
 </section>
 
 <style>
+	.indiehackers-header, .indiehackers-filters, .result-status { -webkit-user-select: none; user-select: none; }
+	.filter-search input { -webkit-user-select: text; user-select: text; }
+	.filter-search input::placeholder { -webkit-user-select: none; user-select: none; }
 	.indiehackers-list { display: grid; width: 100%; max-width: 90rem; margin-inline: auto; gap: 1.35rem; color: var(--foreground); min-width: 0; }
 	.indiehackers-header h1 { margin: 0; font-size: 3.25rem; font-weight: 850; letter-spacing: 0; line-height: 1.2; overflow-wrap: anywhere; }
 	.indiehackers-header { padding-bottom: 0.3rem; }
