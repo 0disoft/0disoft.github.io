@@ -254,6 +254,8 @@ describe("site shell", () => {
 		expect(indiehackersListSource).toContain('type="checkbox"');
 		expect(indiehackersListSource).toContain("tag-chips");
 		expect(indiehackersListSource).toContain("recent-chip");
+		expect(indiehackersListSource).toContain('class="chip recent-chip"');
+		expect(indiehackersListSource).not.toContain("chip-toggle");
 		const tagSection = indiehackersListSource.match(
 			/<fieldset class="tag-row">([\s\S]*?)<\/fieldset>/,
 		)?.[1];

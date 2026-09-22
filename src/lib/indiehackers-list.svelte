@@ -189,7 +189,7 @@
 				{/each}
 			</ul>
 			<label
-				class="chip chip-toggle recent-chip"
+				class="chip recent-chip"
 				title={recentTooltip}
 				data-tooltip={recentTooltip}
 			>
@@ -355,10 +355,6 @@
 	.chip input {
 		margin: 0;
 		accent-color: var(--accent);
-	}
-
-	.chip-toggle {
-		border-style: dashed;
 	}
 
 	.recent-chip::after {
