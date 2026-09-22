@@ -1,0 +1,18 @@
+{
+  "kind": "ai-generated-editorial-illustration",
+  "createdAt": "2026-09-23",
+  "officialScreenshot": false,
+  "asset": "simple-analytics.webp",
+  "generator": "built-in image_gen",
+  "prompt": "Editorial cover about Simple Analytics: anonymous coral and teal data points pass through a transparent pane and become aggregate charts. White background, subtle print texture, Simple Analytics label, no personal profiles, invented metrics or fake product UI. Landscape 16:9 with central thumbnail-safe composition.",
+  "sourceChecks": [
+    "https://www.simpleanalytics.com/blog/why-simple-analytics-is-my-first-successful-project",
+    "https://1millionarr.substack.com/p/simple-analytics-2024-year-in-review",
+    "https://1millionarr.substack.com/p/road-to-1m-arr-june-update-077",
+    "https://www.simpleanalytics.com/blog/closing-the-data-gap-simple-analytics-x-usercentrics",
+    "https://www.simpleanalytics.com/about",
+    "https://www.simpleanalytics.com/pricing",
+    "https://dashboard.simpleanalytics.com/open"
+  ],
+  "editorialNote": "Korean body supplied by the author. Historical revenue values remain dated snapshots, not live metrics. The live dashboard at verification showed approximately USD 50.5k MRR and 606.4k ARR; the author's September 2026 snapshot states approximately USD 50.7k and 609k. This check does not independently reproduce the author's exact snapshot. The chart in this illustration is conceptual, not financial data."
+}

@@ -1,0 +1,31 @@
+{
+  "status": "awaiting-translation",
+  "preparedAt": "2026-09-23",
+  "id": "simple-analytics",
+  "productName": "Simple Analytics",
+  "coverImage": "/images/indiehackers/simple-analytics.webp",
+  "sourceLocale": "ko",
+  "pendingLocales": ["en", "es", "fr", "hi", "zh"],
+  "translationModel": "commandcode/meta-muse-spark-1.3-contributor",
+  "translationReasoningEffort": "high",
+  "blocker": "Muse returned HTTP 429. User requested Korean draft and image only; translations deferred.",
+  "tags": [
+    "saas",
+    "web",
+    "api",
+    "b2b",
+    "developers",
+    "subscription",
+    "usage-based",
+    "solo-building",
+    "small-team",
+    "bootstrapping",
+    "launch",
+    "pricing",
+    "acquisition",
+    "growth",
+    "retention",
+    "infrastructure"
+  ],
+  "publicationNote": "Not loaded by the site. Complete all five translations, set the actual publication date, validate all six locale files, and move the completed post to src/content/indiehackers/posts/simple-analytics only after approval to continue. No push or deployment authorized."
+}
