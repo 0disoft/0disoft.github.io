@@ -2,7 +2,6 @@
 	import { browser } from "$app/environment";
 	import { pushState } from "$app/navigation";
 	import { page } from "$app/state";
-	import { ChevronDown } from "@lucide/svelte";
 	import { onMount } from "svelte";
 	import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
@@ -15,6 +14,7 @@
 		getIndiehackersPostTagLabels,
 		parseIndiehackersFilters,
 		type IndiehackersFilters,
+		type IndiehackersTagId,
 	} from "$lib/indiehackers-posts";
 	import { toDisplayLocale } from "$lib/site-labels";
 	import { isSiteLocale, localizeSitePathname } from "$lib/site-locales";
@@ -26,10 +26,10 @@
 		localizeSitePathname("/indiehackers", isSiteLocale(currentLocale) ? currentLocale : "en"),
 	);
 	const localizedPosts = $derived(page.data.indiehackersPosts);
-	const localizedFilterOptions = $derived(getIndiehackersFilterOptions(localizedPosts));
+	const localizedFilterOptions = $derived(getIndiehackersFilterOptions());
 	const filteredPosts = $derived(filterIndiehackersPosts(localizedPosts, filters));
 	const hasActiveFilters = $derived(
-		filters.query.length > 0 || filters.tag.length > 0 || filters.year.length > 0,
+		filters.query.length > 0 || filters.tags.length > 0,
 	);
 
 	onMount(() => {
@@ -50,25 +50,31 @@
 		filters = parseIndiehackersFilters(new URLSearchParams(window.location.search));
 	}
 
-	function handleFilterSubmit(event: SubmitEvent) {
-		if (!browser || !(event.currentTarget instanceof HTMLFormElement)) {
+	function handleSearchInput(event: Event) {
+		if (!browser || !(event.currentTarget instanceof HTMLInputElement)) {
 			return;
 		}
 
-		event.preventDefault();
+		const nextFilters: IndiehackersFilters = {
+			...filters,
+			query: event.currentTarget.value,
+		};
 
-		const formData = new FormData(event.currentTarget);
-		const searchParams = new URLSearchParams();
+		filters = nextFilters;
+		pushState(createIndiehackersFilterHref(nextFilters), page.state);
+	}
 
-		for (const key of Object.values(INDIEHACKERS_FILTER_QUERY_KEYS)) {
-			const value = formData.get(key);
-
-			if (typeof value === "string") {
-				searchParams.set(key, value);
-			}
+	function handleTagChange(event: Event) {
+		if (!browser || !(event.currentTarget instanceof HTMLInputElement)) {
+			return;
 		}
 
-		const nextFilters = parseIndiehackersFilters(searchParams);
+		const tag = event.currentTarget.value as IndiehackersTagId;
+		const checked = event.currentTarget.checked;
+		const nextTags = checked
+			? Array.from(new Set([...filters.tags, tag]))
+			: filters.tags.filter((selected) => selected !== tag);
+		const nextFilters: IndiehackersFilters = { ...filters, tags: nextTags };
 
 		filters = nextFilters;
 		pushState(createIndiehackersFilterHref(nextFilters), page.state);
@@ -87,16 +93,12 @@
 	function createIndiehackersFilterHref(nextFilters: IndiehackersFilters): string {
 		const searchParams = new URLSearchParams();
 
-		if (nextFilters.query) {
-			searchParams.set(INDIEHACKERS_FILTER_QUERY_KEYS.query, nextFilters.query);
+		if (nextFilters.query.trim()) {
+			searchParams.set(INDIEHACKERS_FILTER_QUERY_KEYS.query, nextFilters.query.trim());
 		}
 
-		if (nextFilters.tag) {
-			searchParams.set(INDIEHACKERS_FILTER_QUERY_KEYS.tag, nextFilters.tag);
-		}
-
-		if (nextFilters.year) {
-			searchParams.set(INDIEHACKERS_FILTER_QUERY_KEYS.year, nextFilters.year);
+		for (const tag of nextFilters.tags) {
+			searchParams.append(INDIEHACKERS_FILTER_QUERY_KEYS.tag, tag);
 		}
 
 		const queryString = searchParams.toString();
@@ -122,7 +124,6 @@
 		method="GET"
 		action={indiehackersAction}
 		aria-labelledby="indiehackers-filter-title"
-		onsubmit={handleFilterSubmit}
 	>
 		<h2 id="indiehackers-filter-title" class="sr-only">
 			{m.indiehackers_filter_title({}, { locale: displayLocale })}
@@ -137,47 +138,31 @@
 				autocomplete="off"
 				placeholder={m.indiehackers_search_placeholder({}, { locale: displayLocale })}
 				value={filters.query}
+				oninput={handleSearchInput}
 			/>
 		</label>
 
-		<label class="filter-field" for="indiehackers-tag">
-			<span>{m.indiehackers_tag_label({}, { locale: displayLocale })}</span>
-			<span class="select-shell">
-				<select
-					id="indiehackers-tag"
-					name={INDIEHACKERS_FILTER_QUERY_KEYS.tag}
-					value={filters.tag}
-				>
-					<option value="">{m.indiehackers_all_tags({}, { locale: displayLocale })}</option>
-					{#each localizedFilterOptions.tags as tag (tag.id)}
-						<option value={tag.id}>{tag.label}</option>
-					{/each}
-				</select>
-				<ChevronDown aria-hidden="true" size={16} />
-			</span>
-		</label>
-
-		<label class="filter-field" for="indiehackers-year">
-			<span>{m.indiehackers_year_label({}, { locale: displayLocale })}</span>
-			<span class="select-shell">
-				<select
-					id="indiehackers-year"
-					name={INDIEHACKERS_FILTER_QUERY_KEYS.year}
-					value={filters.year}
-				>
-					<option value="">{m.indiehackers_all_years({}, { locale: displayLocale })}</option>
-					{#each localizedFilterOptions.years as year (year)}
-						<option value={year}>{year}</option>
-					{/each}
-				</select>
-				<ChevronDown aria-hidden="true" size={16} />
-			</span>
-		</label>
+		<fieldset class="filter-field tag-field">
+			<legend>{m.indiehackers_tag_label({}, { locale: displayLocale })}</legend>
+			<ul class="tag-checkboxes" role="list">
+				{#each localizedFilterOptions.tags as tag (tag.id)}
+					<li>
+						<label class="tag-checkbox">
+							<input
+								type="checkbox"
+								name={INDIEHACKERS_FILTER_QUERY_KEYS.tag}
+								value={tag.id}
+								checked={filters.tags.includes(tag.id)}
+								onchange={handleTagChange}
+							/>
+							<span>{tag.label}</span>
+						</label>
+					</li>
+				{/each}
+			</ul>
+		</fieldset>
 
 		<div class="filter-actions">
-			<button type="submit" class="filter-apply">
-				{m.indiehackers_apply_filters({}, { locale: displayLocale })}
-			</button>
 			{#if hasActiveFilters}
 				<button type="button" class="filter-clear" onclick={clearFilters}>
 					{m.indiehackers_clear_filters({}, { locale: displayLocale })}
@@ -253,9 +238,7 @@
 	}
 
 	.indiehackers-filters {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: end;
+		display: grid;
 		gap: 0.85rem;
 	}
 
@@ -265,8 +248,8 @@
 		font-size: 0.9rem;
 	}
 
-	.filter-field input,
-	.filter-field select {
+	.filter-field input[type="search"] {
+		max-width: 28rem;
 		padding: 0.5rem 0.7rem;
 		border: 1px solid var(--input);
 		border-radius: var(--radius-sm);
@@ -275,10 +258,52 @@
 		font: inherit;
 	}
 
-	.select-shell {
+	.tag-field {
+		margin: 0;
+		padding: 0;
+		border: 0;
+	}
+
+	.tag-field legend {
+		padding: 0;
+		font-size: 0.9rem;
+	}
+
+	.tag-checkboxes {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.tag-checkbox {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.4rem;
+		gap: 0.45rem;
+		padding: 0.45rem 0.75rem;
+		border: 1px solid var(--input);
+		border-radius: 999px;
+		background: var(--background);
+		color: var(--foreground);
+		cursor: pointer;
+		user-select: none;
+	}
+
+	.tag-checkbox:has(input:checked) {
+		border-color: color-mix(in oklch, var(--foreground) 28%, var(--border));
+		background: color-mix(in oklch, var(--muted) 55%, transparent);
+	}
+
+	.tag-checkbox:has(input:focus-visible) {
+		outline: 3px solid var(--focus-ring);
+		outline-offset: 3px;
+	}
+
+	.tag-checkbox input {
+		margin: 0;
+		accent-color: var(--accent);
 	}
 
 	.filter-actions {
@@ -286,7 +311,6 @@
 		gap: 0.5rem;
 	}
 
-	.filter-apply,
 	.filter-clear {
 		padding: 0.5rem 0.9rem;
 		border: 1px solid var(--border);

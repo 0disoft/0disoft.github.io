@@ -29,8 +29,7 @@ export type IndiehackersPostDetail = IndiehackersPost & {
 
 export type IndiehackersFilters = {
 	query: string;
-	tag: IndiehackersTagId | "";
-	year: string;
+	tags: readonly IndiehackersTagId[];
 };
 
 type IndiehackersSharedMetadata = {
@@ -43,7 +42,6 @@ type IndiehackersSharedMetadata = {
 export const INDIEHACKERS_FILTER_QUERY_KEYS = {
 	query: "q",
 	tag: "tag",
-	year: "year",
 } as const;
 
 export function createIndiehackersPostFromContent(
@@ -105,28 +103,21 @@ export function readSharedMetadata(
 export function createEmptyIndiehackersFilters(): IndiehackersFilters {
 	return {
 		query: "",
-		tag: "",
-		year: "",
+		tags: [],
 	};
 }
 
 export function parseIndiehackersFilters(searchParams: URLSearchParams): IndiehackersFilters {
 	return {
 		query: searchParams.get(INDIEHACKERS_FILTER_QUERY_KEYS.query)?.trim() ?? "",
-		tag: normalizeTag(searchParams.get(INDIEHACKERS_FILTER_QUERY_KEYS.tag)),
-		year: normalizeYear(searchParams.get(INDIEHACKERS_FILTER_QUERY_KEYS.year)),
+		tags: normalizeTags(searchParams.getAll(INDIEHACKERS_FILTER_QUERY_KEYS.tag)),
 	};
 }
 
-export function getIndiehackersFilterOptions(posts: readonly IndiehackersPost[]): {
+export function getIndiehackersFilterOptions(): {
 	tags: typeof indiehackersTagOptions;
-	years: string[];
 } {
-	const years = Array.from(new Set(posts.map((post) => post.publishedAt.slice(0, 4)))).sort(
-		(left, right) => Number(right) - Number(left),
-	);
-
-	return { tags: indiehackersTagOptions, years };
+	return { tags: indiehackersTagOptions };
 }
 
 export function getIndiehackersPostsForLocale(
@@ -199,21 +190,19 @@ export function getIndiehackersPostSearchValues(post: IndiehackersPost): string[
 
 export function filterIndiehackersPosts(
 	posts: readonly IndiehackersPost[],
-	{ query, tag, year }: IndiehackersFilters,
+	{ query, tags }: IndiehackersFilters,
 ): IndiehackersPost[] {
 	const normalizedQuery = normalizeSearchText(query);
 
 	return posts.filter((post) => {
-		const postYear = post.publishedAt.slice(0, 4);
 		const matchesQuery =
 			normalizedQuery.length === 0 ||
 			getIndiehackersPostSearchValues(post).some((value) =>
 				normalizeSearchText(value).includes(normalizedQuery),
 			);
-		const matchesTag = tag === "" || post.tags.includes(tag);
-		const matchesYear = year.length === 0 || postYear === year;
+		const matchesTags = tags.length === 0 || tags.some((tag) => post.tags.includes(tag));
 
-		return matchesQuery && matchesTag && matchesYear;
+		return matchesQuery && matchesTags;
 	});
 }
 
@@ -377,22 +366,8 @@ function toIndiehackersPostLocale(locale: string): IndiehackersPostLocale {
 	return indiehackersPostLocales.find((postLocale) => postLocale === locale) ?? "en";
 }
 
-function normalizeTag(value: string | null): IndiehackersTagId | "" {
-	const tag = value?.trim() ?? "";
+function normalizeTags(values: readonly string[]): IndiehackersTagId[] {
+	const tags = values.map((value) => value.trim()).filter(isIndiehackersTagId);
 
-	if (isIndiehackersTagId(tag)) {
-		return tag;
-	}
-
-	return "";
-}
-
-function normalizeYear(value: string | null): string {
-	if (!value) {
-		return "";
-	}
-
-	const year = value.trim();
-
-	return /^\d{4}$/.test(year) ? year : "";
+	return Array.from(new Set(tags));
 }

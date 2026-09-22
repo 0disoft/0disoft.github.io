@@ -55,29 +55,25 @@ describe("indiehackers posts", () => {
 		expect(getIndiehackersPostEntries(posts)).toEqual([{ slug: "carrd" }]);
 	});
 
-	it("filters posts by query tag and year from URL search params", () => {
+	it("filters posts by query and any checked tag from URL search params", () => {
 		const posts = [
 			createIndiehackersPostFromContent(carrdPath, carrdMetadata, "ko", carrdKoreanMarkdown),
 			createIndiehackersPostFromContent(carrdPath, carrdMetadata, "en", carrdEnglishMarkdown),
 		];
 
-		expect(getIndiehackersFilterOptions(posts).years).toEqual(["2026"]);
-		expect(getIndiehackersFilterOptions(posts).tags).toEqual(indiehackersTagOptions);
+		expect(getIndiehackersFilterOptions().tags).toEqual(indiehackersTagOptions);
+		expect(filterIndiehackersPosts(posts, { query: "carrd", tags: [] })).toHaveLength(2);
+		expect(filterIndiehackersPosts(posts, { query: "", tags: ["pricing"] })).toHaveLength(2);
 		expect(
-			filterIndiehackersPosts(posts, { query: "carrd", tag: "", year: "" }),
+			filterIndiehackersPosts(posts, { query: "", tags: ["pricing", "infrastructure"] }),
 		).toHaveLength(2);
-		expect(
-			filterIndiehackersPosts(posts, { query: "", tag: "pricing", year: "" }),
-		).toHaveLength(2);
-		expect(
-			filterIndiehackersPosts(posts, { query: "", tag: "infrastructure", year: "" }),
-		).toHaveLength(0);
-		expect(filterIndiehackersPosts(posts, { query: "", tag: "", year: "2026" })).toHaveLength(2);
-		expect(filterIndiehackersPosts(posts, { query: "", tag: "", year: "2025" })).toHaveLength(0);
+		expect(filterIndiehackersPosts(posts, { query: "", tags: ["infrastructure"] })).toHaveLength(
+			0,
+		);
 		expect(
 			filterIndiehackersPosts(
 				posts,
-				parseIndiehackersFilters(new URLSearchParams("q=carrd&tag=pricing&year=2026")),
+				parseIndiehackersFilters(new URLSearchParams("q=carrd&tag=pricing&tag=growth")),
 			),
 		).toHaveLength(2);
 		expect(
