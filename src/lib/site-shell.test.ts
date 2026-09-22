@@ -254,6 +254,13 @@ describe("site shell", () => {
 		expect(indiehackersListSource).toContain('type="checkbox"');
 		expect(indiehackersListSource).toContain("tag-chips");
 		expect(indiehackersListSource).toContain("recent-chip");
+		const tagSection = indiehackersListSource.match(
+			/<fieldset class="tag-row">([\s\S]*?)<\/fieldset>/,
+		)?.[1];
+		expect(tagSection).toContain("recent-chip");
+		expect(indiehackersListSource.split('<fieldset class="tag-row">')[0]).not.toContain(
+			'class="chip chip-toggle recent-chip"',
+		);
 		expect(indiehackersListSource).toContain("indiehackers_recent_tooltip");
 	});
 
@@ -303,9 +310,7 @@ describe("site shell", () => {
 		expect(layoutSource).toContain('rel="stylesheet"');
 		expect(localeFontsSource).toContain("@fontsource-variable/noto-sans-kr/index.css?url");
 		expect(localeFontsSource).toContain("@fontsource-variable/noto-sans-sc/index.css?url");
-		expect(localeFontsSource).toContain(
-			"@fontsource-variable/noto-sans-devanagari/index.css?url",
-		);
+		expect(localeFontsSource).toContain("@fontsource-variable/noto-sans-devanagari/index.css?url");
 		expect(localeFontsSource).not.toContain("en:");
 		expect(localeFontsSource).not.toContain("es:");
 		expect(localeFontsSource).not.toContain("fr:");

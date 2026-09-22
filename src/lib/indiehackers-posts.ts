@@ -46,8 +46,6 @@ export const INDIEHACKERS_FILTER_QUERY_KEYS = {
 	recent: "recent",
 } as const;
 
-export const INDIEHACKERS_RECENT_WINDOW_DAYS = 365;
-
 export function createIndiehackersPostFromContent(
 	path: string,
 	metadata: unknown,
@@ -215,15 +213,26 @@ export function filterIndiehackersPosts(
 }
 
 export function isRecentIndiehackersPost(publishedAt: string, now: Date = new Date()): boolean {
-	const publishedTime = Date.parse(`${publishedAt}T00:00:00Z`);
-
-	if (Number.isNaN(publishedTime)) {
+	if (!/^\d{4}-\d{2}-\d{2}$/.test(publishedAt) || Number.isNaN(now.getTime())) {
 		return false;
 	}
-
-	const elapsedMs = now.getTime() - publishedTime;
-
-	return elapsedMs >= 0 && elapsedMs <= INDIEHACKERS_RECENT_WINDOW_DAYS * 24 * 60 * 60 * 1000;
+	const [year, month, day] = publishedAt.split("-").map(Number);
+	const published = new Date(year, month - 1, day);
+	if (
+		published.getFullYear() !== year ||
+		published.getMonth() !== month - 1 ||
+		published.getDate() !== day
+	) {
+		return false;
+	}
+	// Publication metadata is a calendar date, not a UTC midnight timestamp.
+	const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+	const cutoff = new Date(today);
+	cutoff.setFullYear(today.getFullYear() - 1);
+	if (cutoff.getMonth() !== today.getMonth()) {
+		cutoff.setDate(0);
+	}
+	return published >= cutoff && published <= today;
 }
 
 function parseMarkdownFile(path: string, markdown: string): { frontmatter: unknown; body: string } {

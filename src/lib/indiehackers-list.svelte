@@ -163,21 +163,6 @@
 				/>
 			</label>
 
-			<label
-				class="chip chip-toggle recent-chip"
-				title={recentTooltip}
-				data-tooltip={recentTooltip}
-			>
-				<input
-					type="checkbox"
-					name={INDIEHACKERS_FILTER_QUERY_KEYS.recent}
-					value="1"
-					checked={filters.recentOnly}
-					onchange={handleRecentChange}
-				/>
-				<span>{recentLabel}</span>
-			</label>
-
 			{#if hasActiveFilters}
 				<button type="button" class="chip chip-clear" onclick={clearFilters}>
 					{m.indiehackers_clear_filters({}, { locale: displayLocale })}
@@ -203,6 +188,20 @@
 					</li>
 				{/each}
 			</ul>
+			<label
+				class="chip chip-toggle recent-chip"
+				title={recentTooltip}
+				data-tooltip={recentTooltip}
+			>
+				<input
+					type="checkbox"
+					name={INDIEHACKERS_FILTER_QUERY_KEYS.recent}
+					value="1"
+					checked={filters.recentOnly}
+					onchange={handleRecentChange}
+				/>
+				<span>{recentLabel}</span>
+			</label>
 		</fieldset>
 	</form>
 
@@ -304,6 +303,9 @@
 	}
 
 	.tag-row {
+		display: grid;
+		justify-items: start;
+		gap: 0.6rem;
 		margin: 0;
 		padding: 0;
 		border: 0;
@@ -364,6 +366,7 @@
 		bottom: calc(100% + 0.45rem);
 		left: 50%;
 		z-index: 3;
+		width: max-content;
 		max-width: min(14rem, 70vw);
 		padding: 0.34rem 0.56rem;
 		border: 1px solid var(--share-tooltip-border, var(--border));

@@ -63,17 +63,18 @@ describe("indiehackers posts", () => {
 		];
 
 		expect(getIndiehackersFilterOptions().tags).toEqual(indiehackersTagOptions);
-		expect(filterIndiehackersPosts(posts, { query: "carrd", tags: [], recentOnly: false })).toHaveLength(
-			2,
-		);
+		expect(
+			filterIndiehackersPosts(posts, { query: "carrd", tags: [], recentOnly: false }),
+		).toHaveLength(2);
 		expect(
 			filterIndiehackersPosts(posts, { query: "", tags: ["pricing"], recentOnly: false }),
 		).toHaveLength(2);
 		expect(
-			filterIndiehackersPosts(
-				posts,
-				{ query: "", tags: ["pricing", "infrastructure"], recentOnly: false },
-			),
+			filterIndiehackersPosts(posts, {
+				query: "",
+				tags: ["pricing", "infrastructure"],
+				recentOnly: false,
+			}),
 		).toHaveLength(2);
 		expect(
 			filterIndiehackersPosts(posts, { query: "", tags: ["infrastructure"], recentOnly: false }),
@@ -90,6 +91,21 @@ describe("indiehackers posts", () => {
 				query: "missing",
 			}),
 		).toHaveLength(0);
+	});
+
+	it("includes calendar boundaries throughout the day and excludes future or invalid dates", () => {
+		for (const hour of [0, 12, 23]) {
+			const now = new Date(2026, 8, 22, hour, 30);
+			expect(isRecentIndiehackersPost("2026-09-22", now)).toBe(true);
+			expect(isRecentIndiehackersPost("2025-09-22", now)).toBe(true);
+			expect(isRecentIndiehackersPost("2025-09-21", now)).toBe(false);
+			expect(isRecentIndiehackersPost("2026-09-23", now)).toBe(false);
+			expect(isRecentIndiehackersPost("2026-02-30", now)).toBe(false);
+		}
+		expect(isRecentIndiehackersPost("2023-03-01", new Date(2024, 2, 1, 12))).toBe(true);
+		expect(isRecentIndiehackersPost("2023-02-28", new Date(2024, 1, 29, 12))).toBe(true);
+		expect(isRecentIndiehackersPost("2023-02-27", new Date(2024, 1, 29, 12))).toBe(false);
+		expect(isRecentIndiehackersPost("2026-09-22", new Date(NaN))).toBe(false);
 	});
 
 	it("keeps recent posts from the last year by default", () => {
