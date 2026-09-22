@@ -171,8 +171,8 @@ describe("site meta files", () => {
 			{ rel: "alternate", type: "text/plain", href: "/llms.txt", title: "llms.txt" },
 		]);
 		expect(siteThemeColorMeta).toEqual([
-			{ content: "#fbf7e8", media: "(prefers-color-scheme: light)" },
-			{ content: "#152814", media: "(prefers-color-scheme: dark)" },
+			{ content: "#ffffff", media: "(prefers-color-scheme: light)" },
+			{ content: "#17191d", media: "(prefers-color-scheme: dark)" },
 		]);
 	});
 });

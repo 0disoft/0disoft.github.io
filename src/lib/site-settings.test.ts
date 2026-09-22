@@ -24,10 +24,25 @@ import {
 	deployWorkflowSource,
 	enMessagesSource,
 	koMessagesSource,
+	layoutCss,
+	surfaceSource,
 	sidebarSource,
 } from "./test-support/site-test-sources";
 
 describe("site settings", () => {
+	it("shares theme tokens across routes and distinguishes selected controls from hover", () => {
+		for (const token of ["background", "foreground", "border"]) {
+			expect(layoutCss).toContain(`--mode-control-selected-${token}:`);
+			expect(sidebarSource).toContain(`var(--mode-control-selected-${token})`);
+		}
+		for (const selector of [".settings-tabs button", ".choice-grid button", ".analytics-switch"]) {
+			expect(sidebarSource).not.toContain(`${selector}:hover,`);
+		}
+		expect(surfaceSource).not.toMatch(
+			/--(?:background|foreground|accent|mode-control-background)\s*:/,
+		);
+	});
+
 	it("keeps analytics and advertising consent as explicit opt-in values", () => {
 		expect(siteAnalyticsConsentStorageKey).toBe("0disoft:analytics-consent");
 		expect(siteAnalyticsConsentChangeEvent).toBe("0disoft:analytics-consent-change");

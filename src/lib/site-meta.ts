@@ -20,8 +20,8 @@ export const defaultRssFeedLocale = "en";
 export const siteTextAlternateLinks = [{ href: "/llms.txt", title: "llms.txt" }] as const;
 
 export const siteThemeColorMeta = [
-	{ content: "#fbf7e8", media: "(prefers-color-scheme: light)" },
-	{ content: "#152814", media: "(prefers-color-scheme: dark)" },
+	{ content: "#ffffff", media: "(prefers-color-scheme: light)" },
+	{ content: "#17191d", media: "(prefers-color-scheme: dark)" },
 ] as const;
 
 type LinkEntry = {

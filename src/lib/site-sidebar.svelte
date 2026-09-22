@@ -664,10 +664,9 @@
 		overflow: hidden;
 		padding: 1rem;
 		border-right: 1px solid var(--sidebar-border);
-		background:
-			linear-gradient(180deg, color-mix(in oklch, var(--sidebar) 96%, white) 0%, var(--sidebar) 100%);
+		background: var(--sidebar);
 		color: var(--sidebar-foreground);
-		box-shadow: 0.75rem 0 2.4rem color-mix(in oklch, var(--ink) 10%, transparent);
+		box-shadow: 0.75rem 0 2.4rem color-mix(in oklch, black 10%, transparent);
 		user-select: none;
 	}
 
@@ -691,7 +690,7 @@
 	.brand-link img {
 		width: 3rem;
 		aspect-ratio: 1;
-		border: 1px solid color-mix(in oklch, var(--ink) 24%, var(--bronze));
+		border: 1px solid var(--border);
 		border-radius: var(--radius-md);
 		object-fit: cover;
 	}
@@ -744,7 +743,7 @@
 	}
 
 	.settings-dialog::backdrop {
-		background: color-mix(in oklch, var(--ink) 38%, transparent);
+		background: color-mix(in oklch, black 50%, transparent);
 	}
 
 	.settings-dialog-panel {
@@ -786,9 +785,14 @@
 		font-weight: 720;
 	}
 
-	.settings-tabs button:hover,
-	.settings-tabs button.active {
+	.settings-tabs button:hover {
 		background: var(--mode-control-hover-background);
+	}
+
+	.settings-tabs button.active {
+		background: var(--mode-control-selected-background);
+		border-color: var(--mode-control-selected-border);
+		color: var(--mode-control-selected-foreground);
 	}
 
 	.settings-tab-panel {
@@ -825,9 +829,14 @@
 		font-weight: 680;
 	}
 
-	.choice-grid button:hover,
-	.choice-grid button.active {
+	.choice-grid button:hover {
 		background: var(--mode-control-hover-background);
+	}
+
+	.choice-grid button.active {
+		background: var(--mode-control-selected-background);
+		border-color: var(--mode-control-selected-border);
+		color: var(--mode-control-selected-foreground);
 	}
 
 	.privacy-panel {
@@ -899,14 +908,26 @@
 		user-select: none;
 	}
 
-	.analytics-switch:hover,
-	.analytics-switch.active {
+	.analytics-switch:hover {
 		background: var(--mode-control-hover-background);
+	}
+
+	.analytics-switch.active {
+		background: var(--mode-control-selected-background);
+		border-color: var(--mode-control-selected-border);
+		color: var(--mode-control-selected-foreground);
 	}
 
 	.analytics-switch:disabled {
 		cursor: not-allowed;
 		opacity: 0.62;
+	}
+
+	.analytics-switch:disabled,
+	.analytics-switch:disabled:hover {
+		background: var(--mode-control-background);
+		border-color: var(--mode-control-border);
+		color: var(--mode-control-foreground);
 	}
 
 	a:focus-visible,

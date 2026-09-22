@@ -94,39 +94,9 @@ import { prefersReducedMotion } from "svelte/motion";
 		align-content: stretch;
 	}
 
-	.site-frame:has(:global(.indiehackers-list)) {
-		--background: #fff;
-		--foreground: #17191e;
-		--muted: #f0f1f4;
-		--muted-foreground: #646974;
-		--border: #d9dce3;
-		--input: #ccd0d9;
-		--accent: #0855ed;
-		--focus-ring: #0855ed;
-		--sidebar: var(--background);
-		--sidebar-foreground: var(--foreground);
-		--sidebar-border: var(--border);
-		--sidebar-primary: #0855ed;
-		--sidebar-primary-foreground: #fff;
-		--sidebar-accent: var(--muted);
-		--sidebar-accent-foreground: var(--foreground);
-		--popover: var(--background);
-		--popover-foreground: var(--foreground);
-		background: var(--background);
-	}
 	.site-frame:has(:global(.indiehackers-list))::before,
 	.site-frame:has(:global(.indiehackers-list))::after { display: none; }
 	.content-shell:has(:global(.indiehackers-list)) { background: var(--background); padding: 2.5rem; }
-	:global(.dark) .site-frame:has(:global(.indiehackers-list)) {
-		--background: #17191d;
-		--foreground: #f4f5f8;
-		--muted: #292c32;
-		--muted-foreground: #b6bac4;
-		--border: #41454f;
-		--input: #535866;
-		--accent: #8bb5ff;
-		--focus-ring: #8bb5ff;
-	}
 
 	@media (max-width: 48rem) {
 		.content-shell:has(:global(.indiehackers-list)) { padding: 1.5rem 1rem; }
