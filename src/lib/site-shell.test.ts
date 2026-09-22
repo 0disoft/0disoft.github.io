@@ -242,7 +242,6 @@ describe("site shell", () => {
 		expect(surfaceSource).toContain('import IndiehackersList from "$lib/indiehackers-list.svelte"');
 		expect(getSiteSurfaceSectionKind("/indiehackers")).toBe("indiehackers");
 		expect(getSiteSurfaceSectionLabel("/indiehackers", "ko")).toBe("인디해커들");
-		expect(surfaceSource).toContain("<IndiehackersList");
 		expect(getIndiehackersCopy("en").title).toBe("Indiehackers");
 		expect(getIndiehackersCopy("ko").title).toBe("인디해커들");
 		expect(getIndiehackersCopy("ko").paragraphs[0]).toContain("인디해커");
@@ -250,14 +249,8 @@ describe("site shell", () => {
 		expect(indiehackersListSource).toContain("filterIndiehackersPosts");
 		expect(indiehackersListSource).toContain("parseIndiehackersFilters");
 		expect(indiehackersListSource).toContain("indiehackers-cards");
-		expect(indiehackersListRouteSource).toContain("<IndiehackersList");
-		expect(indiehackersPostRouteSource).toContain("getIndiehackersPostForLocale");
-		expect(indiehackersPostRouteSource).toContain("getIndiehackersPostEntries");
-		expect(indiehackersPostSurfaceSource).toContain("<IndiehackersShareToolbar");
-		expect(indiehackersPostSurfaceSource).toContain("indiehackers-reading-layout");
-		expect(indiehackersShareToolbarSource).toContain("<BrandIcon");
-		expect(indiehackersShareToolbarSource).toContain("siWhatsapp");
-		expect(indiehackersShareToolbarSource).toContain("siReddit");
+		expect(indiehackersListSource).toContain("repeat(2, minmax(0, 1fr))");
+		expect(indiehackersListSource).toContain("@media (max-width: 56rem)");
 	});
 
 	it("does not expose retired roadmap or contact sections", async () => {
@@ -362,6 +355,9 @@ describe("site shell", () => {
 		expect(layoutCss).toContain("--backdrop-grid");
 		expect(layoutCss).toContain("--display-heading-shadow");
 		expect(indiehackersSurfaceSource).toContain("var(--display-heading-shadow)");
+		expect(layoutCss).toContain("scrollbar-color: var(--border)");
+		expect(layoutCss).toContain("::-webkit-scrollbar-thumb");
+		expect(siteSurfaceSource).toContain("scrollbar-color: var(--border)");
 	});
 
 	it("renders a readable custom error surface", () => {

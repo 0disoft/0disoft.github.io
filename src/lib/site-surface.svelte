@@ -69,6 +69,25 @@ import { prefersReducedMotion } from "svelte/motion";
 		padding: clamp(1.25rem, 5vw, 5rem);
 		overflow: auto;
 		overscroll-behavior: contain;
+		scrollbar-width: thin;
+		scrollbar-color: var(--border) transparent;
+	}
+
+	.content-shell::-webkit-scrollbar {
+		width: 0.625rem;
+	}
+
+	.content-shell::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	.content-shell::-webkit-scrollbar-thumb {
+		border-radius: var(--radius-md);
+		background: color-mix(in oklch, var(--foreground) 22%, transparent);
+	}
+
+	.content-shell::-webkit-scrollbar-thumb:hover {
+		background: color-mix(in oklch, var(--foreground) 34%, transparent);
 	}
 
 	.content-shell.empty-home {

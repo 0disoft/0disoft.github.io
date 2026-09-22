@@ -304,10 +304,17 @@
 
 	.indiehackers-cards {
 		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 		gap: 1rem;
 		margin: 0;
 		padding: 0;
 		list-style: none;
+	}
+
+	@media (max-width: 56rem) {
+		.indiehackers-cards {
+			grid-template-columns: minmax(0, 1fr);
+		}
 	}
 
 	.indiehackers-card {
@@ -318,6 +325,8 @@
 
 	.indiehackers-card-link {
 		display: grid;
+		height: 100%;
+		align-content: start;
 		gap: 0.5rem;
 		padding: 1rem 1.15rem;
 		color: inherit;
