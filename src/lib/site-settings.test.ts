@@ -31,13 +31,15 @@ import {
 
 describe("site settings", () => {
 	it("shares theme tokens across routes and distinguishes selected controls from hover", () => {
-		for (const token of ["background", "foreground", "border"]) {
+		for (const token of ["background", "foreground"]) {
 			expect(layoutCss).toContain(`--mode-control-selected-${token}:`);
 			expect(sidebarSource).toContain(`var(--mode-control-selected-${token})`);
 		}
 		for (const selector of [".settings-tabs button", ".choice-grid button", ".analytics-switch"]) {
 			expect(sidebarSource).not.toContain(`${selector}:hover,`);
 		}
+		expect(sidebarSource).toContain("button:focus-visible");
+		expect(sidebarSource).toContain("var(--focus-ring)");
 		expect(surfaceSource).not.toMatch(
 			/--(?:background|foreground|accent|mode-control-background)\s*:/,
 		);

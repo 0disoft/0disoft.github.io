@@ -416,13 +416,14 @@
 	.indiehackers-list { display: grid; width: 100%; max-width: 90rem; margin-inline: auto; gap: 1.35rem; color: var(--foreground); min-width: 0; }
 	.indiehackers-header h1 { margin: 0; font-size: 3.25rem; font-weight: 850; letter-spacing: 0; line-height: 1.2; overflow-wrap: anywhere; }
 	.indiehackers-header { padding-bottom: 0.3rem; }
-	.indiehackers-filters { display: grid; gap: 1rem; padding-block: 0.25rem 1rem; border-bottom: 1px solid var(--foreground); min-width: 0; }
+	.indiehackers-filters { display: grid; gap: 1rem; padding-block: 0.25rem 1rem; min-width: 0; }
 	.filter-bar { display: flex; gap: 0.8rem; align-items: stretch; }
 	.filter-search { display: flex; flex: 1; align-items: center; gap: 0.75rem; min-width: 0; padding-inline: 1rem; border: 1px solid var(--input); border-radius: 6px; color: var(--muted-foreground); }
 	.filter-search :global(svg) { flex-shrink: 0; }
 	.filter-search input { min-width: 0; width: 100%; height: 3rem; padding: 0; border: 0; background: transparent; color: var(--foreground); font: inherit; outline: none; }
 	.filter-search:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
-	.filter-toggle, .chip-clear { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 2.6rem; padding: 0.5rem 0.8rem; border: 1px solid var(--input); border-radius: 6px; background: var(--background); color: var(--foreground); font: inherit; font-size: 0.875rem; cursor: pointer; }
+	.filter-toggle, .chip-clear { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 2.6rem; padding: 0.5rem 0.8rem; border: 0; border-radius: 6px; background: transparent; color: var(--foreground); font: inherit; font-size: 0.875rem; cursor: pointer; }
+	.filter-toggle:hover, .chip-clear:not(:disabled):hover { background: var(--muted); }
 	.filter-toggle { flex-shrink: 0; }
 	.filter-toggle:focus-visible, .chip-clear:focus-visible, .facet-summary:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 	.chip-clear:disabled { opacity: 0.45; cursor: default; }
@@ -432,14 +433,16 @@
 	.facet-summary::-webkit-details-marker { display: none; }
 	.facet-summary:hover, .facet[open] .facet-summary { color: var(--accent); }
 	.facet[open] .facet-summary :global(svg) { transform: rotate(180deg); }
-	.facet-panel { position: absolute; inset-inline: 0; top: calc(100% + 0.65rem); z-index: 20; padding: 1rem; border: 1px solid var(--input); border-radius: 6px; background: var(--background); box-shadow: 0 8px 24px rgb(0 0 0 / 0.1); max-height: 20rem; overflow: auto; }
+	.facet-panel { position: absolute; inset-inline: 0; top: calc(100% + 0.65rem); z-index: 20; padding: 0.75rem; border: 0; border-radius: 6px; background: var(--muted); box-shadow: 0 8px 24px rgb(0 0 0 / 0.1); max-height: 20rem; overflow: auto; }
 	.tag-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
-	.chip { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.5rem; padding: 0.45rem 0.65rem; border: 1px solid var(--input); border-radius: 6px; background: var(--background); color: var(--foreground); font-size: 0.875rem; line-height: 1.4; cursor: pointer; max-width: 100%; overflow-wrap: anywhere; }
+	.chip { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.5rem; padding: 0.45rem 0.65rem; border: 0; border-radius: 6px; background: transparent; color: var(--foreground); font-size: 0.875rem; line-height: 1.4; cursor: pointer; max-width: 100%; overflow-wrap: anywhere; }
+	.chip:hover { background: var(--surface-hover); }
 	.chip input { width: 1rem; height: 1rem; flex-shrink: 0; margin: 0; accent-color: var(--accent); }
-	.chip:has(input:checked) { border-color: var(--accent); }
+	.chip:has(input:checked) { background: var(--mode-control-selected-background); }
 	.chip:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
 	.facet-row-end { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; margin-inline-start: auto; }
-	.recent-chip { border-color: transparent; padding-inline: 0; }
+	.recent-chip { padding-inline: 0.35rem; }
+	.recent-chip:has(input:checked) { background: transparent; }
 	.result-status { margin: 0; color: var(--muted-foreground); font-size: 0.875rem; }
 	.magazine { display: grid; grid-template-columns: minmax(0, 1.62fr) minmax(0, 1fr); align-items: start; gap: 2rem; }
 	.lead-card, .side-card, .indiehackers-card { min-width: 0; }

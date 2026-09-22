@@ -663,10 +663,10 @@
 		gap: 1.25rem;
 		overflow: hidden;
 		padding: 1rem;
-		border-right: 1px solid var(--sidebar-border);
+		border-right: 0;
 		background: var(--sidebar);
 		color: var(--sidebar-foreground);
-		box-shadow: 0.75rem 0 2.4rem color-mix(in oklch, black 10%, transparent);
+		box-shadow: none;
 		user-select: none;
 	}
 
@@ -776,7 +776,7 @@
 
 	.settings-tabs button {
 		min-height: 2.5rem;
-		border: 1px solid var(--mode-control-border);
+		border: 1px solid transparent;
 		border-radius: var(--radius-md);
 		background: var(--mode-control-background);
 		color: var(--mode-control-foreground);
@@ -791,7 +791,7 @@
 
 	.settings-tabs button.active {
 		background: var(--mode-control-selected-background);
-		border-color: var(--mode-control-selected-border);
+		border-color: transparent;
 		color: var(--mode-control-selected-foreground);
 	}
 
@@ -820,7 +820,7 @@
 		justify-content: center;
 		gap: 0.45rem;
 		padding: 0 0.7rem;
-		border: 1px solid var(--mode-control-border);
+		border: 1px solid transparent;
 		border-radius: var(--radius-md);
 		background: var(--mode-control-background);
 		color: var(--mode-control-foreground);
@@ -835,7 +835,7 @@
 
 	.choice-grid button.active {
 		background: var(--mode-control-selected-background);
-		border-color: var(--mode-control-selected-border);
+		border-color: transparent;
 		color: var(--mode-control-selected-foreground);
 	}
 

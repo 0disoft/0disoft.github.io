@@ -50,7 +50,7 @@ import { prefersReducedMotion } from "svelte/motion";
 
 <style>
 	.site-frame {
-		--site-sidebar-width: clamp(14.5rem, 23vw, 17.5rem);
+		--site-sidebar-width: clamp(12.5rem, 18vw, 14.5rem);
 
 		display: grid;
 		height: 100svh;
