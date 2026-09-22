@@ -10,6 +10,7 @@ import {
 	indiehackersTagOptions,
 	isRecentIndiehackersPost,
 	parseIndiehackersFilters,
+	type IndiehackersPost,
 } from "./indiehackers-posts";
 
 const carrdPath = "../content/indiehackers/posts/carrd/meta.json";
@@ -56,13 +57,12 @@ describe("indiehackers posts", () => {
 		expect(getIndiehackersPostEntries(posts)).toEqual([{ slug: "carrd" }]);
 	});
 
-	it("filters posts by query and any checked tag from URL search params", () => {
+	it("filters posts by query and any checked tag within the same group", () => {
 		const posts = [
 			createIndiehackersPostFromContent(carrdPath, carrdMetadata, "ko", carrdKoreanMarkdown),
 			createIndiehackersPostFromContent(carrdPath, carrdMetadata, "en", carrdEnglishMarkdown),
 		];
 
-		expect(getIndiehackersFilterOptions().tags).toEqual(indiehackersTagOptions);
 		expect(
 			filterIndiehackersPosts(posts, { query: "carrd", tags: [], recentOnly: false }),
 		).toHaveLength(2);
@@ -83,6 +83,7 @@ describe("indiehackers posts", () => {
 			filterIndiehackersPosts(
 				posts,
 				parseIndiehackersFilters(new URLSearchParams("q=carrd&tag=pricing&tag=growth")),
+				new Date(2026, 8, 22, 12),
 			),
 		).toHaveLength(2);
 		expect(
@@ -91,6 +92,102 @@ describe("indiehackers posts", () => {
 				query: "missing",
 			}),
 		).toHaveLength(0);
+	});
+
+	it("combines OR within a group with AND between groups", () => {
+		const base = createIndiehackersPostFromContent(
+			carrdPath,
+			carrdMetadata,
+			"ko",
+			carrdKoreanMarkdown,
+		);
+		const posts: IndiehackersPost[] = [
+			{ ...base, slug: "web-subscription", tags: ["web", "subscription", "solo-building"] },
+			{ ...base, slug: "mobile-subscription", tags: ["mobile-app", "subscription"] },
+			{ ...base, slug: "web-advertising", tags: ["web", "advertising"] },
+		];
+		const filters = {
+			query: "",
+			tags: ["web", "mobile-app", "subscription"] as const,
+			recentOnly: false,
+		};
+		expect(filterIndiehackersPosts(posts, filters).map((post) => post.slug)).toEqual([
+			"web-subscription",
+			"mobile-subscription",
+		]);
+		expect(
+			filterIndiehackersPosts(posts, { ...filters, tags: [...filters.tags, "solo-building"] }),
+		).toHaveLength(1);
+		expect(filterIndiehackersPosts(posts, { ...filters, query: "missing" })).toEqual([]);
+		expect(
+			filterIndiehackersPosts(posts, { ...filters, recentOnly: true }, new Date(2028, 0, 1)),
+		).toEqual([]);
+	});
+
+	it("only offers populated groups and counts each article once across translations", () => {
+		const ko = createIndiehackersPostFromContent(
+			carrdPath,
+			carrdMetadata,
+			"ko",
+			carrdKoreanMarkdown,
+		);
+		const en = createIndiehackersPostFromContent(
+			carrdPath,
+			carrdMetadata,
+			"en",
+			carrdEnglishMarkdown,
+		);
+		const options = getIndiehackersFilterOptions([ko, en]);
+		expect(options.groups.map((group) => group.id)).toEqual(["operation", "topic"]);
+		expect(options.tags.map((tag) => [tag.id, tag.count])).toEqual([
+			["bootstrapping", 1],
+			["pricing", 1],
+			["growth", 1],
+		]);
+		expect(options.tags.some((tag) => tag.id === "launch")).toBe(false);
+		expect(getIndiehackersFilterOptions([])).toEqual({ tags: [], groups: [] });
+		expect(new Set(indiehackersTagOptions.map((tag) => tag.id)).size).toBe(
+			indiehackersTagOptions.length,
+		);
+	});
+
+	it("keeps old tag URLs and normalizes new taxonomy selections", () => {
+		expect(
+			parseIndiehackersFilters(
+				new URLSearchParams("tag=pricing&tag=web&tag=web&tag=subscription&tag=unknown&recent=0"),
+			),
+		).toEqual({ query: "", tags: ["pricing", "web", "subscription"], recentOnly: false });
+		expect(() =>
+			createIndiehackersPostFromContent(
+				carrdPath,
+				{ ...carrdMetadata, tags: ["unknown"] },
+				"ko",
+				carrdKoreanMarkdown,
+			),
+		).toThrow("Unknown indiehackers tag");
+	});
+
+	it("validates the actual article tags and their populated product filters", () => {
+		const metadata = import.meta.glob("../content/indiehackers/posts/*/meta.json", {
+			eager: true,
+			import: "default",
+		});
+		const posts = Object.entries(metadata)
+			.map(([path, value]) =>
+				createIndiehackersPostFromContent(path, value, "ko", carrdKoreanMarkdown),
+			)
+			.filter((post) => ["carrd", "buttondown", "photopea", "key-values"].includes(post.slug));
+		expect(posts).toHaveLength(4);
+		for (const post of posts) expect(new Set(post.tags).size).toBe(post.tags.length);
+		const options = getIndiehackersFilterOptions(posts);
+		expect(options.groups).toHaveLength(6);
+		expect(options.tags.find((tag) => tag.id === "web")?.count).toBe(4);
+		expect(options.tags.find((tag) => tag.id === "saas")?.count).toBe(2);
+		expect(
+			filterIndiehackersPosts(posts, { query: "", tags: ["saas", "api"], recentOnly: false }).map(
+				(post) => post.slug,
+			),
+		).toEqual(["buttondown"]);
 	});
 
 	it("includes calendar boundaries throughout the day and excludes future or invalid dates", () => {

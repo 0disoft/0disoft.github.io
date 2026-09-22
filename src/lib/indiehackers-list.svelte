@@ -26,13 +26,32 @@
 		localizeSitePathname("/indiehackers", isSiteLocale(currentLocale) ? currentLocale : "en"),
 	);
 	const localizedPosts = $derived(page.data.indiehackersPosts);
-	const localizedFilterOptions = $derived(getIndiehackersFilterOptions());
+	const localizedFilterOptions = $derived(getIndiehackersFilterOptions(localizedPosts));
 	const filteredPosts = $derived(filterIndiehackersPosts(localizedPosts, filters));
 	const hasActiveFilters = $derived(
 		filters.query.length > 0 || filters.tags.length > 0 || !filters.recentOnly,
 	);
 	const recentLabel = $derived(m.indiehackers_recent_label({}, { locale: displayLocale }));
 	const recentTooltip = $derived(m.indiehackers_recent_tooltip({}, { locale: displayLocale }));
+
+	function getIndiehackersGroupLabel(groupId: string): string {
+		switch (groupId) {
+			case "product":
+				return m.indiehackers_group_product({}, { locale: displayLocale });
+			case "platform":
+				return m.indiehackers_group_platform({}, { locale: displayLocale });
+			case "audience":
+				return m.indiehackers_group_audience({}, { locale: displayLocale });
+			case "revenue":
+				return m.indiehackers_group_revenue({}, { locale: displayLocale });
+			case "operation":
+				return m.indiehackers_group_operation({}, { locale: displayLocale });
+			case "topic":
+				return m.indiehackers_group_topic({}, { locale: displayLocale });
+			default:
+				return groupId;
+		}
+	}
 
 	onMount(() => {
 		syncFiltersFromUrl();
@@ -172,22 +191,29 @@
 
 		<fieldset class="tag-row">
 			<legend class="sr-only">{m.indiehackers_tag_label({}, { locale: displayLocale })}</legend>
-			<ul class="tag-chips" role="list">
-				{#each localizedFilterOptions.tags as tag (tag.id)}
-					<li>
-						<label class="chip">
-							<input
-								type="checkbox"
-								name={INDIEHACKERS_FILTER_QUERY_KEYS.tag}
-								value={tag.id}
-								checked={filters.tags.includes(tag.id)}
-								onchange={handleTagChange}
-							/>
-							<span>{tag.label}</span>
-						</label>
-					</li>
+			<div class="filter-groups">
+				{#each localizedFilterOptions.groups as group (group.id)}
+					<div class="filter-group">
+						<h3 class="filter-group-title">{getIndiehackersGroupLabel(group.id)}</h3>
+						<ul class="tag-chips" role="list">
+							{#each group.tags as tag (tag.id)}
+								<li>
+									<label class="chip">
+										<input
+											type="checkbox"
+											name={INDIEHACKERS_FILTER_QUERY_KEYS.tag}
+											value={tag.id}
+											checked={filters.tags.includes(tag.id)}
+											onchange={handleTagChange}
+										/>
+										<span>{tag.label} ({tag.count})</span>
+									</label>
+								</li>
+							{/each}
+						</ul>
+					</div>
 				{/each}
-			</ul>
+			</div>
 			<label
 				class="chip recent-chip"
 				title={recentTooltip}
@@ -318,6 +344,42 @@
 		margin: 0;
 		padding: 0;
 		list-style: none;
+	}
+
+	.filter-groups {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 0.6rem;
+		width: 100%;
+		min-width: 0;
+	}
+
+	.filter-group {
+		display: grid;
+		grid-template-columns: 7rem minmax(0, 1fr);
+		align-items: start;
+		column-gap: 0.6rem;
+		align-content: start;
+		gap: 0.35rem;
+		min-width: 0;
+	}
+
+	.filter-group-title {
+		margin: 0;
+		min-width: 0;
+		color: var(--muted-foreground);
+		font-size: 0.8rem;
+		font-weight: 650;
+	}
+
+	.filter-group .tag-chips {
+		min-width: 0;
+	}
+
+	@media (max-width: 40rem) {
+		.filter-group {
+			grid-template-columns: minmax(0, 1fr);
+		}
 	}
 
 	.chip {

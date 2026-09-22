@@ -253,15 +253,16 @@ describe("site shell", () => {
 		expect(indiehackersListSource).toContain("@media (max-width: 56rem)");
 		expect(indiehackersListSource).toContain('type="checkbox"');
 		expect(indiehackersListSource).toContain("tag-chips");
+		expect(indiehackersListSource).toContain("getIndiehackersFilterOptions(localizedPosts)");
+		expect(indiehackersListSource).toContain("localizedFilterOptions.groups");
+		expect(indiehackersListSource).toContain("tag.count");
 		expect(indiehackersListSource).toContain("recent-chip");
 		expect(indiehackersListSource).toContain('class="chip recent-chip"');
 		expect(indiehackersListSource).not.toContain("chip-toggle");
-		const tagSection = indiehackersListSource.match(
-			/<fieldset class="tag-row">([\s\S]*?)<\/fieldset>/,
-		)?.[1];
+		const tagSection = indiehackersListSource.split('<fieldset class="tag-row">')[1]?.split("</form>")[0];
 		expect(tagSection).toContain("recent-chip");
 		expect(indiehackersListSource.split('<fieldset class="tag-row">')[0]).not.toContain(
-			'class="chip chip-toggle recent-chip"',
+			'class="chip recent-chip"',
 		);
 		expect(indiehackersListSource).toContain("indiehackers_recent_tooltip");
 	});

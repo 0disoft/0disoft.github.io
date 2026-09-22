@@ -10,7 +10,7 @@
   "indiehackers_filter_title": "筛选",
   "indiehackers_search_label": "搜索",
   "indiehackers_search_placeholder": "标题、摘要或标签",
-  "indiehackers_tag_label": "标签（任一）",
+  "indiehackers_tag_label": "标签",
   "indiehackers_all_tags": "所有标签",
   "indiehackers_recent_label": "近期发布",
   "indiehackers_recent_tooltip": "1年内发布的文章",
@@ -78,5 +78,11 @@
   "search_no_results": "无结果",
   "search_results_label": "结果",
   "search_unavailable_label": "此页面暂不可用搜索。",
-  "skip_to_content_label": "跳转到内容"
+  "skip_to_content_label": "跳转到内容",
+  "indiehackers_group_product": "产品",
+  "indiehackers_group_platform": "平台",
+  "indiehackers_group_audience": "受众",
+  "indiehackers_group_revenue": "营收",
+  "indiehackers_group_operation": "运营",
+  "indiehackers_group_topic": "主题"
 }

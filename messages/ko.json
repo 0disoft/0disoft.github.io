@@ -10,7 +10,7 @@
   "indiehackers_filter_title": "필터",
   "indiehackers_search_label": "검색",
   "indiehackers_search_placeholder": "제목, 요약, 태그",
-  "indiehackers_tag_label": "태그 (하나라도)",
+  "indiehackers_tag_label": "태그",
   "indiehackers_all_tags": "전체 태그",
   "indiehackers_recent_label": "최근발행",
   "indiehackers_recent_tooltip": "1년 이내 발행된 게시글",
@@ -78,5 +78,11 @@
   "search_no_results": "결과 없음",
   "search_results_label": "결과",
   "search_unavailable_label": "이 페이지에서는 검색을 사용할 수 없어요.",
-  "skip_to_content_label": "본문으로 건너뛰기"
+  "skip_to_content_label": "본문으로 건너뛰기",
+  "indiehackers_group_product": "제품 유형",
+  "indiehackers_group_platform": "플랫폼",
+  "indiehackers_group_audience": "고객 대상",
+  "indiehackers_group_revenue": "수익 모델",
+  "indiehackers_group_operation": "운영 방식",
+  "indiehackers_group_topic": "글 주제"
 }

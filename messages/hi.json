@@ -10,7 +10,7 @@
   "indiehackers_filter_title": "फ़िल्टर",
   "indiehackers_search_label": "खोजें",
   "indiehackers_search_placeholder": "शीर्षक, सारांश या टैग",
-  "indiehackers_tag_label": "टैग (कोई भी)",
+  "indiehackers_tag_label": "टैग",
   "indiehackers_all_tags": "सभी टैग",
   "indiehackers_recent_label": "हाल की पोस्ट",
   "indiehackers_recent_tooltip": "पिछले 1 वर्ष में प्रकाशित पोस्ट",
@@ -78,5 +78,11 @@
   "search_no_results": "कोई परिणाम नहीं",
   "search_results_label": "परिणाम",
   "search_unavailable_label": "इस पृष्ठ पर खोज उपलब्ध नहीं है।",
-  "skip_to_content_label": "सामग्री पर जाएँ"
+  "skip_to_content_label": "सामग्री पर जाएँ",
+  "indiehackers_group_product": "उत्पाद",
+  "indiehackers_group_platform": "प्लेटफ़ॉर्म",
+  "indiehackers_group_audience": "लक्षित दर्शक",
+  "indiehackers_group_revenue": "राजस्व",
+  "indiehackers_group_operation": "संचालन",
+  "indiehackers_group_topic": "विषय"
 }

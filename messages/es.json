@@ -10,7 +10,7 @@
   "indiehackers_filter_title": "Filtros",
   "indiehackers_search_label": "Buscar",
   "indiehackers_search_placeholder": "Título, resumen o etiqueta",
-  "indiehackers_tag_label": "Etiquetas (cualquiera)",
+  "indiehackers_tag_label": "Etiquetas",
   "indiehackers_all_tags": "Todas las etiquetas",
   "indiehackers_recent_label": "Recientes",
   "indiehackers_recent_tooltip": "Publicaciones del último año",
@@ -78,5 +78,11 @@
   "search_no_results": "Sin resultados",
   "search_results_label": "Resultados",
   "search_unavailable_label": "La búsqueda no está disponible en esta página.",
-  "skip_to_content_label": "Saltar al contenido"
+  "skip_to_content_label": "Saltar al contenido",
+  "indiehackers_group_product": "Producto",
+  "indiehackers_group_platform": "Plataforma",
+  "indiehackers_group_audience": "Audiencia",
+  "indiehackers_group_revenue": "Ingresos",
+  "indiehackers_group_operation": "Operación",
+  "indiehackers_group_topic": "Tema"
 }

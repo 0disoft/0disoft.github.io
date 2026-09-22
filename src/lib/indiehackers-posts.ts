@@ -1,11 +1,55 @@
-export const indiehackersTagOptions = [
-	{ id: "launch", label: "Launch" },
-	{ id: "pricing", label: "Pricing" },
-	{ id: "growth", label: "Growth" },
-	{ id: "infrastructure", label: "Infrastructure" },
-	{ id: "bootstrapping", label: "Bootstrapping" },
-	{ id: "solo-building", label: "Solo Building" },
+export const indiehackersTagGroups = [
+	{ id: "product", label: "Product" },
+	{ id: "platform", label: "Platform" },
+	{ id: "audience", label: "Audience" },
+	{ id: "revenue", label: "Revenue" },
+	{ id: "operation", label: "Operation" },
+	{ id: "topic", label: "Topic" },
 ] as const;
+
+export type IndiehackersTagGroupId = (typeof indiehackersTagGroups)[number]["id"];
+
+export const indiehackersTagOptions = [
+	{ id: "saas", label: "SaaS", group: "product" },
+	{ id: "developer-tools", label: "Developer Tools", group: "product" },
+	{ id: "productivity", label: "Productivity", group: "product" },
+	{ id: "design-tools", label: "Design Tools", group: "product" },
+	{ id: "content-service", label: "Content Service", group: "product" },
+	{ id: "ecommerce", label: "E-commerce", group: "product" },
+	{ id: "marketplace", label: "Marketplace", group: "product" },
+	{ id: "community", label: "Community", group: "product" },
+	{ id: "game", label: "Game", group: "product" },
+	{ id: "web", label: "Web", group: "platform" },
+	{ id: "mobile-app", label: "Mobile App", group: "platform" },
+	{ id: "desktop-app", label: "Desktop App", group: "platform" },
+	{ id: "browser-extension", label: "Browser Extension", group: "platform" },
+	{ id: "api", label: "API", group: "platform" },
+	{ id: "cli", label: "CLI", group: "platform" },
+	{ id: "b2b", label: "B2B", group: "audience" },
+	{ id: "b2c", label: "B2C", group: "audience" },
+	{ id: "developers", label: "Developers", group: "audience" },
+	{ id: "subscription", label: "Subscription", group: "revenue" },
+	{ id: "one-time-purchase", label: "One-time Purchase", group: "revenue" },
+	{ id: "usage-based", label: "Usage-based", group: "revenue" },
+	{ id: "advertising", label: "Advertising", group: "revenue" },
+	{ id: "commission", label: "Commission", group: "revenue" },
+	{ id: "donations", label: "Donations", group: "revenue" },
+	{ id: "licensing", label: "Licensing", group: "revenue" },
+	{ id: "solo-building", label: "Solo Building", group: "operation" },
+	{ id: "small-team", label: "Small Team", group: "operation" },
+	{ id: "bootstrapping", label: "Bootstrapping", group: "operation" },
+	{ id: "funded", label: "Funded", group: "operation" },
+	{ id: "open-source", label: "Open Source", group: "operation" },
+	{ id: "validation", label: "Idea Validation", group: "topic" },
+	{ id: "mvp", label: "MVP", group: "topic" },
+	{ id: "launch", label: "Launch", group: "topic" },
+	{ id: "pricing", label: "Pricing", group: "topic" },
+	{ id: "acquisition", label: "Customer Acquisition", group: "topic" },
+	{ id: "growth", label: "Growth", group: "topic" },
+	{ id: "retention", label: "Retention", group: "topic" },
+	{ id: "infrastructure", label: "Infrastructure", group: "topic" },
+	{ id: "exit", label: "Exit", group: "topic" },
+] as const satisfies readonly { id: string; label: string; group: IndiehackersTagGroupId }[];
 
 export const indiehackersPostLocales = ["en", "es", "fr", "hi", "ko", "zh"] as const;
 
@@ -53,10 +97,7 @@ export function createIndiehackersPostFromContent(
 	markdown: string,
 ): IndiehackersPost {
 	const sharedMetadata = readSharedMetadata(path, metadata);
-	const localizedContent = parseMarkdownFile(
-		`${getContentDirectory(path)}/${locale}.md`,
-		markdown,
-	);
+	const localizedContent = parseMarkdownFile(`${getContentDirectory(path)}/${locale}.md`, markdown);
 	const localizedMetadata = toRecord(localizedContent.frontmatter, path);
 
 	return {
@@ -77,10 +118,7 @@ export function createIndiehackersPostDetailFromContent(
 	locale: IndiehackersPostLocale,
 	markdown: string,
 ): IndiehackersPostDetail {
-	const localizedContent = parseMarkdownFile(
-		`${getContentDirectory(path)}/${locale}.md`,
-		markdown,
-	);
+	const localizedContent = parseMarkdownFile(`${getContentDirectory(path)}/${locale}.md`, markdown);
 
 	return {
 		...createIndiehackersPostFromContent(path, metadata, locale, markdown),
@@ -88,10 +126,7 @@ export function createIndiehackersPostDetailFromContent(
 	};
 }
 
-export function readSharedMetadata(
-	path: string,
-	metadata: unknown,
-): IndiehackersSharedMetadata {
+export function readSharedMetadata(path: string, metadata: unknown): IndiehackersSharedMetadata {
 	const metadataRecord = toRecord(metadata, path);
 
 	return {
@@ -118,10 +153,20 @@ export function parseIndiehackersFilters(searchParams: URLSearchParams): Indieha
 	};
 }
 
-export function getIndiehackersFilterOptions(): {
-	tags: typeof indiehackersTagOptions;
-} {
-	return { tags: indiehackersTagOptions };
+export function getIndiehackersFilterOptions(posts: readonly IndiehackersPost[]) {
+	const tags = indiehackersTagOptions.flatMap((tag) => {
+		const count = new Set(
+			posts.filter((post) => post.tags.includes(tag.id)).map((post) => post.slug),
+		).size;
+		return count > 0 ? [{ ...tag, count }] : [];
+	});
+	return {
+		tags,
+		groups: indiehackersTagGroups.flatMap((group) => {
+			const groupTags = tags.filter((tag) => tag.group === group.id);
+			return groupTags.length > 0 ? [{ ...group, tags: groupTags }] : [];
+		}),
+	};
 }
 
 export function getIndiehackersPostsForLocale(
@@ -189,7 +234,12 @@ export function getIndiehackersPostTagLabels(post: IndiehackersPost): string[] {
 }
 
 export function getIndiehackersPostSearchValues(post: IndiehackersPost): string[] {
-	return [post.title, post.summary, ...getIndiehackersPostTagLabels(post), ...(post.searchTags ?? [])];
+	return [
+		post.title,
+		post.summary,
+		...getIndiehackersPostTagLabels(post),
+		...(post.searchTags ?? []),
+	];
 }
 
 export function filterIndiehackersPosts(
@@ -198,6 +248,11 @@ export function filterIndiehackersPosts(
 	now: Date = new Date(),
 ): IndiehackersPost[] {
 	const normalizedQuery = normalizeSearchText(query);
+	const selectedGroups = indiehackersTagGroups
+		.map((group) =>
+			indiehackersTagOptions.filter((tag) => tag.group === group.id && tags.includes(tag.id)),
+		)
+		.filter((group) => group.length > 0);
 
 	return posts.filter((post) => {
 		const matchesQuery =
@@ -205,7 +260,9 @@ export function filterIndiehackersPosts(
 			getIndiehackersPostSearchValues(post).some((value) =>
 				normalizeSearchText(value).includes(normalizedQuery),
 			);
-		const matchesTags = tags.length === 0 || tags.some((tag) => post.tags.includes(tag));
+		const matchesTags = selectedGroups.every((group) =>
+			group.some((tag) => post.tags.includes(tag.id)),
+		);
 		const matchesRecent = !recentOnly || isRecentIndiehackersPost(post.publishedAt, now);
 
 		return matchesQuery && matchesTags && matchesRecent;
@@ -368,10 +425,7 @@ function normalizeSearchText(value: string): string {
 	return value.trim().toLocaleLowerCase();
 }
 
-function compareIndiehackersPosts(
-	left: IndiehackersPost,
-	right: IndiehackersPost,
-): number {
+function compareIndiehackersPosts(left: IndiehackersPost, right: IndiehackersPost): number {
 	const publishedOrder = right.publishedAt.localeCompare(left.publishedAt);
 
 	if (publishedOrder !== 0) {
@@ -386,9 +440,7 @@ export function getIndiehackersTagLabel(tagId: IndiehackersTagId): string {
 }
 
 function isIndiehackersTagId(value: unknown): value is IndiehackersTagId {
-	return (
-		typeof value === "string" && indiehackersTagOptions.some((option) => option.id === value)
-	);
+	return typeof value === "string" && indiehackersTagOptions.some((option) => option.id === value);
 }
 
 function toIndiehackersPostLocale(locale: string): IndiehackersPostLocale {
@@ -408,5 +460,7 @@ function parseRecentOnly(value: string | null): boolean {
 
 	const normalized = value.trim().toLocaleLowerCase();
 
-	return normalized !== "0" && normalized !== "false" && normalized !== "off" && normalized !== "no";
+	return (
+		normalized !== "0" && normalized !== "false" && normalized !== "off" && normalized !== "no"
+	);
 }
