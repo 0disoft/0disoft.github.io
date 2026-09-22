@@ -1,5 +1,7 @@
 {
   "id": "buttondown",
+  "personIds": ["justin-duke"],
+  "productIds": ["buttondown"],
   "productName": "Buttondown",
   "coverImage": "/images/indiehackers/buttondown.webp",
   "publishedAt": "2026-09-22",

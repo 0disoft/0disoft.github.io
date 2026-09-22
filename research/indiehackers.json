@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "people": [
+    {
+      "id": "justin-duke",
+      "name": "Justin Duke",
+      "aliases": ["저스틴 듀크"],
+      "profiles": ["https://www.jmduke.com/"]
+    },
+    {
+      "id": "aj-carrd",
+      "name": "AJ",
+      "aliases": ["ajlkn", "에이제이"],
+      "profiles": ["https://x.com/ajlkn"]
+    },
+    { "id": "ivan-kutskir", "name": "Ivan Kutskir", "aliases": ["이반 쿠츠키르"], "profiles": [] },
+    {
+      "id": "lynne-tye",
+      "name": "Lynne Tye",
+      "aliases": ["린 타이"],
+      "profiles": ["https://www.linkedin.com/in/lynne-tye-26622381"]
+    },
+    {
+      "id": "adriaan-van-rossum",
+      "name": "Adriaan van Rossum",
+      "aliases": ["아드리안 판 로섬"],
+      "profiles": []
+    },
+    {
+      "id": "iron-brands",
+      "name": "Iron Brands",
+      "aliases": ["아이언 브랜즈"],
+      "profiles": ["https://1millionarr.substack.com/"]
+    },
+    {
+      "id": "jason-mccreary",
+      "name": "Jason McCreary",
+      "aliases": ["제이슨 매크리리", "JMac"],
+      "profiles": ["https://jasonmccreary.me/"]
+    },
+    {
+      "id": "jon-yongfook",
+      "name": "Jon Yongfook",
+      "aliases": ["존 용푹", "Yongfook"],
+      "profiles": []
+    }
+  ],
+  "products": [
+    {
+      "id": "buttondown",
+      "name": "Buttondown",
+      "aliases": ["버튼다운"],
+      "domains": ["buttondown.com", "buttondown.email"],
+      "personIds": ["justin-duke"]
+    },
+    {
+      "id": "carrd",
+      "name": "Carrd",
+      "aliases": ["카드"],
+      "domains": ["carrd.co", "carrd.com"],
+      "personIds": ["aj-carrd"]
+    },
+    {
+      "id": "photopea",
+      "name": "Photopea",
+      "aliases": ["포토피아"],
+      "domains": ["photopea.com"],
+      "personIds": ["ivan-kutskir"]
+    },
+    {
+      "id": "key-values",
+      "name": "Key Values",
+      "aliases": ["키 밸류스", "KeyValues"],
+      "domains": ["keyvalues.com"],
+      "personIds": ["lynne-tye"]
+    },
+    {
+      "id": "simple-analytics",
+      "name": "Simple Analytics",
+      "aliases": ["심플 애널리틱스"],
+      "domains": ["simpleanalytics.com"],
+      "personIds": ["adriaan-van-rossum", "iron-brands"]
+    },
+    {
+      "id": "laravel-shift",
+      "name": "Laravel Shift",
+      "aliases": ["라라벨 시프트"],
+      "domains": ["laravelshift.com"],
+      "personIds": ["jason-mccreary"]
+    },
+    {
+      "id": "bannerbear",
+      "name": "Bannerbear",
+      "aliases": ["배너베어", "Previewmojo", "Previewmojo / Bannerbear"],
+      "domains": ["bannerbear.com"],
+      "personIds": ["jon-yongfook"]
+    }
+  ],
+  "research": []
+}

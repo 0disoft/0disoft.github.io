@@ -1,5 +1,7 @@
 {
   "id": "key-values",
+  "personIds": ["lynne-tye"],
+  "productIds": ["key-values"],
   "productName": "Key Values",
   "coverImage": "/images/indiehackers/key-values.webp",
   "publishedAt": "2026-09-22",

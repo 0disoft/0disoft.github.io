@@ -1,5 +1,7 @@
 {
   "id": "carrd",
+  "personIds": ["aj-carrd"],
+  "productIds": ["carrd"],
   "productName": "Carrd",
   "coverImage": "/images/indiehackers/carrd.webp",
   "publishedAt": "2026-09-22",

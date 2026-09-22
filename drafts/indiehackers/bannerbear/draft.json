@@ -2,6 +2,8 @@
   "status": "awaiting-translation",
   "preparedAt": "2026-09-23",
   "id": "bannerbear",
+  "personIds": ["jon-yongfook"],
+  "productIds": ["bannerbear"],
   "productName": "Bannerbear",
   "coverImage": "/images/indiehackers/bannerbear.webp",
   "sourceLocale": "ko",
