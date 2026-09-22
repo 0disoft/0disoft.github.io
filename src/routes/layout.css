@@ -215,6 +215,24 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  ::-webkit-scrollbar {
+    width: 0.625rem;
+    height: 0.625rem;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: var(--radius-md);
+    background: color-mix(in oklch, var(--foreground) 22%, transparent);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklch, var(--foreground) 34%, transparent);
+  }
   body {
     @apply bg-background text-foreground;
     min-height: 100svh;
