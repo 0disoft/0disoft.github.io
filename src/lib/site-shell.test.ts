@@ -246,8 +246,10 @@ describe("site shell", () => {
 		expect(indiehackersListSource).toContain("filterIndiehackersPosts");
 		expect(indiehackersListSource).toContain("parseIndiehackersFilters");
 		expect(indiehackersListSource).toContain("indiehackers-cards");
-		expect(indiehackersListSource).toContain("repeat(2, minmax(0, 1fr))");
-		expect(indiehackersListSource).toContain("@media (max-width: 56rem)");
+		expect(indiehackersListSource).toContain('class="magazine"');
+		expect(indiehackersListSource).toContain("coverImage");
+		expect(indiehackersListSource).toContain("data-facet");
+		expect(indiehackersListSource).toContain("aria-expanded={facetsExpanded}");
 		expect(indiehackersListSource).toContain('type="checkbox"');
 		expect(indiehackersListSource).toContain("tag-chips");
 		expect(indiehackersListSource).toContain("getIndiehackersFilterOptions(localizedPosts)");
@@ -257,10 +259,10 @@ describe("site shell", () => {
 		expect(indiehackersListSource).toContain('class="chip recent-chip"');
 		expect(indiehackersListSource).not.toContain("chip-toggle");
 		const tagSection = indiehackersListSource
-			.split('<fieldset class="tag-row">')[1]
+			.split('id="indiehackers-facets"')[1]
 			?.split("</form>")[0];
 		expect(tagSection).toContain("recent-chip");
-		expect(indiehackersListSource.split('<fieldset class="tag-row">')[0]).not.toContain(
+		expect(indiehackersListSource.split('id="indiehackers-facets"')[0]).not.toContain(
 			'class="chip recent-chip"',
 		);
 		expect(indiehackersListSource).toContain("indiehackers_recent_tooltip");

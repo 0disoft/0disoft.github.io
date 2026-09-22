@@ -1,5 +1,7 @@
 {
   "id": "buttondown",
+  "productName": "Buttondown",
+  "coverImage": "/images/indiehackers/buttondown.webp",
   "publishedAt": "2026-09-22",
   "tags": [
     "saas",

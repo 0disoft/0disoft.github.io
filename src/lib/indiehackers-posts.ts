@@ -65,6 +65,8 @@ export type IndiehackersPost = {
 	updatedAt?: string;
 	tags: readonly IndiehackersTagId[];
 	searchTags?: readonly string[];
+	productName?: string;
+	coverImage?: string;
 };
 
 export type IndiehackersPostDetail = IndiehackersPost & {
@@ -79,6 +81,8 @@ export type IndiehackersFilters = {
 
 type IndiehackersSharedMetadata = {
 	id: string;
+	productName?: string;
+	coverImage?: string;
 	publishedAt: string;
 	updatedAt?: string;
 	tags: IndiehackersTagId[];
@@ -102,6 +106,8 @@ export function createIndiehackersPostFromContent(
 
 	return {
 		slug: sharedMetadata.id,
+		...(sharedMetadata.productName ? { productName: sharedMetadata.productName } : {}),
+		...(sharedMetadata.coverImage ? { coverImage: sharedMetadata.coverImage } : {}),
 		locale,
 		title: readRequiredString(localizedMetadata, "title", path),
 		summary: readRequiredString(localizedMetadata, "summary", path),
@@ -131,10 +137,34 @@ export function readSharedMetadata(path: string, metadata: unknown): Indiehacker
 
 	return {
 		id: readIndiehackersPostId(metadataRecord, path),
+		...readPresentationMetadata(metadataRecord, path),
 		publishedAt: readPublishedAt(metadataRecord, path),
 		...readOptionalUpdatedAt(metadataRecord, path),
 		tags: readIndiehackersTags(metadataRecord, path),
 	};
+}
+
+function readPresentationMetadata(
+	metadata: Record<string, unknown>,
+	path: string,
+): { productName?: string; coverImage?: string } {
+	const result: { productName?: string; coverImage?: string } = {};
+	if (metadata.productName !== undefined) {
+		if (typeof metadata.productName !== "string" || !metadata.productName.trim()) {
+			throw new Error(`Indiehackers post productName must be a non-empty string: ${path}`);
+		}
+		result.productName = metadata.productName.trim();
+	}
+	if (metadata.coverImage !== undefined) {
+		if (
+			typeof metadata.coverImage !== "string" ||
+			!/^\/images\/indiehackers\/[a-z0-9-]+\.(?:webp|png|jpg)$/.test(metadata.coverImage)
+		) {
+			throw new Error(`Indiehackers post coverImage must be a local editorial image: ${path}`);
+		}
+		result.coverImage = metadata.coverImage;
+	}
+	return result;
 }
 
 export function createEmptyIndiehackersFilters(): IndiehackersFilters {

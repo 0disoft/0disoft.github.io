@@ -29,6 +29,35 @@ const carrdEnglishMarkdown = `---
 Carrd reached $1M in annual recurring revenue with a single one-page-site product.`;
 
 describe("indiehackers posts", () => {
+	it("preserves optional editorial metadata and rejects non-local covers", () => {
+		const metadata = {
+			...carrdMetadata,
+			productName: "Carrd",
+			coverImage: "/images/indiehackers/carrd.webp",
+		};
+		expect(
+			createIndiehackersPostFromContent(carrdPath, metadata, "ko", carrdKoreanMarkdown),
+		).toMatchObject({ productName: "Carrd", coverImage: metadata.coverImage });
+		expect(
+			createIndiehackersPostFromContent(carrdPath, carrdMetadata, "ko", carrdKoreanMarkdown)
+				.coverImage,
+		).toBeUndefined();
+		for (const coverImage of [
+			"https://example.com/tracking.png",
+			"/images/indiehackers/../private.png",
+			"javascript:alert(1)",
+		]) {
+			expect(() =>
+				createIndiehackersPostFromContent(
+					carrdPath,
+					{ ...metadata, coverImage },
+					"ko",
+					carrdKoreanMarkdown,
+				),
+			).toThrow("local editorial image");
+		}
+	});
+
 	it("creates localized post cards from shared metadata and translated markdown", () => {
 		expect(
 			createIndiehackersPostFromContent(carrdPath, carrdMetadata, "ko", carrdKoreanMarkdown),

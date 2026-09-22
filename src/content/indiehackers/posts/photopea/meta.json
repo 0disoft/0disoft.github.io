@@ -1,5 +1,7 @@
 {
   "id": "photopea",
+  "productName": "Photopea",
+  "coverImage": "/images/indiehackers/photopea.webp",
   "publishedAt": "2026-09-22",
   "tags": [
     "design-tools",

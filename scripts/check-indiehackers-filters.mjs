@@ -20,6 +20,7 @@ const mime = {
 	".json": "application/json",
 	".svg": "image/svg+xml",
 	".woff2": "font/woff2",
+	".webp": "image/webp",
 };
 const browser = await chromium.launch({ channel: "chrome", headless: true });
 try {
@@ -72,16 +73,23 @@ try {
 		await page.goto(`${origin}/ko/indiehackers/?recent=0`);
 		const cards = page.locator("[data-indiehackers-post]");
 		const tag = (id) => page.locator(`input[name="tag"][value="${id}"]`);
+		const selectTag = async (id, checked = true) => {
+			const input = tag(id);
+			if (!(await input.isVisible())) {
+				await input.locator("xpath=ancestor::details/summary").click();
+			}
+			await input.setChecked(checked);
+		};
 		await page.waitForFunction(() => !document.querySelector('input[name="recent"]').checked);
 		assert.equal(await cards.count(), 4);
 		assert.equal(await tag("mobile-app").count(), 0);
-		await tag("saas").check();
+		await selectTag("saas");
 		assert.equal(await cards.count(), 2);
-		await tag("design-tools").check();
+		await selectTag("design-tools");
 		assert.equal(await cards.count(), 3);
-		await tag("subscription").check();
+		await selectTag("subscription");
 		assert.equal(await cards.count(), 2);
-		await tag("api").check();
+		await selectTag("api");
 		assert.equal(await cards.count(), 1);
 		assert.ok((await cards.first().textContent()).includes("Buttondown"));
 		await page.reload();
@@ -89,12 +97,18 @@ try {
 			() => document.querySelectorAll("[data-indiehackers-post]").length === 1,
 		);
 		assert.equal(await tag("api").isChecked(), true);
-		await tag("api").uncheck();
+		await selectTag("api", false);
 		assert.equal(await cards.count(), 2);
 		await page.goBack();
 		await page.waitForFunction(() => document.querySelector('input[value="api"]').checked);
 		assert.equal(await cards.count(), 1);
 		await page.locator(".chip-clear").click();
+		await page.waitForFunction(() =>
+			[...document.querySelectorAll("[data-indiehackers-post] img")].every(
+				(img) => img.complete && img.naturalWidth > 0,
+			),
+		);
+		assert.equal(await cards.locator("img").count(), 4);
 		assert.equal(await cards.count(), 4);
 		assert.equal(await page.locator('input[name="tag"]:checked').count(), 0);
 		assert.equal(await page.locator('input[name="recent"]').isChecked(), true);
@@ -113,10 +127,56 @@ try {
 		assert.equal(layout.overflow, false);
 		assert.equal(layout.clipped, false);
 		assert.equal(layout.recentBorder, layout.tagBorder);
+		const firstFacet = page.locator("details[data-facet]").first();
+		await firstFacet.locator("summary").click();
+		await tag("saas").focus();
+		await page.keyboard.press("Escape");
+		assert.equal(await firstFacet.getAttribute("open"), null);
+		assert.equal(
+			await firstFacet.locator("summary").evaluate((el) => el === document.activeElement),
+			true,
+		);
+		await page.locator(".filter-toggle").click();
+		assert.equal(await page.locator('input[name="recent"]').isVisible(), true);
+		await page.locator(".filter-toggle").click();
+		for (const facet of await page.locator("details[data-facet]").all()) {
+			await facet.locator("summary").click();
+			const box = await facet.locator(".facet-panel").boundingBox();
+			assert.ok(box && box.x >= 0 && box.x + box.width <= viewport.width);
+			await facet.locator("summary").press("Escape");
+		}
+		for (const cover of await cards.locator("img").all()) {
+			await cover.scrollIntoViewIfNeeded();
+			await cover.evaluate((img) => img.decode());
+		}
+		await page.locator(".result-status").click();
+		await page.evaluate(() => {
+			window.scrollTo(0, 0);
+			document.querySelector("#main-content").scrollTop = 0;
+		});
 		await page.screenshot({
 			path: resolve(output, `filters-${viewport.width}.png`),
 			fullPage: true,
 		});
+		if (viewport.width > 768) {
+			await page
+				.locator(".indiehackers-list")
+				.screenshot({ path: resolve(output, `magazine-${viewport.width}.png`) });
+		}
+		assert.deepEqual(errors, []);
+		await page.emulateMedia({ colorScheme: "dark" });
+		await page.waitForFunction(() => document.documentElement.classList.contains("dark"));
+		await page.screenshot({
+			path: resolve(output, `magazine-dark-${viewport.width}.png`),
+			fullPage: true,
+		});
+		await page.goto(`${origin}/fr/indiehackers/`);
+		await page.locator(".filter-toggle").waitFor();
+		assert.equal(await cards.count(), 4);
+		assert.equal(
+			await page.evaluate(() => document.documentElement.scrollWidth > innerWidth),
+			false,
+		);
 		assert.deepEqual(errors, []);
 		console.log(
 			`PASS ${viewport.width}px: grouped filters, URL reload/back, reset, empty state, layout`,
