@@ -21,8 +21,10 @@ describe("localized indiehackers delivery", () => {
 			url: new URL("https://example.test/ko/indiehackers"),
 		} as Parameters<typeof loadLayout>[0]);
 
-		expect(layout.indiehackersPosts.length).toBeGreaterThan(1);
-		expect(layout.indiehackersPosts[0].slug).toBe("photopea");
-		expect(layout.indiehackersPosts.map((post) => post.slug)).toContain("carrd");
+		expect(layout.indiehackersPosts.length).toBeGreaterThan(2);
+		expect(layout.indiehackersPosts[0].slug).toBe("buttondown");
+		expect(layout.indiehackersPosts.map((post) => post.slug)).toEqual(
+			expect.arrayContaining(["buttondown", "photopea", "carrd"]),
+		);
 	});
 });
