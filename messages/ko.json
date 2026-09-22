@@ -12,6 +12,8 @@
   "indiehackers_search_placeholder": "제목, 요약, 태그",
   "indiehackers_tag_label": "태그 (하나라도)",
   "indiehackers_all_tags": "전체 태그",
+  "indiehackers_recent_label": "최근발행",
+  "indiehackers_recent_tooltip": "1년 이내 발행된 게시글",
   "indiehackers_clear_filters": "초기화",
   "indiehackers_results_label": "결과",
   "indiehackers_empty_filtered": "조건에 맞는 글이 없습니다.",

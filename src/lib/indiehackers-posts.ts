@@ -30,6 +30,7 @@ export type IndiehackersPostDetail = IndiehackersPost & {
 export type IndiehackersFilters = {
 	query: string;
 	tags: readonly IndiehackersTagId[];
+	recentOnly: boolean;
 };
 
 type IndiehackersSharedMetadata = {
@@ -42,7 +43,10 @@ type IndiehackersSharedMetadata = {
 export const INDIEHACKERS_FILTER_QUERY_KEYS = {
 	query: "q",
 	tag: "tag",
+	recent: "recent",
 } as const;
+
+export const INDIEHACKERS_RECENT_WINDOW_DAYS = 365;
 
 export function createIndiehackersPostFromContent(
 	path: string,
@@ -104,6 +108,7 @@ export function createEmptyIndiehackersFilters(): IndiehackersFilters {
 	return {
 		query: "",
 		tags: [],
+		recentOnly: true,
 	};
 }
 
@@ -111,6 +116,7 @@ export function parseIndiehackersFilters(searchParams: URLSearchParams): Indieha
 	return {
 		query: searchParams.get(INDIEHACKERS_FILTER_QUERY_KEYS.query)?.trim() ?? "",
 		tags: normalizeTags(searchParams.getAll(INDIEHACKERS_FILTER_QUERY_KEYS.tag)),
+		recentOnly: parseRecentOnly(searchParams.get(INDIEHACKERS_FILTER_QUERY_KEYS.recent)),
 	};
 }
 
@@ -190,7 +196,8 @@ export function getIndiehackersPostSearchValues(post: IndiehackersPost): string[
 
 export function filterIndiehackersPosts(
 	posts: readonly IndiehackersPost[],
-	{ query, tags }: IndiehackersFilters,
+	{ query, tags, recentOnly }: IndiehackersFilters,
+	now: Date = new Date(),
 ): IndiehackersPost[] {
 	const normalizedQuery = normalizeSearchText(query);
 
@@ -201,9 +208,22 @@ export function filterIndiehackersPosts(
 				normalizeSearchText(value).includes(normalizedQuery),
 			);
 		const matchesTags = tags.length === 0 || tags.some((tag) => post.tags.includes(tag));
+		const matchesRecent = !recentOnly || isRecentIndiehackersPost(post.publishedAt, now);
 
-		return matchesQuery && matchesTags;
+		return matchesQuery && matchesTags && matchesRecent;
 	});
+}
+
+export function isRecentIndiehackersPost(publishedAt: string, now: Date = new Date()): boolean {
+	const publishedTime = Date.parse(`${publishedAt}T00:00:00Z`);
+
+	if (Number.isNaN(publishedTime)) {
+		return false;
+	}
+
+	const elapsedMs = now.getTime() - publishedTime;
+
+	return elapsedMs >= 0 && elapsedMs <= INDIEHACKERS_RECENT_WINDOW_DAYS * 24 * 60 * 60 * 1000;
 }
 
 function parseMarkdownFile(path: string, markdown: string): { frontmatter: unknown; body: string } {
@@ -370,4 +390,14 @@ function normalizeTags(values: readonly string[]): IndiehackersTagId[] {
 	const tags = values.map((value) => value.trim()).filter(isIndiehackersTagId);
 
 	return Array.from(new Set(tags));
+}
+
+function parseRecentOnly(value: string | null): boolean {
+	if (value === null) {
+		return true;
+	}
+
+	const normalized = value.trim().toLocaleLowerCase();
+
+	return normalized !== "0" && normalized !== "false" && normalized !== "off" && normalized !== "no";
 }

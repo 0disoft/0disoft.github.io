@@ -252,7 +252,9 @@ describe("site shell", () => {
 		expect(indiehackersListSource).toContain("repeat(2, minmax(0, 1fr))");
 		expect(indiehackersListSource).toContain("@media (max-width: 56rem)");
 		expect(indiehackersListSource).toContain('type="checkbox"');
-		expect(indiehackersListSource).toContain("tag-checkboxes");
+		expect(indiehackersListSource).toContain("tag-chips");
+		expect(indiehackersListSource).toContain("recent-chip");
+		expect(indiehackersListSource).toContain("indiehackers_recent_tooltip");
 	});
 
 	it("does not expose retired roadmap or contact sections", async () => {

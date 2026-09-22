@@ -8,6 +8,7 @@ import {
 	getIndiehackersPostForLocale,
 	getIndiehackersPostsForLocale,
 	indiehackersTagOptions,
+	isRecentIndiehackersPost,
 	parseIndiehackersFilters,
 } from "./indiehackers-posts";
 
@@ -62,14 +63,21 @@ describe("indiehackers posts", () => {
 		];
 
 		expect(getIndiehackersFilterOptions().tags).toEqual(indiehackersTagOptions);
-		expect(filterIndiehackersPosts(posts, { query: "carrd", tags: [] })).toHaveLength(2);
-		expect(filterIndiehackersPosts(posts, { query: "", tags: ["pricing"] })).toHaveLength(2);
-		expect(
-			filterIndiehackersPosts(posts, { query: "", tags: ["pricing", "infrastructure"] }),
-		).toHaveLength(2);
-		expect(filterIndiehackersPosts(posts, { query: "", tags: ["infrastructure"] })).toHaveLength(
-			0,
+		expect(filterIndiehackersPosts(posts, { query: "carrd", tags: [], recentOnly: false })).toHaveLength(
+			2,
 		);
+		expect(
+			filterIndiehackersPosts(posts, { query: "", tags: ["pricing"], recentOnly: false }),
+		).toHaveLength(2);
+		expect(
+			filterIndiehackersPosts(
+				posts,
+				{ query: "", tags: ["pricing", "infrastructure"], recentOnly: false },
+			),
+		).toHaveLength(2);
+		expect(
+			filterIndiehackersPosts(posts, { query: "", tags: ["infrastructure"], recentOnly: false }),
+		).toHaveLength(0);
 		expect(
 			filterIndiehackersPosts(
 				posts,
@@ -82,5 +90,34 @@ describe("indiehackers posts", () => {
 				query: "missing",
 			}),
 		).toHaveLength(0);
+	});
+
+	it("keeps recent posts from the last year by default", () => {
+		const now = new Date("2026-09-22T00:00:00Z");
+
+		expect(createEmptyIndiehackersFilters().recentOnly).toBe(true);
+		expect(parseIndiehackersFilters(new URLSearchParams("")).recentOnly).toBe(true);
+		expect(parseIndiehackersFilters(new URLSearchParams("recent=0")).recentOnly).toBe(false);
+		expect(isRecentIndiehackersPost("2026-09-22", now)).toBe(true);
+		expect(isRecentIndiehackersPost("2025-09-22", now)).toBe(true);
+		expect(isRecentIndiehackersPost("2025-09-21", now)).toBe(false);
+		expect(isRecentIndiehackersPost("not-a-date", now)).toBe(false);
+
+		const posts = [
+			createIndiehackersPostFromContent(carrdPath, carrdMetadata, "ko", carrdKoreanMarkdown),
+			createIndiehackersPostFromContent(
+				"../content/indiehackers/posts/old/meta.json",
+				{ id: "old", publishedAt: "2020-01-01", tags: ["pricing"] },
+				"ko",
+				carrdKoreanMarkdown,
+			),
+		];
+
+		expect(
+			filterIndiehackersPosts(posts, { query: "", tags: [], recentOnly: true }, now),
+		).toHaveLength(1);
+		expect(
+			filterIndiehackersPosts(posts, { query: "", tags: [], recentOnly: false }, now),
+		).toHaveLength(2);
 	});
 });

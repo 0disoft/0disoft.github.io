@@ -12,6 +12,8 @@
   "indiehackers_search_placeholder": "Titre, résumé ou étiquette",
   "indiehackers_tag_label": "Étiquettes (au moins une)",
   "indiehackers_all_tags": "Toutes les étiquettes",
+  "indiehackers_recent_label": "Récents",
+  "indiehackers_recent_tooltip": "Articles publiés depuis un an",
   "indiehackers_clear_filters": "Réinitialiser",
   "indiehackers_results_label": "Résultats",
   "indiehackers_empty_filtered": "Aucun article correspondant.",

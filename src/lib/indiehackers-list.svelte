@@ -29,8 +29,10 @@
 	const localizedFilterOptions = $derived(getIndiehackersFilterOptions());
 	const filteredPosts = $derived(filterIndiehackersPosts(localizedPosts, filters));
 	const hasActiveFilters = $derived(
-		filters.query.length > 0 || filters.tags.length > 0,
+		filters.query.length > 0 || filters.tags.length > 0 || !filters.recentOnly,
 	);
+	const recentLabel = $derived(m.indiehackers_recent_label({}, { locale: displayLocale }));
+	const recentTooltip = $derived(m.indiehackers_recent_tooltip({}, { locale: displayLocale }));
 
 	onMount(() => {
 		syncFiltersFromUrl();
@@ -80,6 +82,20 @@
 		pushState(createIndiehackersFilterHref(nextFilters), page.state);
 	}
 
+	function handleRecentChange(event: Event) {
+		if (!browser || !(event.currentTarget instanceof HTMLInputElement)) {
+			return;
+		}
+
+		const nextFilters: IndiehackersFilters = {
+			...filters,
+			recentOnly: event.currentTarget.checked,
+		};
+
+		filters = nextFilters;
+		pushState(createIndiehackersFilterHref(nextFilters), page.state);
+	}
+
 	function clearFilters(event: MouseEvent) {
 		if (!browser) {
 			return;
@@ -99,6 +115,10 @@
 
 		for (const tag of nextFilters.tags) {
 			searchParams.append(INDIEHACKERS_FILTER_QUERY_KEYS.tag, tag);
+		}
+
+		if (!nextFilters.recentOnly) {
+			searchParams.set(INDIEHACKERS_FILTER_QUERY_KEYS.recent, "0");
 		}
 
 		const queryString = searchParams.toString();
@@ -129,25 +149,48 @@
 			{m.indiehackers_filter_title({}, { locale: displayLocale })}
 		</h2>
 
-		<label class="filter-field search-field" for="indiehackers-search">
-			<span>{m.indiehackers_search_label({}, { locale: displayLocale })}</span>
-			<input
-				id="indiehackers-search"
-				name={INDIEHACKERS_FILTER_QUERY_KEYS.query}
-				type="search"
-				autocomplete="off"
-				placeholder={m.indiehackers_search_placeholder({}, { locale: displayLocale })}
-				value={filters.query}
-				oninput={handleSearchInput}
-			/>
-		</label>
+		<div class="filter-bar">
+			<label class="filter-search" for="indiehackers-search">
+				<span class="sr-only">{m.indiehackers_search_label({}, { locale: displayLocale })}</span>
+				<input
+					id="indiehackers-search"
+					name={INDIEHACKERS_FILTER_QUERY_KEYS.query}
+					type="search"
+					autocomplete="off"
+					placeholder={m.indiehackers_search_placeholder({}, { locale: displayLocale })}
+					value={filters.query}
+					oninput={handleSearchInput}
+				/>
+			</label>
 
-		<fieldset class="filter-field tag-field">
-			<legend>{m.indiehackers_tag_label({}, { locale: displayLocale })}</legend>
-			<ul class="tag-checkboxes" role="list">
+			<label
+				class="chip chip-toggle recent-chip"
+				title={recentTooltip}
+				data-tooltip={recentTooltip}
+			>
+				<input
+					type="checkbox"
+					name={INDIEHACKERS_FILTER_QUERY_KEYS.recent}
+					value="1"
+					checked={filters.recentOnly}
+					onchange={handleRecentChange}
+				/>
+				<span>{recentLabel}</span>
+			</label>
+
+			{#if hasActiveFilters}
+				<button type="button" class="chip chip-clear" onclick={clearFilters}>
+					{m.indiehackers_clear_filters({}, { locale: displayLocale })}
+				</button>
+			{/if}
+		</div>
+
+		<fieldset class="tag-row">
+			<legend class="sr-only">{m.indiehackers_tag_label({}, { locale: displayLocale })}</legend>
+			<ul class="tag-chips" role="list">
 				{#each localizedFilterOptions.tags as tag (tag.id)}
 					<li>
-						<label class="tag-checkbox">
+						<label class="chip">
 							<input
 								type="checkbox"
 								name={INDIEHACKERS_FILTER_QUERY_KEYS.tag}
@@ -161,14 +204,6 @@
 				{/each}
 			</ul>
 		</fieldset>
-
-		<div class="filter-actions">
-			{#if hasActiveFilters}
-				<button type="button" class="filter-clear" onclick={clearFilters}>
-					{m.indiehackers_clear_filters({}, { locale: displayLocale })}
-				</button>
-			{/if}
-		</div>
 	</form>
 
 	<p class="result-status" aria-live="polite">
@@ -216,7 +251,7 @@
 	.indiehackers-list {
 		display: grid;
 		width: min(100%, 70rem);
-		gap: 1.3rem;
+		gap: 1rem;
 		color: var(--foreground);
 	}
 
@@ -239,91 +274,131 @@
 
 	.indiehackers-filters {
 		display: grid;
-		gap: 0.85rem;
+		gap: 0.6rem;
+		padding: 0.8rem 0.9rem;
+		border: 1px solid color-mix(in oklch, var(--border) 62%, transparent);
+		border-radius: var(--radius-md);
+		background: color-mix(in oklch, var(--background) 92%, transparent);
 	}
 
-	.filter-field {
-		display: grid;
-		gap: 0.35rem;
-		font-size: 0.9rem;
+	.filter-bar {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5rem;
 	}
 
-	.filter-field input[type="search"] {
-		max-width: 28rem;
-		padding: 0.5rem 0.7rem;
+	.filter-search {
+		flex: 1 1 14rem;
+		min-width: min(100%, 14rem);
+	}
+
+	.filter-search input[type="search"] {
+		width: 100%;
+		padding: 0.5rem 0.75rem;
 		border: 1px solid var(--input);
-		border-radius: var(--radius-sm);
+		border-radius: 999px;
 		background: var(--background);
 		color: var(--foreground);
 		font: inherit;
 	}
 
-	.tag-field {
+	.tag-row {
 		margin: 0;
 		padding: 0;
 		border: 0;
 	}
 
-	.tag-field legend {
-		padding: 0;
-		font-size: 0.9rem;
-	}
-
-	.tag-checkboxes {
+	.tag-chips {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.5rem;
+		gap: 0.45rem;
 		margin: 0;
 		padding: 0;
 		list-style: none;
 	}
 
-	.tag-checkbox {
+	.chip {
 		display: inline-flex;
+		position: relative;
 		align-items: center;
-		gap: 0.45rem;
-		padding: 0.45rem 0.75rem;
+		gap: 0.4rem;
+		padding: 0.38rem 0.7rem;
 		border: 1px solid var(--input);
 		border-radius: 999px;
 		background: var(--background);
 		color: var(--foreground);
+		font-size: 0.86rem;
+		line-height: 1.2;
 		cursor: pointer;
 		user-select: none;
+		white-space: nowrap;
 	}
 
-	.tag-checkbox:has(input:checked) {
+	.chip:hover {
+		border-color: color-mix(in oklch, var(--foreground) 28%, var(--border));
+	}
+
+	.chip:has(input:checked) {
 		border-color: color-mix(in oklch, var(--foreground) 28%, var(--border));
 		background: color-mix(in oklch, var(--muted) 55%, transparent);
+		font-weight: 650;
 	}
 
-	.tag-checkbox:has(input:focus-visible) {
+	.chip:has(input:focus-visible) {
 		outline: 3px solid var(--focus-ring);
-		outline-offset: 3px;
+		outline-offset: 2px;
 	}
 
-	.tag-checkbox input {
+	.chip input {
 		margin: 0;
 		accent-color: var(--accent);
 	}
 
-	.filter-actions {
-		display: flex;
-		gap: 0.5rem;
+	.chip-toggle {
+		border-style: dashed;
 	}
 
-	.filter-clear {
-		padding: 0.5rem 0.9rem;
-		border: 1px solid var(--border);
+	.recent-chip::after {
+		position: absolute;
+		bottom: calc(100% + 0.45rem);
+		left: 50%;
+		z-index: 3;
+		max-width: min(14rem, 70vw);
+		padding: 0.34rem 0.56rem;
+		border: 1px solid var(--share-tooltip-border, var(--border));
 		border-radius: var(--radius-sm);
-		background: var(--background);
-		color: var(--foreground);
-		font: inherit;
-		cursor: pointer;
+		background: var(--share-tooltip-background, var(--foreground));
+		box-shadow: 0 0.55rem 1.4rem color-mix(in oklch, black 32%, transparent);
+		color: var(--share-tooltip-foreground, var(--background));
+		content: attr(data-tooltip);
+		font-size: 0.8rem;
+		font-weight: 500;
+		line-height: 1.25;
+		opacity: 0;
+		pointer-events: none;
+		text-align: center;
+		transform: translate(-50%, 0.18rem);
+		transition:
+			opacity 120ms ease,
+			transform 120ms ease;
+		white-space: normal;
+	}
+
+	.recent-chip:hover::after,
+	.recent-chip:focus-within::after {
+		opacity: 1;
+		transform: translate(-50%, 0);
+	}
+
+	.chip-clear {
+		border-style: solid;
 	}
 
 	.result-status {
 		margin: 0;
 		color: var(--muted-foreground);
+		font-size: 0.9rem;
 	}
 
 	.indiehackers-cards {

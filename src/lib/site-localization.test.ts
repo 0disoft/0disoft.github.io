@@ -169,6 +169,8 @@ describe("site localization", () => {
 		expect(enMessages.indiehackers_search_placeholder).toBe("Title, summary, or tag");
 		expect(enMessages.indiehackers_tag_label).toBe("Tags (any)");
 		expect(enMessages.indiehackers_all_tags).toBe("All tags");
+		expect(enMessages.indiehackers_recent_label).toBe("Recent posts");
+		expect(enMessages.indiehackers_recent_tooltip).toBe("Posts published within the last year");
 		expect(enMessages.indiehackers_clear_filters).toBe("Clear");
 		expect(enMessages.indiehackers_results_label).toBe("Results");
 		expect(enMessages.indiehackers_empty_filtered).toBe("No matching posts.");
@@ -192,6 +194,8 @@ describe("site localization", () => {
 		expect(koMessages.indiehackers_search_placeholder).toBe("제목, 요약, 태그");
 		expect(koMessages.indiehackers_tag_label).toBe("태그 (하나라도)");
 		expect(koMessages.indiehackers_all_tags).toBe("전체 태그");
+		expect(koMessages.indiehackers_recent_label).toBe("최근발행");
+		expect(koMessages.indiehackers_recent_tooltip).toBe("1년 이내 발행된 게시글");
 		expect(koMessages.indiehackers_results_label).toBe("결과");
 		expect(koMessages.indiehackers_empty_filtered).toBe("조건에 맞는 글이 없습니다.");
 		expect(koMessages.indiehackers_empty_title).toBe("아직 글이 없습니다.");
@@ -211,7 +215,7 @@ describe("site localization", () => {
 		expect(koMessages.analytics_consent_accept).toBe("허용");
 		expect(zhMessages.nav_indiehackers).toBe("独立黑客们");
 		expect(zhMessages.indiehackers_filter_title).toBe("筛选");
-		expect(zhMessages.indiehackers_search_placeholder).toBe("标题、摘要或标签");
+		expect(zhMessages.indiehackers_recent_tooltip).toBe("1年内发布的文章");
 		expect(zhMessages.indiehackers_empty_filtered).toBe("没有匹配的文章。");
 		expect(zhMessages.indiehackers_empty_title).toBe("暂无文章。");
 		expect(zhMessages.indiehackers_back_to_list).toBe("返回列表");
@@ -221,6 +225,8 @@ describe("site localization", () => {
 		expect(zhMessages.privacy_page_title).toBe("隐私");
 		expect(esMessages.nav_indiehackers).toBe("Indiehackers");
 		expect(esMessages.indiehackers_filter_title).toBe("Filtros");
+		expect(esMessages.indiehackers_recent_label).toBe("Recientes");
+		expect(esMessages.indiehackers_recent_tooltip).toBe("Publicaciones del último año");
 		expect(esMessages.indiehackers_search_placeholder).toBe("Título, resumen o etiqueta");
 		expect(esMessages.indiehackers_empty_filtered).toBe("No hay publicaciones que coincidan.");
 		expect(esMessages.indiehackers_empty_title).toBe("Aún no hay publicaciones.");
@@ -231,6 +237,8 @@ describe("site localization", () => {
 		expect(esMessages.privacy_page_title).toBe("Privacidad");
 		expect(frMessages.nav_indiehackers).toBe("Indiehackers");
 		expect(frMessages.indiehackers_filter_title).toBe("Filtres");
+		expect(frMessages.indiehackers_recent_label).toBe("Récents");
+		expect(frMessages.indiehackers_recent_tooltip).toBe("Articles publiés depuis un an");
 		expect(frMessages.indiehackers_search_placeholder).toBe("Titre, résumé ou étiquette");
 		expect(frMessages.indiehackers_empty_filtered).toBe("Aucun article correspondant.");
 		expect(frMessages.indiehackers_empty_title).toBe("Aucun article pour le moment.");
@@ -241,6 +249,8 @@ describe("site localization", () => {
 		expect(frMessages.privacy_page_title).toBe("Confidentialité");
 		expect(hiMessages.nav_indiehackers).toBe("इंडीहैकर्स");
 		expect(hiMessages.indiehackers_filter_title).toBe("फ़िल्टर");
+		expect(hiMessages.indiehackers_recent_label).toBe("हाल की पोस्ट");
+		expect(hiMessages.indiehackers_recent_tooltip).toBe("पिछले 1 वर्ष में प्रकाशित पोस्ट");
 		expect(hiMessages.indiehackers_search_placeholder).toBe("शीर्षक, सारांश या टैग");
 		expect(hiMessages.indiehackers_empty_filtered).toBe("मेल खाती कोई पोस्ट नहीं है।");
 		expect(hiMessages.indiehackers_empty_title).toBe("अभी कोई पोस्ट नहीं है।");

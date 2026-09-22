@@ -12,6 +12,8 @@
   "indiehackers_search_placeholder": "Título, resumen o etiqueta",
   "indiehackers_tag_label": "Etiquetas (cualquiera)",
   "indiehackers_all_tags": "Todas las etiquetas",
+  "indiehackers_recent_label": "Recientes",
+  "indiehackers_recent_tooltip": "Publicaciones del último año",
   "indiehackers_clear_filters": "Restablecer",
   "indiehackers_results_label": "Resultados",
   "indiehackers_empty_filtered": "No hay publicaciones que coincidan.",

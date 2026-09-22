@@ -12,6 +12,8 @@
   "indiehackers_search_placeholder": "标题、摘要或标签",
   "indiehackers_tag_label": "标签（任一）",
   "indiehackers_all_tags": "所有标签",
+  "indiehackers_recent_label": "近期发布",
+  "indiehackers_recent_tooltip": "1年内发布的文章",
   "indiehackers_clear_filters": "重置",
   "indiehackers_results_label": "结果",
   "indiehackers_empty_filtered": "没有匹配的文章。",
