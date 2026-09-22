@@ -722,7 +722,7 @@
 
 	.settings-panel {
 		display: grid;
-		gap: 0.75rem;
+		gap: 0.25rem;
 		padding-top: 1rem;
 		border-top: 1px solid color-mix(in oklch, var(--sidebar-border) 78%, transparent);
 	}
