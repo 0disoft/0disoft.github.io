@@ -1,0 +1,14 @@
+{
+  "kind": "ai-generated-editorial-illustration",
+  "createdAt": "2026-09-23",
+  "officialScreenshot": false,
+  "asset": "bannerbear.webp",
+  "generator": "built-in image_gen",
+  "prompt": "Editorial cover for Bannerbear: one reusable template enters a geometric automation machine and becomes square, portrait, landscape and filmstrip outputs with a shared yellow product-bottle motif. White background, yellow and cyan accents, charcoal details, subtle print texture. Bannerbear title. Landscape 16:9. No fake product UI, mascot or invented metrics.",
+  "sourceChecks": [
+    "https://www.bannerbear.com/blog/how-i-increased-my-saas-conversion-rate-by-7x/",
+    "https://www.bannerbear.com/blog/bannerbear-v5-new-features-list/",
+    "https://www.bannerbear.com/blog/video-welcome-to-v5-build-complex-videos-and-images-without-code/"
+  ],
+  "editorialNote": "Korean body supplied by the author and preserved without substantive edits. The conversion-rate retrospective and official V5 announcements were spot-checked; this is not an exhaustive independent fact-check. The November 2024 revenue figure is explicitly in Singapore dollars, not US dollars. The image is conceptual editorial art, not an official screenshot or actual customer output."
+}
