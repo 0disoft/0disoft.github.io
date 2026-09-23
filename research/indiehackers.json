@@ -91,6 +91,12 @@
       "name": "Shai Schechter",
       "aliases": ["샤이 셰크터"],
       "profiles": ["https://shai.io/"]
+    },
+    {
+      "id": "damon-chen",
+      "name": "Damon Chen",
+      "aliases": ["데이먼 첸"],
+      "profiles": []
     }
   ],
   "products": [
@@ -205,6 +211,20 @@
       "aliases": ["더블 유어 프리랜싱"],
       "domains": ["doubleyourfreelancing.com"],
       "personIds": ["brennan-dunn"]
+    },
+    {
+      "id": "testimonial-to",
+      "name": "Testimonial.to",
+      "aliases": ["Testimonial", "테스티모니얼"],
+      "domains": ["testimonial.to"],
+      "personIds": ["damon-chen"]
+    },
+    {
+      "id": "indielog",
+      "name": "IndieLog",
+      "aliases": ["인디로그"],
+      "domains": ["indielog.com"],
+      "personIds": ["damon-chen"]
     }
   ],
   "research": []
