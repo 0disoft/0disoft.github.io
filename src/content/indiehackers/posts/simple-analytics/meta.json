@@ -1,15 +1,10 @@
 {
-  "status": "awaiting-review",
-  "preparedAt": "2026-09-23",
   "id": "simple-analytics",
   "personIds": ["adriaan-van-rossum", "iron-brands"],
   "productIds": ["simple-analytics"],
   "productName": "Simple Analytics",
   "coverImage": "/images/indiehackers/simple-analytics.webp",
-  "sourceLocale": "ko",
-  "pendingLocales": [],
-  "translationModel": "commandcode/meta-muse-spark-1.3-contributor",
-  "translationReasoningEffort": "xhigh",
+  "publishedAt": "2026-09-23",
   "tags": [
     "saas",
     "web",
@@ -27,6 +22,5 @@
     "growth",
     "retention",
     "infrastructure"
-  ],
-  "publicationNote": "Translations prepared for editorial review. Not loaded by the site. Set the actual publication date and move the completed post to src/content/indiehackers/posts/simple-analytics only after approval to continue. No push or deployment authorized."
+  ]
 }
