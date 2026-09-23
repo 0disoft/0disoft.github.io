@@ -61,6 +61,12 @@
       "name": "Charlie Clark",
       "aliases": ["찰리 클라크"],
       "profiles": ["https://www.liinks.co/charlie"]
+    },
+    {
+      "id": "alexander-isora",
+      "name": "Alexander Isora",
+      "aliases": ["알렉산더 이소라", "Alex Isora"],
+      "profiles": ["https://www.isora.me/"]
     }
   ],
   "products": [
@@ -133,6 +139,13 @@
       "aliases": ["링크스"],
       "domains": ["liinks.co"],
       "personIds": ["charlie-clark"]
+    },
+    {
+      "id": "unicorn-platform",
+      "name": "Unicorn Platform",
+      "aliases": ["유니콘 플랫폼"],
+      "domains": ["unicornplatform.com"],
+      "personIds": ["alexander-isora"]
     }
   ],
   "research": []

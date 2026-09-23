@@ -1,0 +1,23 @@
+{
+  "id": "unicorn-platform",
+  "personIds": ["alexander-isora"],
+  "productIds": ["unicorn-platform"],
+  "productName": "Unicorn Platform",
+  "coverImage": "/images/indiehackers/unicorn-platform.png",
+  "publishedAt": "2026-09-23",
+  "tags": [
+    "saas",
+    "web",
+    "b2b",
+    "subscription",
+    "solo-building",
+    "bootstrapping",
+    "validation",
+    "mvp",
+    "launch",
+    "pricing",
+    "acquisition",
+    "growth",
+    "retention"
+  ]
+}
