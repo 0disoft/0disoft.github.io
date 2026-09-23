@@ -49,6 +49,12 @@
       "name": "Jordan O'Connor",
       "aliases": ["조던 오코너"],
       "profiles": ["https://jdnoc.com/"]
+    },
+    {
+      "id": "tim-bennetto",
+      "name": "Tim Bennetto",
+      "aliases": ["팀 베네토"],
+      "profiles": []
     }
   ],
   "products": [
@@ -107,6 +113,13 @@
       "aliases": ["리셀봇", "Closet Tools", "Closet Assistant"],
       "domains": ["resellbot.com", "closet.tools"],
       "personIds": ["jordan-oconnor"]
+    },
+    {
+      "id": "pallyy",
+      "name": "Pallyy",
+      "aliases": ["팰리", "Sharemyinsights"],
+      "domains": ["pallyy.com"],
+      "personIds": ["tim-bennetto"]
     }
   ],
   "research": []
