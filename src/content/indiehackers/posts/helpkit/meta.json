@@ -1,0 +1,21 @@
+{
+  "id": "helpkit",
+  "personIds": ["dominik-sobe"],
+  "productIds": ["helpkit"],
+  "productName": "HelpKit",
+  "coverImage": "/images/indiehackers/helpkit.webp",
+  "publishedAt": "2026-09-24",
+  "tags": [
+    "saas",
+    "web",
+    "b2b",
+    "subscription",
+    "bootstrapping",
+    "validation",
+    "mvp",
+    "launch",
+    "acquisition",
+    "growth",
+    "retention"
+  ]
+}

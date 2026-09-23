@@ -97,6 +97,12 @@
       "name": "Damon Chen",
       "aliases": ["데이먼 첸"],
       "profiles": []
+    },
+    {
+      "id": "dominik-sobe",
+      "name": "Dominik Sobe",
+      "aliases": ["도미니크 소베"],
+      "profiles": ["https://dominiksobe.com/"]
     }
   ],
   "products": [
@@ -225,6 +231,13 @@
       "aliases": ["인디로그"],
       "domains": ["indielog.com"],
       "personIds": ["damon-chen"]
+    },
+    {
+      "id": "helpkit",
+      "name": "HelpKit",
+      "aliases": ["헬프킷"],
+      "domains": ["helpkit.so"],
+      "personIds": ["dominik-sobe"]
     }
   ],
   "research": []
