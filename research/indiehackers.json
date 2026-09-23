@@ -67,6 +67,18 @@
       "name": "Alexander Isora",
       "aliases": ["알렉산더 이소라", "Alex Isora"],
       "profiles": ["https://www.isora.me/"]
+    },
+    {
+      "id": "lukas-hermann",
+      "name": "Lukas Hermann",
+      "aliases": ["루카스 헤르만"],
+      "profiles": ["https://lukashermann.dev/"]
+    },
+    {
+      "id": "liz-hermann",
+      "name": "Liz Hermann",
+      "aliases": ["리즈 헤르만"],
+      "profiles": []
     }
   ],
   "products": [
@@ -146,6 +158,20 @@
       "aliases": ["유니콘 플랫폼"],
       "domains": ["unicornplatform.com"],
       "personIds": ["alexander-isora"]
+    },
+    {
+      "id": "stagetimer",
+      "name": "Stagetimer",
+      "aliases": ["스테이지타이머", "StageTimer"],
+      "domains": ["stagetimer.io"],
+      "personIds": ["lukas-hermann", "liz-hermann"]
+    },
+    {
+      "id": "rundown-studio",
+      "name": "Rundown Studio",
+      "aliases": ["런다운 스튜디오"],
+      "domains": ["rundownstudio.app"],
+      "personIds": ["lukas-hermann"]
     }
   ],
   "research": []

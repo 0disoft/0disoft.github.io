@@ -1,0 +1,22 @@
+{
+  "id": "stagetimer",
+  "personIds": ["lukas-hermann", "liz-hermann"],
+  "productIds": ["stagetimer", "rundown-studio"],
+  "productName": "Stagetimer",
+  "coverImage": "/images/indiehackers/stagetimer.webp",
+  "publishedAt": "2026-09-24",
+  "tags": [
+    "saas",
+    "web",
+    "b2b",
+    "subscription",
+    "bootstrapping",
+    "validation",
+    "mvp",
+    "launch",
+    "pricing",
+    "acquisition",
+    "growth",
+    "retention"
+  ]
+}
