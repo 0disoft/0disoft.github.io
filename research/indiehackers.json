@@ -55,6 +55,12 @@
       "name": "Tim Bennetto",
       "aliases": ["팀 베네토"],
       "profiles": []
+    },
+    {
+      "id": "charlie-clark",
+      "name": "Charlie Clark",
+      "aliases": ["찰리 클라크"],
+      "profiles": ["https://www.liinks.co/charlie"]
     }
   ],
   "products": [
@@ -120,6 +126,13 @@
       "aliases": ["팰리", "Sharemyinsights"],
       "domains": ["pallyy.com"],
       "personIds": ["tim-bennetto"]
+    },
+    {
+      "id": "liinks",
+      "name": "Liinks",
+      "aliases": ["링크스"],
+      "domains": ["liinks.co"],
+      "personIds": ["charlie-clark"]
     }
   ],
   "research": []
