@@ -1,7 +1,9 @@
 import { describe, expect, it } from "vitest";
 import {
+	findIdentityCollisions,
 	loadInventory,
 	searchInventory,
+	searchRequest,
 	validateRegistry,
 } from "../../scripts/indiehackers-registry.mjs";
 
@@ -35,6 +37,12 @@ describe("indiehackers research registry", () => {
 			"https://customer.carrd.co",
 		])
 			expect(searchInventory(inventory, url).recommendation).toBe("not-found");
+	});
+	it("suggests profile descendants without claiming a confirmed identity", () => {
+		const result = searchInventory(inventory, "https://x.com/ajlkn/status/123");
+		expect(result.recommendation).toBe("review-existing-candidate");
+		expect(result.matches[0]).toMatchObject({ id: "aj-carrd", match: "possible" });
+		expect(searchInventory(inventory, "https://x.com/ajlkn2/status/123").matches).toEqual([]);
 	});
 	it("flags spelling similarities for review instead of treating them as duplicates", () => {
 		const result = searchInventory(inventory, "Jon Yongfok");
@@ -76,5 +84,59 @@ describe("indiehackers research registry", () => {
 		fixture.registry.people.push({ id: "another-aj", name: "AJ", aliases: [], profiles: [] });
 		validateRegistry(fixture.registry);
 		expect(searchInventory(fixture, "AJ").recommendation).toBe("review-ambiguous-match");
+		expect(findIdentityCollisions(fixture.registry)).toEqual(
+			expect.arrayContaining([{ kind: "person-name", key: "aj", ids: ["aj-carrd", "another-aj"] }]),
+		);
+	});
+	it("reports shared profile URLs as reviewable collisions", () => {
+		const registry = structuredClone(inventory.registry);
+		registry.people.push({
+			id: "another-founder",
+			name: "Another Founder",
+			aliases: [],
+			profiles: ["http://www.jmduke.com/?source=other"],
+		});
+		validateRegistry(registry);
+		expect(findIdentityCollisions(registry)).toEqual(
+			expect.arrayContaining([
+				{ kind: "profile-url", key: "jmduke.com", ids: ["another-founder", "justin-duke"] },
+			]),
+		);
+	});
+	it("checks a candidate batch and marks repeated names or tracking URLs", () => {
+		const response = searchRequest(inventory, {
+			queries: [
+				"Previewmojo",
+				"Unregistered Founder",
+				"unregistered-founder",
+				"https://bannerbear.com/?ref=one",
+				"bannerbear.com?ref=two",
+			],
+		});
+		if (!("results" in response)) throw new Error("Expected batch results");
+		const { results } = response;
+		expect(results.map(({ recommendation, duplicateOf }) => [recommendation, duplicateOf])).toEqual(
+			[
+				["already-covered-or-in-progress", null],
+				["not-found", null],
+				["not-found", 1],
+				["already-covered-or-in-progress", null],
+				["already-covered-or-in-progress", 3],
+			],
+		);
+		expect(results[0].matches[0].coverage[0].workflowStatus).toBe("awaiting-translation");
+		expect(searchRequest(inventory, { query: "Previewmojo" })).toEqual(
+			searchInventory(inventory, "Previewmojo"),
+		);
+	});
+	it("rejects empty, oversized or malformed candidate batches", () => {
+		for (const request of [
+			{ queries: [] },
+			{ queries: Array(401).fill("AJ") },
+			{ queries: ["AJ", " "] },
+			{ query: "AJ", queries: ["Carrd"] },
+		]) {
+			expect(() => searchRequest(inventory, request)).toThrow();
+		}
 	});
 });

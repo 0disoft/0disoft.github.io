@@ -4,7 +4,14 @@ Before researching a person or product, query `indiehackers.json` through the
 `zero_disoft_github_io_research_lookup` mustflow intent with a `request` JSON path.
 Create a local `.mustflow/state/research-queries/*.json` containing, for example,
 `{"query":"Previewmojo"}`. Do not commit these temporary query files.
+For a candidate list, use `{"queries":["Previewmojo","bannerbear.com","New founder"]}`
+with the same intent. A batch accepts 1-400 queries and returns one result per input,
+in order. `duplicateOf` is the zero-based index of an earlier equivalent input,
+or `null`; it helps catch repeated names and URLs with different tracking parameters.
+Review these suggestions before starting research, including `not-found` entries.
 The `zero_disoft_github_io_research_check` intent validates and lists coverage.
+Its `identityCollisions` list highlights names, former names and profile URLs
+shared by different IDs. Review these cases manually; namesakes are allowed.
 Both are local, read-only, and return JSON.
 
 The standalone CLI also accepts `--query "Jon Yongfook"` or `--query "bannerbear.com"`.
@@ -28,8 +35,10 @@ translation-pending status. Do not manually mirror these states in the registry.
 ## Before New Research
 
 1. Query the original name, Korean name, product name or official URL.
+   For a long candidate list, screen the list in batches and inspect `duplicateOf`.
 2. Inspect every match and existing article path. Exact name matches can still be
-   namesakes. Partial/typo matches are suggestions, never confirmed identities.
+   namesakes. Partial/typo matches and profile subpage URLs are suggestions,
+   never confirmed identities.
 3. Skip repeat introductory research when already covered or in progress.
    A different product or a dated follow-up remains valid: inspect `relatedProducts`
    and coverage before deciding. The tool does not forbid follow-ups.
