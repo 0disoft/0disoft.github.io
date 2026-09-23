@@ -53,7 +53,11 @@ function getPostHref(slug: string): string {
 	<div class="indiehackers-reading-layout">
 		<div class="indiehackers-body">
 			{#each post.body.split(/\n{2,}/) as paragraph}
-				<p>{paragraph.replace(/\n/g, " ").trim()}</p>
+				{#if paragraph.trim().startsWith("## ")}
+					<h2>{paragraph.replace(/\n/g, " ").trim().slice(3).trim()}</h2>
+				{:else}
+					<p>{paragraph.replace(/\n/g, " ").trim()}</p>
+				{/if}
 			{/each}
 		</div>
 
@@ -146,6 +150,14 @@ function getPostHref(slug: string): string {
 
 	.indiehackers-body p {
 		margin: 0;
+	}
+
+	.indiehackers-body h2 {
+		margin: 0.75rem 0 0;
+		font-size: 1.32rem;
+		font-weight: 720;
+		letter-spacing: 0;
+		line-height: 1.35;
 	}
 
 	.indiehackers-sidecar {
