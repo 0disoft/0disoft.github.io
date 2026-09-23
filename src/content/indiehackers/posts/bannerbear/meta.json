@@ -1,15 +1,10 @@
 {
-  "status": "awaiting-review",
-  "preparedAt": "2026-09-23",
   "id": "bannerbear",
   "personIds": ["jon-yongfook"],
   "productIds": ["bannerbear"],
   "productName": "Bannerbear",
   "coverImage": "/images/indiehackers/bannerbear.webp",
-  "sourceLocale": "ko",
-  "pendingLocales": [],
-  "translationModel": "commandcode/meta-muse-spark-1.3-contributor",
-  "translationReasoningEffort": "xhigh",
+  "publishedAt": "2026-09-23",
   "tags": [
     "saas",
     "design-tools",
@@ -29,6 +24,5 @@
     "growth",
     "retention",
     "infrastructure"
-  ],
-  "publicationNote": "Not loaded by the site. Five translations are prepared for editorial review. Set the actual publication date and move the post to src/content/indiehackers/posts/bannerbear only after publication approval. No push or deployment authorized."
+  ]
 }
