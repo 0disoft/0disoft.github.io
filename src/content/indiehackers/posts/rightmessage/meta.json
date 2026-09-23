@@ -1,0 +1,19 @@
+{
+  "id": "rightmessage",
+  "personIds": ["brennan-dunn", "shai-schechter"],
+  "productIds": ["rightmessage", "planscope", "double-your-freelancing"],
+  "productName": "RightMessage",
+  "coverImage": "/images/indiehackers/rightmessage.webp",
+  "publishedAt": "2026-09-24",
+  "tags": [
+    "saas",
+    "web",
+    "b2b",
+    "subscription",
+    "validation",
+    "launch",
+    "acquisition",
+    "growth",
+    "retention"
+  ]
+}

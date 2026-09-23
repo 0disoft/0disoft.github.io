@@ -79,6 +79,18 @@
       "name": "Liz Hermann",
       "aliases": ["리즈 헤르만"],
       "profiles": []
+    },
+    {
+      "id": "brennan-dunn",
+      "name": "Brennan Dunn",
+      "aliases": ["브레넌 던"],
+      "profiles": ["https://www.brennandunn.com/"]
+    },
+    {
+      "id": "shai-schechter",
+      "name": "Shai Schechter",
+      "aliases": ["샤이 셰크터"],
+      "profiles": ["https://shai.io/"]
     }
   ],
   "products": [
@@ -172,6 +184,27 @@
       "aliases": ["런다운 스튜디오"],
       "domains": ["rundownstudio.app"],
       "personIds": ["lukas-hermann"]
+    },
+    {
+      "id": "rightmessage",
+      "name": "RightMessage",
+      "aliases": ["라이트메시지"],
+      "domains": ["rightmessage.com"],
+      "personIds": ["brennan-dunn", "shai-schechter"]
+    },
+    {
+      "id": "planscope",
+      "name": "Planscope",
+      "aliases": ["플랜스코프"],
+      "domains": ["planscope.io"],
+      "personIds": ["brennan-dunn"]
+    },
+    {
+      "id": "double-your-freelancing",
+      "name": "Double Your Freelancing",
+      "aliases": ["더블 유어 프리랜싱"],
+      "domains": ["doubleyourfreelancing.com"],
+      "personIds": ["brennan-dunn"]
     }
   ],
   "research": []
