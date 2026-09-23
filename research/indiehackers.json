@@ -43,6 +43,12 @@
       "name": "Jon Yongfook",
       "aliases": ["존 용푹", "Yongfook"],
       "profiles": []
+    },
+    {
+      "id": "jordan-oconnor",
+      "name": "Jordan O'Connor",
+      "aliases": ["조던 오코너"],
+      "profiles": ["https://jdnoc.com/"]
     }
   ],
   "products": [
@@ -94,6 +100,13 @@
       "aliases": ["배너베어", "Previewmojo", "Previewmojo / Bannerbear"],
       "domains": ["bannerbear.com"],
       "personIds": ["jon-yongfook"]
+    },
+    {
+      "id": "resellbot",
+      "name": "Resellbot",
+      "aliases": ["리셀봇", "Closet Tools", "Closet Assistant"],
+      "domains": ["resellbot.com", "closet.tools"],
+      "personIds": ["jordan-oconnor"]
     }
   ],
   "research": []
