@@ -1,0 +1,21 @@
+{
+  "id": "ai-flow-chat-starpop",
+  "personIds": ["alexander-van-le", "david-ishag"],
+  "productIds": ["ai-flow-chat", "starpop"],
+  "productName": "AI Flow Chat · Starpop",
+  "coverImage": "/images/indiehackers/ai-flow-chat-starpop.webp",
+  "publishedAt": "2026-09-24",
+  "tags": [
+    "saas",
+    "productivity",
+    "web",
+    "b2b",
+    "subscription",
+    "usage-based",
+    "small-team",
+    "bootstrapping",
+    "mvp",
+    "pricing",
+    "growth"
+  ]
+}

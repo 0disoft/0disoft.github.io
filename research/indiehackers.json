@@ -193,6 +193,18 @@
       "name": "Tony Dinh",
       "aliases": ["토니 딘"],
       "profiles": ["https://tonysoftware.com/"]
+    },
+    {
+      "id": "alexander-van-le",
+      "name": "Alexander Van Le",
+      "aliases": ["알렉산더 반 레", "Alex Le"],
+      "profiles": ["https://blog.alvanle.me/"]
+    },
+    {
+      "id": "david-ishag",
+      "name": "David Ishag",
+      "aliases": ["데이비드 이샤그"],
+      "profiles": []
     }
   ],
   "products": [
@@ -545,6 +557,20 @@
       "aliases": ["타이핑마인드"],
       "domains": ["typingmind.com"],
       "personIds": ["tony-dinh"]
+    },
+    {
+      "id": "ai-flow-chat",
+      "name": "AI Flow Chat",
+      "aliases": ["에이아이 플로우 챗"],
+      "domains": ["aiflowchat.com"],
+      "personIds": ["alexander-van-le"]
+    },
+    {
+      "id": "starpop",
+      "name": "Starpop",
+      "aliases": ["스타팝"],
+      "domains": ["starpop.ai"],
+      "personIds": ["alexander-van-le", "david-ishag"]
     }
   ],
   "research": []
