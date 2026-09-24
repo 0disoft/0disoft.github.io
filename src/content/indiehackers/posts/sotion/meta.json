@@ -1,7 +1,7 @@
 {
   "id": "sotion",
   "personIds": ["bruce-mclachlan"],
-  "productIds": ["namejax", "cloakist", "sotion"],
+  "productIds": ["cloakist", "sotion"],
   "productName": "Cloakist · Sotion",
   "coverImage": "/images/indiehackers/sotion.webp",
   "publishedAt": "2026-09-24",
