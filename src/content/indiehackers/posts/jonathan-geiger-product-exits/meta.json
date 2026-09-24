@@ -1,0 +1,22 @@
+{
+  "id": "jonathan-geiger-product-exits",
+  "personIds": ["jonathan-geiger", "yoav-mendelson"],
+  "productIds": ["lecturekit", "capturekit", "socialkit-geiger", "postpeer"],
+  "productName": "LectureKit · CaptureKit · SocialKit · PostPeer",
+  "coverImage": "/images/indiehackers/jonathan-geiger-product-exits.webp",
+  "publishedAt": "2026-09-24",
+  "tags": [
+    "saas",
+    "developer-tools",
+    "web",
+    "api",
+    "b2b",
+    "developers",
+    "subscription",
+    "usage-based",
+    "bootstrapping",
+    "open-source",
+    "growth",
+    "exit"
+  ]
+}

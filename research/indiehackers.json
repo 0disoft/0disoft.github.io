@@ -153,6 +153,12 @@
       "profiles": ["https://x.com/jonathangeige18"]
     },
     {
+      "id": "yoav-mendelson",
+      "name": "Yoav Mendelson",
+      "aliases": ["요아브 멘델슨"],
+      "profiles": ["https://www.postpeer.dev/about"]
+    },
+    {
       "id": "ramsri-goutham-golla",
       "name": "Ramsri Goutham Golla",
       "aliases": ["Ramsri Golla", "람스리 가우탐 골라"],
@@ -472,7 +478,7 @@
       "name": "PostPeer",
       "aliases": ["포스트피어"],
       "domains": ["postpeer.dev"],
-      "personIds": ["jonathan-geiger"]
+      "personIds": ["jonathan-geiger", "yoav-mendelson"]
     },
     {
       "id": "questgen-ai",
