@@ -169,6 +169,12 @@
       "name": "Nico Botha",
       "aliases": ["니코 보타"],
       "profiles": []
+    },
+    {
+      "id": "sergiu-chiriac",
+      "name": "Sergiu Chiriac",
+      "aliases": ["세르지우 키리악"],
+      "profiles": ["https://github.com/sergiuchiriac"]
     }
   ],
   "products": [
@@ -430,6 +436,20 @@
       "aliases": ["슈퍼밈", "Supermeme.ai"],
       "domains": ["supermeme.ai"],
       "personIds": ["ramsri-goutham-golla", "sanjeev-nc", "nico-botha"]
+    },
+    {
+      "id": "ai-directories",
+      "name": "AI Directories",
+      "aliases": ["에이아이 디렉터리스"],
+      "domains": ["aidirectori.es"],
+      "personIds": ["sergiu-chiriac"]
+    },
+    {
+      "id": "poweredbyai",
+      "name": "PoweredbyAI",
+      "aliases": ["파워드바이에이아이"],
+      "domains": ["poweredbyai.app"],
+      "personIds": ["sergiu-chiriac"]
     }
   ],
   "research": []
