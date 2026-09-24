@@ -211,6 +211,12 @@
       "name": "David Ishag",
       "aliases": ["데이비드 이샤그"],
       "profiles": []
+    },
+    {
+      "id": "danny-postma",
+      "name": "Danny Postma",
+      "aliases": ["대니 포스트마"],
+      "profiles": ["https://www.dannypostma.com/"]
     }
   ],
   "products": [
@@ -591,6 +597,41 @@
       "aliases": ["스타팝"],
       "domains": ["starpop.ai"],
       "personIds": ["alexander-van-le", "david-ishag"]
+    },
+    {
+      "id": "landingfolio",
+      "name": "Landingfolio",
+      "aliases": ["랜딩폴리오"],
+      "domains": ["landingfolio.com"],
+      "personIds": ["danny-postma"]
+    },
+    {
+      "id": "headlime",
+      "name": "Headlime",
+      "aliases": ["헤드라임"],
+      "domains": ["headlime.com"],
+      "personIds": ["danny-postma"]
+    },
+    {
+      "id": "profilepicture-ai",
+      "name": "ProfilePicture.AI",
+      "aliases": ["프로필픽처 AI"],
+      "domains": ["profilepicture.ai"],
+      "personIds": ["danny-postma"]
+    },
+    {
+      "id": "deep-agency",
+      "name": "Deep Agency",
+      "aliases": ["딥 에이전시"],
+      "domains": ["deepagency.com"],
+      "personIds": ["danny-postma"]
+    },
+    {
+      "id": "headshotpro",
+      "name": "HeadshotPro",
+      "aliases": ["헤드샷프로"],
+      "domains": ["headshotpro.com"],
+      "personIds": ["danny-postma"]
     }
   ],
   "research": []
