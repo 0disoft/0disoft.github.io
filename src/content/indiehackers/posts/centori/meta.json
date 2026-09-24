@@ -1,0 +1,18 @@
+{
+  "id": "centori",
+  "personIds": ["tyler-scionti"],
+  "productIds": ["centori"],
+  "productName": "Centori",
+  "coverImage": "/images/indiehackers/centori.webp",
+  "publishedAt": "2026-09-24",
+  "tags": [
+    "saas",
+    "content-service",
+    "web",
+    "b2b",
+    "subscription",
+    "solo-building",
+    "growth",
+    "acquisition"
+  ]
+}

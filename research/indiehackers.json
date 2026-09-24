@@ -133,6 +133,12 @@
       "name": "Louis Barclay",
       "aliases": ["루이스 바클레이"],
       "profiles": ["https://www.indiehackers.com/product/cloakist"]
+    },
+    {
+      "id": "tyler-scionti",
+      "name": "Tyler Scionti",
+      "aliases": ["타일러 시온티"],
+      "profiles": ["https://www.tylerscionti.com/"]
     }
   ],
   "products": [
@@ -338,6 +344,13 @@
       "aliases": ["네임잭스", "Namejax Brand Marketplace"],
       "domains": ["namejax.com"],
       "personIds": ["bruce-mclachlan"]
+    },
+    {
+      "id": "centori",
+      "name": "Centori",
+      "aliases": ["센토리"],
+      "domains": ["centori.io"],
+      "personIds": ["tyler-scionti"]
     }
   ],
   "research": []
