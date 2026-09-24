@@ -115,6 +115,12 @@
       "name": "Luca Restagno",
       "aliases": ["루카 레스타뇨", "ikoichi"],
       "profiles": ["https://x.com/ikoichi", "https://www.solopreneurtofreedom.com/"]
+    },
+    {
+      "id": "jason-zigelbaum",
+      "name": "Jason Zigelbaum",
+      "aliases": ["제이슨 지겔바움"],
+      "profiles": ["https://www.indiehackers.com/product/zigpoll"]
     }
   ],
   "products": [
@@ -292,6 +298,13 @@
       "aliases": ["Shipped", "쉽트 클럽"],
       "domains": ["shipped.club"],
       "personIds": ["luca-restagno"]
+    },
+    {
+      "id": "zigpoll",
+      "name": "Zigpoll",
+      "aliases": ["지그폴"],
+      "domains": ["zigpoll.com"],
+      "personIds": ["jason-zigelbaum"]
     }
   ],
   "research": []

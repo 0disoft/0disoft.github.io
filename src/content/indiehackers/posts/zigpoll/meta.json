@@ -1,0 +1,20 @@
+{
+  "id": "zigpoll",
+  "personIds": ["jason-zigelbaum"],
+  "productIds": ["zigpoll"],
+  "productName": "Zigpoll",
+  "coverImage": "/images/indiehackers/zigpoll.webp",
+  "publishedAt": "2026-09-24",
+  "tags": [
+    "saas",
+    "ecommerce",
+    "web",
+    "b2b",
+    "subscription",
+    "solo-building",
+    "bootstrapping",
+    "growth",
+    "acquisition",
+    "retention"
+  ]
+}
