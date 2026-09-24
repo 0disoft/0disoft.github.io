@@ -1,0 +1,21 @@
+{
+  "id": "supermeme-ai",
+  "personIds": ["ramsri-goutham-golla", "sanjeev-nc", "nico-botha"],
+  "productIds": ["supermeme-ai"],
+  "productName": "Supermeme.ai",
+  "coverImage": "/images/indiehackers/supermeme-ai.webp",
+  "publishedAt": "2026-09-25",
+  "tags": [
+    "saas",
+    "web",
+    "api",
+    "design-tools",
+    "b2b",
+    "subscription",
+    "small-team",
+    "bootstrapping",
+    "growth",
+    "acquisition",
+    "pricing"
+  ]
+}
