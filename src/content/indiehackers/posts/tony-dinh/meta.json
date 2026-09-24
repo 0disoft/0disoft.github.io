@@ -1,0 +1,23 @@
+{
+  "id": "tony-dinh",
+  "personIds": ["tony-dinh"],
+  "productIds": ["devutils", "blackmagic", "xnapper", "typingmind"],
+  "productName": "DevUtils · BlackMagic · Xnapper · TypingMind",
+  "coverImage": "/images/indiehackers/tony-dinh.webp",
+  "publishedAt": "2026-09-24",
+  "tags": [
+    "developer-tools",
+    "productivity",
+    "saas",
+    "desktop-app",
+    "browser-extension",
+    "web",
+    "b2b",
+    "subscription",
+    "one-time-purchase",
+    "solo-building",
+    "bootstrapping",
+    "growth",
+    "exit"
+  ]
+}

@@ -187,6 +187,12 @@
       "name": "Marc Lou",
       "aliases": ["Marc Louvion", "마크 루"],
       "profiles": ["https://newsletter.marclou.com/"]
+    },
+    {
+      "id": "tony-dinh",
+      "name": "Tony Dinh",
+      "aliases": ["토니 딘"],
+      "profiles": ["https://tonysoftware.com/"]
     }
   ],
   "products": [
@@ -490,6 +496,34 @@
       "aliases": ["데이터패스트"],
       "domains": ["datafa.st"],
       "personIds": ["marc-lou"]
+    },
+    {
+      "id": "devutils",
+      "name": "DevUtils",
+      "aliases": ["데브유틸스"],
+      "domains": ["devutils.com"],
+      "personIds": ["tony-dinh"]
+    },
+    {
+      "id": "blackmagic",
+      "name": "BlackMagic",
+      "aliases": ["블랙매직", "BlackMagic.so"],
+      "domains": ["blackmagic.so"],
+      "personIds": ["tony-dinh"]
+    },
+    {
+      "id": "xnapper",
+      "name": "Xnapper",
+      "aliases": ["엑스내퍼"],
+      "domains": ["xnapper.com"],
+      "personIds": ["tony-dinh"]
+    },
+    {
+      "id": "typingmind",
+      "name": "TypingMind",
+      "aliases": ["타이핑마인드"],
+      "domains": ["typingmind.com"],
+      "personIds": ["tony-dinh"]
     }
   ],
   "research": []
