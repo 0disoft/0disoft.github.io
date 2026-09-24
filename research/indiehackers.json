@@ -151,6 +151,24 @@
       "name": "Jonathan Geiger",
       "aliases": ["조너선 가이거"],
       "profiles": ["https://x.com/jonathangeige18"]
+    },
+    {
+      "id": "ramsri-goutham-golla",
+      "name": "Ramsri Goutham Golla",
+      "aliases": ["Ramsri Golla", "람스리 가우탐 골라"],
+      "profiles": ["https://www.questgen.ai/team"]
+    },
+    {
+      "id": "sanjeev-nc",
+      "name": "Sanjeev NC",
+      "aliases": ["산지브 NC"],
+      "profiles": []
+    },
+    {
+      "id": "nico-botha",
+      "name": "Nico Botha",
+      "aliases": ["니코 보타"],
+      "profiles": []
     }
   ],
   "products": [
@@ -398,6 +416,20 @@
       "aliases": ["포스트피어"],
       "domains": ["postpeer.dev"],
       "personIds": ["jonathan-geiger"]
+    },
+    {
+      "id": "questgen-ai",
+      "name": "Questgen",
+      "aliases": ["퀘스트젠", "Questgen.ai"],
+      "domains": ["questgen.ai"],
+      "personIds": ["ramsri-goutham-golla"]
+    },
+    {
+      "id": "supermeme-ai",
+      "name": "Supermeme",
+      "aliases": ["슈퍼밈", "Supermeme.ai"],
+      "domains": ["supermeme.ai"],
+      "personIds": ["ramsri-goutham-golla", "sanjeev-nc", "nico-botha"]
     }
   ],
   "research": []

@@ -1,0 +1,19 @@
+{
+  "id": "questgen-supermeme",
+  "personIds": ["ramsri-goutham-golla", "sanjeev-nc", "nico-botha"],
+  "productIds": ["questgen-ai", "supermeme-ai"],
+  "productName": "Questgen · Supermeme",
+  "coverImage": "/images/indiehackers/questgen-supermeme.webp",
+  "publishedAt": "2026-09-24",
+  "tags": [
+    "saas",
+    "web",
+    "api",
+    "b2b",
+    "developers",
+    "subscription",
+    "bootstrapping",
+    "growth",
+    "acquisition"
+  ]
+}
