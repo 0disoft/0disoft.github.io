@@ -139,6 +139,12 @@
       "name": "Tyler Scionti",
       "aliases": ["타일러 시온티"],
       "profiles": ["https://www.tylerscionti.com/"]
+    },
+    {
+      "id": "mike-perham",
+      "name": "Mike Perham",
+      "aliases": ["마이크 퍼럼"],
+      "profiles": ["https://www.mikeperham.com/"]
     }
   ],
   "products": [
@@ -351,6 +357,13 @@
       "aliases": ["센토리"],
       "domains": ["centori.io"],
       "personIds": ["tyler-scionti"]
+    },
+    {
+      "id": "sidekiq",
+      "name": "Sidekiq",
+      "aliases": ["사이드킥", "Sidekiq Pro", "Sidekiq Enterprise"],
+      "domains": ["sidekiq.org"],
+      "personIds": ["mike-perham"]
     }
   ],
   "research": []

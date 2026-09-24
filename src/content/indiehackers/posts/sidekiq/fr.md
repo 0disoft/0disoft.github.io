@@ -1,0 +1,64 @@
+---
+{
+  "title": "Sidekiq : de l’outil gratuit au revenu récurrent d’un développeur solo",
+  "summary": "Mike Perham a publié Sidekiq en 2012, puis a vendu des licences commerciales avant de lancer les abonnements Pro et Enterprise, jusqu’à 13,5 millions de dollars de chiffre d’affaires cumulé pour Contributed Systems, avec un seul salarié."
+}
+---
+
+## Construire un outil de traitement des tâches en arrière-plan
+
+En 2012, Mike Perham a publié Sidekiq, un outil qui traite les tâches en arrière-plan des applications Ruby. La version de base était distribuée gratuitement, et il vendait une licence commerciale à 50 dollars aux entreprises qui voulaient d’autres conditions d’utilisation. Les premières ventes de licences ont représenté 33 exemplaires, pour un total de 1 650 dollars. Pour continuer à maintenir un outil dans lequel il avait investi des centaines d’heures de développement, il lui fallait un produit pour lequel les clients paieraient pour des raisons plus claires.
+
+Le rôle de Sidekiq concernait les tâches répétitives effectuées en coulisses dans un service web. En traitant séparément l’envoi d’un e-mail de confirmation de commande ou la synchronisation de données avec un service externe, l’utilisateur n’a pas besoin d’attendre devant son écran que l’opération se termine. Les équipes de développement disposent ainsi d’une base commune pour mettre les tâches en file d’attente, les relancer en cas d’échec et suivre leur état de traitement.
+
+Perham était un développeur qui avait lui-même construit ce type de système dans plusieurs entreprises. En 2008, chez FiveRuns, il a créé une file de tâches, puis il a développé plusieurs outils de traitement en arrière-plan en modifiant la méthode de stockage et la structure d’exécution. Sidekiq intègre l’expérience accumulée au cours de ce parcours et des choix de conception visant à réduire les inconvénients des outils existants.
+
+Le choix central était une architecture qui traite les tâches avec plusieurs threads au sein d’un même processus. L’objectif était de réduire la charge de ressources qu’entraîne l’ajout continu de processus pour augmenter le nombre de traitements simultanés. Lors de l’adoption, il accordait une grande importance à une intégration étroite avec Rails et à une compatibilité permettant aux utilisateurs existants de Resque de migrer facilement.
+
+L’entreprise de commerce en ligne The Clymb, où il travaillait, a utilisé le produit initial dans son propre service. En octobre 2012, Perham a indiqué que six mois s’étaient écoulés depuis la mise en production de Sidekiq chez cette entreprise et qu’il fonctionnait plus rapidement et plus stablement que la précédente configuration Delayed Job. L’expérience acquise sur un service exploité en interne a servi de base pour améliorer le produit et concevoir les fonctionnalités payantes.
+
+## Sidekiq Pro, le début des revenus
+
+Lancé en octobre 2012, Sidekiq Pro coûtait 500 dollars par entreprise. Il comprenait une fonction de lots permettant de regrouper plusieurs tâches et de suivre leur progression, des notifications envoyées à la fin d’un ensemble de tâches et la collecte d’indicateurs d’exploitation. Un développeur pouvait ainsi construire un enchaînement comme le traitement de plusieurs centaines d’images avant de passer à l’étape suivante. Au-dessus de l’outil de traitement de base, il ajoutait comme extension payante des fonctionnalités qu’une entreprise aurait eu du mal à créer et à maintenir elle-même.
+
+Pro s’est vendu à environ 140 exemplaires la première année suivant son lancement, pour un chiffre d’affaires de 70 000 dollars. Vers octobre 2013, le rythme de vente annualisé atteignait environ 100 000 dollars, ce qui laissait entrevoir la possibilité de transformer une activité secondaire en activité principale. Dans le même bilan, Perham notait avoir publié 34 versions de Sidekiq au cours de l’année écoulée. Avec l’arrivée de revenus, la raison de continuer à consacrer du temps aux améliorations et aux corrections de bugs devenait évidente.
+
+Les premières ventes se sont diffusées grâce à la confiance qu’il avait bâtie parmi les développeurs Ruby. Perham tenait un blog technique depuis 2007 et rencontrait des développeurs à RubyConf et RailsConf pour répondre à leurs questions. Il arrivait régulièrement que des développeurs ayant essayé le produit le recommandent à des collègues ou le réintroduisent dans une entreprise où ils venaient d’arriver. Il citait comme exemples importants de cette croissance des développeurs qui avaient acheté Pro dans deux ou trois entreprises différentes.
+
+Dans les dix-huit mois qui ont suivi le lancement de Pro, le chiffre d’affaires mensuel a atteint environ 10 000 dollars. Comme les revenus de son activité secondaire dépassaient son salaire, Perham s’est préparé à l’indépendance et a quitté The Clymb en juillet 2014. Le même mois, il a fondé Contributed Systems et s’est consacré à plein temps au développement et au support de Sidekiq. Le changement de statut est venu après que le produit a atteint le stade où il couvrait réellement les frais de vie.
+
+## Abonnements et offre Enterprise
+
+La version payante s’est développée dans le sens d’un accompagnement plus profond des flux de travail des entreprises. En février 2015, Pro 2.0 a modifié la structure pour permettre d’imbriquer des lots dans d’autres lots et gérer ainsi des tâches en plusieurs étapes. Le nouveau planificateur a également corrigé la période pendant laquelle des tâches pouvaient être perdues lors de leur transfert vers la file d’attente. À la valeur achetée par les clients s’ajoutaient le contrôle de tâches complexes et la stabilité d’exploitation.
+
+Le mode de vente a lui aussi évolué vers l’abonnement, en phase avec la maintenance continue. Dans un entretien de 2016, Perham citait comme sa plus grande erreur d’avoir offert un support à vie contre un paiement unique. Quand Ruby et Rails changent, le produit doit être corrigé, et plus les utilisateurs sont nombreux, plus le travail de support se poursuit. À l’époque, il vendait un abonnement annuel adapté à la nature d’un produit qui accompagne une application pendant des années.
+
+En août 2015, il a lancé Sidekiq Enterprise à destination des entreprises plus grandes. Des fonctions ont été ajoutées pour limiter les pics de requêtes vers des API externes, exécuter des tâches selon un calendrier défini et empêcher les doublons d’enregistrement. Ces fonctionnalités visaient les problèmes d’exploitation qui apparaissent quand le volume de traitement augmente et que plusieurs systèmes sont connectés. La clientèle capable de payer plus cher que pour Pro et l’usage correspondant se sont précisés.
+
+Pour Enterprise, le processus d’achat a également été adapté aux exigences des entreprises. Pro conservait le paiement par carte bancaire, tandis qu’Enterprise ouvrait une procédure passant par devis, bon de commande et facture. Au lancement, il proposait aussi la négociation des conditions contractuelles et une heure de conseil à l’intégration menée par Perham lui-même. En somme, au produit que les développeurs voulaient utiliser s’ajoutait une procédure permettant aux entreprises d’acheter réellement.
+
+Les tarifs étaient différenciés selon l’échelle d’exploitation. À l’époque, Pro coûtait 950 dollars par an sans limite sur le volume de tâches exécutées, tandis qu’Enterprise augmentait son prix selon le nombre de threads de traitement utilisés en production. La structure offrait un forfait simple aux petites entreprises et faisait payer aux grandes un montant correspondant à leur usage.
+
+En 2015, année du lancement d’Enterprise, le chiffre d’affaires a été multiplié par 2,6 par rapport à l’année précédente et le prix de vente moyen a doublé. Perham racontait qu’il s’était d’abord fixé l’objectif de vendre 2 000 produits à 500 dollars pour gagner un million de dollars. En gérant l’activité, il a jugé plus réaliste de s’assurer 500 clients payant 2 000 dollars. C’était l’expérience d’un produit de niche destiné aux entreprises, où la limite du nombre de clients se résout par une utilité élevée et un prix adapté.
+
+## Un périmètre d’exploitation en solo
+
+Le second produit n’a pas transformé la même méthode en revenus suffisants. Inspeqtor, un outil de surveillance des processus lancé fin 2014, et sa version payante n’ont pas atteint les attentes en matière d’usage et de ventes. Dans un bilan de 2015, Perham annonçait qu’il laissait le produit existant disponible mais qu’il n’y ajouterait plus de nouvelles fonctionnalités. Il cessait d’allouer du temps de développement à un produit dont la réponse commerciale était faible.
+
+En octobre 2017, Faktory a étendu un domaine qu’il connaissait bien, le traitement des tâches en arrière-plan. Il a séparé le serveur de tâches de l’exécuteur, afin que la conception accumulée avec Sidekiq soit utilisable dans d’autres langages de programmation. Au lancement, il fournissait des exécuteurs pour Ruby et Go, ce qui permettait d’échanger des tâches de la même manière dans des systèmes composés de plusieurs langages.
+
+Le mode de distribution du produit a aussi contribué à maintenir une échelle exploitable en solo. Sidekiq s’exécute sur les serveurs du client, si bien que l’infrastructure que Perham exploitait pour la vente pouvait se concentrer sur la distribution et la gestion des accès du logiciel payant. L’architecture de déploiement présentée en 2016 reposait sur une instance de serveur à 5 dollars par mois et Apache, avec deux machines prévues pour les pannes. Les serveurs qui traitent le travail réel des clients et ceux qui vendent le logiciel avaient des rôles distincts.
+
+Les tâches répétitives qui suivaient le paiement n’ont été automatisées qu’après la croissance des ventes. Les deux premières années, il recevait les notifications de vente et ajoutait lui-même les droits d’accès des clients. Ensuite, il a relié les notifications de paiement Stripe à la création du compte, à l’envoi par e-mail des instructions d’installation et à la suppression des droits de téléchargement à la fin de l’abonnement. Pendant le parcours du client, de l’achat à l’installation, le fondateur n’avait plus besoin d’intervenir à chaque étape.
+
+Le travail de support qui exigeait une intervention humaine subsistait. Perham expliquait qu’il emportait son ordinateur portable même en vacances et répondait aux e-mails pendant environ une heure le matin avant de profiter du reste de la journée. Considérant que l’embauche augmenterait les tâches de gestion et les frais d’exploitation, il a conçu son activité dans un périmètre qu’il pouvait assumer efficacement ou automatiser.
+
+## Le développement après dix ans
+
+En janvier 2022, à l’occasion des dix ans de Sidekiq, Contributed Systems comptait 1 850 clients. Le chiffre d’affaires cumulé de l’entreprise atteignait 13,5 millions de dollars et le seul salarié était Perham lui-même. Il indiquait que le support des utilisateurs de Sidekiq et de Faktory occupait la majeure partie de son temps de travail. Les revenus générés par les extensions commerciales finançaient la maintenance du produit sur le long terme.
+
+Les améliorations du produit se sont poursuivies ensuite. Sidekiq 8.0, présenté en mars 2025, intégrait une fonction d’analyse des performances des tâches en cours et une interface d’administration remaniée, et la fonction qui découpe les tâches longues en petites unités a été affinée. En plus de Redis, le support officiel de Valkey et DragonflyDB élargissait le choix de stockage des clients. À l’efficacité de traitement des débuts s’ajoutait le souci de rendre le produit plus confortable à exploiter pour les entreprises déjà clientes.
+
+Après la croissance, il a redéfini l’étendue des demandes individuelles des entreprises. Dans la FAQ commerciale de 2026, il indiquait arrêter la négociation de conditions contractuelles spécifiques et réserver la rédaction de documents de sécurité et de conformité aux clients Enterprise d’une certaine taille. Si l’offre Enterprise initiale avait ouvert la porte aux achats des entreprises, les conditions d’exploitation ultérieures ont limité le périmètre des négociations et des documents récurrents. Cette standardisation devient un moyen de maîtriser les tâches non techniques quand le nombre de clients augmente.
+
+L’activité de Sidekiq s’est développée en reprenant à son compte une fonction de traitement des tâches que les entreprises auraient dû mettre en œuvre et maintenir elles-mêmes. Les clients avaient des raisons de calculer ensemble le temps de développement, la charge de gestion des pannes et le coût des améliorations continues, et Perham obtenait de son côté un revenu pour maintenir cette fonction dans la durée. En combinant la diffusion d’un outil gratuit, la vente de fonctions pour entreprises, une tarification selon l’échelle d’usage et un périmètre d’exploitation limité, il a fait d’un outil pour développeurs son métier à long terme.

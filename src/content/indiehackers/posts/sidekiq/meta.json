@@ -1,0 +1,19 @@
+{
+  "id": "sidekiq",
+  "personIds": ["mike-perham"],
+  "productIds": ["sidekiq"],
+  "productName": "Sidekiq",
+  "coverImage": "/images/indiehackers/sidekiq.webp",
+  "publishedAt": "2026-09-24",
+  "tags": [
+    "developer-tools",
+    "b2b",
+    "developers",
+    "subscription",
+    "licensing",
+    "solo-building",
+    "open-source",
+    "growth",
+    "infrastructure"
+  ]
+}
