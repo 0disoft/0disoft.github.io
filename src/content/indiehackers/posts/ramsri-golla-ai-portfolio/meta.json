@@ -1,0 +1,19 @@
+{
+  "id": "ramsri-golla-ai-portfolio",
+  "personIds": ["ramsri-goutham-golla", "sanjeev-nc", "nico-botha"],
+  "productIds": ["questgen-ai", "supermeme-ai", "supertranslate-ai", "aiartist-io"],
+  "productName": "Questgen · Supermeme · AiArtist",
+  "coverImage": "/images/indiehackers/ramsri-golla-ai-portfolio.webp",
+  "publishedAt": "2026-09-24",
+  "tags": [
+    "saas",
+    "web",
+    "design-tools",
+    "subscription",
+    "one-time-purchase",
+    "small-team",
+    "bootstrapping",
+    "growth",
+    "validation"
+  ]
+}

@@ -489,6 +489,20 @@
       "personIds": ["ramsri-goutham-golla", "sanjeev-nc", "nico-botha"]
     },
     {
+      "id": "supertranslate-ai",
+      "name": "Supertranslate",
+      "aliases": ["슈퍼트랜슬레이트", "Supertranslate.ai"],
+      "domains": ["supertranslate.ai"],
+      "personIds": ["ramsri-goutham-golla"]
+    },
+    {
+      "id": "aiartist-io",
+      "name": "AiArtist",
+      "aliases": ["에이아이아티스트", "AIArtist"],
+      "domains": ["aiartist.io"],
+      "personIds": ["ramsri-goutham-golla"]
+    },
+    {
       "id": "ai-directories",
       "name": "AI Directories",
       "aliases": ["에이아이 디렉터리스"],
