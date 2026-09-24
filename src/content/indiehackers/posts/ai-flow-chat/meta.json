@@ -1,0 +1,22 @@
+{
+  "id": "ai-flow-chat",
+  "personIds": ["alexander-van-le"],
+  "productIds": ["ai-flow-chat"],
+  "productName": "AI Flow Chat",
+  "coverImage": "/images/indiehackers/ai-flow-chat.webp",
+  "publishedAt": "2026-09-25",
+  "tags": [
+    "saas",
+    "productivity",
+    "web",
+    "b2b",
+    "subscription",
+    "usage-based",
+    "small-team",
+    "bootstrapping",
+    "mvp",
+    "pricing",
+    "acquisition",
+    "growth"
+  ]
+}
