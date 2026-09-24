@@ -1,0 +1,19 @@
+{
+  "id": "swifteq",
+  "personIds": ["sorin-alupoaie"],
+  "productIds": ["swifteq"],
+  "productName": "Swifteq",
+  "coverImage": "/images/indiehackers/swifteq.webp",
+  "publishedAt": "2026-09-24",
+  "tags": [
+    "saas",
+    "productivity",
+    "web",
+    "b2b",
+    "subscription",
+    "solo-building",
+    "bootstrapping",
+    "growth",
+    "acquisition"
+  ]
+}

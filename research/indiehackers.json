@@ -175,6 +175,12 @@
       "name": "Sergiu Chiriac",
       "aliases": ["세르지우 키리악"],
       "profiles": ["https://github.com/sergiuchiriac"]
+    },
+    {
+      "id": "sorin-alupoaie",
+      "name": "Sorin Alupoaie",
+      "aliases": ["소린 알루포아이"],
+      "profiles": []
     }
   ],
   "products": [
@@ -450,6 +456,13 @@
       "aliases": ["파워드바이에이아이"],
       "domains": ["poweredbyai.app"],
       "personIds": ["sergiu-chiriac"]
+    },
+    {
+      "id": "swifteq",
+      "name": "Swifteq",
+      "aliases": [],
+      "domains": ["swifteq.com"],
+      "personIds": ["sorin-alupoaie"]
     }
   ],
   "research": []
