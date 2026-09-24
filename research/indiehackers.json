@@ -217,6 +217,12 @@
       "name": "Danny Postma",
       "aliases": ["대니 포스트마"],
       "profiles": ["https://www.dannypostma.com/"]
+    },
+    {
+      "id": "david-bressler",
+      "name": "David Bressler",
+      "aliases": ["데이비드 브레슬러"],
+      "profiles": ["https://www.linkedin.com/in/davidbressler1/"]
     }
   ],
   "products": [
@@ -632,6 +638,13 @@
       "aliases": ["헤드샷프로"],
       "domains": ["headshotpro.com"],
       "personIds": ["danny-postma"]
+    },
+    {
+      "id": "better-analyst",
+      "name": "Better Analyst",
+      "aliases": ["Formula Bot", "Excel Formula Bot", "베터 애널리스트", "엑셀 포뮬러 봇"],
+      "domains": ["betteranalyst.com", "formulabot.com"],
+      "personIds": ["david-bressler"]
     }
   ],
   "research": []

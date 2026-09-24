@@ -1,0 +1,21 @@
+{
+  "id": "better-analyst",
+  "personIds": ["david-bressler"],
+  "productIds": ["better-analyst"],
+  "productName": "Better Analyst (formerly Formula Bot)",
+  "coverImage": "/images/indiehackers/better-analyst.webp",
+  "publishedAt": "2026-09-25",
+  "tags": [
+    "saas",
+    "productivity",
+    "web",
+    "b2b",
+    "subscription",
+    "solo-building",
+    "small-team",
+    "bootstrapping",
+    "growth",
+    "pricing",
+    "acquisition"
+  ]
+}
