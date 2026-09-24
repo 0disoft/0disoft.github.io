@@ -323,6 +323,27 @@
       "personIds": ["damon-chen"]
     },
     {
+      "id": "pdf-ai",
+      "name": "PDF.ai",
+      "aliases": ["PDF AI", "Looseleaf.ai", "피디에프에이아이"],
+      "domains": ["pdf.ai"],
+      "personIds": ["damon-chen"]
+    },
+    {
+      "id": "pdfgen",
+      "name": "PDFgen",
+      "aliases": ["피디에프젠"],
+      "domains": ["pdfgen.com"],
+      "personIds": ["damon-chen"]
+    },
+    {
+      "id": "docsium",
+      "name": "Docsium",
+      "aliases": ["독시움"],
+      "domains": ["docsium.com"],
+      "personIds": ["damon-chen"]
+    },
+    {
       "id": "helpkit",
       "name": "HelpKit",
       "aliases": ["헬프킷"],

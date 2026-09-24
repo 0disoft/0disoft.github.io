@@ -1,0 +1,20 @@
+{
+  "id": "pdf-ai",
+  "personIds": ["damon-chen"],
+  "productIds": ["pdf-ai", "testimonial-to", "indielog", "pdfgen", "docsium"],
+  "productName": "PDF.ai · Testimonial.to",
+  "coverImage": "/images/indiehackers/pdf-ai.webp",
+  "publishedAt": "2026-09-24",
+  "tags": [
+    "saas",
+    "web",
+    "b2b",
+    "subscription",
+    "one-time-purchase",
+    "small-team",
+    "bootstrapping",
+    "validation",
+    "acquisition",
+    "growth"
+  ]
+}
