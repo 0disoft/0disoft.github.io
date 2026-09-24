@@ -1,0 +1,21 @@
+{
+  "id": "appalchemy",
+  "personIds": ["diego-roshardt"],
+  "productIds": ["appalchemy"],
+  "productName": "AppAlchemy",
+  "coverImage": "/images/indiehackers/appalchemy.webp",
+  "publishedAt": "2026-09-25",
+  "tags": [
+    "saas",
+    "web",
+    "design-tools",
+    "subscription",
+    "usage-based",
+    "solo-building",
+    "bootstrapping",
+    "mvp",
+    "acquisition",
+    "growth",
+    "pricing"
+  ]
+}

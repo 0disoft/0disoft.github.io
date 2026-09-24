@@ -223,6 +223,12 @@
       "name": "David Bressler",
       "aliases": ["데이비드 브레슬러"],
       "profiles": ["https://www.linkedin.com/in/davidbressler1/"]
+    },
+    {
+      "id": "diego-roshardt",
+      "name": "Diego Roshardt",
+      "aliases": ["디에고 로샤르트"],
+      "profiles": []
     }
   ],
   "products": [
@@ -645,6 +651,13 @@
       "aliases": ["Formula Bot", "Excel Formula Bot", "베터 애널리스트", "엑셀 포뮬러 봇"],
       "domains": ["betteranalyst.com", "formulabot.com"],
       "personIds": ["david-bressler"]
+    },
+    {
+      "id": "appalchemy",
+      "name": "AppAlchemy",
+      "aliases": ["App Alchemy", "앱알케미"],
+      "domains": ["appalchemy.ai"],
+      "personIds": ["diego-roshardt"]
     }
   ],
   "research": []
