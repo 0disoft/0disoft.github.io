@@ -1,0 +1,21 @@
+{
+  "id": "socialkit-postpeer",
+  "personIds": ["jonathan-geiger"],
+  "productIds": ["socialkit-geiger", "postpeer"],
+  "productName": "SocialKit · PostPeer",
+  "coverImage": "/images/indiehackers/socialkit-postpeer.webp",
+  "publishedAt": "2026-09-24",
+  "tags": [
+    "saas",
+    "developer-tools",
+    "web",
+    "api",
+    "b2b",
+    "developers",
+    "subscription",
+    "usage-based",
+    "solo-building",
+    "growth",
+    "acquisition"
+  ]
+}

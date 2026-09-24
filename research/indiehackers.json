@@ -145,6 +145,12 @@
       "name": "Mike Perham",
       "aliases": ["마이크 퍼럼"],
       "profiles": ["https://www.mikeperham.com/"]
+    },
+    {
+      "id": "jonathan-geiger",
+      "name": "Jonathan Geiger",
+      "aliases": ["조너선 가이거"],
+      "profiles": ["https://x.com/jonathangeige18"]
     }
   ],
   "products": [
@@ -364,6 +370,34 @@
       "aliases": ["사이드킥", "Sidekiq Pro", "Sidekiq Enterprise"],
       "domains": ["sidekiq.org"],
       "personIds": ["mike-perham"]
+    },
+    {
+      "id": "lecturekit",
+      "name": "LectureKit",
+      "aliases": ["렉처킷"],
+      "domains": ["lecturekit.io"],
+      "personIds": ["jonathan-geiger"]
+    },
+    {
+      "id": "capturekit",
+      "name": "CaptureKit",
+      "aliases": ["캡처킷"],
+      "domains": ["capturekit.dev"],
+      "personIds": ["jonathan-geiger"]
+    },
+    {
+      "id": "socialkit-geiger",
+      "name": "SocialKit",
+      "aliases": ["소셜킷"],
+      "domains": ["socialkit.dev"],
+      "personIds": ["jonathan-geiger"]
+    },
+    {
+      "id": "postpeer",
+      "name": "PostPeer",
+      "aliases": ["포스트피어"],
+      "domains": ["postpeer.dev"],
+      "personIds": ["jonathan-geiger"]
     }
   ],
   "research": []
