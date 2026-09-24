@@ -109,6 +109,12 @@
       "name": "Dmytro Krasun",
       "aliases": ["드미트로 크라순"],
       "profiles": ["https://dmytrokrasun.com/"]
+    },
+    {
+      "id": "luca-restagno",
+      "name": "Luca Restagno",
+      "aliases": ["루카 레스타뇨", "ikoichi"],
+      "profiles": ["https://x.com/ikoichi", "https://www.solopreneurtofreedom.com/"]
     }
   ],
   "products": [
@@ -251,6 +257,41 @@
       "aliases": ["스크린샷원"],
       "domains": ["screenshotone.com"],
       "personIds": ["dmytro-krasun"]
+    },
+    {
+      "id": "iterspace",
+      "name": "Iterspace",
+      "aliases": ["이터스페이스"],
+      "domains": ["iterspace.com"],
+      "personIds": ["luca-restagno"]
+    },
+    {
+      "id": "hivoe",
+      "name": "Hivoe",
+      "aliases": ["하이보"],
+      "domains": ["hivoe.com"],
+      "personIds": ["luca-restagno"]
+    },
+    {
+      "id": "inboxs",
+      "name": "Inboxs",
+      "aliases": ["인박스"],
+      "domains": ["inboxs.io"],
+      "personIds": ["luca-restagno"]
+    },
+    {
+      "id": "userdesk",
+      "name": "Userdesk",
+      "aliases": ["유저데스크", "Notionbase"],
+      "domains": ["userdesk.io"],
+      "personIds": ["luca-restagno"]
+    },
+    {
+      "id": "shipped-club",
+      "name": "Shipped.club",
+      "aliases": ["Shipped", "쉽트 클럽"],
+      "domains": ["shipped.club"],
+      "personIds": ["luca-restagno"]
     }
   ],
   "research": []

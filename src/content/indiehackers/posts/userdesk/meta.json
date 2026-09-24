@@ -1,0 +1,22 @@
+{
+  "id": "userdesk",
+  "personIds": ["luca-restagno"],
+  "productIds": ["iterspace", "hivoe", "inboxs", "userdesk", "shipped-club"],
+  "productName": "Userdesk",
+  "coverImage": "/images/indiehackers/userdesk.webp",
+  "publishedAt": "2026-09-24",
+  "tags": [
+    "saas",
+    "developer-tools",
+    "web",
+    "b2b",
+    "developers",
+    "subscription",
+    "one-time-purchase",
+    "solo-building",
+    "bootstrapping",
+    "validation",
+    "acquisition",
+    "exit"
+  ]
+}
