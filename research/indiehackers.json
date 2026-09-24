@@ -181,6 +181,12 @@
       "name": "Sorin Alupoaie",
       "aliases": ["소린 알루포아이"],
       "profiles": []
+    },
+    {
+      "id": "marc-lou",
+      "name": "Marc Lou",
+      "aliases": ["Marc Louvion", "마크 루"],
+      "profiles": ["https://newsletter.marclou.com/"]
     }
   ],
   "products": [
@@ -463,6 +469,27 @@
       "aliases": [],
       "domains": ["swifteq.com"],
       "personIds": ["sorin-alupoaie"]
+    },
+    {
+      "id": "shipfast",
+      "name": "ShipFast",
+      "aliases": ["Shipfa.st", "쉽패스트"],
+      "domains": ["shipfa.st"],
+      "personIds": ["marc-lou"]
+    },
+    {
+      "id": "codefast",
+      "name": "CodeFast",
+      "aliases": ["코드패스트"],
+      "domains": ["codefa.st"],
+      "personIds": ["marc-lou"]
+    },
+    {
+      "id": "datafast",
+      "name": "DataFast",
+      "aliases": ["데이터패스트"],
+      "domains": ["datafa.st"],
+      "personIds": ["marc-lou"]
     }
   ],
   "research": []

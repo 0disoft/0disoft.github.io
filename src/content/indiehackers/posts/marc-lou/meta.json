@@ -1,0 +1,20 @@
+{
+  "id": "marc-lou",
+  "personIds": ["marc-lou"],
+  "productIds": ["shipfast", "codefast", "datafast"],
+  "productName": "ShipFast · CodeFast · DataFast",
+  "coverImage": "/images/indiehackers/marc-lou.webp",
+  "publishedAt": "2026-09-24",
+  "tags": [
+    "saas",
+    "developer-tools",
+    "web",
+    "b2b",
+    "developers",
+    "one-time-purchase",
+    "subscription",
+    "solo-building",
+    "bootstrapping",
+    "growth"
+  ]
+}
