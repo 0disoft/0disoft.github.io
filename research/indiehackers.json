@@ -121,6 +121,18 @@
       "name": "Jason Zigelbaum",
       "aliases": ["제이슨 지겔바움"],
       "profiles": ["https://www.indiehackers.com/product/zigpoll"]
+    },
+    {
+      "id": "bruce-mclachlan",
+      "name": "Bruce McLachlan",
+      "aliases": ["브루스 맥라클런"],
+      "profiles": ["https://x.com/_brucem", "https://bml.bio.link/"]
+    },
+    {
+      "id": "louis-barclay",
+      "name": "Louis Barclay",
+      "aliases": ["루이스 바클레이"],
+      "profiles": ["https://www.indiehackers.com/product/cloakist"]
     }
   ],
   "products": [
@@ -305,6 +317,27 @@
       "aliases": ["지그폴"],
       "domains": ["zigpoll.com"],
       "personIds": ["jason-zigelbaum"]
+    },
+    {
+      "id": "cloakist",
+      "name": "Cloakist",
+      "aliases": ["클로키스트"],
+      "domains": ["cloak.ist"],
+      "personIds": ["bruce-mclachlan", "louis-barclay"]
+    },
+    {
+      "id": "sotion",
+      "name": "Sotion",
+      "aliases": ["소션"],
+      "domains": ["sotion.so"],
+      "personIds": ["bruce-mclachlan", "louis-barclay"]
+    },
+    {
+      "id": "namejax",
+      "name": "Namejax",
+      "aliases": ["네임잭스", "Namejax Brand Marketplace"],
+      "domains": ["namejax.com"],
+      "personIds": ["bruce-mclachlan"]
     }
   ],
   "research": []
