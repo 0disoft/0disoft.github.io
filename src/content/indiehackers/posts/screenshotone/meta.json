@@ -1,0 +1,20 @@
+{
+  "id": "screenshotone",
+  "personIds": ["dmytro-krasun"],
+  "productIds": ["screenshotone"],
+  "productName": "ScreenshotOne",
+  "coverImage": "/images/indiehackers/screenshotone.webp",
+  "publishedAt": "2026-09-24",
+  "tags": [
+    "saas",
+    "web",
+    "b2b",
+    "api",
+    "subscription",
+    "bootstrapping",
+    "launch",
+    "acquisition",
+    "growth",
+    "retention"
+  ]
+}

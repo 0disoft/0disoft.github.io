@@ -103,6 +103,12 @@
       "name": "Dominik Sobe",
       "aliases": ["도미니크 소베"],
       "profiles": ["https://dominiksobe.com/"]
+    },
+    {
+      "id": "dmytro-krasun",
+      "name": "Dmytro Krasun",
+      "aliases": ["드미트로 크라순"],
+      "profiles": ["https://dmytrokrasun.com/"]
     }
   ],
   "products": [
@@ -238,6 +244,13 @@
       "aliases": ["헬프킷"],
       "domains": ["helpkit.so"],
       "personIds": ["dominik-sobe"]
+    },
+    {
+      "id": "screenshotone",
+      "name": "ScreenshotOne",
+      "aliases": ["스크린샷원"],
+      "domains": ["screenshotone.com"],
+      "personIds": ["dmytro-krasun"]
     }
   ],
   "research": []
