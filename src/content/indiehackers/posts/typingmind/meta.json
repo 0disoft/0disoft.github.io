@@ -1,0 +1,20 @@
+{
+  "id": "typingmind",
+  "personIds": ["tony-dinh"],
+  "productIds": ["typingmind"],
+  "productName": "TypingMind",
+  "coverImage": "/images/indiehackers/typingmind.webp",
+  "publishedAt": "2026-09-25",
+  "tags": [
+    "saas",
+    "productivity",
+    "web",
+    "b2b",
+    "subscription",
+    "one-time-purchase",
+    "solo-building",
+    "bootstrapping",
+    "growth",
+    "pricing"
+  ]
+}
