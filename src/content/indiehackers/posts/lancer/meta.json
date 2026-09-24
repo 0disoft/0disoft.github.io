@@ -1,0 +1,22 @@
+{
+  "id": "lancer",
+  "personIds": ["ivan-nedelkovski"],
+  "productIds": ["lancer", "upworkmrr"],
+  "productName": "Lancer",
+  "coverImage": "/images/indiehackers/lancer.webp",
+  "publishedAt": "2026-09-25",
+  "tags": [
+    "saas",
+    "web",
+    "b2b",
+    "productivity",
+    "subscription",
+    "usage-based",
+    "small-team",
+    "bootstrapping",
+    "mvp",
+    "acquisition",
+    "growth",
+    "pricing"
+  ]
+}

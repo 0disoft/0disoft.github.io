@@ -229,6 +229,12 @@
       "name": "Diego Roshardt",
       "aliases": ["디에고 로샤르트"],
       "profiles": []
+    },
+    {
+      "id": "ivan-nedelkovski",
+      "name": "Ivan Nedelkovski",
+      "aliases": ["이반 네델코브스키"],
+      "profiles": []
     }
   ],
   "products": [
@@ -658,6 +664,20 @@
       "aliases": ["App Alchemy", "앱알케미"],
       "domains": ["appalchemy.ai"],
       "personIds": ["diego-roshardt"]
+    },
+    {
+      "id": "lancer",
+      "name": "Lancer",
+      "aliases": ["랜서", "Lancer AI"],
+      "domains": ["lancer.app"],
+      "personIds": ["ivan-nedelkovski"]
+    },
+    {
+      "id": "upworkmrr",
+      "name": "UpworkMRR",
+      "aliases": ["업워크MRR"],
+      "domains": ["upworkmrr.com"],
+      "personIds": ["ivan-nedelkovski"]
     }
   ],
   "research": []
