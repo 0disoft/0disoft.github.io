@@ -1,0 +1,22 @@
+{
+  "id": "jonathan-geiger-full-time",
+  "personIds": ["jonathan-geiger", "yoav-mendelson"],
+  "productIds": ["lecturekit", "capturekit", "socialkit-geiger", "postpeer"],
+  "productName": "SocialKit · PostPeer",
+  "coverImage": "/images/indiehackers/jonathan-geiger-full-time.webp",
+  "publishedAt": "2026-09-25",
+  "tags": [
+    "saas",
+    "developer-tools",
+    "web",
+    "api",
+    "b2b",
+    "developers",
+    "subscription",
+    "usage-based",
+    "bootstrapping",
+    "small-team",
+    "growth",
+    "exit"
+  ]
+}
