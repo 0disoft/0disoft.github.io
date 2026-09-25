@@ -1,0 +1,19 @@
+{
+  "id": "helpkit-career-change",
+  "personIds": ["dominik-sobe"],
+  "productIds": ["helpkit"],
+  "productName": "HelpKit",
+  "coverImage": "/images/indiehackers/helpkit-career-change.webp",
+  "publishedAt": "2026-09-25",
+  "tags": [
+    "saas",
+    "web",
+    "b2b",
+    "subscription",
+    "bootstrapping",
+    "validation",
+    "mvp",
+    "launch",
+    "growth"
+  ]
+}
