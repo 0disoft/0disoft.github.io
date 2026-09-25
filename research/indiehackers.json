@@ -241,6 +241,12 @@
       "name": "Erik Chavez",
       "aliases": ["에릭 차베스"],
       "profiles": []
+    },
+    {
+      "id": "shaun-donnelly",
+      "name": "Shaun Donnelly",
+      "aliases": ["숀 도널리", "Codakuma"],
+      "profiles": ["https://codakuma.com/"]
     }
   ],
   "products": [
@@ -691,6 +697,13 @@
       "aliases": ["잡릭"],
       "domains": ["jobric.ai"],
       "personIds": ["erik-chavez"]
+    },
+    {
+      "id": "personal-best",
+      "name": "Personal Best",
+      "aliases": ["퍼스널 베스트"],
+      "domains": ["getpersonalbest.com"],
+      "personIds": ["shaun-donnelly"]
     }
   ],
   "research": []

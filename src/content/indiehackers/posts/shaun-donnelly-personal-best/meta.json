@@ -1,0 +1,18 @@
+{
+  "id": "shaun-donnelly-personal-best",
+  "personIds": ["shaun-donnelly"],
+  "productIds": ["personal-best"],
+  "productName": "Personal Best",
+  "coverImage": "/images/indiehackers/shaun-donnelly-personal-best.webp",
+  "publishedAt": "2026-09-25",
+  "tags": [
+    "mobile-app",
+    "b2c",
+    "subscription",
+    "one-time-purchase",
+    "solo-building",
+    "bootstrapping",
+    "growth",
+    "pricing"
+  ]
+}

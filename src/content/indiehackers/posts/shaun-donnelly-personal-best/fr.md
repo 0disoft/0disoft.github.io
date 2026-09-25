@@ -1,0 +1,66 @@
+---
+{
+  "title": "Shaun Donnelly a fait grandir Personal Best tout en gardant un emploi",
+  "summary": "Comment Shaun Donnelly a créé une application de suivi d’entraînement en parallèle d’un emploi à temps plein et de missions, a testé le temps plein et a fait progresser ses revenus grâce aux mises en avant de l’App Store, aux abonnements et aux prix par région."
+}
+---
+
+## Construire Personal Best tout en ayant un emploi
+
+Shaun Donnelly a ajusté plusieurs fois l’équilibre entre son emploi et sa propre activité pendant qu’il faisait grandir Personal Best, une application de suivi d’entraînement. Il développait en marge d’un emploi à temps plein, puis a testé le temps plein par périodes de quelques mois, et après être revenu au salariat il est passé à trois jours par semaine de missions tout en menant le produit. Son cas montre le processus consistant à sécuriser des revenus qui font vivre tout en augmentant peu à peu le temps qu’il pouvait consacrer à son propre produit.
+
+Le point de départ, c’est son domicile en 2020. Donnelly, développeur web qui travaillait alors chez Skyscanner, a commencé à apprendre le développement iOS le soir et le week-end, à mesure que la covid-19 réduisait les sorties. SwiftUI était un outil accessible pour quelqu’un à l’aise avec React, et comme il aimait l’exercice il a choisi une application qui exploiterait les données d’Apple Health. Ce choix comportait aussi le calcul de ne pas avoir à assumer en même temps le développement serveur et la prise en charge de plusieurs systèmes d’exploitation.
+
+Personal Best travaille avec l’historique d’entraînement déjà stocké sur l’appareil de l’utilisateur. Elle récupère les données enregistrées dans Apple Health et présente de façon lisible les statistiques par entraînement, le classement des records et les évolutions par période. Si une application d’entraînement existante écrit ses données dans Apple Health, celles-ci peuvent être réutilisées, de sorte que l’utilisateur garde ses habitudes d’enregistrement tout en ajoutant une couche d’analyse. L’opportunité d’affaires résidait dans l’expérience consistant à relire et comparer les données collectées.
+
+Donnelly a publié Personal Best sur l’App Store le 2 mai 2020. Mais les téléchargements de mai à septembre, période où il comptait sur le bouche-à-oreille sans faire de marketing, ont à peine dépassé 200. En juin, il a ajouté Personal Best Pro, un achat unique qui débloquait des fonctions supplémentaires, et vers la fin de l’année il avait atteint environ 300 achats. Des clients payants sont bien apparus, mais il a clairement indiqué qu’il n’avait pas l’intention de quitter son emploi à ce moment-là.
+
+La percée pour la première vague d’utilisateurs est venue de la sortie d’iOS 14. Il a préparé des widgets et des cartes de parcours d’entraînement pour le nouveau système d’exploitation, et a informé de la mise à jour les journalistes qui cherchaient des applications liées. Quand Personal Best est apparu dans des articles de 9to5Mac et TechCrunch, les téléchargements du 17 septembre 2020 ont atteint 951 en une seule journée. Une fois l’intérêt de quelques semaines retombé, le rythme est revenu à 5 à 10 téléchargements par jour, mais il a appris à faire connaître un produit au rythme du calendrier de mise à jour d’une plateforme.
+
+En 2021, il a aussi testé l’effet de la distribution gratuite. Débloquer la fonction payante pendant une journée et être repris par Apps Gone Free a fait bondir les téléchargements, mais les revenus annuels se sont limités à environ 1 500 dollars, un peu moins que les quelque 1 700 dollars de l’année précédente. Donnelly a expliqué que beaucoup d’utilisateurs suppriment une application peu après l’avoir obtenue simplement parce qu’elle est gratuite. Une expérience qui a montré combien il est difficile de juger la croissance d’une activité sur le seul bond des installations.
+
+## Réorganiser l’emploi et le modèle de revenus
+
+En juillet de la même année, il a quitté Skyscanner et rejoint Duffel, une startup de technologie du voyage. Il était content de ce nouvel emploi, mais le rythme était soutenu et, en fin de journée, il était assez épuisé pour vouloir s’éloigner de l’ordinateur et se reposer. Résultat, le rythme de développement de Personal Best a nettement ralenti au second semestre. Même avec des frais de vie stables, il devait gérer séparément l’énergie et la concentration nécessaires pour continuer à développer.
+
+Fin 2022, il a discuté avec son entreprise et a d’abord changé son propre rôle. Il a quitté les fonctions de responsable d’ingénierie et est redevenu ingénieur logiciel. Aider ses collègues à progresser était gratifiant aussi, mais il a jugé qu’il était plus heureux en se concentrant sur des problèmes techniques.
+
+Il a aussi changé son emploi du temps. Il a conservé les 40 heures hebdomadaires, mais appliqué un horaire comprimé, avec 10 heures par jour du mardi au vendredi. Les lundis ainsi libérés lui permettaient de traiter des affaires personnelles ou de développer son application. C’était une manière de créer un bloc continu de temps de travail en accord avec son employeur, et il a consigné que son calme mental et sa productivité s’étaient améliorés dès le début du dispositif.
+
+Il a aussi revu le modèle de revenus cet été-là. La structure prévoyait auparavant de payer 5 dollars une fois pour débloquer les fonctions Pro, mais pour bâtir un second revenu stable il a introduit des abonnements mensuels et annuels et proposé en plus un accès à vie. Les acheteurs Pro existants ont reçu un accès à vie, préservant ce qu’ils avaient déjà payé.
+
+Juste après le changement, l’échelle restait petite. Fin 2022, les revenus récurrents annualisés atteignaient environ 250 dollars, et son objectif pour l’année suivante était de les doubler, à 500 dollars. À ce stade, les abonnements étaient loin de couvrir les frais de vie, mais pour Donnelly ils signalaient qu’il existait des clients qui payaient régulièrement pour continuer à utiliser le produit.
+
+## Le passage à temps plein et une mise en avant par l’App Store
+
+En juin 2023, alors que l’entreprise lançait une réduction d’effectifs, une option plus large s’est ouverte. Donnelly a demandé un départ volontaire et a décidé de consacrer plusieurs mois entièrement à Personal Best plutôt que de chercher tout de suite un nouvel emploi. Comme les revenus de l’application suffisaient difficilement à vivre à temps plein à ce moment-là, il prévoyait de mettre de côté une indemnité modeste pour financer une période d’expérimentation. Il a aussi précisé la condition qu’il rechercherait un emploi à temps plein s’il avait besoin d’argent.
+
+Pendant la période à temps plein, il s’est concentré sur les écrans principaux que l’utilisateur touche directement. Il a refait l’écran de partage qui transforme un enregistrement d’entraînement en image, et réécrit l’application Apple Watch pour l’adapter au design du nouveau système d’exploitation. En améliorant les écrans de liste et de résumé des entraînements, il a mis davantage en avant les photos et les cartes de parcours, et il a aussi retouché l’écran de paiement. Il a pu mener d’un coup les améliorations qu’il avait reportées faute de temps auparavant.
+
+Il a aussi revu les prix. Après comparaison avec des applications similaires, il a jugé son tarif trop bas et l’a augmenté, et selon son observation les achats n’ont pas diminué. Il a réglé les abonnés existants pour qu’ils conservent l’ancien prix. Il a mené en parallèle l’expérience de la hausse de prix et le travail de gestion de la charge pour les clients actuels.
+
+Le plus grand changement de trafic est venu d’une place dans une liste mise en avant sur l’App Store américain. Un jour, les abonnements d’essai actifs qu’il voyait dans RevenueCat avaient grimpé à environ dix fois la normale, et ce n’est que le lendemain qu’il a appris la mise en avant. Donnelly a raconté que les utilisateurs actifs quotidiens sont aussi passés d’environ 1 000 à environ vingt fois ce chiffre. Avec les améliorations du produit et l’ajustement des prix, la croissance s’est accélérée parce que de nouveaux utilisateurs ont eu l’occasion de découvrir l’application.
+
+Dans le bilan de 2023, les téléchargements annuels de Personal Best étaient d’environ 87 000 et les revenus de 18 200 dollars. Les revenus récurrents mensuels en fin d’année étaient de 1 279 dollars, au-delà de l’objectif de 1 000 dollars par mois fixé en cours d’année. Donnelly a cité environ cinq mois de développement à temps plein et la mise en avant par l’App Store comme les deux tournants de la croissance. Ce fut l’année où une application restée petite pendant plusieurs années a commencé à augmenter sérieusement ses revenus.
+
+## Faire grandir à nouveau l’application après le retour au salariat
+
+Après avoir terminé l’expérience à temps plein, il est retourné au salariat. L’emploi commencé en décembre 2023 ne lui convenait pas bien, et en 2024 il est passé à une entreprise qui le satisfaisait davantage. Tout en continuant à exploiter l’application, il a poursuivi ses choix visant à améliorer les conditions de travail de son emploi principal.
+
+Entre-temps, l’application a continué de croître. En 2024, elle a été désignée App du jour sur l’App Store dans plus de 150 régions, et les téléchargements annuels ont atteint environ 180 000 pour des revenus d’environ 35 000 dollars. Des revenus presque doublés par rapport à l’année précédente, qui ont augmenté ses gains hors emploi. En même temps, comme les mises en avant constituaient un canal de trafic majeur, les choix éditoriaux d’Apple avaient un fort impact sur l’activité.
+
+Il y a aussi eu une tentative de répartir les revenus sur plusieurs applications. Il a publié SalaryPig et deux applications de quiz, mais en 2024 les revenus des quatre applications autres que Personal Best, additionnés, n’ont atteint que 713 dollars. Il prévoyait de développer rapidement les applications de quiz en réutilisant du code commun, mais il a arrêté d’en produire à cause de la charge du processus de validation des applications. Devant ce résultat, il a décidé de se concentrer sur Personal Best en 2025.
+
+Il a aussi consacré du temps à maintenir seul une application devenue importante. En 2024, il a refait la fonction de classement des records, dont l’ancienne conception des données bloquait les améliorations, et il a déplacé dans l’application la FAQ qui se trouvait sur le site web. Comme des demandes continuaient d’arriver sur des réponses déjà présentes dans la documentation, il a changé l’endroit où l’utilisateur trouve les réponses. Pour préserver son temps de développement limité, il a dû traiter la maintenance et le support client en même temps que l’ajout de fonctions.
+
+## Des expériences plus fines et les résultats de 2025
+
+En mars 2025, la startup où il travaillait a fermé brusquement. Donnelly s’est de nouveau consacré entièrement à Personal Best pendant environ six mois, et à partir de septembre il a commencé trois jours par semaine de développement en mission. C’était une forme de travail qui sécurisait des revenus extérieurs tout en répartissant le reste de son temps sur sa propre application.
+
+Ses expériences pour faire grandir le produit sont aussi devenues plus précises. En avril 2025, pour comparer deux écrans de paiement, il a mis en place un test A/B qui présentait une version différente à chaque utilisateur et enregistrait la réaction. Grâce à son outil d’analyse habituel, TelemetryDeck, intégré à RevenueCat, il a relié les impressions d’écran aux achats. Au-delà de l’évaluation du soin apporté à un écran, il a commencé à vérifier quelle configuration menait réellement au paiement.
+
+Dans les expériences de prix, il a aussi tenu compte du pouvoir d’achat par région. Il a baissé d’environ 90 % les prix des abonnements en Inde et a divulgué que les revenus de 2025 en Inde avaient augmenté de 128 % par rapport à l’année précédente. Donnelly l’a interprété comme le fait que davantage d’acheteurs au prix plus bas compensaient la baisse du prix unitaire. Un cas qui montre qu’il n’est pas nécessaire d’appliquer la même stratégie de prix à tous les pays.
+
+Dans le bilan de 2025, les téléchargements et les revenus ont pris des directions opposées. Les téléchargements annuels de Personal Best sont passés de 180 000 à 137 000, mais les revenus annuels de l’activité d’applications qu’il a divulgués ont augmenté pour atteindre environ 45 000 dollars. Au 31 décembre 2025, les revenus récurrents mensuels étaient de 3 630 dollars. Il a obtenu plus de revenus avec moins de nouveaux téléchargements, et Donnelly a estimé que ses améliorations de la monétisation portaient leurs fruits.
+
+Ce que ce cas donne à lire, c’est qu’il existe de nombreuses étapes, même dans la manière de mener de front un emploi et une activité. On peut ajuster son poste et ses jours de travail selon sa propre énergie, tester le temps plein sur une période définie et reprendre du travail extérieur si nécessaire. Les critères importants sont les revenus réels du produit et le temps que l’on peut continuer à y consacrer. Le parcours de Donnelly montre comment il est possible de changer peu à peu sa façon de travailler tout en vérifiant ces deux conditions.
