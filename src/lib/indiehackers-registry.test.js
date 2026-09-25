@@ -124,7 +124,11 @@ describe("indiehackers research registry", () => {
 				["already-covered-or-in-progress", 3],
 			],
 		);
-		expect(results[0].matches[0].coverage[0].workflowStatus).toBe("awaiting-translation");
+		expect(results[0].matches[0].coverage[0]).toMatchObject({
+			id: "bannerbear",
+			status: "published",
+			workflowStatus: null,
+		});
 		expect(searchRequest(inventory, { query: "Previewmojo" })).toEqual(
 			searchInventory(inventory, "Previewmojo"),
 		);
