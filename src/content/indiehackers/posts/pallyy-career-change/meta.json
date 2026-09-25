@@ -1,0 +1,18 @@
+{
+  "id": "pallyy-career-change",
+  "personIds": ["tim-bennetto"],
+  "productIds": ["pallyy"],
+  "productName": "Pallyy",
+  "coverImage": "/images/indiehackers/pallyy-career-change.webp",
+  "publishedAt": "2026-09-25",
+  "tags": [
+    "saas",
+    "web",
+    "productivity",
+    "solo-building",
+    "small-team",
+    "bootstrapping",
+    "acquisition",
+    "growth"
+  ]
+}
