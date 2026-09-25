@@ -182,7 +182,10 @@ export function loadInventory(root = repositoryRoot) {
 		["drafts/indiehackers", "draft.json", "draft"],
 	]) {
 		const base = resolve(root, directory);
-		if (!existsSync(base)) throw new Error(`Missing content directory: ${directory}`);
+		if (!existsSync(base)) {
+			if (status === "draft") continue;
+			throw new Error(`Missing content directory: ${directory}`);
+		}
 		for (const entry of readdirSync(base, { withFileTypes: true })) {
 			if (!entry.isDirectory()) continue;
 			const path = resolve(base, entry.name, file);

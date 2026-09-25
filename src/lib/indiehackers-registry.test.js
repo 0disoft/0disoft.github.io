@@ -1,4 +1,7 @@
 import { describe, expect, it } from "vitest";
+import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import {
 	findIdentityCollisions,
 	loadInventory,
@@ -9,6 +12,21 @@ import {
 
 describe("indiehackers research registry", () => {
 	const inventory = loadInventory();
+	it("allows an absent drafts directory in a clean checkout", () => {
+		const root = mkdtempSync(join(tmpdir(), "indiehackers-registry-"));
+		try {
+			mkdirSync(join(root, "research"));
+			mkdirSync(join(root, "src/content/indiehackers/posts"), { recursive: true });
+			writeFileSync(join(root, "research/indiehackers.json"), JSON.stringify(inventory.registry));
+			expect(loadInventory(root).articles).toEqual([]);
+			rmSync(join(root, "src/content/indiehackers/posts"), { recursive: true });
+			expect(() => loadInventory(root)).toThrow(
+				"Missing content directory: src/content/indiehackers/posts",
+			);
+		} finally {
+			rmSync(root, { recursive: true, force: true });
+		}
+	});
 	it("links existing articles and untranslated drafts", () => {
 		expect(inventory.registry.people.length).toBeGreaterThanOrEqual(8);
 		expect(inventory.registry.products.length).toBeGreaterThanOrEqual(7);
