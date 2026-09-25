@@ -1,0 +1,18 @@
+{
+  "id": "buttondown-independent",
+  "personIds": ["justin-duke"],
+  "productIds": ["buttondown"],
+  "productName": "Buttondown",
+  "coverImage": "/images/indiehackers/buttondown-independent.webp",
+  "publishedAt": "2026-09-25",
+  "tags": [
+    "saas",
+    "web",
+    "subscription",
+    "small-team",
+    "bootstrapping",
+    "growth",
+    "pricing",
+    "retention"
+  ]
+}
