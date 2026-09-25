@@ -1,0 +1,19 @@
+{
+  "id": "jobric",
+  "personIds": ["erik-chavez"],
+  "productIds": ["jobric"],
+  "productName": "Jobric",
+  "coverImage": "/images/indiehackers/jobric.webp",
+  "publishedAt": "2026-09-25",
+  "tags": [
+    "saas",
+    "web",
+    "b2c",
+    "subscription",
+    "bootstrapping",
+    "solo-building",
+    "mvp",
+    "growth",
+    "pricing"
+  ]
+}

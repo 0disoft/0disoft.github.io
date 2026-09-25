@@ -235,6 +235,12 @@
       "name": "Ivan Nedelkovski",
       "aliases": ["이반 네델코브스키"],
       "profiles": []
+    },
+    {
+      "id": "erik-chavez",
+      "name": "Erik Chavez",
+      "aliases": ["에릭 차베스"],
+      "profiles": []
     }
   ],
   "products": [
@@ -678,6 +684,13 @@
       "aliases": ["업워크MRR"],
       "domains": ["upworkmrr.com"],
       "personIds": ["ivan-nedelkovski"]
+    },
+    {
+      "id": "jobric",
+      "name": "Jobric",
+      "aliases": ["잡릭"],
+      "domains": ["jobric.ai"],
+      "personIds": ["erik-chavez"]
     }
   ],
   "research": []
