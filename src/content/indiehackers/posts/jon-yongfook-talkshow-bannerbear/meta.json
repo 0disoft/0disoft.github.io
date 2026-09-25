@@ -1,0 +1,21 @@
+{
+  "id": "jon-yongfook-talkshow-bannerbear",
+  "personIds": ["jon-yongfook"],
+  "productIds": ["talkshow-yongfook", "bannerbear"],
+  "productName": "Talkshow · Bannerbear",
+  "coverImage": "/images/indiehackers/jon-yongfook-talkshow-bannerbear.webp",
+  "publishedAt": "2026-09-25",
+  "tags": [
+    "saas",
+    "design-tools",
+    "api",
+    "b2b",
+    "subscription",
+    "solo-building",
+    "bootstrapping",
+    "validation",
+    "retention",
+    "pricing",
+    "growth"
+  ]
+}

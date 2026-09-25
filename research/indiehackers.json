@@ -300,6 +300,13 @@
       "personIds": ["jon-yongfook"]
     },
     {
+      "id": "talkshow-yongfook",
+      "name": "Talkshow",
+      "aliases": ["톡쇼", "Talkshow Team"],
+      "domains": ["talkshow.team"],
+      "personIds": ["jon-yongfook"]
+    },
+    {
       "id": "resellbot",
       "name": "Resellbot",
       "aliases": ["리셀봇", "Closet Tools", "Closet Assistant"],
