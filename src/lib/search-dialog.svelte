@@ -1,9 +1,12 @@
 <script lang="ts">
+	import { page } from "$app/state";
 	import { onDestroy, tick } from "svelte";
 	import { X } from "@lucide/svelte";
 	import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
 	import { toDisplayLocale } from "$lib/site-labels";
+	import { filterIndiehackersPosts } from "$lib/indiehackers-posts";
+	import { localizeSitePathname } from "$lib/site-locales";
 	import { isEditableKeyboardTarget, isModifiedKeyEvent } from "$lib/site-keyboard";
 	import IconButton from "$lib/ui/icon-button.svelte";
 
@@ -12,6 +15,7 @@
 		url: string;
 		title: string;
 		excerpt: string;
+		plainExcerpt?: boolean;
 	};
 
 	type PagefindSearchResponse = {
@@ -99,8 +103,18 @@
 				return;
 			}
 
-			results = [];
-			status = "unavailable";
+			results = filterIndiehackersPosts(page.data.indiehackersPosts, {
+				query: term,
+				tags: [],
+				recentOnly: false,
+			}).map((post) => ({
+				id: post.slug,
+				url: localizeSitePathname(`/indiehackers/${post.slug}`, displayLocale),
+				title: post.title,
+				excerpt: post.summary,
+				plainExcerpt: true,
+			}));
+			status = results.length > 0 ? "ready" : "unavailable";
 		}
 	}
 
@@ -239,7 +253,11 @@
 							>
 								<span class="search-result-title">{result.title}</span>
 								{#if result.excerpt}
-									<span class="search-result-excerpt">{@html result.excerpt}</span>
+									{#if result.plainExcerpt}
+										<span class="search-result-excerpt">{result.excerpt}</span>
+									{:else}
+										<span class="search-result-excerpt">{@html result.excerpt}</span>
+									{/if}
 								{/if}
 							</a>
 						</li>
