@@ -253,6 +253,12 @@
       "name": "Filip Panoski",
       "aliases": ["필립 파노스키"],
       "profiles": ["https://x.com/FilipPanoski"]
+    },
+    {
+      "id": "jakub-muzik",
+      "name": "Jakub Mužík",
+      "aliases": ["야쿠프 무지크", "Jakub Muzik"],
+      "profiles": ["https://www.linkedin.com/in/jakub-muzik/"]
     }
   ],
   "products": [
@@ -724,6 +730,13 @@
       "aliases": ["바즐리"],
       "domains": ["bazzly.ai"],
       "personIds": ["filip-panoski"]
+    },
+    {
+      "id": "leadverse",
+      "name": "Leadverse",
+      "aliases": ["리드버스"],
+      "domains": ["leadverse.ai"],
+      "personIds": ["jakub-muzik"]
     }
   ],
   "research": []

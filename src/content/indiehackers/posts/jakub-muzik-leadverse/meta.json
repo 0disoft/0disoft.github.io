@@ -1,0 +1,22 @@
+{
+  "id": "jakub-muzik-leadverse",
+  "personIds": ["jakub-muzik"],
+  "productIds": ["leadverse"],
+  "productName": "Leadverse",
+  "coverImage": "/images/indiehackers/jakub-muzik-leadverse.webp",
+  "publishedAt": "2026-09-27",
+  "tags": [
+    "saas",
+    "web",
+    "b2b",
+    "subscription",
+    "usage-based",
+    "solo-building",
+    "bootstrapping",
+    "validation",
+    "pricing",
+    "acquisition",
+    "growth",
+    "retention"
+  ]
+}
