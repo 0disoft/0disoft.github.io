@@ -1,0 +1,21 @@
+{
+  "id": "marc-lou-early-products-shipfast",
+  "personIds": ["marc-lou"],
+  "productIds": ["shipfast"],
+  "productName": "ShipFast",
+  "coverImage": "/images/indiehackers/marc-lou-early-products-shipfast.webp",
+  "publishedAt": "2026-09-27",
+  "tags": [
+    "saas",
+    "developer-tools",
+    "web",
+    "developers",
+    "one-time-purchase",
+    "commission",
+    "solo-building",
+    "bootstrapping",
+    "validation",
+    "acquisition",
+    "exit"
+  ]
+}
