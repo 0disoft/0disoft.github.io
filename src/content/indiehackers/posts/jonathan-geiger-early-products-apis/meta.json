@@ -1,0 +1,22 @@
+{
+  "id": "jonathan-geiger-early-products-apis",
+  "personIds": ["jonathan-geiger", "yoav-mendelson"],
+  "productIds": ["lecturekit", "capturekit", "socialkit-geiger", "postpeer"],
+  "productName": "SocialKit · PostPeer",
+  "coverImage": "/images/indiehackers/jonathan-geiger-early-products-apis.webp",
+  "publishedAt": "2026-09-27",
+  "tags": [
+    "saas",
+    "web",
+    "b2b",
+    "subscription",
+    "usage-based",
+    "one-time-purchase",
+    "bootstrapping",
+    "validation",
+    "mvp",
+    "acquisition",
+    "growth",
+    "exit"
+  ]
+}
