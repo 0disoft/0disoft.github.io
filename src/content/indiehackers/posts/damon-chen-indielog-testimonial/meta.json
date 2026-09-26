@@ -1,0 +1,21 @@
+{
+  "id": "damon-chen-indielog-testimonial",
+  "personIds": ["damon-chen"],
+  "productIds": ["indielog", "testimonial-to"],
+  "productName": "IndieLog · Testimonial.to",
+  "coverImage": "/images/indiehackers/damon-chen-indielog-testimonial.webp",
+  "publishedAt": "2026-09-27",
+  "tags": [
+    "saas",
+    "web",
+    "b2b",
+    "subscription",
+    "one-time-purchase",
+    "bootstrapping",
+    "validation",
+    "mvp",
+    "pricing",
+    "acquisition",
+    "growth"
+  ]
+}
