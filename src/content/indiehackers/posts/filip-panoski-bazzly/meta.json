@@ -1,0 +1,22 @@
+{
+  "id": "filip-panoski-bazzly",
+  "personIds": ["filip-panoski"],
+  "productIds": ["bazzly"],
+  "productName": "Bazzly",
+  "coverImage": "/images/indiehackers/filip-panoski-bazzly.webp",
+  "publishedAt": "2026-09-27",
+  "tags": [
+    "saas",
+    "web",
+    "b2b",
+    "subscription",
+    "usage-based",
+    "small-team",
+    "bootstrapping",
+    "validation",
+    "pricing",
+    "acquisition",
+    "growth",
+    "retention"
+  ]
+}
