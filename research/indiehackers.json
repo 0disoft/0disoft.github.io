@@ -277,6 +277,12 @@
       "name": "Noah Bragg",
       "aliases": ["노아 브래그"],
       "profiles": ["https://www.indiehackers.com/noahwbragg"]
+    },
+    {
+      "id": "andrey-azimov",
+      "name": "Andrey Azimov",
+      "aliases": ["안드레이 아지모프"],
+      "profiles": ["https://www.andreyazimov.com/bio"]
     }
   ],
   "products": [
@@ -783,6 +789,13 @@
       "aliases": ["포션"],
       "domains": ["potion.so"],
       "personIds": ["noah-bragg"]
+    },
+    {
+      "id": "sheet2site",
+      "name": "Sheet2Site",
+      "aliases": ["Sheet 2 Site", "시트투사이트"],
+      "domains": ["sheet2site.com"],
+      "personIds": ["andrey-azimov"]
     }
   ],
   "research": []

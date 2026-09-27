@@ -1,0 +1,20 @@
+{
+  "id": "andrey-azimov-sheet2site",
+  "personIds": ["andrey-azimov"],
+  "productIds": ["sheet2site"],
+  "productName": "Sheet2Site",
+  "coverImage": "/images/indiehackers/andrey-azimov-sheet2site.webp",
+  "publishedAt": "2026-09-27",
+  "tags": [
+    "saas",
+    "web",
+    "b2b",
+    "subscription",
+    "bootstrapping",
+    "validation",
+    "launch",
+    "acquisition",
+    "growth",
+    "exit"
+  ]
+}
