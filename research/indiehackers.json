@@ -271,6 +271,12 @@
       "name": "Elston Baretto",
       "aliases": ["엘스턴 바레토"],
       "profiles": ["https://peerlist.io/baretto"]
+    },
+    {
+      "id": "noah-bragg",
+      "name": "Noah Bragg",
+      "aliases": ["노아 브래그"],
+      "profiles": ["https://www.indiehackers.com/noahwbragg"]
     }
   ],
   "products": [
@@ -770,6 +776,13 @@
       "aliases": ["티니 호스트"],
       "domains": ["tiiny.host"],
       "personIds": ["elston-baretto"]
+    },
+    {
+      "id": "potion",
+      "name": "Potion",
+      "aliases": ["포션"],
+      "domains": ["potion.so"],
+      "personIds": ["noah-bragg"]
     }
   ],
   "research": []

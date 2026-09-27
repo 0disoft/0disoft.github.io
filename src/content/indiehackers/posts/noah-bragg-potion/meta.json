@@ -1,0 +1,20 @@
+{
+  "id": "noah-bragg-potion",
+  "personIds": ["noah-bragg"],
+  "productIds": ["potion"],
+  "productName": "Potion",
+  "coverImage": "/images/indiehackers/noah-bragg-potion.webp",
+  "publishedAt": "2026-09-27",
+  "tags": [
+    "saas",
+    "web",
+    "b2b",
+    "subscription",
+    "bootstrapping",
+    "validation",
+    "launch",
+    "acquisition",
+    "growth",
+    "exit"
+  ]
+}
