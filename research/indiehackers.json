@@ -259,6 +259,12 @@
       "name": "Jakub Mužík",
       "aliases": ["야쿠프 무지크", "Jakub Muzik"],
       "profiles": ["https://www.linkedin.com/in/jakub-muzik/"]
+    },
+    {
+      "id": "ramy-khuffash",
+      "name": "Ramy Khuffash",
+      "aliases": ["라미 쿠파시"],
+      "profiles": ["https://rocketgems.com/"]
     }
   ],
   "products": [
@@ -737,6 +743,20 @@
       "aliases": ["리드버스"],
       "domains": ["leadverse.ai"],
       "personIds": ["jakub-muzik"]
+    },
+    {
+      "id": "page-flows",
+      "name": "Page Flows",
+      "aliases": ["페이지 플로우스", "User Flow Pro"],
+      "domains": ["pageflows.com"],
+      "personIds": ["ramy-khuffash"]
+    },
+    {
+      "id": "hovercode",
+      "name": "Hovercode",
+      "aliases": ["호버코드"],
+      "domains": ["hovercode.com"],
+      "personIds": ["ramy-khuffash"]
     }
   ],
   "research": []
