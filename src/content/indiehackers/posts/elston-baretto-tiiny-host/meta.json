@@ -1,0 +1,18 @@
+{
+  "id": "elston-baretto-tiiny-host",
+  "personIds": ["elston-baretto"],
+  "productIds": ["tiiny-host"],
+  "productName": "Tiiny Host",
+  "coverImage": "/images/indiehackers/elston-baretto-tiiny-host.webp",
+  "publishedAt": "2026-09-27",
+  "tags": [
+    "saas",
+    "web",
+    "subscription",
+    "bootstrapping",
+    "validation",
+    "launch",
+    "acquisition",
+    "growth"
+  ]
+}

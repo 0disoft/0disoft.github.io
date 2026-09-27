@@ -265,6 +265,12 @@
       "name": "Ramy Khuffash",
       "aliases": ["라미 쿠파시"],
       "profiles": ["https://rocketgems.com/"]
+    },
+    {
+      "id": "elston-baretto",
+      "name": "Elston Baretto",
+      "aliases": ["엘스턴 바레토"],
+      "profiles": ["https://peerlist.io/baretto"]
     }
   ],
   "products": [
@@ -757,6 +763,13 @@
       "aliases": ["호버코드"],
       "domains": ["hovercode.com"],
       "personIds": ["ramy-khuffash"]
+    },
+    {
+      "id": "tiiny-host",
+      "name": "Tiiny Host",
+      "aliases": ["티니 호스트"],
+      "domains": ["tiiny.host"],
+      "personIds": ["elston-baretto"]
     }
   ],
   "research": []
