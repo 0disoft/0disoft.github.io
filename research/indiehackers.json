@@ -325,6 +325,12 @@
       "name": "Kevin Sahin",
       "aliases": ["케빈 사힌"],
       "profiles": ["https://fr.linkedin.com/in/kevin-sahin"]
+    },
+    {
+      "id": "andy-cloke",
+      "name": "Andy Cloke",
+      "aliases": ["앤디 클로크"],
+      "profiles": ["https://datafetcher.com/about"]
     }
   ],
   "products": [
@@ -908,6 +914,20 @@
       "aliases": ["스크래핑비"],
       "domains": ["scrapingbee.com"],
       "personIds": ["pierre-de-wulf", "kevin-sahin"]
+    },
+    {
+      "id": "data-fetcher",
+      "name": "Data Fetcher",
+      "aliases": ["데이터 페처", "DataFetcher"],
+      "domains": ["datafetcher.com"],
+      "personIds": ["andy-cloke"]
+    },
+    {
+      "id": "influence-grid",
+      "name": "Influence Grid",
+      "aliases": ["InfluenceGrid", "인플루언스 그리드"],
+      "domains": ["influencegrid.com"],
+      "personIds": ["andy-cloke"]
     }
   ],
   "research": []

@@ -1,0 +1,19 @@
+{
+  "id": "andy-cloke-data-fetcher",
+  "personIds": ["andy-cloke"],
+  "productIds": ["data-fetcher", "influence-grid"],
+  "productName": "Data Fetcher",
+  "coverImage": "/images/indiehackers/andy-cloke-data-fetcher.webp",
+  "publishedAt": "2026-09-28",
+  "tags": [
+    "saas",
+    "web",
+    "b2b",
+    "subscription",
+    "solo-building",
+    "bootstrapping",
+    "acquisition",
+    "growth",
+    "retention"
+  ]
+}
