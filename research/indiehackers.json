@@ -331,6 +331,18 @@
       "name": "Andy Cloke",
       "aliases": ["앤디 클로크"],
       "profiles": ["https://datafetcher.com/about"]
+    },
+    {
+      "id": "michele-hansen",
+      "name": "Michele Hansen",
+      "aliases": ["미셸 한센"],
+      "profiles": []
+    },
+    {
+      "id": "mathias-hansen",
+      "name": "Mathias Hansen",
+      "aliases": ["마티아스 한센"],
+      "profiles": []
     }
   ],
   "products": [
@@ -928,6 +940,13 @@
       "aliases": ["InfluenceGrid", "인플루언스 그리드"],
       "domains": ["influencegrid.com"],
       "personIds": ["andy-cloke"]
+    },
+    {
+      "id": "geocodio",
+      "name": "Geocodio",
+      "aliases": ["지오코디오"],
+      "domains": ["geocod.io"],
+      "personIds": ["michele-hansen", "mathias-hansen"]
     }
   ],
   "research": []

@@ -1,0 +1,20 @@
+{
+  "id": "michele-hansen-geocodio",
+  "personIds": ["michele-hansen", "mathias-hansen"],
+  "productIds": ["geocodio"],
+  "productName": "Geocodio",
+  "coverImage": "/images/indiehackers/michele-hansen-geocodio.webp",
+  "publishedAt": "2026-09-29",
+  "tags": [
+    "saas",
+    "developer-tools",
+    "api",
+    "b2b",
+    "subscription",
+    "usage-based",
+    "small-team",
+    "bootstrapping",
+    "growth",
+    "infrastructure"
+  ]
+}
