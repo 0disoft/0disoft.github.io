@@ -289,6 +289,12 @@
       "name": "Valentin Hinov",
       "aliases": ["발렌틴 히노프", "Val Hinov"],
       "profiles": ["https://www.thankbox.com/about"]
+    },
+    {
+      "id": "bram-kanstein",
+      "name": "Bram Kanstein",
+      "aliases": ["브람 칸스타인", "bramk"],
+      "profiles": ["https://kanstein.co/"]
     }
   ],
   "products": [
@@ -809,6 +815,20 @@
       "aliases": ["땡큐박스"],
       "domains": ["thankbox.com"],
       "personIds": ["valentin-hinov"]
+    },
+    {
+      "id": "startup-stash",
+      "name": "Startup Stash",
+      "aliases": ["스타트업 스태시"],
+      "domains": ["startupstash.com"],
+      "personIds": ["bram-kanstein"]
+    },
+    {
+      "id": "no-code-mvp",
+      "name": "No-Code MVP",
+      "aliases": ["노코드 MVP"],
+      "domains": ["nocodemvp.com"],
+      "personIds": ["bram-kanstein"]
     }
   ],
   "research": []
