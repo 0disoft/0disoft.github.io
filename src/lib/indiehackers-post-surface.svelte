@@ -71,12 +71,59 @@ function getPostHref(slug: string): string {
 	</div>
 
 	{#if adjacentPosts.previous || adjacentPosts.next}
-		<nav class="indiehackers-adjacent" aria-label="More posts">
+		<nav
+			class="indiehackers-adjacent"
+			aria-label={m.indiehackers_more_posts({}, { locale: displayLocale })}
+		>
 			{#if adjacentPosts.previous}
-				<a href={getPostHref(adjacentPosts.previous.slug)}>← {adjacentPosts.previous.title}</a>
+				<a class="adjacent-card" href={getPostHref(adjacentPosts.previous.slug)}>
+					<span class="adjacent-card-copy">
+						<span class="adjacent-card-direction">
+							<span class="adjacent-card-arrow" aria-hidden="true">←</span>
+							{m.indiehackers_previous_post({}, { locale: displayLocale })}
+						</span>
+						<span class="adjacent-card-title">{adjacentPosts.previous.title}</span>
+						<span class="adjacent-card-meta">
+							{#if adjacentPosts.previous.productName}
+								<span>{adjacentPosts.previous.productName}</span>
+								<span aria-hidden="true">·</span>
+							{/if}
+							<time datetime={adjacentPosts.previous.publishedAt}>{adjacentPosts.previous.publishedAt}</time>
+						</span>
+					</span>
+					<span class="adjacent-card-cover" aria-hidden="true">
+						{#if adjacentPosts.previous.coverImage}
+							<img src={adjacentPosts.previous.coverImage} alt="" width="1440" height="810" loading="lazy" decoding="async" />
+						{:else}
+							<span>←</span>
+						{/if}
+					</span>
+				</a>
 			{/if}
 			{#if adjacentPosts.next}
-				<a href={getPostHref(adjacentPosts.next.slug)}>{adjacentPosts.next.title} →</a>
+				<a class="adjacent-card adjacent-card-next" href={getPostHref(adjacentPosts.next.slug)}>
+					<span class="adjacent-card-copy">
+						<span class="adjacent-card-direction">
+							{m.indiehackers_next_post({}, { locale: displayLocale })}
+							<span class="adjacent-card-arrow" aria-hidden="true">→</span>
+						</span>
+						<span class="adjacent-card-title">{adjacentPosts.next.title}</span>
+						<span class="adjacent-card-meta">
+							{#if adjacentPosts.next.productName}
+								<span>{adjacentPosts.next.productName}</span>
+								<span aria-hidden="true">·</span>
+							{/if}
+							<time datetime={adjacentPosts.next.publishedAt}>{adjacentPosts.next.publishedAt}</time>
+						</span>
+					</span>
+					<span class="adjacent-card-cover" aria-hidden="true">
+						{#if adjacentPosts.next.coverImage}
+							<img src={adjacentPosts.next.coverImage} alt="" width="1440" height="810" loading="lazy" decoding="async" />
+						{:else}
+							<span>→</span>
+						{/if}
+					</span>
+				</a>
 			{/if}
 		</nav>
 	{/if}
@@ -175,12 +222,143 @@ function getPostHref(slug: string): string {
 	}
 
 	.indiehackers-adjacent {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.85rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid color-mix(in oklch, var(--border) 62%, transparent);
+	}
+
+	.adjacent-card {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) 7.5rem;
+		align-items: stretch;
+		min-width: 0;
+		min-height: 9rem;
+		gap: 1rem;
+		padding: 0.85rem;
+		border: 1px solid var(--border);
+		border-radius: var(--radius-xl);
+		background: color-mix(in oklch, var(--muted) 45%, var(--card));
+		color: var(--foreground);
+		text-decoration: none;
+		transition: border-color 180ms ease, background-color 180ms ease, transform 180ms ease;
+	}
+
+	.adjacent-card:only-child {
+		grid-column: 1 / -1;
+		width: min(100%, 34rem);
+	}
+
+	.adjacent-card-next:only-child {
+		justify-self: end;
+	}
+
+	.adjacent-card:hover {
+		transform: translateY(-0.15rem);
+		border-color: var(--accent);
+		background: color-mix(in oklch, var(--accent) 9%, var(--card));
+	}
+
+	.adjacent-card:hover .adjacent-card-title {
+		text-decoration: underline;
+		text-underline-offset: 0.18em;
+	}
+
+	.adjacent-card:focus-visible {
+		outline: 2px solid var(--focus-ring);
+		outline-offset: 3px;
+	}
+
+	.adjacent-card-copy {
+		display: flex;
+		flex-direction: column;
+		min-width: 0;
+		gap: 0.45rem;
+		padding: 0.2rem 0.15rem;
+	}
+
+	.adjacent-card-direction {
+		display: flex;
+		align-items: center;
+		gap: 0.45rem;
+		color: var(--accent);
+		font-size: 0.8rem;
+		font-weight: 720;
+	}
+
+	.adjacent-card-arrow {
+		display: grid;
+		place-items: center;
+		width: 1.5rem;
+		height: 1.5rem;
+		border-radius: 50%;
+		background: color-mix(in oklch, var(--accent) 14%, var(--card));
+		font-size: 1rem;
+		line-height: 1;
+	}
+
+	.adjacent-card-title {
+		font-size: 1.02rem;
+		font-weight: 700;
+		line-height: 1.4;
+		overflow-wrap: anywhere;
+	}
+
+	.adjacent-card-meta {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 1rem;
-		justify-content: space-between;
-		padding-top: 1rem;
-		border-top: 1px solid color-mix(in oklch, var(--border) 62%, transparent);
+		gap: 0.25rem 0.4rem;
+		margin-top: auto;
+		color: var(--muted-foreground);
+		font-size: 0.78rem;
+		line-height: 1.35;
+	}
+
+	.adjacent-card-cover {
+		display: grid;
+		place-items: center;
+		align-self: center;
+		overflow: hidden;
+		width: 100%;
+		aspect-ratio: 1;
+		border-radius: var(--radius-md);
+		background: color-mix(in oklch, var(--accent) 18%, var(--muted));
+		color: var(--accent);
+		font-size: 2rem;
+	}
+
+	.adjacent-card-cover img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	@media (max-width: 48rem) {
+		.indiehackers-adjacent {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+
+	@media (max-width: 28rem) {
+		.adjacent-card {
+			grid-template-columns: minmax(0, 1fr);
+			min-height: 0;
+		}
+
+		.adjacent-card-cover {
+			display: none;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.adjacent-card {
+			transition: none;
+		}
+
+		.adjacent-card:hover {
+			transform: none;
+		}
 	}
 
 	@media (max-width: 72rem) {
