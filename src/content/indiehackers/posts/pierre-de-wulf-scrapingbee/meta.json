@@ -1,0 +1,18 @@
+{
+  "id": "pierre-de-wulf-scrapingbee",
+  "personIds": ["pierre-de-wulf", "kevin-sahin"],
+  "productIds": ["scrapingbee"],
+  "productName": "ScrapingBee",
+  "coverImage": "/images/indiehackers/pierre-de-wulf-scrapingbee.webp",
+  "publishedAt": "2026-09-28",
+  "tags": [
+    "saas",
+    "api",
+    "developer-tools",
+    "b2b",
+    "subscription",
+    "growth",
+    "infrastructure",
+    "exit"
+  ]
+}

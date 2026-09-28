@@ -313,6 +313,18 @@
       "name": "Adrian Horning",
       "aliases": ["에이드리언 호닝"],
       "profiles": ["https://scrapecreators.com/about"]
+    },
+    {
+      "id": "pierre-de-wulf",
+      "name": "Pierre de Wulf",
+      "aliases": ["피에르 드 울프"],
+      "profiles": ["https://fr.linkedin.com/in/pwulf"]
+    },
+    {
+      "id": "kevin-sahin",
+      "name": "Kevin Sahin",
+      "aliases": ["케빈 사힌"],
+      "profiles": ["https://fr.linkedin.com/in/kevin-sahin"]
     }
   ],
   "products": [
@@ -889,6 +901,13 @@
       "aliases": ["ScrapeCreators", "스크레이프 크리에이터스"],
       "domains": ["scrapecreators.com"],
       "personIds": ["adrian-horning"]
+    },
+    {
+      "id": "scrapingbee",
+      "name": "ScrapingBee",
+      "aliases": ["스크래핑비"],
+      "domains": ["scrapingbee.com"],
+      "personIds": ["pierre-de-wulf", "kevin-sahin"]
     }
   ],
   "research": []
