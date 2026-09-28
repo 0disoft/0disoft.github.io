@@ -1,0 +1,22 @@
+{
+  "id": "rob-hope-one-page-love",
+  "personIds": ["rob-hope"],
+  "productIds": ["one-page-love", "email-love", "show-them"],
+  "productName": "One Page Love",
+  "coverImage": "/images/indiehackers/rob-hope-one-page-love.webp",
+  "publishedAt": "2026-09-28",
+  "tags": [
+    "content-service",
+    "design-tools",
+    "web",
+    "b2b",
+    "b2c",
+    "advertising",
+    "one-time-purchase",
+    "solo-building",
+    "bootstrapping",
+    "acquisition",
+    "growth",
+    "exit"
+  ]
+}

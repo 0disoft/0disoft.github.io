@@ -295,6 +295,12 @@
       "name": "Bram Kanstein",
       "aliases": ["브람 칸스타인", "bramk"],
       "profiles": ["https://kanstein.co/"]
+    },
+    {
+      "id": "rob-hope",
+      "name": "Rob Hope",
+      "aliases": ["롭 호프"],
+      "profiles": ["https://robhope.com/"]
     }
   ],
   "products": [
@@ -829,6 +835,27 @@
       "aliases": ["노코드 MVP"],
       "domains": ["nocodemvp.com"],
       "personIds": ["bram-kanstein"]
+    },
+    {
+      "id": "one-page-love",
+      "name": "One Page Love",
+      "aliases": ["원 페이지 러브"],
+      "domains": ["onepagelove.com"],
+      "personIds": ["rob-hope"]
+    },
+    {
+      "id": "email-love",
+      "name": "Email Love",
+      "aliases": ["이메일 러브"],
+      "domains": ["emaillove.com"],
+      "personIds": ["rob-hope"]
+    },
+    {
+      "id": "show-them",
+      "name": "Show Them",
+      "aliases": ["쇼 뎀"],
+      "domains": ["showthem.com"],
+      "personIds": ["rob-hope"]
     }
   ],
   "research": []
