@@ -307,6 +307,12 @@
       "name": "Tim Leland",
       "aliases": ["팀 릴런드"],
       "profiles": ["https://timleland.com/"]
+    },
+    {
+      "id": "adrian-horning",
+      "name": "Adrian Horning",
+      "aliases": ["에이드리언 호닝"],
+      "profiles": ["https://scrapecreators.com/about"]
     }
   ],
   "products": [
@@ -876,6 +882,13 @@
       "aliases": ["웨더 익스텐션"],
       "domains": ["weatherextension.com"],
       "personIds": ["tim-leland"]
+    },
+    {
+      "id": "scrape-creators",
+      "name": "Scrape Creators",
+      "aliases": ["ScrapeCreators", "스크레이프 크리에이터스"],
+      "domains": ["scrapecreators.com"],
+      "personIds": ["adrian-horning"]
     }
   ],
   "research": []

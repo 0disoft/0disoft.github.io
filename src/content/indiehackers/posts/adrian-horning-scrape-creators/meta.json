@@ -1,0 +1,20 @@
+{
+  "id": "adrian-horning-scrape-creators",
+  "personIds": ["adrian-horning"],
+  "productIds": ["scrape-creators"],
+  "productName": "Scrape Creators",
+  "coverImage": "/images/indiehackers/adrian-horning-scrape-creators.webp",
+  "publishedAt": "2026-09-28",
+  "tags": [
+    "saas",
+    "api",
+    "developer-tools",
+    "b2b",
+    "usage-based",
+    "solo-building",
+    "bootstrapping",
+    "acquisition",
+    "growth",
+    "infrastructure"
+  ]
+}
