@@ -283,6 +283,12 @@
       "name": "Andrey Azimov",
       "aliases": ["안드레이 아지모프"],
       "profiles": ["https://www.andreyazimov.com/bio"]
+    },
+    {
+      "id": "valentin-hinov",
+      "name": "Valentin Hinov",
+      "aliases": ["발렌틴 히노프", "Val Hinov"],
+      "profiles": ["https://www.thankbox.com/about"]
     }
   ],
   "products": [
@@ -796,6 +802,13 @@
       "aliases": ["Sheet 2 Site", "시트투사이트"],
       "domains": ["sheet2site.com"],
       "personIds": ["andrey-azimov"]
+    },
+    {
+      "id": "thankbox",
+      "name": "Thankbox",
+      "aliases": ["땡큐박스"],
+      "domains": ["thankbox.com"],
+      "personIds": ["valentin-hinov"]
     }
   ],
   "research": []
