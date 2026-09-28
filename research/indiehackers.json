@@ -301,6 +301,12 @@
       "name": "Rob Hope",
       "aliases": ["롭 호프"],
       "profiles": ["https://robhope.com/"]
+    },
+    {
+      "id": "tim-leland",
+      "name": "Tim Leland",
+      "aliases": ["팀 릴런드"],
+      "profiles": ["https://timleland.com/"]
     }
   ],
   "products": [
@@ -856,6 +862,20 @@
       "aliases": ["쇼 뎀"],
       "domains": ["showthem.com"],
       "personIds": ["rob-hope"]
+    },
+    {
+      "id": "tly",
+      "name": "T.LY",
+      "aliases": ["TLY", "티엘와이"],
+      "domains": ["t.ly"],
+      "personIds": ["tim-leland"]
+    },
+    {
+      "id": "weather-extension",
+      "name": "Weather Extension",
+      "aliases": ["웨더 익스텐션"],
+      "domains": ["weatherextension.com"],
+      "personIds": ["tim-leland"]
     }
   ],
   "research": []
