@@ -343,6 +343,12 @@
       "name": "Mathias Hansen",
       "aliases": ["마티아스 한센"],
       "profiles": []
+    },
+    {
+      "id": "patrick-posner",
+      "name": "Patrick Posner",
+      "aliases": ["패트릭 포스너"],
+      "profiles": ["https://patrickposner.com/", "https://profiles.wordpress.org/patrickposner/"]
     }
   ],
   "products": [
@@ -947,6 +953,48 @@
       "aliases": ["지오코디오"],
       "domains": ["geocod.io"],
       "personIds": ["michele-hansen", "mathias-hansen"]
+    },
+    {
+      "id": "simply-static",
+      "name": "Simply Static",
+      "aliases": ["심플리 스태틱", "Simply Static Studio"],
+      "domains": ["simplystatic.com"],
+      "personIds": ["patrick-posner"]
+    },
+    {
+      "id": "passster",
+      "name": "Passster",
+      "aliases": ["패스터"],
+      "domains": ["passster.com"],
+      "personIds": ["patrick-posner"]
+    },
+    {
+      "id": "filr",
+      "name": "Filr",
+      "aliases": ["필러"],
+      "domains": ["wpdocumentlibrary.com"],
+      "personIds": ["patrick-posner"]
+    },
+    {
+      "id": "qyrr",
+      "name": "Qyrr",
+      "aliases": ["큐어"],
+      "domains": ["qyrrwp.com"],
+      "personIds": ["patrick-posner"]
+    },
+    {
+      "id": "domain-mapping-system",
+      "name": "Domain Mapping System",
+      "aliases": ["도메인 매핑 시스템"],
+      "domains": ["domainmappingsystem.com"],
+      "personIds": ["patrick-posner"]
+    },
+    {
+      "id": "ollie",
+      "name": "Ollie",
+      "aliases": ["Ollie Pro", "올리"],
+      "domains": ["olliewp.com"],
+      "personIds": ["patrick-posner"]
     }
   ],
   "research": []

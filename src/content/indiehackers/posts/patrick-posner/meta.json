@@ -1,0 +1,20 @@
+{
+  "id": "patrick-posner",
+  "personIds": ["patrick-posner"],
+  "productIds": ["simply-static", "passster", "filr", "qyrr", "domain-mapping-system", "ollie"],
+  "productName": "Simply Static",
+  "coverImage": "/images/indiehackers/patrick-posner.webp",
+  "publishedAt": "2026-09-29",
+  "tags": [
+    "saas",
+    "developer-tools",
+    "web",
+    "b2b",
+    "subscription",
+    "licensing",
+    "small-team",
+    "bootstrapping",
+    "growth",
+    "infrastructure"
+  ]
+}
