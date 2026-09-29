@@ -349,6 +349,18 @@
       "name": "Patrick Posner",
       "aliases": ["패트릭 포스너"],
       "profiles": ["https://patrickposner.com/", "https://profiles.wordpress.org/patrickposner/"]
+    },
+    {
+      "id": "grey-baker",
+      "name": "Grey Baker",
+      "aliases": ["그레이 베이커", "greysteil"],
+      "profiles": ["https://github.com/greysteil"]
+    },
+    {
+      "id": "harry-marr",
+      "name": "Harry Marr",
+      "aliases": ["해리 마", "hmarr"],
+      "profiles": ["https://github.com/hmarr"]
     }
   ],
   "products": [
@@ -995,6 +1007,13 @@
       "aliases": ["Ollie Pro", "올리"],
       "domains": ["olliewp.com"],
       "personIds": ["patrick-posner"]
+    },
+    {
+      "id": "dependabot",
+      "name": "Dependabot",
+      "aliases": ["디펜다봇", "Bump"],
+      "domains": ["dependabot.com"],
+      "personIds": ["grey-baker", "harry-marr"]
     }
   ],
   "research": []

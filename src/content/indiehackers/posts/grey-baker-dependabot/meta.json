@@ -1,0 +1,20 @@
+{
+  "id": "grey-baker-dependabot",
+  "personIds": ["grey-baker", "harry-marr"],
+  "productIds": ["dependabot"],
+  "productName": "Dependabot",
+  "coverImage": "/images/indiehackers/grey-baker-dependabot.webp",
+  "publishedAt": "2026-09-29",
+  "tags": [
+    "developer-tools",
+    "web",
+    "b2b",
+    "subscription",
+    "small-team",
+    "bootstrapping",
+    "acquisition",
+    "growth",
+    "infrastructure",
+    "exit"
+  ]
+}
