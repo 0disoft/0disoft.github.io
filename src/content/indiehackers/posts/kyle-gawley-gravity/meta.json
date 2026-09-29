@@ -1,0 +1,20 @@
+{
+  "id": "kyle-gawley-gravity",
+  "personIds": ["kyle-gawley"],
+  "productIds": ["gravity"],
+  "productName": "Gravity",
+  "coverImage": "/images/indiehackers/kyle-gawley-gravity.webp",
+  "publishedAt": "2026-09-29",
+  "tags": [
+    "saas",
+    "developer-tools",
+    "web",
+    "b2b",
+    "one-time-purchase",
+    "licensing",
+    "solo-building",
+    "bootstrapping",
+    "pricing",
+    "growth"
+  ]
+}

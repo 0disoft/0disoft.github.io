@@ -361,6 +361,12 @@
       "name": "Harry Marr",
       "aliases": ["해리 마", "hmarr"],
       "profiles": ["https://github.com/hmarr"]
+    },
+    {
+      "id": "kyle-gawley",
+      "name": "Kyle Gawley",
+      "aliases": ["카일 골리"],
+      "profiles": ["https://kylegawley.com/"]
     }
   ],
   "products": [
@@ -1014,6 +1020,13 @@
       "aliases": ["디펜다봇", "Bump"],
       "domains": ["dependabot.com"],
       "personIds": ["grey-baker", "harry-marr"]
+    },
+    {
+      "id": "gravity",
+      "name": "Gravity",
+      "aliases": ["그래비티"],
+      "domains": ["usegravity.app"],
+      "personIds": ["kyle-gawley"]
     }
   ],
   "research": []
