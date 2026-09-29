@@ -367,6 +367,15 @@
       "name": "Kyle Gawley",
       "aliases": ["카일 골리"],
       "profiles": ["https://kylegawley.com/"]
+    },
+    {
+      "id": "danny-van-kooten",
+      "name": "Danny van Kooten",
+      "aliases": ["대니 반 쿠턴"],
+      "profiles": [
+        "https://www.dannyvankooten.com/",
+        "https://profiles.wordpress.org/dannyvankooten/"
+      ]
     }
   ],
   "products": [
@@ -1027,6 +1036,20 @@
       "aliases": ["그래비티"],
       "domains": ["usegravity.app"],
       "personIds": ["kyle-gawley"]
+    },
+    {
+      "id": "mc4wp",
+      "name": "MC4WP",
+      "aliases": ["Mailchimp for WordPress", "메일침프 포 워드프레스"],
+      "domains": ["mc4wp.com"],
+      "personIds": ["danny-van-kooten"]
+    },
+    {
+      "id": "koko-analytics",
+      "name": "Koko Analytics",
+      "aliases": ["코코 애널리틱스"],
+      "domains": ["kokoanalytics.com"],
+      "personIds": ["danny-van-kooten"]
     }
   ],
   "research": []
