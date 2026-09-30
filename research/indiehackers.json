@@ -2,6 +2,18 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "amar-ghose",
+      "name": "Amar Ghose",
+      "aliases": ["아마르 고스"],
+      "profiles": ["https://theamaricandream.com/"]
+    },
+    {
+      "id": "arun-devabhaktuni",
+      "name": "Arun Devabhaktuni",
+      "aliases": ["아룬 데바박투니"],
+      "profiles": []
+    },
+    {
       "id": "marybeth-alexander",
       "name": "Marybeth Alexander",
       "aliases": ["메리베스 알렉산더"],
@@ -421,6 +433,13 @@
     }
   ],
   "products": [
+    {
+      "id": "zenmaid",
+      "name": "ZenMaid",
+      "aliases": ["Zen Maid", "MaidDesk"],
+      "domains": ["zenmaid.com"],
+      "personIds": ["amar-ghose", "arun-devabhaktuni"]
+    },
     {
       "id": "knowledgeowl",
       "name": "KnowledgeOwl",

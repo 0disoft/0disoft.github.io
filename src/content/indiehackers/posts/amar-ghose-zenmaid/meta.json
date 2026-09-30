@@ -1,0 +1,9 @@
+{
+  "id": "amar-ghose-zenmaid",
+  "personIds": ["amar-ghose", "arun-devabhaktuni"],
+  "productIds": ["zenmaid"],
+  "productName": "ZenMaid",
+  "coverImage": "/images/indiehackers/amar-ghose-zenmaid.webp",
+  "publishedAt": "2026-10-01",
+  "tags": ["saas", "web", "b2b", "subscription", "small-team", "bootstrapping"]
+}
