@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "harvey-carpenter",
+      "name": "Harvey Carpenter",
+      "aliases": ["하비 카펜터"],
+      "profiles": []
+    },
+    {
       "id": "ruben-gamez",
       "name": "Ruben Gamez",
       "aliases": ["루벤 가메즈"],
@@ -385,6 +391,13 @@
     }
   ],
   "products": [
+    {
+      "id": "growform",
+      "name": "Growform",
+      "aliases": ["그로우폼"],
+      "domains": ["growform.co"],
+      "personIds": ["harvey-carpenter"]
+    },
     {
       "id": "bidsketch",
       "name": "Bidsketch",

@@ -1,0 +1,9 @@
+{
+  "id": "harvey-carpenter-growform",
+  "personIds": ["harvey-carpenter"],
+  "productIds": ["growform"],
+  "productName": "Growform",
+  "coverImage": "/images/indiehackers/harvey-carpenter-growform.webp",
+  "publishedAt": "2026-09-30",
+  "tags": ["saas", "web", "b2b", "subscription", "growth"]
+}
