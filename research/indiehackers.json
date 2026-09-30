@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "nick-swan",
+      "name": "Nick Swan",
+      "aliases": ["닉 스완"],
+      "profiles": ["https://seotesting.com/about/"]
+    },
+    {
       "id": "harvey-carpenter",
       "name": "Harvey Carpenter",
       "aliases": ["하비 카펜터"],
@@ -391,6 +397,13 @@
     }
   ],
   "products": [
+    {
+      "id": "seotesting",
+      "name": "SEOTesting",
+      "aliases": ["SEOTesting.com", "SanityCheck", "새니티체크"],
+      "domains": ["seotesting.com", "sanitycheck.io"],
+      "personIds": ["nick-swan"]
+    },
     {
       "id": "growform",
       "name": "Growform",

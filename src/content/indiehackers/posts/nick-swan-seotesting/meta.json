@@ -1,0 +1,9 @@
+{
+  "id": "nick-swan-seotesting",
+  "personIds": ["nick-swan"],
+  "productIds": ["seotesting"],
+  "productName": "SEOTesting",
+  "coverImage": "/images/indiehackers/nick-swan-seotesting.webp",
+  "publishedAt": "2026-09-30",
+  "tags": ["saas", "web", "b2b", "subscription", "small-team", "funded", "growth"]
+}
