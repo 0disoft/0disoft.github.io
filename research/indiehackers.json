@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "josh-ho",
+      "name": "Josh Ho",
+      "aliases": ["조시 호", "Mojo Ho", "more josh ho"],
+      "profiles": ["https://joshho.substack.com/"]
+    },
+    {
       "id": "nick-swan",
       "name": "Nick Swan",
       "aliases": ["닉 스완"],
@@ -397,6 +403,13 @@
     }
   ],
   "products": [
+    {
+      "id": "referral-rock",
+      "name": "Referral Rock",
+      "aliases": ["ReferralRock", "리퍼럴 록"],
+      "domains": ["referralrock.com"],
+      "personIds": ["josh-ho"]
+    },
     {
       "id": "seotesting",
       "name": "SEOTesting",

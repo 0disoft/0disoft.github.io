@@ -1,0 +1,9 @@
+{
+  "id": "josh-ho-referral-rock",
+  "personIds": ["josh-ho"],
+  "productIds": ["referral-rock"],
+  "productName": "Referral Rock",
+  "coverImage": "/images/indiehackers/josh-ho-referral-rock.webp",
+  "publishedAt": "2026-09-30",
+  "tags": ["saas", "web", "b2b", "subscription", "bootstrapping", "pricing", "growth"]
+}

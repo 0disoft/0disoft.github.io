@@ -1,0 +1,60 @@
+---
+{
+  "title": "Josh Ho convirtió una herramienta de recomendaciones en un negocio de equipo",
+  "summary": "Cómo Josh Ho hizo crecer Referral Rock desde una beta manual hasta un negocio de equipo en remoto. Encontró por qué pagan los clientes en las llamadas, ajustó el precio y el apoyo de incorporación, y convirtió las ventas en una función de la organización."
+}
+---
+
+## De una pequeña herramienta de recomendaciones a un negocio de equipo
+
+Referral Rock, que Josh Ho inició en 2014, es un SaaS que ayuda a las empresas a crear programas de recomendación de clientes y a gestionar el rendimiento de las recomendaciones y las recompensas. En una entrevista de Indie Bites publicada el 12 de abril de 2023 se presentó como un negocio con más de 2 millones de dólares de ingresos anuales. Esa cifra se refiere a los ingresos anuales de la empresa y es distinta de los ingresos personales del fundador o del beneficio neto.
+
+## De un servicio de consumo fallido a un problema empresarial
+
+Antes de Referral Rock había dirigido UberNote, un servicio de notas en línea. Consiguió inversión y participó en una aceleradora, y llegó a unos 100.000 usuarios registrados, pero no lo convirtió en suficientes ingresos de pago. Tras esa experiencia decidió que su siguiente negocio buscaría un problema por el que las empresas estuvieran dispuestas a pagar. Más allá de la capacidad de crear software, lo importante era quién pagaría y por qué.
+
+La idea empezó con una escena que presenció en un concesionario de coches en 2013. Mientras esperaba el mantenimiento del vehículo, vio a un vendedor quedarse brevemente desconcertado cuando un visitante dijo que había llegado por la recomendación de un amigo. Eso le hizo preguntarse cómo las empresas locales conectan y siguen a los clientes recomendados y a las personas que los recomendaron. En una investigación posterior observó que la mayoría de las herramientas de recomendación se centraban en el comercio electrónico, y exploró la posibilidad de un producto para concesionarios y servicios profesionales.
+
+El trabajo que cubre Referral Rock va desde registrar a quienes recomiendan y ofrecer enlaces para compartir hasta seguir a los clientes recomendados que llegan y pagar las recompensas. Por ejemplo, cuando una persona recomendada pasa por una consulta y firma un contrato, el producto puede conectarse para emitir una tarjeta regalo a quien la recomendó cuando la operación se registra como ganada en un CRM, el sistema de gestión de relaciones con clientes. El personal de la empresa puede consultar la información de recomendaciones mientras usa sus herramientas de venta habituales y reducir el trabajo de recompensas que antes hacía por separado.
+
+## Una beta manual y el primer pago
+
+La investigación inicial con clientes no confirmó una intención de compra fuerte. Decidió probar primero con poco coste y tiempo de desarrollo, y reutilizó código y pantallas de un proyecto existente. La primera versión tampoco tenía base de datos, y montaba el programa trasladando a un archivo de configuración el nombre de la empresa, el logotipo y las condiciones de recomendación que los clientes introducían en una herramienta de encuestas. Miró si aparecerían usuarios reales antes de construir un sistema de gestión terminado.
+
+Cuando se publicó en BetaList en junio de 2014, se registraron unas 200 personas, pero solo entre 20 y 30 completaron la encuesta de configuración del programa. Después reunió usuarios acercándose en Twitter a personas que hablaban de programas de recomendación. Durante una beta gratuita de alrededor de un año, más de 500 personas probaron el producto, y la base de datos y las pantallas de administración fueron tomando forma en el proceso.
+
+El cobro empezó no por la confianza en que el producto estuviera lo bastante terminado, sino por un consejo directo de un conocido. Tras oír que no podía juzgar el negocio sin cobrar, añadió el pago en una sola noche. Cuando publicó una versión de pago de 59 dólares al mes en junio de 2015, el primer pago llegó en dos días, y al final del primer mes había cuatro clientes de pago. Pasó de observar cómo respondían los usuarios gratuitos a confirmar la disposición real a pagar.
+
+Mientras tanto cubría sus gastos de vida con consultoría de software. Cuando los ingresos recurrentes mensuales de Referral Rock llegaron a unos 2.000 o 3.000 dólares, redujo la consultoría y pasó a dedicarse al producto. No cortó todas sus fuentes de ingresos antes de confirmar la demanda, y aumentó el tiempo que dedicaba después de comprobar que una pequeña cantidad de ingresos se repetía.
+
+## Conocer por la búsqueda, vender por las llamadas
+
+La vía principal para conseguir clientes nuevos fueron los contenidos y la búsqueda. Escribió sobre programas de recomendación desde el principio, centrándose sobre todo en personas con alta intención de compra que buscaban software que adoptar. Destacó que el producto también admitía sectores más allá del comercio electrónico para que los clientes adecuados lo encontraran. Las cifras de visitantes que publicó pasaron de 3.400 en enero de 2016 a 22.900 en enero de 2019.
+
+El cambio importante que convirtió a los visitantes de la búsqueda en ingresos fueron las llamadas con pantalla compartida. Al principio explicaba el uso del producto por chat, pero esperar respuestas y alargar conversaciones largas le resultaba frustrante, así que empezó a llamar directamente a las personas y a mostrar su pantalla. Los clientes entendían entonces funciones y formas de usar el producto que no habían encontrado por sí solos, y aumentaron las conversiones de pago. La ventaja del fundador de poder explicar por qué funcionaba el producto y hacia dónde iba también apareció en el proceso de venta.
+
+Las llamadas también fueron motivo para rehacer el precio. En febrero de 2016, cuando un cliente potencial explicó que pagaba cientos de dólares de una vez en recompensas por recomendación y dedicaba mucho tiempo a gestionarlo, reconsideró si 59 dólares al mes era adecuado para ese cliente. Creó un plan de 250 dólares al mes con un compromiso de seis meses que incluía la función de pago con tarjeta regalo, y el cliente lo aceptó. Los 1.500 dólares que entraron de una vez mostraron la diferencia en el flujo de caja para un negocio que solo recibía pequeños pagos mensuales.
+
+También puso precio al trabajo de ayudar a los clientes a arrancar de verdad sus programas. Creó un servicio de apoyo a la incorporación llamado Customer Success Package, primero lo ofreció como opción y luego lo aplicó como cuota de configuración obligatoria para los contratos mensuales. Según su propio relato, las conversiones de pago no bajaron y la baja de clientes disminuyó. Para los contratos de seis meses o más eximía la cuota de configuración para fomentar compromisos más largos y el pago anticipado.
+
+## Convertir las llamadas del fundador en el trabajo de la organización
+
+A medida que aumentaban las llamadas, tenía muy poco tiempo para el desarrollo y la escritura de contenidos. Contrató a su primer vendedor en el verano de 2016, pero no había un proceso de formación para entender bien el producto y a los clientes, y la experiencia de la persona no encajaba con el trabajo que hacía falta. Josh Ho le entregó el trabajo sin transmitir bien cómo hacía él las llamadas. Tras ese fracaso empezó a valorar de forma más concreta si una persona podía realmente asumir su trabajo, en lugar de su trayectoria en ventas en sí.
+
+Mica, que se incorporó después, asumió el papel de crear y mejorar el proceso de ventas a partir de su experiencia dirigiendo startups. Lo que Josh Ho necesitaba era un responsable práctico que pudiera tanto atender las llamadas con clientes como organizar cómo se hacía el trabajo. El equipo empezó a usar un CRM para compartir correos, mensajes de seguimiento, paneles e información de las llamadas. El enfoque de venta que vivía en la cabeza del fundador pasó a un sistema que otros empleados también podían usar.
+
+A finales de 2016 Referral Rock había llegado a 170 clientes y 15.000 dólares de ingresos recurrentes mensuales. En una entrevista de junio de 2019 dijo que la empresa registraba más de 70.000 dólares de ingresos mensuales sumando las cuotas de suscripción mensuales con las tarifas de servicio puntuales. En ese momento la empresa tenía 12 personas trabajando totalmente en remoto, y habían surgido equipos y responsables en marketing, ventas, éxito del cliente y producto. El proyecto personal inicial se había convertido para entonces en una empresa gestionada por varios grupos funcionales en conjunto.
+
+En una descripción publicada en mayo de 2022 se presentó como una organización remota de 18 personas que era rentable sin inversión externa. A medida que crecía, Josh Ho tuvo cuidado de no añadir demasiadas herramientas y prestó atención a mantener coherente dónde debía vivir la información, cómo debían contactarse las personas y qué respuesta esperar. El objetivo era evitar que los miembros tuvieran que aprender una nueva forma de trabajar cada vez que trabajaran con otro equipo. Junto con añadir personas, estableció reglas de operación para que todos pudieran colaborar de la misma manera.
+
+Dijo que operar sin inversión externa le dio el tiempo para entender a los clientes y el mercado. Recordó que en su experiencia anterior levantando inversión, la presión en torno a los demo days y la financiación posterior le hacía tender a cambiar varios intentos con prisa. En Referral Rock pudo observar los experimentos a un ritmo comparativamente lento, y consideró que le habría costado sobrevivir si la empresa se hubiera gestionado al estilo del capital riesgo. Es el juicio del fundador de que una estructura de negocio sin exigencia de escalar rápido le venía bien.
+
+## Lo que quedó después de 3 millones de dólares de ingresos anuales
+
+Una entrevista de Practical Founders publicada el 11 de diciembre de 2025 lo presentó con unos 500 clientes, 20 miembros de equipo y alrededor de 3 millones de dólares de ingresos anuales. La empresa seguía siendo propiedad del fundador y mantenía la rentabilidad. El negocio continuó después de los más de 2 millones de dólares de ingresos anuales de 2023, pero su ritmo de crecimiento no fue constante en todo momento.
+
+Los retos que aparecieron en esa entrevista fueron el estancamiento del crecimiento y la complejidad del producto. Aceptar una amplia variedad de necesidades había ampliado el alcance del producto y lo había vuelto más difícil de usar, y los cambios de mercado posteriores a la COVID-19 y los cambios en el entorno de búsqueda también afectaron al crecimiento. La respuesta fue volver a centrarse en los casos de uso principales, revisar el segmento de clientes adecuado y la estructura de precios, y simplificar el producto. Incluso un SaaS con ingresos y organización ya establecidos necesitaba decidir qué recortar y en quién centrarse.
+
+También había límites en lo que el producto podía resolver. Josh Ho explicó que el software de recomendación no puede crear por la empresa su experiencia de cliente y se parece más a un papel que amplifica el boca a boca que ya está ocurriendo. Por eso el valor de Referral Rock está en reducir los huecos y la molestia que encuentra una empresa con motivos para ser recomendada al lograr que los clientes participen, al seguirlos y al pagar recompensas. Un producto y unas relaciones con clientes que merecieran la recomendación tenían que venir de la empresa que lo usaba.
+
+Lo que destaca en el desarrollo de Referral Rock es que el enfoque de venta y la organización siguieron cambiando después de construir el producto. Josh Ho identificó por qué pagaban los clientes explicándoles las cosas directamente, incorporó las llamadas y el apoyo a la incorporación a la oferta del producto y luego organizó el trabajo para que otra persona pudiera hacerlo. Este caso es cómo una herramienta B2B iniciada en solitario creció hasta ser un negocio de equipo sostenible cambiando su precio, sus servicios y su organización para ajustarse a cómo compran los clientes.
