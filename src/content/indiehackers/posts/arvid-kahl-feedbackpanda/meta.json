@@ -1,0 +1,9 @@
+{
+  "id": "arvid-kahl-feedbackpanda",
+  "personIds": ["arvid-kahl", "danielle-simpson"],
+  "productIds": ["feedbackpanda"],
+  "productName": "FeedbackPanda",
+  "coverImage": "/images/indiehackers/arvid-kahl-feedbackpanda.webp",
+  "publishedAt": "2026-10-01",
+  "tags": ["saas", "web", "b2b", "subscription", "small-team", "bootstrapping", "exit"]
+}

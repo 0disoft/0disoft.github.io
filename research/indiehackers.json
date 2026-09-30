@@ -2,6 +2,18 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "arvid-kahl",
+      "name": "Arvid Kahl",
+      "aliases": ["아르비드 칼"],
+      "profiles": ["https://thebootstrappedfounder.com/"]
+    },
+    {
+      "id": "danielle-simpson",
+      "name": "Danielle Simpson",
+      "aliases": ["대니엘 심프슨"],
+      "profiles": []
+    },
+    {
       "id": "amar-ghose",
       "name": "Amar Ghose",
       "aliases": ["아마르 고스"],
@@ -433,6 +445,13 @@
     }
   ],
   "products": [
+    {
+      "id": "feedbackpanda",
+      "name": "FeedbackPanda",
+      "aliases": ["Feedback Panda", "FeedbackPanda.com"],
+      "domains": ["feedbackpanda.com"],
+      "personIds": ["arvid-kahl", "danielle-simpson"]
+    },
     {
       "id": "zenmaid",
       "name": "ZenMaid",
