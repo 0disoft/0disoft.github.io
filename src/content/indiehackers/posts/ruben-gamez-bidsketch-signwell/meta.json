@@ -1,0 +1,9 @@
+{
+  "id": "ruben-gamez-bidsketch-signwell",
+  "personIds": ["ruben-gamez"],
+  "productIds": ["bidsketch", "signwell"],
+  "productName": "Bidsketch · SignWell",
+  "coverImage": "/images/indiehackers/ruben-gamez-bidsketch-signwell.webp",
+  "publishedAt": "2026-09-30",
+  "tags": ["web", "b2b", "subscription", "small-team", "bootstrapping", "growth"]
+}

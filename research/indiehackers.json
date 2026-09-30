@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "ruben-gamez",
+      "name": "Ruben Gamez",
+      "aliases": ["루벤 가메즈"],
+      "profiles": ["https://www.signwell.com/about/"]
+    },
+    {
       "id": "justin-duke",
       "name": "Justin Duke",
       "aliases": ["저스틴 듀크"],
@@ -379,6 +385,20 @@
     }
   ],
   "products": [
+    {
+      "id": "bidsketch",
+      "name": "Bidsketch",
+      "aliases": ["비드스케치"],
+      "domains": ["bidsketch.com"],
+      "personIds": ["ruben-gamez"]
+    },
+    {
+      "id": "signwell",
+      "name": "SignWell",
+      "aliases": ["Docsketch", "사인웰", "독스케치"],
+      "domains": ["signwell.com", "docsketch.com"],
+      "personIds": ["ruben-gamez"]
+    },
     {
       "id": "buttondown",
       "name": "Buttondown",
