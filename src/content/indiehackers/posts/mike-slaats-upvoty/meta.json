@@ -1,0 +1,9 @@
+{
+  "id": "mike-slaats-upvoty",
+  "personIds": ["mike-slaats"],
+  "productIds": ["upvoty"],
+  "productName": "Upvoty",
+  "coverImage": "/images/indiehackers/mike-slaats-upvoty.webp",
+  "publishedAt": "2026-10-01",
+  "tags": ["saas", "web", "b2b", "subscription", "small-team", "growth"]
+}

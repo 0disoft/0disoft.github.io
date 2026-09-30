@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "mike-slaats",
+      "name": "Mike Slaats",
+      "aliases": ["마이크 슬라츠", "Mike Strives"],
+      "profiles": ["https://x.com/mikestrives"]
+    },
+    {
       "id": "josh-ho",
       "name": "Josh Ho",
       "aliases": ["조시 호", "Mojo Ho", "more josh ho"],
@@ -403,6 +409,13 @@
     }
   ],
   "products": [
+    {
+      "id": "upvoty",
+      "name": "Upvoty",
+      "aliases": ["Upvoty.com"],
+      "domains": ["upvoty.com"],
+      "personIds": ["mike-slaats"]
+    },
     {
       "id": "referral-rock",
       "name": "Referral Rock",
