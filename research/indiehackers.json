@@ -2,6 +2,18 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "marybeth-alexander",
+      "name": "Marybeth Alexander",
+      "aliases": ["메리베스 알렉산더"],
+      "profiles": ["https://blog.peoplefirstjobs.com/author/marybeth/"]
+    },
+    {
+      "id": "pete-grigg",
+      "name": "Pete Grigg",
+      "aliases": ["피트 그리그"],
+      "profiles": []
+    },
+    {
       "id": "mike-slaats",
       "name": "Mike Slaats",
       "aliases": ["마이크 슬라츠", "Mike Strives"],
@@ -409,6 +421,13 @@
     }
   ],
   "products": [
+    {
+      "id": "knowledgeowl",
+      "name": "KnowledgeOwl",
+      "aliases": ["Knowledge Owl", "HelpGizmo"],
+      "domains": ["knowledgeowl.com"],
+      "personIds": ["marybeth-alexander", "pete-grigg"]
+    },
     {
       "id": "upvoty",
       "name": "Upvoty",

@@ -1,0 +1,9 @@
+{
+  "id": "marybeth-alexander-knowledgeowl",
+  "personIds": ["marybeth-alexander", "pete-grigg"],
+  "productIds": ["knowledgeowl"],
+  "productName": "KnowledgeOwl",
+  "coverImage": "/images/indiehackers/marybeth-alexander-knowledgeowl.webp",
+  "publishedAt": "2026-10-01",
+  "tags": ["saas", "web", "b2b", "subscription", "small-team", "bootstrapping", "acquisition"]
+}
