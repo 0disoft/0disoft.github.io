@@ -2,6 +2,18 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "justin-jackson",
+      "name": "Justin Jackson",
+      "aliases": ["저스틴 잭슨"],
+      "profiles": ["https://justinjackson.ca/"]
+    },
+    {
+      "id": "jon-buda",
+      "name": "Jon Buda",
+      "aliases": ["존 부다"],
+      "profiles": []
+    },
+    {
       "id": "uku-taht",
       "name": "Uku Täht",
       "profiles": [],
@@ -469,6 +481,13 @@
     }
   ],
   "products": [
+    {
+      "id": "transistor",
+      "name": "Transistor",
+      "aliases": ["Transistor.fm", "트랜지스터"],
+      "domains": ["transistor.fm"],
+      "personIds": ["justin-jackson", "jon-buda"]
+    },
     {
       "id": "plausible",
       "domains": ["plausible.io"],

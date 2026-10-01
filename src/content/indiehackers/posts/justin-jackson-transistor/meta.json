@@ -1,0 +1,9 @@
+{
+  "id": "justin-jackson-transistor",
+  "personIds": ["justin-jackson", "jon-buda"],
+  "productIds": ["transistor"],
+  "productName": "Transistor",
+  "coverImage": "/images/indiehackers/justin-jackson-transistor.webp",
+  "publishedAt": "2026-10-01",
+  "tags": ["saas", "web", "b2b", "subscription", "small-team", "bootstrapping"]
+}
