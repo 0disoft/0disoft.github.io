@@ -1,0 +1,20 @@
+{
+  "id": "jonathan-bull-emailoctopus",
+  "personIds": ["jonathan-bull", "gareth-bull"],
+  "productIds": ["emailoctopus"],
+  "productName": "EmailOctopus",
+  "coverImage": "/images/indiehackers/jonathan-bull-emailoctopus.webp",
+  "publishedAt": "2026-10-01",
+  "tags": [
+    "saas",
+    "web",
+    "b2b",
+    "subscription",
+    "small-team",
+    "bootstrapping",
+    "validation",
+    "pricing",
+    "acquisition",
+    "infrastructure"
+  ]
+}

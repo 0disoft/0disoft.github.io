@@ -2,6 +2,18 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "jonathan-bull",
+      "name": "Jonathan Bull",
+      "aliases": ["조너선 불"],
+      "profiles": []
+    },
+    {
+      "id": "gareth-bull",
+      "name": "Gareth Bull",
+      "aliases": ["개러스 불"],
+      "profiles": []
+    },
+    {
       "id": "chris-gimmer",
       "name": "Christopher Gimmer",
       "aliases": ["Chris Gimmer", "크리스 기머"],
@@ -505,6 +517,13 @@
     }
   ],
   "products": [
+    {
+      "id": "emailoctopus",
+      "name": "EmailOctopus",
+      "aliases": ["Email Octopus", "EmailOctopus Connect", "이메일옥토퍼스"],
+      "domains": ["emailoctopus.com"],
+      "personIds": ["jonathan-bull", "gareth-bull"]
+    },
     {
       "id": "snappa",
       "name": "Snappa",
