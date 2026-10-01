@@ -1,0 +1,19 @@
+{
+  "id": "jonny-white-ticket-tailor",
+  "personIds": ["jonny-white"],
+  "productIds": ["ticket-tailor"],
+  "productName": "Ticket Tailor",
+  "coverImage": "/images/indiehackers/jonny-white-ticket-tailor.webp",
+  "publishedAt": "2026-10-01",
+  "tags": [
+    "saas",
+    "web",
+    "b2b",
+    "usage-based",
+    "small-team",
+    "bootstrapping",
+    "pricing",
+    "growth",
+    "exit"
+  ]
+}

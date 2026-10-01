@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "jonny-white",
+      "name": "Jonny White",
+      "aliases": ["조니 화이트"],
+      "profiles": []
+    },
+    {
       "id": "jonathan-bull",
       "name": "Jonathan Bull",
       "aliases": ["조너선 불"],
@@ -517,6 +523,13 @@
     }
   ],
   "products": [
+    {
+      "id": "ticket-tailor",
+      "name": "Ticket Tailor",
+      "aliases": ["TicketTailor", "티켓 테일러", "티켓테일러"],
+      "domains": ["tickettailor.com"],
+      "personIds": ["jonny-white"]
+    },
     {
       "id": "emailoctopus",
       "name": "EmailOctopus",
