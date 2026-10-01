@@ -1,0 +1,20 @@
+{
+  "id": "simon-hoiberg-feedhive",
+  "personIds": ["simon-hoiberg"],
+  "productIds": ["feedhive"],
+  "productName": "FeedHive",
+  "coverImage": "/images/indiehackers/simon-hoiberg-feedhive.webp",
+  "publishedAt": "2026-10-01",
+  "tags": [
+    "saas",
+    "web",
+    "b2b",
+    "subscription",
+    "one-time-purchase",
+    "small-team",
+    "pricing",
+    "growth",
+    "acquisition",
+    "infrastructure"
+  ]
+}

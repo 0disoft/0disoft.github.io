@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "simon-hoiberg",
+      "name": "Simon Høiberg",
+      "aliases": ["Simon Hoiberg"],
+      "profiles": []
+    },
+    {
       "id": "jonny-white",
       "name": "Jonny White",
       "aliases": ["조니 화이트"],
@@ -157,7 +163,12 @@
       "aliases": ["ajlkn", "에이제이"],
       "profiles": ["https://x.com/ajlkn"]
     },
-    { "id": "ivan-kutskir", "name": "Ivan Kutskir", "aliases": ["이반 쿠츠키르"], "profiles": [] },
+    {
+      "id": "ivan-kutskir",
+      "name": "Ivan Kutskir",
+      "aliases": ["이반 쿠츠키르"],
+      "profiles": []
+    },
     {
       "id": "lynne-tye",
       "name": "Lynne Tye",
@@ -523,6 +534,13 @@
     }
   ],
   "products": [
+    {
+      "id": "feedhive",
+      "name": "FeedHive",
+      "aliases": ["Feed Hive", "피드하이브"],
+      "domains": ["feedhive.com", "feedhive.io"],
+      "personIds": ["simon-hoiberg"]
+    },
     {
       "id": "ticket-tailor",
       "name": "Ticket Tailor",
@@ -1329,5 +1347,23 @@
       "personIds": ["danny-van-kooten"]
     }
   ],
-  "research": []
+  "research": [
+    {
+      "id": "simon-hoiberg-feedhive",
+      "personIds": ["simon-hoiberg"],
+      "productIds": ["feedhive"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-01",
+      "sources": [
+        "https://www.reddit.com/r/SaaS/comments/qs5ykt/",
+        "https://www.reddit.com/r/Entrepreneur/comments/mpdvq6/",
+        "https://www.indiehackers.com/post/we-used-ai-to-analyze-100-000-tweets-and-can-now-predict-how-well-your-tweet-will-do-c9d94fb97b",
+        "https://www.indiehackers.com/post/my-saas-made-400-000-in-its-first-year-heres-how-1649d7bcc7",
+        "https://www.indiehackers.com/post/elon-musk-broke-my-saas-business-3b4a079b59",
+        "https://www.feedhive.com/blog/how-to-use-feedhive-to-grow-an-audience-on-twitter",
+        "https://www.feedhive.com/pricing",
+        "https://www.feedhive.com/"
+      ]
+    }
+  ]
 }
