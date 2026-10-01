@@ -2,6 +2,18 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "jack-ellis",
+      "name": "Jack Ellis",
+      "aliases": ["잭 엘리스"],
+      "profiles": ["https://usefathom.com/author/jack-ellis/"]
+    },
+    {
+      "id": "paul-jarvis",
+      "name": "Paul Jarvis",
+      "aliases": ["폴 자비스"],
+      "profiles": []
+    },
+    {
       "id": "justin-jackson",
       "name": "Justin Jackson",
       "aliases": ["저스틴 잭슨"],
@@ -481,6 +493,13 @@
     }
   ],
   "products": [
+    {
+      "id": "fathom",
+      "name": "Fathom Analytics",
+      "aliases": ["Fathom"],
+      "domains": ["usefathom.com"],
+      "personIds": ["jack-ellis", "paul-jarvis"]
+    },
     {
       "id": "transistor",
       "name": "Transistor",
