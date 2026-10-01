@@ -1,0 +1,9 @@
+{
+  "id": "uku-taht-plausible",
+  "personIds": ["uku-taht", "marko-saric"],
+  "productIds": ["plausible"],
+  "productName": "Plausible Analytics",
+  "coverImage": "/images/indiehackers/uku-taht-plausible.webp",
+  "publishedAt": "2026-10-01",
+  "tags": ["saas", "web", "b2b", "subscription", "small-team", "bootstrapping", "open-source"]
+}

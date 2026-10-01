@@ -2,6 +2,18 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "uku-taht",
+      "name": "Uku Täht",
+      "profiles": [],
+      "aliases": ["Uku Taht", "우쿠 태흐트"]
+    },
+    {
+      "id": "marko-saric",
+      "name": "Marko Saric",
+      "profiles": ["https://markosaric.com/"],
+      "aliases": ["마르코 사리치"]
+    },
+    {
       "id": "marie-martens",
       "name": "Marie Martens",
       "aliases": ["마리 마르턴스"],
@@ -457,6 +469,13 @@
     }
   ],
   "products": [
+    {
+      "id": "plausible",
+      "domains": ["plausible.io"],
+      "name": "Plausible Analytics",
+      "personIds": ["uku-taht", "marko-saric"],
+      "aliases": ["Plausible", "Plausible CE", "Plausible Community Edition"]
+    },
     {
       "id": "tally",
       "name": "Tally",
