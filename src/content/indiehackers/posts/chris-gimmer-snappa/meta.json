@@ -1,0 +1,19 @@
+{
+  "id": "chris-gimmer-snappa",
+  "personIds": ["chris-gimmer", "marc-chouinard"],
+  "productIds": ["snappa", "stocksnap", "bootstrapbay", "goodmetrics"],
+  "productName": "Snappa",
+  "coverImage": "/images/indiehackers/chris-gimmer-snappa.webp",
+  "publishedAt": "2026-10-01",
+  "tags": [
+    "saas",
+    "design-tools",
+    "web",
+    "b2b",
+    "subscription",
+    "small-team",
+    "bootstrapping",
+    "acquisition",
+    "retention"
+  ]
+}

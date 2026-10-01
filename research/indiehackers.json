@@ -2,6 +2,18 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "chris-gimmer",
+      "name": "Christopher Gimmer",
+      "aliases": ["Chris Gimmer", "크리스 기머"],
+      "profiles": ["https://chrisgimmer.com/"]
+    },
+    {
+      "id": "marc-chouinard",
+      "name": "Marc Chouinard",
+      "aliases": ["마크 슈이나르"],
+      "profiles": []
+    },
+    {
       "id": "jack-ellis",
       "name": "Jack Ellis",
       "aliases": ["잭 엘리스"],
@@ -493,6 +505,34 @@
     }
   ],
   "products": [
+    {
+      "id": "snappa",
+      "name": "Snappa",
+      "aliases": ["스내파"],
+      "domains": ["snappa.com", "snappa.io"],
+      "personIds": ["chris-gimmer", "marc-chouinard"]
+    },
+    {
+      "id": "stocksnap",
+      "name": "StockSnap",
+      "aliases": ["StockSnap.io"],
+      "domains": ["stocksnap.io"],
+      "personIds": ["chris-gimmer", "marc-chouinard"]
+    },
+    {
+      "id": "bootstrapbay",
+      "name": "BootstrapBay",
+      "aliases": ["Bootstrap Bay"],
+      "domains": ["bootstrapbay.com"],
+      "personIds": ["chris-gimmer", "marc-chouinard"]
+    },
+    {
+      "id": "goodmetrics",
+      "name": "GoodMetrics",
+      "aliases": ["Good Metrics"],
+      "domains": ["goodmetrics.io"],
+      "personIds": ["chris-gimmer", "marc-chouinard"]
+    },
     {
       "id": "fathom",
       "name": "Fathom Analytics",
