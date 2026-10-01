@@ -1,0 +1,9 @@
+{
+  "id": "marie-martens-tally",
+  "personIds": ["marie-martens", "filip-minev"],
+  "productIds": ["tally"],
+  "productName": "Tally",
+  "coverImage": "/images/indiehackers/marie-martens-tally.webp",
+  "publishedAt": "2026-10-01",
+  "tags": ["saas", "web", "b2b", "subscription", "small-team", "bootstrapping"]
+}

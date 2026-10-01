@@ -2,6 +2,18 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "marie-martens",
+      "name": "Marie Martens",
+      "aliases": ["마리 마르턴스"],
+      "profiles": ["https://blog.tally.so/author/marie/"]
+    },
+    {
+      "id": "filip-minev",
+      "name": "Filip Minev",
+      "aliases": ["필리프 미네프"],
+      "profiles": []
+    },
+    {
       "id": "arvid-kahl",
       "name": "Arvid Kahl",
       "aliases": ["아르비드 칼"],
@@ -445,6 +457,13 @@
     }
   ],
   "products": [
+    {
+      "id": "tally",
+      "name": "Tally",
+      "aliases": ["Tally Forms", "탈리"],
+      "domains": ["tally.so"],
+      "personIds": ["marie-martens", "filip-minev"]
+    },
     {
       "id": "feedbackpanda",
       "name": "FeedbackPanda",
