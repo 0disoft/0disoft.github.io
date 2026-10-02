@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "louis-pereira",
+      "name": "Louis Pereira",
+      "aliases": ["루이스 페레이라"],
+      "profiles": ["https://www.indiehackers.com/louispereira"]
+    },
+    {
       "id": "simon-hoiberg",
       "name": "Simon Høiberg",
       "aliases": ["Simon Hoiberg"],
@@ -534,6 +540,13 @@
     }
   ],
   "products": [
+    {
+      "id": "audiopen",
+      "name": "AudioPen",
+      "aliases": ["AudioPen Prime", "Audio Pen", "오디오펜"],
+      "domains": ["audiopen.ai"],
+      "personIds": ["louis-pereira"]
+    },
     {
       "id": "feedhive",
       "name": "FeedHive",
@@ -1363,6 +1376,24 @@
         "https://www.feedhive.com/blog/how-to-use-feedhive-to-grow-an-audience-on-twitter",
         "https://www.feedhive.com/pricing",
         "https://www.feedhive.com/"
+      ]
+    },
+    {
+      "id": "louis-pereira-audiopen",
+      "personIds": ["louis-pereira"],
+      "productIds": ["audiopen"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-02",
+      "sources": [
+        "https://www.audiopen.ai/",
+        "https://www.audiopen.ai/prime",
+        "https://www.audiopen.ai/blog/how-i-built-audiopen",
+        "https://www.audiopen.ai/blog/surprising-uses-of-audiopen",
+        "https://www.solveo.co/post/accidentally-created-ai-tool-thats-made-73000",
+        "https://www.indiehackers.com/post/tech/building-an-ai-tool-in-a-half-day-hackathon-and-hitting-20k-mo-BCloDTDRfjuip0pDghap",
+        "https://www.fakemayo.com/p/an-ai-powered-voice-note-app-making-in-the-range-of-12-15k-per-month",
+        "https://www.starterstory.com/stories/audiopen",
+        "https://www.producthunt.com/leaderboard/daily/2023/5/4"
       ]
     }
   ]

@@ -1,0 +1,22 @@
+{
+  "id": "louis-pereira-audiopen",
+  "personIds": ["louis-pereira"],
+  "productIds": ["audiopen"],
+  "productName": "AudioPen",
+  "coverImage": "/images/indiehackers/louis-pereira-audiopen.webp",
+  "publishedAt": "2026-10-02",
+  "tags": [
+    "saas",
+    "productivity",
+    "web",
+    "mobile-app",
+    "desktop-app",
+    "b2c",
+    "one-time-purchase",
+    "solo-building",
+    "mvp",
+    "validation",
+    "pricing",
+    "acquisition"
+  ]
+}
