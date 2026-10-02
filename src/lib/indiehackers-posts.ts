@@ -299,25 +299,39 @@ export function filterIndiehackersPosts(
 	});
 }
 
+const publicationCalendar = new Intl.DateTimeFormat("en-US", {
+	timeZone: "Asia/Seoul",
+	year: "numeric",
+	month: "numeric",
+	day: "numeric",
+});
+
 export function isRecentIndiehackersPost(publishedAt: string, now: Date = new Date()): boolean {
 	if (!/^\d{4}-\d{2}-\d{2}$/.test(publishedAt) || Number.isNaN(now.getTime())) {
 		return false;
 	}
 	const [year, month, day] = publishedAt.split("-").map(Number);
-	const published = new Date(year, month - 1, day);
+	const published = new Date(Date.UTC(year, month - 1, day));
 	if (
-		published.getFullYear() !== year ||
-		published.getMonth() !== month - 1 ||
-		published.getDate() !== day
+		published.getUTCFullYear() !== year ||
+		published.getUTCMonth() !== month - 1 ||
+		published.getUTCDate() !== day
 	) {
 		return false;
 	}
-	// Publication metadata is a calendar date, not a UTC midnight timestamp.
-	const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+	// Articles use the publisher's Seoul calendar, including on UTC build runners.
+	const parts = publicationCalendar.formatToParts(now);
+	const today = new Date(
+		Date.UTC(
+			Number(parts.find((part) => part.type === "year")?.value),
+			Number(parts.find((part) => part.type === "month")?.value) - 1,
+			Number(parts.find((part) => part.type === "day")?.value),
+		),
+	);
 	const cutoff = new Date(today);
-	cutoff.setFullYear(today.getFullYear() - 1);
-	if (cutoff.getMonth() !== today.getMonth()) {
-		cutoff.setDate(0);
+	cutoff.setUTCFullYear(today.getUTCFullYear() - 1);
+	if (cutoff.getUTCMonth() !== today.getUTCMonth()) {
+		cutoff.setUTCDate(0);
 	}
 	return published >= cutoff && published <= today;
 }

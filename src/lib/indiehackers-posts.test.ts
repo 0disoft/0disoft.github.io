@@ -221,17 +221,31 @@ describe("indiehackers posts", () => {
 
 	it("includes calendar boundaries throughout the day and excludes future or invalid dates", () => {
 		for (const hour of [0, 12, 23]) {
-			const now = new Date(2026, 8, 22, hour, 30);
+			const now = new Date(`2026-09-22T${String(hour).padStart(2, "0")}:30:00+09:00`);
 			expect(isRecentIndiehackersPost("2026-09-22", now)).toBe(true);
 			expect(isRecentIndiehackersPost("2025-09-22", now)).toBe(true);
 			expect(isRecentIndiehackersPost("2025-09-21", now)).toBe(false);
 			expect(isRecentIndiehackersPost("2026-09-23", now)).toBe(false);
 			expect(isRecentIndiehackersPost("2026-02-30", now)).toBe(false);
 		}
-		expect(isRecentIndiehackersPost("2023-03-01", new Date(2024, 2, 1, 12))).toBe(true);
-		expect(isRecentIndiehackersPost("2023-02-28", new Date(2024, 1, 29, 12))).toBe(true);
-		expect(isRecentIndiehackersPost("2023-02-27", new Date(2024, 1, 29, 12))).toBe(false);
+		expect(isRecentIndiehackersPost("2023-03-01", new Date("2024-03-01T12:00:00+09:00"))).toBe(
+			true,
+		);
+		expect(isRecentIndiehackersPost("2023-02-28", new Date("2024-02-29T12:00:00+09:00"))).toBe(
+			true,
+		);
+		expect(isRecentIndiehackersPost("2023-02-27", new Date("2024-02-29T12:00:00+09:00"))).toBe(
+			false,
+		);
 		expect(isRecentIndiehackersPost("2026-09-22", new Date(NaN))).toBe(false);
+	});
+
+	it("includes newly published articles after Seoul midnight even while UTC is yesterday", () => {
+		const now = new Date("2026-10-02T15:16:00Z");
+		expect(isRecentIndiehackersPost("2026-10-03", now)).toBe(true);
+		expect(isRecentIndiehackersPost("2026-10-04", now)).toBe(false);
+		expect(isRecentIndiehackersPost("2025-10-03", now)).toBe(true);
+		expect(isRecentIndiehackersPost("2025-10-02", now)).toBe(false);
 	});
 
 	it("keeps recent posts from the last year by default", () => {
