@@ -2,6 +2,21 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "tiago-ferreira",
+      "name": "Tiago Ferreira",
+      "aliases": ["티아고 페헤이라"],
+      "profiles": [
+        "https://twitter.com/wbetiago",
+        "https://www.linkedin.com/in/tiago-ferreira-48562095/"
+      ]
+    },
+    {
+      "id": "joao-amaro",
+      "name": "João Amaro",
+      "aliases": ["Joao Amaro", "주앙 아마루"],
+      "profiles": ["https://twitter.com/JOAOTHA"]
+    },
+    {
       "id": "jim-raptis",
       "name": "Jim Raptis",
       "aliases": ["짐 랩티스"],
@@ -546,6 +561,13 @@
     }
   ],
   "products": [
+    {
+      "id": "podsqueeze",
+      "name": "Podsqueeze",
+      "aliases": ["Pod Squeeze", "팟스퀴즈"],
+      "domains": ["podsqueeze.com"],
+      "personIds": ["tiago-ferreira", "joao-amaro"]
+    },
     {
       "id": "magicpattern",
       "name": "MagicPattern",
@@ -1443,6 +1465,23 @@
         "https://www.magicpattern.design/",
         "https://www.brandbird.app/",
         "https://www.supermotion.co/"
+      ]
+    },
+    {
+      "id": "tiago-ferreira-podsqueeze",
+      "personIds": ["tiago-ferreira", "joao-amaro"],
+      "productIds": ["podsqueeze"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-02",
+      "sources": [
+        "https://indiebites.com/120",
+        "https://daniliants.ventures/podcasts/podsqueeze/",
+        "https://www.founderclub.com/podsqueeze/",
+        "https://www.indiehackers.com/post/reaching-6-5k-mrr-with-saas-for-podcasts-in-2-months-9459d9e795",
+        "https://podsqueeze.com/",
+        "https://podsqueeze.com/pricing/",
+        "https://podsqueeze.com/media/",
+        "https://smartbearlive.transistor.fm/3"
       ]
     }
   ]

@@ -1,0 +1,23 @@
+{
+  "id": "tiago-ferreira-podsqueeze",
+  "personIds": ["tiago-ferreira", "joao-amaro"],
+  "productIds": ["podsqueeze"],
+  "productName": "Podsqueeze",
+  "coverImage": "/images/indiehackers/tiago-ferreira-podsqueeze.webp",
+  "publishedAt": "2026-10-02",
+  "tags": [
+    "saas",
+    "content-service",
+    "web",
+    "b2b",
+    "b2c",
+    "subscription",
+    "small-team",
+    "bootstrapping",
+    "mvp",
+    "validation",
+    "pricing",
+    "acquisition",
+    "retention"
+  ]
+}
