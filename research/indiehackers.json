@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "jim-raptis",
+      "name": "Jim Raptis",
+      "aliases": ["짐 랩티스"],
+      "profiles": ["https://www.indiehackers.com/dmraptis", "https://www.jimraptis.com/"]
+    },
+    {
       "id": "louis-pereira",
       "name": "Louis Pereira",
       "aliases": ["루이스 페레이라"],
@@ -540,6 +546,27 @@
     }
   ],
   "products": [
+    {
+      "id": "magicpattern",
+      "name": "MagicPattern",
+      "aliases": ["Magic Pattern", "매직패턴"],
+      "domains": ["magicpattern.design"],
+      "personIds": ["jim-raptis"]
+    },
+    {
+      "id": "brandbird",
+      "name": "BrandBird",
+      "aliases": ["Brand Bird", "브랜드버드"],
+      "domains": ["brandbird.app", "brandbird.studio"],
+      "personIds": ["jim-raptis"]
+    },
+    {
+      "id": "supermotion",
+      "name": "SuperMotion",
+      "aliases": ["Super Motion", "슈퍼모션"],
+      "domains": ["supermotion.co"],
+      "personIds": ["jim-raptis"]
+    },
     {
       "id": "audiopen",
       "name": "AudioPen",
@@ -1394,6 +1421,28 @@
         "https://www.fakemayo.com/p/an-ai-powered-voice-note-app-making-in-the-range-of-12-15k-per-month",
         "https://www.starterstory.com/stories/audiopen",
         "https://www.producthunt.com/leaderboard/daily/2023/5/4"
+      ]
+    },
+    {
+      "id": "jim-raptis-magicpattern-brandbird",
+      "personIds": ["jim-raptis"],
+      "productIds": ["magicpattern", "brandbird", "supermotion"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-02",
+      "sources": [
+        "https://indiebites.com/50",
+        "https://www.jimraptis.com/",
+        "https://www.creativerly.com/interview-jim-raptis/",
+        "https://www.producthunt.com/stories/what-this-golden-kitty-winner-learned-from-a-bad-first-launch",
+        "https://www.producthunt.com/products/brandbird",
+        "https://www.indiehackers.com/post/ive-reached-1k-mrr-in-8-months-ama-9f395e6072",
+        "https://www.indiehackers.com/post/heres-how-jim-raptis-left-the-vc-funding-world-behind-and-built-a-portfolio-of-bootstrapped-products-with-6-5k-mrr-NhCE9YTxvf9mqlDK8Ihx",
+        "https://ideamensch.com/jim-raptis/",
+        "https://help.brandbird.app/posts/create-a-team",
+        "https://www.jimraptis.com/blog/the-product-hunt-launch-blueprint",
+        "https://www.magicpattern.design/",
+        "https://www.brandbird.app/",
+        "https://www.supermotion.co/"
       ]
     }
   ]

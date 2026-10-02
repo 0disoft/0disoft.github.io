@@ -1,0 +1,22 @@
+{
+  "id": "jim-raptis-magicpattern-brandbird",
+  "personIds": ["jim-raptis"],
+  "productIds": ["magicpattern", "brandbird", "supermotion"],
+  "productName": "MagicPattern · BrandBird",
+  "coverImage": "/images/indiehackers/jim-raptis-magicpattern-brandbird.webp",
+  "publishedAt": "2026-10-02",
+  "tags": [
+    "saas",
+    "design-tools",
+    "web",
+    "b2b",
+    "b2c",
+    "subscription",
+    "one-time-purchase",
+    "solo-building",
+    "mvp",
+    "validation",
+    "pricing",
+    "acquisition"
+  ]
+}
