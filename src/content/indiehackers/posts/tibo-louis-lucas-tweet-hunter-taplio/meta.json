@@ -1,0 +1,23 @@
+{
+  "id": "tibo-louis-lucas-tweet-hunter-taplio",
+  "personIds": ["tibo-louis-lucas", "tom-jacquesson"],
+  "productIds": ["tweet-hunter", "taplio"],
+  "productName": "Tweet Hunter · Taplio",
+  "coverImage": "/images/indiehackers/tibo-louis-lucas-tweet-hunter-taplio.webp",
+  "publishedAt": "2026-10-03",
+  "tags": [
+    "saas",
+    "content-service",
+    "web",
+    "b2b",
+    "b2c",
+    "subscription",
+    "small-team",
+    "validation",
+    "mvp",
+    "pricing",
+    "acquisition",
+    "growth",
+    "exit"
+  ]
+}

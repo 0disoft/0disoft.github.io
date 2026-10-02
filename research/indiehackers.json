@@ -2,6 +2,18 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "tibo-louis-lucas",
+      "name": "Tibo Louis-Lucas",
+      "aliases": ["Thibault Louis-Lucas", "Thibault (Tibo) Louis-Lucas", "티보 루이뤼카"],
+      "profiles": ["https://twitter.com/tibo_maker"]
+    },
+    {
+      "id": "tom-jacquesson",
+      "name": "Tom Jacquesson",
+      "aliases": ["Thomas Jacquesson", "톰 자케송"],
+      "profiles": ["https://twitter.com/tomjacquesson"]
+    },
+    {
       "id": "tiago-ferreira",
       "name": "Tiago Ferreira",
       "aliases": ["티아고 페헤이라"],
@@ -561,6 +573,20 @@
     }
   ],
   "products": [
+    {
+      "id": "tweet-hunter",
+      "name": "Tweet Hunter",
+      "aliases": ["TweetHunter", "트윗 헌터"],
+      "domains": ["tweethunter.io"],
+      "personIds": ["tibo-louis-lucas", "tom-jacquesson"]
+    },
+    {
+      "id": "taplio",
+      "name": "Taplio",
+      "aliases": ["탭리오"],
+      "domains": ["taplio.com"],
+      "personIds": ["tibo-louis-lucas", "tom-jacquesson"]
+    },
     {
       "id": "podsqueeze",
       "name": "Podsqueeze",
@@ -1482,6 +1508,26 @@
         "https://podsqueeze.com/pricing/",
         "https://podsqueeze.com/media/",
         "https://smartbearlive.transistor.fm/3"
+      ]
+    },
+    {
+      "id": "tibo-louis-lucas-tweet-hunter-taplio",
+      "personIds": ["tibo-louis-lucas", "tom-jacquesson"],
+      "productIds": ["tweet-hunter", "taplio"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-03",
+      "sources": [
+        "https://www.failory.com/interview/tweet-hunter",
+        "https://theygotacquired.com/saas/pony-express-acquired-by-lempire/",
+        "https://saasclub.io/podcast/saas-distribution-channel-tibo-louis-lucas-tmaker/",
+        "https://www.indiehackers.com/post/tech/heres-how-tibo-sold-two-products-for-8m-and-why-he-ll-never-do-it-again-iwykhfENoZqJgRLU33zv",
+        "https://www.indiehackers.com/post/i-acquired-a-competitor-and-turned-it-into-a-lead-magnet-heres-how-0566e99bd5",
+        "https://listen-up.ghost.io/tweethunter/",
+        "https://www.firstclassfounders.com/from-bankruptcy-to-millionaire-in-2-years-how-tibo-louis-lucas-built-and-sold-tweethunter-taplio/",
+        "https://www.producthunt.com/products/taplio-stats-for-linkedin",
+        "https://tweethunter.io/tweets/marketing",
+        "https://tweethunter.io/",
+        "https://taplio.com/"
       ]
     }
   ]
