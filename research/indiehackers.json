@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "nico-jeannen",
+      "name": "Nico Jeannen",
+      "aliases": ["Nicolas Jeanne", "Nicolas Jeannen", "니코 자넨"],
+      "profiles": ["https://twitter.com/nico_jeannen", "https://jeannen.com"]
+    },
+    {
       "id": "tibo-louis-lucas",
       "name": "Tibo Louis-Lucas",
       "aliases": ["Thibault Louis-Lucas", "Thibault (Tibo) Louis-Lucas", "티보 루이뤼카"],
@@ -573,6 +579,20 @@
     }
   ],
   "products": [
+    {
+      "id": "makelogoai",
+      "name": "MakeLogoAI",
+      "aliases": ["MakeLogo.ai", "MakeLogoAI.com", "메이크로고AI"],
+      "domains": ["makelogoai.com"],
+      "personIds": ["nico-jeannen"]
+    },
+    {
+      "id": "talknotes",
+      "name": "TalkNotes",
+      "aliases": ["Talknotes", "톡노트"],
+      "domains": ["talknotes.io"],
+      "personIds": ["nico-jeannen"]
+    },
     {
       "id": "tweet-hunter",
       "name": "Tweet Hunter",
@@ -1528,6 +1548,25 @@
         "https://tweethunter.io/tweets/marketing",
         "https://tweethunter.io/",
         "https://taplio.com/"
+      ]
+    },
+    {
+      "id": "nico-jeannen-talknotes-makelogoai",
+      "personIds": ["nico-jeannen"],
+      "productIds": ["makelogoai", "talknotes"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-03",
+      "sources": [
+        "https://www.indiehackers.com/post/getting-acquired-for-200k-within-11-months-by-leveraging-facebook-ads-1fhPcnhMPbvMbqSWGUjS",
+        "https://www.indiehackers.com/post/i-just-sold-my-app-for-200-000-after-11-months-0d89507cd3",
+        "https://blog.acquire.com/startup-acquisition-episode-112/",
+        "https://www.starterstory.com/stories/talknotes-the-ai-voice-notes-app",
+        "https://www.nocsdegree.com/200k-exit-after-learning-to-code/",
+        "https://jeannen.com/blog/making-ai-logo",
+        "https://jeannen.com/blog/making-talknotes-io",
+        "https://www.producthunt.com/leaderboard/daily/2023/10/8",
+        "https://www.indiehackers.com/product/talknotes/reached-100-mrr--NevMzf4e1d_9mG1lXn2",
+        "https://talknotes.io/"
       ]
     }
   ]

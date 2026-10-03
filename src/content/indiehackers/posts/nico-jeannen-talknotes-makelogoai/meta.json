@@ -1,0 +1,25 @@
+{
+  "id": "nico-jeannen-talknotes-makelogoai",
+  "personIds": ["nico-jeannen"],
+  "productIds": ["makelogoai", "talknotes"],
+  "productName": "TalkNotes · MakeLogoAI",
+  "coverImage": "/images/indiehackers/nico-jeannen-talknotes-makelogoai.webp",
+  "publishedAt": "2026-10-03",
+  "tags": [
+    "saas",
+    "productivity",
+    "web",
+    "b2b",
+    "b2c",
+    "subscription",
+    "solo-building",
+    "bootstrapping",
+    "validation",
+    "mvp",
+    "launch",
+    "pricing",
+    "acquisition",
+    "growth",
+    "exit"
+  ]
+}
