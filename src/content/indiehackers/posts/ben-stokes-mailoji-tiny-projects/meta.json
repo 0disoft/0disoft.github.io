@@ -1,0 +1,26 @@
+{
+  "id": "ben-stokes-mailoji-tiny-projects",
+  "personIds": ["ben-stokes"],
+  "productIds": ["mailoji", "tiny-projects"],
+  "productName": "Mailoji · Tiny Projects",
+  "coverImage": "/images/indiehackers/ben-stokes-mailoji-tiny-projects.webp",
+  "publishedAt": "2026-10-03",
+  "tags": [
+    "saas",
+    "content-service",
+    "web",
+    "b2c",
+    "subscription",
+    "commission",
+    "solo-building",
+    "bootstrapping",
+    "validation",
+    "mvp",
+    "launch",
+    "acquisition",
+    "pricing",
+    "retention",
+    "infrastructure",
+    "exit"
+  ]
+}

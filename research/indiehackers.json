@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "ben-stokes",
+      "name": "Ben Stokes",
+      "aliases": ["벤 스토크스"],
+      "profiles": ["https://tinyprojects.dev/", "https://twitter.com/tinyprojectsdev"]
+    },
+    {
       "id": "dan-rowden",
       "name": "Dan Rowden",
       "aliases": ["댄 로든"],
@@ -585,6 +591,48 @@
     }
   ],
   "products": [
+    {
+      "id": "mailoji",
+      "name": "Mailoji",
+      "aliases": ["메일로지"],
+      "domains": ["mailoji.com"],
+      "personIds": ["ben-stokes"]
+    },
+    {
+      "id": "tiny-projects",
+      "name": "Tiny Projects",
+      "aliases": ["TinyProjects", "타이니 프로젝트"],
+      "domains": ["tinyprojects.dev"],
+      "personIds": ["ben-stokes"]
+    },
+    {
+      "id": "one-item-store",
+      "name": "One Item Store",
+      "aliases": ["OneItem.Store", "원 아이템 스토어"],
+      "domains": ["oneitem.store"],
+      "personIds": ["ben-stokes"]
+    },
+    {
+      "id": "earlyname",
+      "name": "Earlyname",
+      "aliases": ["EarlyName", "얼리네임"],
+      "domains": ["earlyname.com"],
+      "personIds": ["ben-stokes"]
+    },
+    {
+      "id": "paper-website",
+      "name": "Paper Website",
+      "aliases": ["PaperWebsite", "페이퍼 웹사이트"],
+      "domains": ["paperwebsite.com"],
+      "personIds": ["ben-stokes"]
+    },
+    {
+      "id": "promptbase",
+      "name": "PromptBase",
+      "aliases": ["Prompt Base", "프롬프트베이스"],
+      "domains": ["promptbase.com"],
+      "personIds": ["ben-stokes"]
+    },
     {
       "id": "gloat",
       "name": "Gloat",
@@ -1600,6 +1648,38 @@
         "https://www.magicpages.co/magic-pages-acquired-gloat/",
         "https://www.magicpages.co/gloat/",
         "https://metacast.app/podcast/open-threads/NOC3KHuJ/portfolio-of-products-vs-focus-on-one-with-dan-rowden/jRe5s5ai"
+      ]
+    },
+    {
+      "id": "ben-stokes-mailoji-tiny-projects",
+      "personIds": ["ben-stokes"],
+      "productIds": [
+        "mailoji",
+        "tiny-projects",
+        "one-item-store",
+        "earlyname",
+        "paper-website",
+        "promptbase"
+      ],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-03",
+      "sources": [
+        "https://indiebites.com/26",
+        "https://tinyprojects.dev/",
+        "https://tinyprojects.dev/projects/mailoji",
+        "https://tinyprojects.dev/posts/selling_a_tiny_project",
+        "https://tinyprojects.dev/posts/selling_tiny_internet_projects_for_fun_and_profit",
+        "https://tinyprojects.dev/posts/i_spent_two_years_launching_tiny_projects",
+        "https://mailoji.com/",
+        "https://daily.tinyprojects.dev/8",
+        "https://daily.tinyprojects.dev/53",
+        "https://daily.tinyprojects.dev/72",
+        "https://daily.tinyprojects.dev/90",
+        "https://daily.tinyprojects.dev/95",
+        "https://daily.tinyprojects.dev/104",
+        "https://daily.tinyprojects.dev/paper_website",
+        "https://daily.tinyprojects.dev/136",
+        "https://daily.tinyprojects.dev/201"
       ]
     }
   ]
