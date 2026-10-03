@@ -1,0 +1,22 @@
+{
+  "id": "dan-rowden-gloat",
+  "personIds": ["dan-rowden"],
+  "productIds": ["gloat"],
+  "productName": "Gloat",
+  "coverImage": "/images/indiehackers/dan-rowden-gloat.webp",
+  "publishedAt": "2026-10-03",
+  "tags": [
+    "content-service",
+    "web",
+    "b2b",
+    "b2c",
+    "subscription",
+    "one-time-purchase",
+    "solo-building",
+    "bootstrapping",
+    "launch",
+    "pricing",
+    "infrastructure",
+    "exit"
+  ]
+}

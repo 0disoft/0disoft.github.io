@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "dan-rowden",
+      "name": "Dan Rowden",
+      "aliases": ["댄 로든"],
+      "profiles": ["https://danrowden.com/", "https://twitter.com/dr"]
+    },
+    {
       "id": "nico-jeannen",
       "name": "Nico Jeannen",
       "aliases": ["Nicolas Jeanne", "Nicolas Jeannen", "니코 자넨"],
@@ -579,6 +585,13 @@
     }
   ],
   "products": [
+    {
+      "id": "gloat",
+      "name": "Gloat",
+      "aliases": ["Gloat Hosting", "Install Ghost for Me", "글로트"],
+      "domains": ["gloathost.com", "gloat.dev", "gloathosting.com", "ongloat.com"],
+      "personIds": ["dan-rowden"]
+    },
     {
       "id": "makelogoai",
       "name": "MakeLogoAI",
@@ -1567,6 +1580,26 @@
         "https://www.producthunt.com/leaderboard/daily/2023/10/8",
         "https://www.indiehackers.com/product/talknotes/reached-100-mrr--NevMzf4e1d_9mG1lXn2",
         "https://talknotes.io/"
+      ]
+    },
+    {
+      "id": "dan-rowden-gloat",
+      "personIds": ["dan-rowden"],
+      "productIds": ["gloat"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-03",
+      "sources": [
+        "https://danrowden.com/",
+        "https://danrowden.com/blog/i-sold-my-ghost-host-gloat/",
+        "https://danrowden.com/blog/i-nearly-sold-my-ghost-products-for-75k/",
+        "https://www.indiehackers.com/product/gloat",
+        "https://www.indiehackers.com/post/built-a-service-business-over-the-weekend-fd06c2f55a",
+        "https://www.gloathost.com/",
+        "https://www.gloathost.com/gloat-hosting-vs-ghost-pro/",
+        "https://ghost.org/changelog/6/",
+        "https://www.magicpages.co/magic-pages-acquired-gloat/",
+        "https://www.magicpages.co/gloat/",
+        "https://metacast.app/podcast/open-threads/NOC3KHuJ/portfolio-of-products-vs-focus-on-one-with-dan-rowden/jRe5s5ai"
       ]
     }
   ]
