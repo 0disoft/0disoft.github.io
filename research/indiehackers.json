@@ -2,6 +2,18 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "bhanu-teja",
+      "name": "Bhanu Teja P.",
+      "aliases": ["Bhanu Teja", "Bhanu Teja Pachipulusu", "바누 테자", "바누 테자 P."],
+      "profiles": ["https://twitter.com/pbteja1998", "https://www.linkedin.com/in/pbteja1998/"]
+    },
+    {
+      "id": "sai-dheeraj-pachipulusu",
+      "name": "Sai Dheeraj Pachipulusu",
+      "aliases": ["Sai Dheeraj", "Dheeraj Pachipulusu", "사이 디라지 파치풀루수"],
+      "profiles": ["https://www.linkedin.com/in/dheerajpachipulusu/"]
+    },
+    {
       "id": "ben-stokes",
       "name": "Ben Stokes",
       "aliases": ["벤 스토크스"],
@@ -591,6 +603,20 @@
     }
   ],
   "products": [
+    {
+      "id": "feather",
+      "name": "Feather",
+      "aliases": ["Feather.so", "MDX.one", "페더"],
+      "domains": ["feather.so", "mdx.one"],
+      "personIds": ["bhanu-teja"]
+    },
+    {
+      "id": "sitegpt",
+      "name": "SiteGPT",
+      "aliases": ["Site GPT", "SiteGPT.ai", "사이트GPT"],
+      "domains": ["sitegpt.ai"],
+      "personIds": ["bhanu-teja", "sai-dheeraj-pachipulusu"]
+    },
     {
       "id": "mailoji",
       "name": "Mailoji",
@@ -1680,6 +1706,27 @@
         "https://daily.tinyprojects.dev/paper_website",
         "https://daily.tinyprojects.dev/136",
         "https://daily.tinyprojects.dev/201"
+      ]
+    },
+    {
+      "id": "bhanu-teja-feather-sitegpt",
+      "personIds": ["bhanu-teja", "sai-dheeraj-pachipulusu"],
+      "productIds": ["feather", "sitegpt"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-03",
+      "sources": [
+        "https://mixergy.com/interviews/sitegpt-with-bhanu-teja-p/",
+        "https://www.starterstory.com/stories/sitegpt",
+        "https://www.reddit.com/r/SaaS/comments/1dk7i2h/sold_my_2_year_old_saas_for_250k_ama/",
+        "https://www.indiehackers.com/post/i-reached-50k-arr-4180-mrr-in-9-5-months-ama-91669f1de6",
+        "https://www.indiehackers.com/product/mdx-one/huge-vercel-costs-and-rebrand-to-feather--Myc071NF66jYxLB2yED",
+        "https://www.linkedin.com/feed/update/urn%3Ali%3Aactivity%3A7397602042841686016/",
+        "https://www.linkedin.com/posts/dheerajpachipulusu_15-years-ago-my-brother-bhanu-teja-pachipulusu-activity-7280478078131167236-l2Se",
+        "https://www.linkedin.com/posts/pbteja1998_after-growing-sitegpt-to-150k-arr-i-realized-activity-7404856148027150336-3lVO",
+        "https://sitegpt.ai/",
+        "https://twitter.com/tibo_maker/status/1801221126296637924",
+        "https://twitter.com/pbteja1998/status/1641448570569015296",
+        "https://x.com/pbteja1998/status/1996879605245124804"
       ]
     }
   ]

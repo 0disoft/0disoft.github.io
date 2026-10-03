@@ -1,0 +1,26 @@
+{
+  "id": "bhanu-teja-feather-sitegpt",
+  "personIds": ["bhanu-teja", "sai-dheeraj-pachipulusu"],
+  "productIds": ["feather", "sitegpt"],
+  "productName": "Feather · SiteGPT",
+  "coverImage": "/images/indiehackers/bhanu-teja-feather-sitegpt.webp",
+  "publishedAt": "2026-10-03",
+  "tags": [
+    "saas",
+    "content-service",
+    "web",
+    "b2b",
+    "subscription",
+    "solo-building",
+    "small-team",
+    "bootstrapping",
+    "validation",
+    "mvp",
+    "launch",
+    "acquisition",
+    "pricing",
+    "retention",
+    "infrastructure",
+    "exit"
+  ]
+}
