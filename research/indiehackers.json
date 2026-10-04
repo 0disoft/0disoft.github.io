@@ -2,6 +2,17 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "joe-masilotti",
+      "name": "Joe Masilotti",
+      "aliases": ["조 마실로티"],
+      "profiles": [
+        "https://masilotti.com/",
+        "https://twitter.com/joemasilotti",
+        "https://github.com/joemasilotti",
+        "https://www.linkedin.com/in/joemasilotti/"
+      ]
+    },
+    {
       "id": "bhanu-teja",
       "name": "Bhanu Teja P.",
       "aliases": ["Bhanu Teja", "Bhanu Teja Pachipulusu", "바누 테자", "바누 테자 P."],
@@ -603,6 +614,13 @@
     }
   ],
   "products": [
+    {
+      "id": "railsdevs",
+      "name": "RailsDevs",
+      "aliases": ["Rails Devs", "railsdevs.com", "레일스데브스"],
+      "domains": ["railsdevs.com"],
+      "personIds": ["joe-masilotti"]
+    },
     {
       "id": "feather",
       "name": "Feather",
@@ -1727,6 +1745,26 @@
         "https://twitter.com/tibo_maker/status/1801221126296637924",
         "https://twitter.com/pbteja1998/status/1641448570569015296",
         "https://x.com/pbteja1998/status/1996879605245124804"
+      ]
+    },
+    {
+      "id": "joe-masilotti-railsdevs",
+      "personIds": ["joe-masilotti"],
+      "productIds": ["railsdevs"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-04",
+      "sources": [
+        "https://www.starterstory.com/stories/railsdevs",
+        "https://indiebites.com/66",
+        "https://masilotti.com/railsdevs/",
+        "https://masilotti.com/railsdevs-developer-bounty-program/",
+        "https://github.com/joemasilotti/railsdevs.com",
+        "https://github.com/joemasilotti/railsdevs.com/blob/main/CHANGELOG.md",
+        "https://github.com/joemasilotti/railsdevs.com/pull/231",
+        "https://github.com/joemasilotti/railsdevs.com/pull/314",
+        "https://www.indiehackers.com/post/i-revamped-pricing-this-morning-d1bcc80ac4",
+        "https://music.amazon.de/podcasts/b08a70da-e394-461c-8291-46970ff948b6/episodes/2a12ed22-2437-43de-9b3d-53adfe04c6ab/code-and-the-coding-coders-who-code-it-episode-55---joe-masilotti",
+        "https://github.com/joemasilotti/railsdevs.com/discussions/230"
       ]
     }
   ]
