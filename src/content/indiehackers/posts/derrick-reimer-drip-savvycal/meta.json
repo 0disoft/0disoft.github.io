@@ -1,0 +1,25 @@
+{
+  "id": "derrick-reimer-drip-savvycal",
+  "personIds": ["derrick-reimer"],
+  "productIds": ["drip", "savvycal"],
+  "productName": "SavvyCal",
+  "coverImage": "/images/indiehackers/derrick-reimer-drip-savvycal.webp",
+  "publishedAt": "2026-10-05",
+  "tags": [
+    "saas",
+    "productivity",
+    "web",
+    "b2b",
+    "subscription",
+    "small-team",
+    "funded",
+    "validation",
+    "mvp",
+    "launch",
+    "pricing",
+    "acquisition",
+    "retention",
+    "infrastructure",
+    "exit"
+  ]
+}

@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "derrick-reimer",
+      "name": "Derrick Reimer",
+      "aliases": ["데릭 라이머", "derrickreimer"],
+      "profiles": ["https://derrickreimer.com/", "https://twitter.com/derrickreimer"]
+    },
+    {
       "id": "tyler-tringas",
       "name": "Tyler Tringas",
       "aliases": ["타일러 트링거스", "tylertringas"],
@@ -667,6 +673,20 @@
     }
   ],
   "products": [
+    {
+      "id": "drip",
+      "name": "Drip",
+      "aliases": [],
+      "domains": ["drip.com"],
+      "personIds": ["derrick-reimer"]
+    },
+    {
+      "id": "savvycal",
+      "name": "SavvyCal",
+      "aliases": ["세비칼"],
+      "domains": ["savvycal.com"],
+      "personIds": ["derrick-reimer"]
+    },
     {
       "id": "storemapper",
       "name": "Storemapper",
@@ -1985,6 +2005,24 @@
         "https://www.sec.gov/Archives/edgar/data/1867632/000167025421000728/document_2.pdf",
         "https://www.storemapper.com/",
         "https://tylertringas.com/chapter-5-getting-your-first-customers/"
+      ]
+    },
+    {
+      "id": "derrick-reimer-drip-savvycal",
+      "personIds": ["derrick-reimer"],
+      "productIds": ["drip", "savvycal"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-05",
+      "sources": [
+        "https://derrickreimer.com/",
+        "https://www.salesflare.com/blog/derrick-reimer-drip",
+        "https://www.startupsfortherestofus.com/",
+        "https://tinyseed.com/latest/tinyseed-2019-accelerator-batch",
+        "https://www.indiehackers.com/podcast/210-derrick-reimer",
+        "https://podcasts.apple.com/us/podcast/23-derrick-reimer-savvycal-com/id1572330813?i=1000536810148",
+        "https://docs.savvycal.com/article/63-introduction-to-savvycal",
+        "https://savvycal.com/pricing",
+        "https://savvycal.com/appointments"
       ]
     }
   ]
