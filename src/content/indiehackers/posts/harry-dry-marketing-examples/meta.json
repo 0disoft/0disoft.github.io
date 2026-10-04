@@ -1,0 +1,21 @@
+{
+  "id": "harry-dry-marketing-examples",
+  "personIds": ["harry-dry"],
+  "productIds": ["marketing-examples"],
+  "productName": "Marketing Examples",
+  "coverImage": "/images/indiehackers/harry-dry-marketing-examples.webp",
+  "publishedAt": "2026-10-05",
+  "tags": [
+    "content-service",
+    "web",
+    "b2b",
+    "advertising",
+    "solo-building",
+    "bootstrapping",
+    "launch",
+    "pricing",
+    "acquisition",
+    "growth",
+    "retention"
+  ]
+}

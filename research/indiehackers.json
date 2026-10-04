@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "harry-dry",
+      "name": "Harry Dry",
+      "aliases": ["해리 드라이", "harrydry"],
+      "profiles": ["https://twitter.com/harrydry"]
+    },
+    {
       "id": "dru-riley",
       "name": "Dru Riley",
       "aliases": ["드루 라일리", "DruRly"],
@@ -679,6 +685,13 @@
     }
   ],
   "products": [
+    {
+      "id": "marketing-examples",
+      "name": "Marketing Examples",
+      "aliases": ["MarketingExamples", "Harry’s Newsletter", "Copywriting Examples"],
+      "domains": ["marketingexamples.com"],
+      "personIds": ["harry-dry"]
+    },
     {
       "id": "trends-vc",
       "name": "Trends.vc",
@@ -2057,6 +2070,27 @@
         "https://trends.vc/trends-issue-0001-cloud-kitchens/",
         "https://trends.vc/archive/",
         "https://access.trends.vc/"
+      ]
+    },
+    {
+      "id": "harry-dry-marketing-examples",
+      "personIds": ["harry-dry"],
+      "productIds": ["marketing-examples"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-05",
+      "sources": [
+        "https://marketingexamples.com/newsletter",
+        "https://marketingexamples.com/inspiration/",
+        "https://marketingexamples.com/social/product-hunt",
+        "https://marketingexamples.com/content/sharing",
+        "https://marketingexamples.com/landing-page/email-subscribers",
+        "https://marketingexamples.com/landing-page/titles",
+        "https://betweenthelinescopy.com/blog/marketing-examples-interview/",
+        "https://indiebites.com/2",
+        "https://indiebites.com/2/transcript",
+        "https://www.indiehackers.com/product/marketing-examples/first-big-sponsor--LkhFas9eTBTIGoYDiqH",
+        "https://emailoctopus.com/blog/the-marketing-tactics-that-took-emailoctopus-to-over-3m-in-annual-revenue",
+        "https://www.producthunt.com/discussions/hey-there-i-m-harry-dry-founder-of-marketing-examples-ama/"
       ]
     }
   ]
