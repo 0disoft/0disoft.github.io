@@ -1,0 +1,26 @@
+{
+  "id": "dru-riley-trends-vc",
+  "personIds": ["dru-riley"],
+  "productIds": ["trends-vc"],
+  "productName": "Trends.vc",
+  "coverImage": "/images/indiehackers/dru-riley-trends-vc.webp",
+  "publishedAt": "2026-10-05",
+  "tags": [
+    "content-service",
+    "community",
+    "web",
+    "b2b",
+    "subscription",
+    "one-time-purchase",
+    "advertising",
+    "commission",
+    "small-team",
+    "bootstrapping",
+    "validation",
+    "launch",
+    "pricing",
+    "acquisition",
+    "growth",
+    "retention"
+  ]
+}

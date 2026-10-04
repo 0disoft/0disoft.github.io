@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "dru-riley",
+      "name": "Dru Riley",
+      "aliases": ["드루 라일리", "DruRly"],
+      "profiles": ["https://druriley.com/", "https://twitter.com/DruRly"]
+    },
+    {
       "id": "derrick-reimer",
       "name": "Derrick Reimer",
       "aliases": ["데릭 라이머", "derrickreimer"],
@@ -673,6 +679,13 @@
     }
   ],
   "products": [
+    {
+      "id": "trends-vc",
+      "name": "Trends.vc",
+      "aliases": ["Trends VC", "Trends Pro"],
+      "domains": ["trends.vc"],
+      "personIds": ["dru-riley"]
+    },
     {
       "id": "drip",
       "name": "Drip",
@@ -2023,6 +2036,27 @@
         "https://docs.savvycal.com/article/63-introduction-to-savvycal",
         "https://savvycal.com/pricing",
         "https://savvycal.com/appointments"
+      ]
+    },
+    {
+      "id": "dru-riley-trends-vc",
+      "personIds": ["dru-riley"],
+      "productIds": ["trends-vc"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-05",
+      "sources": [
+        "https://druriley.com/",
+        "https://indiebites.com/57",
+        "https://indiebites.com/57/transcript",
+        "https://www.mogulmillennial.com/dru-riley-trends-vc/",
+        "https://www.notboring.co/p/newsletter-newsletter",
+        "https://podcast.creatorscience.com/dru-riley/",
+        "https://www.indiehackers.com/podcast/173-dru-riley-of-trends-vc",
+        "https://podcasts.apple.com/gb/podcast/173-persisting-through-failures-to-find-a-winning/id1206165808?i=1000491271443",
+        "https://openthreads.co/episodes/growing-a-newsletter-business-with-dru-riley-trends-vc/transcript",
+        "https://trends.vc/trends-issue-0001-cloud-kitchens/",
+        "https://trends.vc/archive/",
+        "https://access.trends.vc/"
       ]
     }
   ]
