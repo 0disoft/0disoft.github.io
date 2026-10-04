@@ -2,6 +2,16 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "lane-wagner",
+      "name": "Lane Wagner",
+      "aliases": ["레인 와그너", "wagslane"],
+      "profiles": [
+        "https://www.boot.dev/teachers/lane-wagner",
+        "https://www.linkedin.com/in/wagslane",
+        "https://twitter.com/wagslane"
+      ]
+    },
+    {
       "id": "matt-studdert",
       "name": "Matt Studdert",
       "aliases": ["맷 스터더트"],
@@ -620,6 +630,13 @@
     }
   ],
   "products": [
+    {
+      "id": "boot-dev",
+      "name": "Boot.dev",
+      "aliases": ["Bootdev", "Qvault Classroom", "Qvault", "부트닷데브"],
+      "domains": ["boot.dev", "qvault.io"],
+      "personIds": ["lane-wagner"]
+    },
     {
       "id": "frontend-mentor",
       "name": "Frontend Mentor",
@@ -1800,6 +1817,28 @@
         "https://www.frontendmentor.io/guides/whats-included-with-pro",
         "https://www.frontendmentor.io/pro",
         "https://www.frontendmentor.io/"
+      ]
+    },
+    {
+      "id": "lane-wagner-boot-dev",
+      "personIds": ["lane-wagner"],
+      "productIds": ["boot-dev"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-04",
+      "sources": [
+        "https://www.indiehackers.com/post/creators/growing-a-back-end-development-curriculum-from-a-side-project-into-a-441k-mrr-business-XZ5V3c4pAFEygTxZv83N",
+        "https://www.indiehackers.com/product/boot-dev/profitable-at-last--NSJjE6jtyCGyzW2g5Ca",
+        "https://www.indiehackers.com/product/boot-dev",
+        "https://www.starterstory.com/stories/boot-dev",
+        "https://www.starterstory.com/stories/boot-dev-3f4c6cff-1826-47ae-94c7-3764c7721fa3",
+        "https://www.startupsfortherestofus.com/episodes/episode-688-growing-boot-dev-from-6k-to-110k-in-monthly-revenue-in-15-months",
+        "https://www.boot.dev/about",
+        "https://www.boot.dev/teachers/lane-wagner",
+        "https://www.boot.dev/blog/news/qvault-moves-to-bootdev",
+        "https://www.boot.dev/blog/education/is-boot-dev-free",
+        "https://www.boot.dev/blog/news/bootdev-beat-2026-09",
+        "https://www.boot.dev/pricing",
+        "https://www.boot.dev/"
       ]
     }
   ]

@@ -1,0 +1,25 @@
+{
+  "id": "lane-wagner-boot-dev",
+  "personIds": ["lane-wagner"],
+  "productIds": ["boot-dev"],
+  "productName": "Boot.dev",
+  "coverImage": "/images/indiehackers/lane-wagner-boot-dev.webp",
+  "publishedAt": "2026-10-04",
+  "tags": [
+    "saas",
+    "content-service",
+    "web",
+    "b2c",
+    "developers",
+    "subscription",
+    "solo-building",
+    "small-team",
+    "funded",
+    "validation",
+    "mvp",
+    "pricing",
+    "acquisition",
+    "retention",
+    "community"
+  ]
+}
