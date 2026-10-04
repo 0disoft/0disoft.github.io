@@ -2,6 +2,16 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "vincent-woo",
+      "name": "Vincent Woo",
+      "aliases": ["빈센트 우", "vwoo", "fulligin"],
+      "profiles": [
+        "https://vincentwoo.com/",
+        "https://twitter.com/fulligin",
+        "https://www.indiehackers.com/vwoo"
+      ]
+    },
+    {
       "id": "wilhelm-klopp",
       "name": "Wilhelm Klopp",
       "aliases": ["빌헬름 클롭", "윌헬름 클롭", "wilhelmklopp"],
@@ -651,6 +661,13 @@
     }
   ],
   "products": [
+    {
+      "id": "coderpad",
+      "name": "CoderPad",
+      "aliases": ["Coder Pad", "코더패드"],
+      "domains": ["coderpad.io"],
+      "personIds": ["vincent-woo"]
+    },
     {
       "id": "simple-poll",
       "name": "Simple Poll",
@@ -1915,6 +1932,25 @@
         "https://help.simplepoll.rocks/article/132-2024-subscription-updates",
         "https://biztools.simplepoll.rocks/security/",
         "https://wilhelmklopp.com/posts/slack-database-modelling/"
+      ]
+    },
+    {
+      "id": "vincent-woo-coderpad",
+      "personIds": ["vincent-woo"],
+      "productIds": ["coderpad"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-05",
+      "sources": [
+        "https://vincentwoo.com/about/",
+        "https://blog.alinelerner.com/review-of-coderpad/",
+        "https://music.amazon.com/podcasts/96a17b9f-2f85-4f8e-adfa-73d1e2c663df/episodes/ddb2b897-3824-4322-9753-fb235b5f1bbc/the-productize-podcast-55-building-software-for-hiring-software-engineers-w-vincent-woo",
+        "https://www.indiehackers.com/post/officeHoursVideo-7206080e3e",
+        "https://www.indiehackers.com/post/whats-going-on-with-indie-hackers-february-18th-2019-4b92c2fc91",
+        "https://www.indiehackers.com/podcast/170-vincent-woo-of-coderpad",
+        "https://www.summitpartners.com/news/coderpad-raises-growth-capital-from-summit-partners",
+        "https://coderpad.io/press-releases/coderpad-acquires-codingame/",
+        "https://coderpad.io/",
+        "https://vincentwoo.com/2016/01/08/starting-a-business-without-quitting-your-day-job/"
       ]
     }
   ]

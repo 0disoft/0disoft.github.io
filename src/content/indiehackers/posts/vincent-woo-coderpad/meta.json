@@ -1,0 +1,25 @@
+{
+  "id": "vincent-woo-coderpad",
+  "personIds": ["vincent-woo"],
+  "productIds": ["coderpad"],
+  "productName": "CoderPad",
+  "coverImage": "/images/indiehackers/vincent-woo-coderpad.webp",
+  "publishedAt": "2026-10-05",
+  "tags": [
+    "saas",
+    "developer-tools",
+    "web",
+    "b2b",
+    "developers",
+    "subscription",
+    "solo-building",
+    "small-team",
+    "bootstrapping",
+    "funded",
+    "validation",
+    "pricing",
+    "acquisition",
+    "growth",
+    "exit"
+  ]
+}
