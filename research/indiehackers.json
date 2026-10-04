@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "matt-studdert",
+      "name": "Matt Studdert",
+      "aliases": ["맷 스터더트"],
+      "profiles": ["https://twitter.com/mattstuddert"]
+    },
+    {
       "id": "joe-masilotti",
       "name": "Joe Masilotti",
       "aliases": ["조 마실로티"],
@@ -614,6 +620,13 @@
     }
   ],
   "products": [
+    {
+      "id": "frontend-mentor",
+      "name": "Frontend Mentor",
+      "aliases": ["FrontendMentor", "frontendmentor.io", "프런트엔드 멘토"],
+      "domains": ["frontendmentor.io"],
+      "personIds": ["matt-studdert"]
+    },
     {
       "id": "railsdevs",
       "name": "RailsDevs",
@@ -1765,6 +1778,28 @@
         "https://www.indiehackers.com/post/i-revamped-pricing-this-morning-d1bcc80ac4",
         "https://music.amazon.de/podcasts/b08a70da-e394-461c-8291-46970ff948b6/episodes/2a12ed22-2437-43de-9b3d-53adfe04c6ab/code-and-the-coding-coders-who-code-it-episode-55---joe-masilotti",
         "https://github.com/joemasilotti/railsdevs.com/discussions/230"
+      ]
+    },
+    {
+      "id": "matt-studdert-frontend-mentor",
+      "personIds": ["matt-studdert"],
+      "productIds": ["frontend-mentor"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-04",
+      "sources": [
+        "https://indiebites.com/86",
+        "https://www.failory.com/interview/frontend-mentor",
+        "https://www.starterstory.com/stories/frontend-mentor",
+        "https://www.starterstory.com/stories/we-built-a-180k-year-learn-to-code-community",
+        "https://tinyseed.com/latest/2022-fall-batch",
+        "https://www.frontendmentor.io/about",
+        "https://www.frontendmentor.io/articles/meet-the-frontend-mentor-team-iFNRGCrniB",
+        "https://www.frontendmentor.io/articles/product-challenges",
+        "https://www.frontendmentor.io/articles/ai-code-review",
+        "https://www.frontendmentor.io/guides/monthly-vs-yearly-plans",
+        "https://www.frontendmentor.io/guides/whats-included-with-pro",
+        "https://www.frontendmentor.io/pro",
+        "https://www.frontendmentor.io/"
       ]
     }
   ]

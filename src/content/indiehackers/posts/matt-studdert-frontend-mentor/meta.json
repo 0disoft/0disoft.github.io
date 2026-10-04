@@ -1,0 +1,26 @@
+{
+  "id": "matt-studdert-frontend-mentor",
+  "personIds": ["matt-studdert"],
+  "productIds": ["frontend-mentor"],
+  "productName": "Frontend Mentor",
+  "coverImage": "/images/indiehackers/matt-studdert-frontend-mentor.webp",
+  "publishedAt": "2026-10-04",
+  "tags": [
+    "saas",
+    "content-service",
+    "web",
+    "b2c",
+    "developers",
+    "subscription",
+    "solo-building",
+    "small-team",
+    "bootstrapping",
+    "funded",
+    "community",
+    "validation",
+    "mvp",
+    "launch",
+    "pricing",
+    "retention"
+  ]
+}
