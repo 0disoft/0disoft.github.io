@@ -2,6 +2,17 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "wilhelm-klopp",
+      "name": "Wilhelm Klopp",
+      "aliases": ["빌헬름 클롭", "윌헬름 클롭", "wilhelmklopp"],
+      "profiles": [
+        "https://wilhelmklopp.com/",
+        "https://twitter.com/wilhelmklopp",
+        "https://simplepoll.rocks/",
+        "https://github.com/wilhelmklopp"
+      ]
+    },
+    {
       "id": "dominic-monn",
       "name": "Dominic Monn",
       "aliases": ["Dom Monn", "도미닉 몬", "dmonn"],
@@ -640,6 +651,13 @@
     }
   ],
   "products": [
+    {
+      "id": "simple-poll",
+      "name": "Simple Poll",
+      "aliases": ["SimplePoll", "simplepoll.rocks", "심플폴"],
+      "domains": ["simplepoll.rocks"],
+      "personIds": ["wilhelm-klopp"]
+    },
     {
       "id": "mentorcruise",
       "name": "MentorCruise",
@@ -1878,6 +1896,25 @@
         "https://mentorcruise.com/teams/",
         "https://mentorcruise.com/mentor/",
         "https://mentorcruise.com/"
+      ]
+    },
+    {
+      "id": "wilhelm-klopp-simple-poll",
+      "personIds": ["wilhelm-klopp"],
+      "productIds": ["simple-poll"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-05",
+      "sources": [
+        "https://indiebites.com/10",
+        "https://talkpython.fm/episodes/show/464/seeing-code-flows-and-generating-tests-with-kolo",
+        "https://wilhelmklopp.com/",
+        "https://medium.com/slack-developer-blog/on-the-platform-simple-polls-wilhelm-klopp-on-the-power-of-the-slack-api-e14837d2a334",
+        "https://2024.djangocon.eu/pretalx/djangocon-europe-2024/speaker/FDSMFS/index.html",
+        "https://simplepoll.rocks/",
+        "https://simplepoll.rocks/pricing/",
+        "https://help.simplepoll.rocks/article/132-2024-subscription-updates",
+        "https://biztools.simplepoll.rocks/security/",
+        "https://wilhelmklopp.com/posts/slack-database-modelling/"
       ]
     }
   ]

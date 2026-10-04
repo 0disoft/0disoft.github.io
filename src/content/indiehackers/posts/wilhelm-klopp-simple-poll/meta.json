@@ -1,0 +1,26 @@
+{
+  "id": "wilhelm-klopp-simple-poll",
+  "personIds": ["wilhelm-klopp"],
+  "productIds": ["simple-poll"],
+  "productName": "Simple Poll",
+  "coverImage": "/images/indiehackers/wilhelm-klopp-simple-poll.webp",
+  "publishedAt": "2026-10-05",
+  "tags": [
+    "saas",
+    "productivity",
+    "web",
+    "b2b",
+    "subscription",
+    "solo-building",
+    "small-team",
+    "bootstrapping",
+    "validation",
+    "mvp",
+    "launch",
+    "pricing",
+    "acquisition",
+    "growth",
+    "retention",
+    "infrastructure"
+  ]
+}
