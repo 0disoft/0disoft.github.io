@@ -1,0 +1,26 @@
+{
+  "id": "dominic-monn-mentorcruise",
+  "personIds": ["dominic-monn"],
+  "productIds": ["mentorcruise"],
+  "productName": "MentorCruise",
+  "coverImage": "/images/indiehackers/dominic-monn-mentorcruise.webp",
+  "publishedAt": "2026-10-04",
+  "tags": [
+    "marketplace",
+    "content-service",
+    "web",
+    "b2c",
+    "b2b",
+    "developers",
+    "subscription",
+    "commission",
+    "solo-building",
+    "small-team",
+    "bootstrapping",
+    "community",
+    "mvp",
+    "pricing",
+    "acquisition",
+    "retention"
+  ]
+}

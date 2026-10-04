@@ -2,6 +2,16 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "dominic-monn",
+      "name": "Dominic Monn",
+      "aliases": ["Dom Monn", "도미닉 몬", "dmonn"],
+      "profiles": [
+        "https://dmonn.com/",
+        "https://twitter.com/dmonn",
+        "https://mentorcruise.com/mentor/DominicMonn/"
+      ]
+    },
+    {
       "id": "lane-wagner",
       "name": "Lane Wagner",
       "aliases": ["레인 와그너", "wagslane"],
@@ -630,6 +640,13 @@
     }
   ],
   "products": [
+    {
+      "id": "mentorcruise",
+      "name": "MentorCruise",
+      "aliases": ["Mentor Cruise", "멘토크루즈"],
+      "domains": ["mentorcruise.com"],
+      "personIds": ["dominic-monn"]
+    },
     {
       "id": "boot-dev",
       "name": "Boot.dev",
@@ -1839,6 +1856,28 @@
         "https://www.boot.dev/blog/news/bootdev-beat-2026-09",
         "https://www.boot.dev/pricing",
         "https://www.boot.dev/"
+      ]
+    },
+    {
+      "id": "dominic-monn-mentorcruise",
+      "personIds": ["dominic-monn"],
+      "productIds": ["mentorcruise"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-04",
+      "sources": [
+        "https://hackernoon.com/founder-interview-dominic-monn-of-mentorcruise-c60f7d0ca810",
+        "https://indiebites.com/53",
+        "https://dmonn.com/learnings-from-2-years-of-building-owning-and-growing-a-product/",
+        "https://dmonn.com/13-sideprojects-in-6-years/",
+        "https://dmonn.com/how-to-build-a-support-org/",
+        "https://www.embarque.io/case-studies/mentorcruise-case-study",
+        "https://help.mentorcruise.com/article/61-what-fees-does-mentorcruise-take",
+        "https://help.mentorcruise.com/article/56-trial",
+        "https://help.mentorcruise.com/article/116-trial-descriptions-and-intro-calls",
+        "https://help.mentorcruise.com/article/103-am-i-allowed-to-take-mentees-off-platform",
+        "https://mentorcruise.com/teams/",
+        "https://mentorcruise.com/mentor/",
+        "https://mentorcruise.com/"
       ]
     }
   ]
