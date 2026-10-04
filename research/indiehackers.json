@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "tyler-tringas",
+      "name": "Tyler Tringas",
+      "aliases": ["타일러 트링거스", "tylertringas"],
+      "profiles": ["https://tylertringas.com/", "https://twitter.com/tylertringas"]
+    },
+    {
       "id": "vincent-woo",
       "name": "Vincent Woo",
       "aliases": ["빈센트 우", "vwoo", "fulligin"],
@@ -661,6 +667,13 @@
     }
   ],
   "products": [
+    {
+      "id": "storemapper",
+      "name": "Storemapper",
+      "aliases": ["StoreMapper", "Store Mapper", "스토어매퍼"],
+      "domains": ["storemapper.com", "storemapper.co"],
+      "personIds": ["tyler-tringas"]
+    },
     {
       "id": "coderpad",
       "name": "CoderPad",
@@ -1951,6 +1964,27 @@
         "https://coderpad.io/press-releases/coderpad-acquires-codingame/",
         "https://coderpad.io/",
         "https://vincentwoo.com/2016/01/08/starting-a-business-without-quitting-your-day-job/"
+      ]
+    },
+    {
+      "id": "tyler-tringas-storemapper",
+      "personIds": ["tyler-tringas"],
+      "productIds": ["storemapper"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-05",
+      "sources": [
+        "https://tylertringas.com/storemapper-bootstrapped-to-50000year-in-2-years-with-live-metrics/",
+        "https://tylertringas.com/storemapper-2015-roadmap-100k-to-4hww/",
+        "https://tylertringas.com/storemapper-update-200k-growing-team/",
+        "https://tylertringas.com/chapter-7-retention-customer-support/",
+        "https://tylertringas.com/selling-my-bootstrapped-saas-business/",
+        "https://tylertringas.com/1-what-is-micro-saas/",
+        "https://tylertringas.com/micro-saas-ebook/",
+        "https://www.indiehackers.com/post/how-i-grew-to-21k-mo-by-targeting-the-right-niche-2MBuKGRDz4DxoT0V9sIV",
+        "https://pathlesspath.com/tyler-tringas-earnest-capital/",
+        "https://www.sec.gov/Archives/edgar/data/1867632/000167025421000728/document_2.pdf",
+        "https://www.storemapper.com/",
+        "https://tylertringas.com/chapter-5-getting-your-first-customers/"
       ]
     }
   ]

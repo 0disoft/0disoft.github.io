@@ -1,0 +1,26 @@
+{
+  "id": "tyler-tringas-storemapper",
+  "personIds": ["tyler-tringas"],
+  "productIds": ["storemapper"],
+  "productName": "Storemapper",
+  "coverImage": "/images/indiehackers/tyler-tringas-storemapper.webp",
+  "publishedAt": "2026-10-05",
+  "tags": [
+    "saas",
+    "ecommerce",
+    "web",
+    "b2b",
+    "subscription",
+    "solo-building",
+    "small-team",
+    "bootstrapping",
+    "validation",
+    "mvp",
+    "launch",
+    "pricing",
+    "acquisition",
+    "retention",
+    "infrastructure",
+    "exit"
+  ]
+}
