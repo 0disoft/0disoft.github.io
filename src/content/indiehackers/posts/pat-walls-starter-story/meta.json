@@ -1,0 +1,26 @@
+{
+  "id": "pat-walls-starter-story",
+  "personIds": ["pat-walls"],
+  "productIds": ["starter-story"],
+  "productName": "Starter Story",
+  "coverImage": "/images/indiehackers/pat-walls-starter-story.webp",
+  "publishedAt": "2026-10-05",
+  "tags": [
+    "content-service",
+    "community",
+    "web",
+    "b2b",
+    "subscription",
+    "advertising",
+    "commission",
+    "one-time-purchase",
+    "small-team",
+    "bootstrapping",
+    "launch",
+    "pricing",
+    "acquisition",
+    "growth",
+    "retention",
+    "exit"
+  ]
+}

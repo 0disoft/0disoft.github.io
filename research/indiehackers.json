@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "pat-walls",
+      "name": "Pat Walls",
+      "aliases": ["팻 월스", "thepatwalls"],
+      "profiles": ["https://patwalls.com/", "https://twitter.com/thepatwalls"]
+    },
+    {
       "id": "harry-dry",
       "name": "Harry Dry",
       "aliases": ["해리 드라이", "harrydry"],
@@ -685,6 +691,13 @@
     }
   ],
   "products": [
+    {
+      "id": "starter-story",
+      "name": "Starter Story",
+      "aliases": [],
+      "domains": ["starterstory.com"],
+      "personIds": ["pat-walls"]
+    },
     {
       "id": "marketing-examples",
       "name": "Marketing Examples",
@@ -2091,6 +2104,26 @@
         "https://www.indiehackers.com/product/marketing-examples/first-big-sponsor--LkhFas9eTBTIGoYDiqH",
         "https://emailoctopus.com/blog/the-marketing-tactics-that-took-emailoctopus-to-over-3m-in-annual-revenue",
         "https://www.producthunt.com/discussions/hey-there-i-m-harry-dry-founder-of-marketing-examples-ama/"
+      ]
+    },
+    {
+      "id": "pat-walls-starter-story",
+      "personIds": ["pat-walls"],
+      "productIds": ["starter-story"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-05",
+      "sources": [
+        "https://blog.hubspot.com/marketing/hubspot-starter-story-acquisition",
+        "https://www.adweek.com/media/hubspot-media-acquires-starter-story-youtube/",
+        "https://patwalls.com/half-a-decade",
+        "https://patwalls.com/",
+        "https://www.starterstory.com/blog/starter-story",
+        "https://www.starterstory.com/blog/december-update",
+        "https://finance.yahoo.com/news/hubspot-acquires-youtube-based-media-110000457.html",
+        "https://www.netinfluencer.com/hubspot-acquires-creator-led-media-brand-starter-story/",
+        "https://readbuildmode.substack.com/p/distribution-is-the-moat",
+        "https://www.starterstory.com/",
+        "https://www.starterstory.com/blog/full-time-job-and-full-time-side-project-how-i-stay-productive"
       ]
     }
   ]
