@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "manu-cinca",
+      "name": "Manu Cinca",
+      "aliases": ["Emanuel Cinca", "마누 친카", "에마누엘 친카"],
+      "profiles": ["https://twitter.com/emanuelcinca", "https://www.linkedin.com/in/emanuelcinca/"]
+    },
+    {
       "id": "pat-walls",
       "name": "Pat Walls",
       "aliases": ["팻 월스", "thepatwalls"],
@@ -691,6 +697,13 @@
     }
   ],
   "products": [
+    {
+      "id": "stacked-marketer",
+      "name": "Stacked Marketer",
+      "aliases": ["What The Aff", "Stacked Marketer Pro", "Psychology of Marketing", "Tactics"],
+      "domains": ["stackedmarketer.com"],
+      "personIds": ["manu-cinca"]
+    },
     {
       "id": "starter-story",
       "name": "Starter Story",
@@ -2124,6 +2137,28 @@
         "https://readbuildmode.substack.com/p/distribution-is-the-moat",
         "https://www.starterstory.com/",
         "https://www.starterstory.com/blog/full-time-job-and-full-time-side-project-how-i-stay-productive"
+      ]
+    },
+    {
+      "id": "manu-cinca-stacked-marketer",
+      "personIds": ["manu-cinca"],
+      "productIds": ["stacked-marketer"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-05",
+      "sources": [
+        "https://newslettercircle.substack.com/p/stacked-marketer-by-emanuel-cinca",
+        "https://newslettercircle.com/interviews/emanuel-cinca-stacked-marketer/",
+        "https://advidi.com/blog/industry-expert-manu-cinca/",
+        "https://simonowens.substack.com/p/emanuel-cinca-will-generate-over",
+        "https://music.amazon.com/podcasts/853e14d1-cd6b-4b3a-b5e8-a439b44dc709/episodes/521c7281-e105-4848-ab50-b369f32b6e3e/indie-bites-building-a-700k-arr-newsletter---manu-cinca-stacked-marketer",
+        "https://sparkloop.app/blog/s01e14-the-playbook-for-acquiring-a-newsletter-with-emanuel-cinca-from-stacked-marketer",
+        "https://www.stackedmarketer.com/",
+        "https://www.stackedmarketer.com/advertise-with-us/",
+        "https://www.stackedmarketer.com/pro-reports",
+        "https://refact.co/insights/publishing-growth/stacked-marketer-case-study",
+        "https://refact.co/work/stacked-marketer",
+        "https://creatorinpublic.com/p/from-9-000-to-97-000-subscribers-the-growth-journey-of-stacked-marketer",
+        "https://www.stackedmarketer.com/announcements/stacked-marketers-2024-annual-report/"
       ]
     }
   ]
