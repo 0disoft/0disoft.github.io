@@ -1,0 +1,31 @@
+{
+  "id": "pete-codes-no-cs-degree",
+  "personIds": ["pete-codes"],
+  "productIds": [
+    "no-cs-degree",
+    "high-signal",
+    "remote-companies",
+    "grow-and-monetize-your-newsletter"
+  ],
+  "productName": "No CS Degree · High Signal",
+  "coverImage": "/images/indiehackers/pete-codes-no-cs-degree.webp",
+  "publishedAt": "2026-10-05",
+  "tags": [
+    "content-service",
+    "community",
+    "web",
+    "b2c",
+    "b2b",
+    "developers",
+    "subscription",
+    "advertising",
+    "commission",
+    "one-time-purchase",
+    "solo-building",
+    "bootstrapping",
+    "launch",
+    "pricing",
+    "growth",
+    "exit"
+  ]
+}

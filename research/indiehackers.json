@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "pete-codes",
+      "name": "Pete Codes",
+      "aliases": ["Pete McLeod", "피트 코드", "피트 코즈", "petecodes"],
+      "profiles": ["https://www.petecodes.io/", "https://x.com/petecodes"]
+    },
+    {
       "id": "ryan-gilbert",
       "name": "Ryan Gilbert",
       "aliases": ["라이언 길버트", "rjgilbert"],
@@ -718,6 +724,34 @@
     }
   ],
   "products": [
+    {
+      "id": "no-cs-degree",
+      "name": "No CS Degree",
+      "aliases": ["No CS OK", "NoCSDegree", "NoCSOK"],
+      "domains": ["nocsdegree.com", "nocsok.com"],
+      "personIds": ["pete-codes"]
+    },
+    {
+      "id": "high-signal",
+      "name": "High Signal",
+      "aliases": ["High Signal Newsletter", "Indie Friends"],
+      "domains": ["highsignal.io"],
+      "personIds": ["pete-codes"]
+    },
+    {
+      "id": "remote-companies",
+      "name": "Remote Companies",
+      "aliases": [],
+      "domains": ["remotecompanies.co"],
+      "personIds": ["pete-codes"]
+    },
+    {
+      "id": "grow-and-monetize-your-newsletter",
+      "name": "Grow and Monetize Your Newsletter",
+      "aliases": ["Monetize Your Newsletter", "Grow Your Newsletter"],
+      "domains": ["monetizeyournewsletter.com", "growyournewsletter.com"],
+      "personIds": ["pete-codes"]
+    },
     {
       "id": "workspaces",
       "name": "Workspaces",
@@ -2272,6 +2306,31 @@
         "https://www.creatorspotlight.com/p/ryan-gilbert-workspaces",
         "https://indiebites.com/92",
         "https://workspaces.substack.com/p/086-alex-hao"
+      ]
+    },
+    {
+      "id": "pete-codes-no-cs-degree",
+      "personIds": ["pete-codes"],
+      "productIds": [
+        "no-cs-degree",
+        "high-signal",
+        "remote-companies",
+        "grow-and-monetize-your-newsletter"
+      ],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-05",
+      "sources": [
+        "https://emailoctopus.com/blog/customer-feature-no-cs-degree",
+        "https://news.ycombinator.com/item?id=20506945",
+        "https://swyx.io/nocsdegree-pete",
+        "https://www.nocsdegree.com/about/",
+        "https://www.petecodes.io/about/",
+        "https://www.petecodes.io/shutting-down-founder-community/",
+        "https://www.petecodes.io/selling-my-no-cs-degree-website/",
+        "https://www.petecodes.io/jan-2022-review/",
+        "https://www.highsignal.io/about/",
+        "https://indiebites.com/34",
+        "https://indiebites.com/121"
       ]
     }
   ]
