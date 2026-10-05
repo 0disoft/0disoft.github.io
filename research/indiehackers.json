@@ -2,6 +2,15 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "rosie-sherry",
+      "name": "Rosie Sherry",
+      "aliases": ["로지 셰리", "rosiesherry"],
+      "profiles": [
+        "https://uk.linkedin.com/in/rosiesherry",
+        "https://www.ministryoftesting.com/p/rosie"
+      ]
+    },
+    {
       "id": "anne-laure-le-cunff",
       "name": "Anne-Laure Le Cunff",
       "aliases": ["Anne Laure Le Cunff", "anthilemoon", "neuranne"],
@@ -703,6 +712,20 @@
     }
   ],
   "products": [
+    {
+      "id": "ministry-of-testing",
+      "name": "Ministry of Testing",
+      "aliases": ["Software Testing Club", "MoT", "MoTaverse", "TestBash"],
+      "domains": ["ministryoftesting.com"],
+      "personIds": ["rosie-sherry"]
+    },
+    {
+      "id": "rosieland",
+      "name": "Rosieland",
+      "aliases": ["Rosie Land"],
+      "domains": ["rosie.land"],
+      "personIds": ["rosie-sherry"]
+    },
     {
       "id": "ness-labs",
       "name": "Ness Labs",
@@ -2194,6 +2217,28 @@
         "https://www.indiehackers.com/post/i-grew-an-online-community-to-100k-arr-over-one-year-ama-fab49f519b",
         "https://music.amazon.in/podcasts/853e14d1-cd6b-4b3a-b5e8-a439b44dc709/episodes/2ed19966-adc0-49fc-a65f-f895389b0eb4/indie-bites-3k-mrr-with-600-paying-members-writing-about-mindful-productivity---anne-laure-le-cunff-ness-labs",
         "https://penguinrandomhouselibrary.com/book/?isbn=9780593715130"
+      ]
+    },
+    {
+      "id": "rosie-sherry-ministry-of-testing",
+      "personIds": ["rosie-sherry"],
+      "productIds": ["ministry-of-testing", "rosieland"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-05",
+      "sources": [
+        "https://www.heavybit.com/library/podcasts/how-its-tested/ep-14-quality-culture-with-rosie-sherry-of-ministry-of-testing",
+        "https://www.ministryoftesting.com/insights/the-testing-planet-issues-1-10",
+        "https://www.ministryoftesting.com/moments/attendees-at-our-first-every-testbash-in-cambridge",
+        "https://www.ministryoftesting.com/software-testing-glossary/testbash",
+        "https://help.ministryoftesting.com/en/article/55-what-speakers-need-to-know",
+        "https://www.ministryoftesting.com/membership",
+        "https://www.ministryoftesting.com/about-us",
+        "https://www.producthunt.com/p/general/i-m-rosie-i-ve-built-a-7-fig-business-led-community-at-ih-now-building-a-community-orbit-ama",
+        "https://www.testrail.com/blog/testrail-ministry-testing-blackbelt-sponsor/",
+        "https://designx.community/talks/rosie-sherry-creating-a-paid-newsletter-subscription",
+        "https://podcast.app/lifedonedifferently-p679549",
+        "https://membership.rosie.land/learn/",
+        "https://membership.rosie.land/posts/introducing-community-discovery-again/"
       ]
     }
   ]

@@ -1,0 +1,23 @@
+{
+  "id": "rosie-sherry-ministry-of-testing",
+  "personIds": ["rosie-sherry"],
+  "productIds": ["ministry-of-testing", "rosieland"],
+  "productName": "Ministry of Testing · Rosieland",
+  "coverImage": "/images/indiehackers/rosie-sherry-ministry-of-testing.webp",
+  "publishedAt": "2026-10-05",
+  "tags": [
+    "community",
+    "content-service",
+    "web",
+    "b2c",
+    "b2b",
+    "subscription",
+    "advertising",
+    "one-time-purchase",
+    "small-team",
+    "bootstrapping",
+    "launch",
+    "pricing",
+    "growth"
+  ]
+}
