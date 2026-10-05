@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "ryan-gilbert",
+      "name": "Ryan Gilbert",
+      "aliases": ["라이언 길버트", "rjgilbert"],
+      "profiles": ["https://ryangilbert.co/", "https://x.com/rjgilbert"]
+    },
+    {
       "id": "rosie-sherry",
       "name": "Rosie Sherry",
       "aliases": ["로지 셰리", "rosiesherry"],
@@ -712,6 +718,13 @@
     }
   ],
   "products": [
+    {
+      "id": "workspaces",
+      "name": "Workspaces",
+      "aliases": ["Workspaces.xyz", "Workspaces Newsletter"],
+      "domains": ["workspaces.xyz", "workspaces.substack.com"],
+      "personIds": ["ryan-gilbert"]
+    },
     {
       "id": "ministry-of-testing",
       "name": "Ministry of Testing",
@@ -2239,6 +2252,26 @@
         "https://podcast.app/lifedonedifferently-p679549",
         "https://membership.rosie.land/learn/",
         "https://membership.rosie.land/posts/introducing-community-discovery-again/"
+      ]
+    },
+    {
+      "id": "ryan-gilbert-workspaces",
+      "personIds": ["ryan-gilbert"],
+      "productIds": ["workspaces"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-05",
+      "sources": [
+        "https://workspaces.xyz/",
+        "https://workspaces.xyz/about",
+        "https://workspaces.xyz/advertise",
+        "https://ryangilbert.co/p/the-workspaces-journey",
+        "https://ryangilbert.co/p/the-workspaces-twitter-playbook",
+        "https://ryangilbert.co/p/230-minutes",
+        "https://ryangilbert.co/p/the-giveaway-that-paid-me",
+        "https://newslettercircle.substack.com/p/workspaces-by-ryan-gilbert",
+        "https://www.creatorspotlight.com/p/ryan-gilbert-workspaces",
+        "https://indiebites.com/92",
+        "https://workspaces.substack.com/p/086-alex-hao"
       ]
     }
   ]
