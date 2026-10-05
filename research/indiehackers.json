@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "anne-laure-le-cunff",
+      "name": "Anne-Laure Le Cunff",
+      "aliases": ["Anne Laure Le Cunff", "anthilemoon", "neuranne"],
+      "profiles": ["https://twitter.com/neuranne", "https://nesslabs.com/author/annelaure"]
+    },
+    {
       "id": "manu-cinca",
       "name": "Manu Cinca",
       "aliases": ["Emanuel Cinca", "마누 친카", "에마누엘 친카"],
@@ -697,6 +703,13 @@
     }
   ],
   "products": [
+    {
+      "id": "ness-labs",
+      "name": "Ness Labs",
+      "aliases": ["Maker Mind", "Ness Letters", "Ness Labs Fellowship"],
+      "domains": ["nesslabs.com"],
+      "personIds": ["anne-laure-le-cunff"]
+    },
     {
       "id": "stacked-marketer",
       "name": "Stacked Marketer",
@@ -2159,6 +2172,28 @@
         "https://refact.co/work/stacked-marketer",
         "https://creatorinpublic.com/p/from-9-000-to-97-000-subscribers-the-growth-journey-of-stacked-marketer",
         "https://www.stackedmarketer.com/announcements/stacked-marketers-2024-annual-report/"
+      ]
+    },
+    {
+      "id": "anne-laure-le-cunff-ness-labs",
+      "personIds": ["anne-laure-le-cunff"],
+      "productIds": ["ness-labs"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-05",
+      "sources": [
+        "https://nesslabs.com/about",
+        "https://nesslabs.com/team",
+        "https://nesslabs.com/membership",
+        "https://nesslabs.com/newsletter/power-of-fellowship",
+        "https://nesslabs.com/annual-review-2018",
+        "https://nesslabs.com/annual-review-2019",
+        "https://nesslabs.com/annual-review-2020",
+        "https://nesslabs.com/from-collector-to-creator",
+        "https://kit.com/resources/creator-stories/anne-laure-le-cunff",
+        "https://www.indiehackers.com/product/maker-mind",
+        "https://www.indiehackers.com/post/i-grew-an-online-community-to-100k-arr-over-one-year-ama-fab49f519b",
+        "https://music.amazon.in/podcasts/853e14d1-cd6b-4b3a-b5e8-a439b44dc709/episodes/2ed19966-adc0-49fc-a65f-f895389b0eb4/indie-bites-3k-mrr-with-600-paying-members-writing-about-mindful-productivity---anne-laure-le-cunff-ness-labs",
+        "https://penguinrandomhouselibrary.com/book/?isbn=9780593715130"
       ]
     }
   ]

@@ -1,0 +1,27 @@
+{
+  "id": "anne-laure-le-cunff-ness-labs",
+  "personIds": ["anne-laure-le-cunff"],
+  "productIds": ["ness-labs"],
+  "productName": "Ness Labs",
+  "coverImage": "/images/indiehackers/anne-laure-le-cunff-ness-labs.webp",
+  "publishedAt": "2026-10-05",
+  "tags": [
+    "content-service",
+    "community",
+    "productivity",
+    "web",
+    "b2c",
+    "b2b",
+    "subscription",
+    "advertising",
+    "one-time-purchase",
+    "small-team",
+    "bootstrapping",
+    "validation",
+    "launch",
+    "pricing",
+    "acquisition",
+    "growth",
+    "retention"
+  ]
+}
