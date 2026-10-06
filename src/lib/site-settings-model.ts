@@ -12,6 +12,8 @@ export const defaultSettingsTab: SettingsTab = "theme";
 
 export const navigationShortcutByHref = {
 	"/indiehackers": "I",
+	"/investors": "V",
+	"/creators": "C",
 } as const satisfies Record<SiteSectionPath, string>;
 
 export const navigationPathByShortcut = Object.fromEntries(

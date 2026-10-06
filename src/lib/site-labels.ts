@@ -25,6 +25,10 @@ export function getLocalizedNavigationLabel(href: SiteSectionPath, locale: Displ
 	switch (href) {
 		case "/indiehackers":
 			return m.nav_indiehackers({}, { locale });
+		case "/investors":
+			return m.nav_investors({}, { locale });
+		case "/creators":
+			return m.nav_creators({}, { locale });
 	}
 }
 

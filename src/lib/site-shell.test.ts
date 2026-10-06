@@ -45,7 +45,11 @@ describe("site shell", () => {
 	it("keeps public profile facts in one source", () => {
 		expect(siteProfile.name).toBe("0disoft");
 		expect(siteProfile.origin).toBe("https://0disoft.github.io");
-		expect(siteProfile.navigation).toEqual([{ label: "Indiehackers", href: "/indiehackers" }]);
+		expect(siteProfile.navigation).toEqual([
+			{ label: "Indiehackers", href: "/indiehackers" },
+			{ label: "Investors", href: "/investors" },
+			{ label: "Creators", href: "/creators" },
+		]);
 		expect(siteProfile.navigation.map((item) => item.label)).not.toContain("홈");
 		expect(siteProfile.navigation.every((item) => !item.href.startsWith("#"))).toBe(true);
 		expect(siteProfile.links).toEqual([
@@ -118,8 +122,14 @@ describe("site shell", () => {
 		const { findNavigationItemByPath, getSectionEntries, sectionSlugToPath } =
 			await import("./site-navigation");
 
-		expect(getSectionEntries()).toEqual([{ section: "indiehackers" }]);
+		expect(getSectionEntries()).toEqual([
+			{ section: "indiehackers" },
+			{ section: "investors" },
+			{ section: "creators" },
+		]);
 		expect(sectionSlugToPath("indiehackers")).toBe("/indiehackers");
+		expect(sectionSlugToPath("investors")).toBe("/investors");
+		expect(sectionSlugToPath("creators")).toBe("/creators");
 		expect(sectionSlugToPath("blog")).toBeNull();
 		expect(sectionSlugToPath("projects")).toBeNull();
 		expect(sectionSlugToPath("about")).toBeNull();
@@ -154,7 +164,11 @@ describe("site shell", () => {
 		expect(settingsTabs).toEqual(["theme", "language", "privacy"]);
 		expect(defaultSettingsTab).toBe("theme");
 		expect(themeChoices).toEqual(["light", "dark", "system"]);
-		expect(navigationShortcutByHref).toEqual({ "/indiehackers": "I" });
+		expect(navigationShortcutByHref).toEqual({
+			"/indiehackers": "I",
+			"/investors": "V",
+			"/creators": "C",
+		});
 		expect(languageShortcutByLocale.ko).toBe("K");
 		expect(siteSurfaceSource).toContain('role="tablist"');
 		expect(siteSurfaceSource).toContain('aria-selected={activeSettingsTab === "theme"}');
@@ -252,7 +266,7 @@ describe("site shell", () => {
 		expect(indiehackersListSource).toContain("aria-expanded={facetsExpanded}");
 		expect(indiehackersListSource).toContain('type="checkbox"');
 		expect(indiehackersListSource).toContain("tag-chips");
-		expect(indiehackersListSource).toContain("getIndiehackersFilterOptions(localizedPosts)");
+		expect(indiehackersListSource).toContain("getIndiehackersFilterOptions(sourcePosts)");
 		expect(indiehackersListSource).toContain("localizedFilterOptions.groups");
 		expect(indiehackersListSource).toContain("tag.count");
 		expect(indiehackersListSource).toContain("recent-chip");

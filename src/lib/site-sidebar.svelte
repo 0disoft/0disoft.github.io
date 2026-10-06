@@ -10,6 +10,8 @@
 		Settings,
 		Sun,
 		Users,
+		ChartNoAxesCombined,
+		PenTool,
 		X,
 	} from "@lucide/svelte";
 	import { resetMode, setMode, userPrefersMode } from "mode-watcher";
@@ -77,6 +79,8 @@
 
 	const navigationIconByHref = {
 		"/indiehackers": Users,
+		"/investors": ChartNoAxesCombined,
+		"/creators": PenTool,
 	} as const satisfies Record<SiteSectionPath, Component>;
 
 	function getSettingsLocale(): SiteLocale {

@@ -79,8 +79,14 @@ describe("site settings", () => {
 		expect(settingsTabs).toEqual(["theme", "language", "privacy"]);
 		expect(defaultSettingsTab).toBe("theme");
 		expect(themeChoices).toEqual(["light", "dark", "system"]);
-		expect(navigationShortcutByHref).toEqual({ "/indiehackers": "I" });
+		expect(navigationShortcutByHref).toEqual({
+			"/indiehackers": "I",
+			"/investors": "V",
+			"/creators": "C",
+		});
 		expect(navigationPathByShortcut.i).toBe("/indiehackers");
+		expect(navigationPathByShortcut.v).toBe("/investors");
+		expect(navigationPathByShortcut.c).toBe("/creators");
 		expect(languageShortcutByLocale).toEqual({
 			en: "E",
 			zh: "C",
