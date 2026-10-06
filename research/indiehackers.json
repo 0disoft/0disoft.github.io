@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "monica-lent",
+      "name": "Monica Lent",
+      "aliases": ["모니카 렌트", "monicalent"],
+      "profiles": ["https://monicalent.com/", "https://twitter.com/monicalent"]
+    },
+    {
       "id": "jay-clouse",
       "name": "Jay Clouse",
       "aliases": ["제이 클라우스", "jayclouse"],
@@ -757,6 +763,27 @@
     }
   ],
   "products": [
+    {
+      "id": "affilimate",
+      "name": "Affilimate",
+      "aliases": [],
+      "domains": ["affilimate.com"],
+      "personIds": ["monica-lent"]
+    },
+    {
+      "id": "blogging-for-devs",
+      "name": "Blogging for Devs",
+      "aliases": ["BloggingForDevs"],
+      "domains": ["bloggingfordevs.com"],
+      "personIds": ["monica-lent"]
+    },
+    {
+      "id": "not-a-nomad",
+      "name": "Not a Nomad",
+      "aliases": ["Not a Nomad Blog"],
+      "domains": ["notanomadblog.com"],
+      "personIds": ["monica-lent"]
+    },
     {
       "id": "creator-science",
       "name": "Creator Science",
@@ -2573,6 +2600,26 @@
         "https://creative-architects.castos.com/episodes/learn-how-to-build-a-profitable-community-and-bet-on-yourself-with-jay-clouse",
         "https://www.newsletteroperator.com/podcast/s/new_media/jay_clouse_-_how_to_build_an_audience_from_scratch_understanding_discovery_and_relationship_platforms_email_vs_newsletters_how_to_build_a_paid_community_vertical_integration_for_creators_and_more",
         "https://creatorscience.com/year-in-review-2024/"
+      ]
+    },
+    {
+      "id": "monica-lent-affilimate",
+      "personIds": ["monica-lent"],
+      "productIds": ["affilimate", "blogging-for-devs", "not-a-nomad"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-06",
+      "sources": [
+        "https://indiebites.com/56",
+        "https://affilimate.com/about/",
+        "https://notanomadblog.com/about/",
+        "https://www.hexdevs.com/posts/taking-the-leap-into-entrepreneurship-with-monica-lent/",
+        "https://www.nichepursuits.com/monica-lent/",
+        "https://www.failory.com/interview/blogging-for-devs",
+        "https://monicalent.com/projects/",
+        "https://www.product-bakery.com/episodes/community-building",
+        "https://kit.com/resources/blog/blogging-for-devs-case-study",
+        "https://monicalent.com/paid-community-launch/",
+        "https://monicalent.com/12x-startup/"
       ]
     }
   ]

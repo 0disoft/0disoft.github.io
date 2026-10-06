@@ -1,0 +1,28 @@
+{
+  "id": "monica-lent-affilimate",
+  "personIds": ["monica-lent"],
+  "productIds": ["affilimate", "blogging-for-devs", "not-a-nomad"],
+  "productName": "Affilimate · Blogging for Devs · Not a Nomad",
+  "coverImage": "/images/indiehackers/monica-lent-affilimate.webp",
+  "publishedAt": "2026-10-06",
+  "tags": [
+    "saas",
+    "content-service",
+    "community",
+    "developer-tools",
+    "web",
+    "b2b",
+    "b2c",
+    "developers",
+    "subscription",
+    "one-time-purchase",
+    "advertising",
+    "commission",
+    "small-team",
+    "bootstrapping",
+    "launch",
+    "pricing",
+    "acquisition",
+    "growth"
+  ]
+}
