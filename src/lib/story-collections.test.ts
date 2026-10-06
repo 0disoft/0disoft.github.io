@@ -1,5 +1,4 @@
 import { describe, expect, it } from "vitest";
-import { existsSync, readdirSync } from "node:fs";
 import {
 	filterStoryPosts,
 	getStoryFilterOptions,
@@ -10,7 +9,6 @@ import {
 	parseStoryFilters,
 	type StoryPost,
 } from "./story-collections";
-import entries from "../content/collections/entries.json";
 
 const base: StoryPost = {
 	slug: "sample",
@@ -24,16 +22,18 @@ const base: StoryPost = {
 const now = new Date("2026-10-06T03:00:00Z");
 
 describe("story collections", () => {
-	it("assigns creator cases to one section and keeps them out of indiehacker lists", () => {
+	it("keeps product and service founders in indiehackers rather than classifying them as social creators", () => {
 		const posts = [
 			{ ...base, tags: [], slug: "carrd" },
-			...entries.creators.map((entry) => ({ ...base, tags: [], slug: entry.slug })),
+			{ ...base, tags: [], slug: "andrew-kamphey-better-sheets" },
+			{ ...base, tags: [], slug: "harry-dry-marketing-examples" },
+			{ ...base, tags: [], slug: "simon-hoiberg-feedhive" },
 		];
 		const creators = getStoryCollectionPosts(posts, "creators");
 		const indiehackers = getStoryCollectionPosts(posts, null);
-		expect(creators).toHaveLength(entries.creators.length);
-		expect(indiehackers.map((post) => post.slug)).toEqual(["carrd"]);
-		expect(getStoryCollectionForSlug("harry-dry-marketing-examples")).toBe("creators");
+		expect(creators).toHaveLength(0);
+		expect(indiehackers).toEqual(posts);
+		expect(getStoryCollectionForSlug("harry-dry-marketing-examples")).toBeNull();
 		expect(getStoryCollectionForSlug("carrd")).toBeNull();
 		expect(new Set([...creators, ...indiehackers].map((post) => post.slug)).size).toBe(
 			posts.length,
@@ -41,7 +41,7 @@ describe("story collections", () => {
 	});
 	it("combines alternatives within a facet and requires all selected facets", () => {
 		const posts = [
-			{ ...base, slug: "a", tags: ["newsletter", "membership"] },
+			{ ...base, slug: "a", tags: ["short-video", "membership"] },
 			{ ...base, slug: "b", tags: ["video", "advertising"] },
 			{ ...base, slug: "c", tags: ["video", "membership"] },
 		];
@@ -49,7 +49,7 @@ describe("story collections", () => {
 			filterStoryPosts(
 				"creators",
 				posts,
-				{ query: "", tags: ["newsletter", "video", "membership"], recentOnly: true },
+				{ query: "", tags: ["short-video", "video", "membership"], recentOnly: true },
 				"ko",
 				now,
 			).map((p) => p.slug),
@@ -96,14 +96,15 @@ describe("story collections", () => {
 			}
 		}
 	});
-	it("links curated cases to existing complete articles", () => {
-		const root = new URL("../content/indiehackers/posts/", import.meta.url);
-		const slugs = new Set(readdirSync(root));
-		for (const entry of entries.creators) {
-			expect(slugs.has(entry.slug)).toBe(true);
-			for (const locale of ["en", "es", "fr", "hi", "ko", "zh"])
-				expect(existsSync(new URL(`${entry.slug}/${locale}.md`, root))).toBe(true);
-			expect(entry.tags.every((tag) => getStoryTags("creators").includes(tag))).toBe(true);
-		}
+	it("offers social creator channels and rejects software or newsletter business tags", () => {
+		expect(getStoryTags("creators")).toEqual(
+			expect.arrayContaining(["youtube", "instagram", "tiktok", "short-video", "live-stream"]),
+		);
+		expect(
+			parseStoryFilters(
+				"creators",
+				new URLSearchParams("tag=short-video&tag=instagram&tag=saas&tag=newsletter&tag=courses"),
+			).tags,
+		).toEqual(["short-video", "instagram"]);
 	});
 });

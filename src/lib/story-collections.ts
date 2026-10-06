@@ -1,9 +1,11 @@
 import * as m from "$lib/paraglide/messages";
 import { isRecentIndiehackersPost, type IndiehackersPost } from "$lib/indiehackers-posts";
 import type { SiteLocale } from "$lib/site-locales";
-import entries from "../content/collections/entries.json";
+import collectionEntries from "../content/collections/entries.json";
 
 export type StoryCollection = "investors" | "creators";
+const entries: Record<StoryCollection, readonly { slug: string; tags: readonly string[] }[]> =
+	collectionEntries;
 export type StoryPost = Omit<IndiehackersPost, "tags"> & {
 	tags: readonly string[];
 	href: string;
@@ -54,28 +56,26 @@ export const storyCatalogs: Record<StoryCollection, Record<string, readonly stri
 		topic: ["starting-capital", "research", "risk-management", "drawdowns", "compounding", "exits"],
 	},
 	creators: {
-		format: ["video", "writing", "newsletter", "podcast", "education", "design", "music"],
-		channel: ["youtube", "social-media", "email", "blog", "publishing", "live-events"],
+		format: ["video", "short-video", "live-stream", "photography", "podcast", "music"],
+		channel: ["youtube", "instagram", "tiktok", "twitch", "facebook", "blog", "podcast-platforms"],
 		revenue: [
 			"advertising",
 			"sponsorship",
 			"membership",
-			"courses",
+			"affiliate",
 			"digital-products",
-			"services",
 			"licensing",
 			"merchandise",
 		],
-		operation: ["solo", "small-team", "media-company"],
+		operation: ["solo", "small-team", "studio"],
 		topic: [
-			"validation",
+			"content-production",
 			"audience-growth",
 			"distribution",
-			"pricing",
-			"retention",
+			"monetization",
+			"brand-partnerships",
 			"delegation",
 			"burnout",
-			"business-sale",
 		],
 	},
 } as const;
