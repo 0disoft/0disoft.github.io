@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "sam-shore",
+      "name": "Sam Shore",
+      "aliases": ["샘 쇼어", "samshore"],
+      "profiles": ["https://samjshore.com/", "https://twitter.com/samshore"]
+    },
+    {
       "id": "monica-lent",
       "name": "Monica Lent",
       "aliases": ["모니카 렌트", "monicalent"],
@@ -763,6 +769,20 @@
     }
   ],
   "products": [
+    {
+      "id": "typeshare",
+      "name": "Typeshare",
+      "aliases": ["타입셰어"],
+      "domains": ["typeshare.co"],
+      "personIds": ["sam-shore"]
+    },
+    {
+      "id": "wavium",
+      "name": "Wavium",
+      "aliases": [],
+      "domains": [],
+      "personIds": ["sam-shore"]
+    },
     {
       "id": "affilimate",
       "name": "Affilimate",
@@ -2620,6 +2640,26 @@
         "https://kit.com/resources/blog/blogging-for-devs-case-study",
         "https://monicalent.com/paid-community-launch/",
         "https://monicalent.com/12x-startup/"
+      ]
+    },
+    {
+      "id": "sam-shore-typeshare",
+      "personIds": ["sam-shore"],
+      "productIds": ["typeshare", "wavium"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-06",
+      "sources": [
+        "https://indiebites.com/125",
+        "https://www.linkedin.com/posts/samshore_typeshare-just-hit-15000-mrr-when-i-activity-6923647604702494720-CF2Z",
+        "https://samjshore.com/twelve",
+        "https://samjshore.com/typeshare",
+        "https://podscan.fm/podcasts/indie-bites/episodes/typeshares-34k-mrr-bootstrapped-journey-sam-shore",
+        "https://podscripts.co/podcasts/the-startup-ideas-podcast/why-a-gamer-mindset-can-change-your-life-and-business-with-nicolas-cole-and-dickie-bush",
+        "https://podcast.creatorscience.com/dickie-bush-returns/",
+        "https://paolo.blog/is-the-price-right-answering-yes-is-yet-another-reason-to-know-your-users/",
+        "https://intercom.help/typeshare-co/en/articles/8295424-the-typeshare-method",
+        "https://intercom.help/typeshare-co/en/articles/6737633-free-pro-creator-features-and-pricing",
+        "https://typeshare.co/sam/posts/2025-02-13-1648"
       ]
     }
   ]

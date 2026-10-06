@@ -1,0 +1,27 @@
+{
+  "id": "sam-shore-typeshare",
+  "personIds": ["sam-shore"],
+  "productIds": ["typeshare", "wavium"],
+  "productName": "Typeshare",
+  "coverImage": "/images/indiehackers/sam-shore-typeshare.webp",
+  "publishedAt": "2026-10-06",
+  "tags": [
+    "saas",
+    "content-service",
+    "productivity",
+    "web",
+    "b2b",
+    "b2c",
+    "subscription",
+    "one-time-purchase",
+    "small-team",
+    "bootstrapping",
+    "solo-building",
+    "validation",
+    "launch",
+    "pricing",
+    "acquisition",
+    "growth",
+    "retention"
+  ]
+}
