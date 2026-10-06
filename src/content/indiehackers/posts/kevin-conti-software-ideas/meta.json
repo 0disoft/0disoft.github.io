@@ -1,0 +1,27 @@
+{
+  "id": "kevin-conti-software-ideas",
+  "personIds": ["kevin-conti"],
+  "productIds": ["software-ideas", "codernotes", "software-ideas-foundation"],
+  "productName": "Software Ideas",
+  "coverImage": "/images/indiehackers/kevin-conti-software-ideas.webp",
+  "publishedAt": "2026-10-06",
+  "tags": [
+    "content-service",
+    "saas",
+    "developer-tools",
+    "web",
+    "b2b",
+    "b2c",
+    "developers",
+    "subscription",
+    "one-time-purchase",
+    "solo-building",
+    "small-team",
+    "bootstrapping",
+    "validation",
+    "pricing",
+    "acquisition",
+    "growth",
+    "retention"
+  ]
+}

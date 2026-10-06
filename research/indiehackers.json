@@ -2,6 +2,16 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "kevin-conti",
+      "name": "Kevin Conti",
+      "aliases": ["케빈 콘티", "Kevcon80", "Kev_Conti"],
+      "profiles": [
+        "https://www.kevinconti.com/",
+        "https://twitter.com/Kev_Conti",
+        "https://www.indiehackers.com/Kevcon80"
+      ]
+    },
+    {
       "id": "sam-shore",
       "name": "Sam Shore",
       "aliases": ["샘 쇼어", "samshore"],
@@ -769,6 +779,27 @@
     }
   ],
   "products": [
+    {
+      "id": "software-ideas",
+      "name": "Software Ideas",
+      "aliases": ["SoftwareIdeas", "SoftwareIdeas.io"],
+      "domains": ["softwareideas.io"],
+      "personIds": ["kevin-conti"]
+    },
+    {
+      "id": "codernotes",
+      "name": "CoderNotes.io",
+      "aliases": ["CoderNotes"],
+      "domains": ["codernotes.io"],
+      "personIds": ["kevin-conti"]
+    },
+    {
+      "id": "software-ideas-foundation",
+      "name": "The Foundation",
+      "aliases": ["Software Ideas Foundation"],
+      "domains": [],
+      "personIds": ["kevin-conti"]
+    },
     {
       "id": "typeshare",
       "name": "Typeshare",
@@ -2660,6 +2691,24 @@
         "https://intercom.help/typeshare-co/en/articles/8295424-the-typeshare-method",
         "https://intercom.help/typeshare-co/en/articles/6737633-free-pro-creator-features-and-pricing",
         "https://typeshare.co/sam/posts/2025-02-13-1648"
+      ]
+    },
+    {
+      "id": "kevin-conti-software-ideas",
+      "personIds": ["kevin-conti"],
+      "productIds": ["software-ideas", "codernotes", "software-ideas-foundation"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-06",
+      "sources": [
+        "https://www.failory.com/interview/softwareideas",
+        "https://www.nichepursuits.com/kevin-conti-software-ideas/",
+        "https://www.indiehackers.com/post/looking-for-a-business-idea-heres-three-companies-ready-for-disruption-9b4ba46428",
+        "https://mailchi.mp/731760b01a17/software-ideas-premium-newsletter-issue-7",
+        "https://www.indiehackers.com/post/how-i-grew-software-ideas-to-6k-mrr-in-three-months-4b6598f378",
+        "https://www.indiehackers.com/product/softwareideas-io/437-mrr-and-532-email-subscribers-in-1-week-ama--MC2Yv5cGqqVDuoWMOF5",
+        "https://www.indiehackers.com/product/softwareideas-io/20-000-in-sales-in-three-months--MJC8mCqhCVhADytxYK8",
+        "https://www.indiehackers.com/product/softwareideas-io/im-going-full-time-on-software-ideas--MZrO4_OHUt0GqsSEmPs",
+        "https://mailchi.mp/3f04818d8040/software-ideas-is-transitioning-away-from-a-weekly-newsletter-13362128"
       ]
     }
   ]
