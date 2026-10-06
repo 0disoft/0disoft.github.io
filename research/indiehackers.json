@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "marie-poulin",
+      "name": "Marie Poulin",
+      "aliases": ["마리 풀랭", "마리 풀랭 노션", "mariepoulin"],
+      "profiles": ["https://mariepoulin.com/", "https://twitter.com/mariepoulin"]
+    },
+    {
       "id": "pete-codes",
       "name": "Pete Codes",
       "aliases": ["Pete McLeod", "피트 코드", "피트 코즈", "petecodes"],
@@ -724,6 +730,13 @@
     }
   ],
   "products": [
+    {
+      "id": "notion-mastery",
+      "name": "Notion Mastery",
+      "aliases": ["Notion Mastery Program"],
+      "domains": ["notionmastery.com"],
+      "personIds": ["marie-poulin"]
+    },
     {
       "id": "no-cs-degree",
       "name": "No CS Degree",
@@ -2331,6 +2344,24 @@
         "https://www.highsignal.io/about/",
         "https://indiebites.com/34",
         "https://indiebites.com/121"
+      ]
+    },
+    {
+      "id": "marie-poulin-notion-mastery",
+      "personIds": ["marie-poulin"],
+      "productIds": ["notion-mastery"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-06",
+      "sources": [
+        "https://mariepoulin.com/blog/2019-recap/",
+        "https://mariepoulin.com/blog/2020-year-in-review/",
+        "https://mariepoulin.com/blog/2021-year-in-review/",
+        "https://notionmastery.com/program/",
+        "https://notionmastery.com/",
+        "https://indiebites.com/20",
+        "https://pushingboulders.biz/episodes/marie-poulin-making-a-business-from-notion-mastery/transcript",
+        "https://badass.dev/podcast/course_builders/effectively-using-learner-feedback-with-marie-poulin",
+        "https://thebootstrappedfounder.com/marie-poulin-benjamin-borowski-digital-permaculture/"
       ]
     }
   ]
