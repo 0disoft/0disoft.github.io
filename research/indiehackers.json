@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "daniel-vassallo",
+      "name": "Daniel Vassallo",
+      "aliases": ["다니엘 바살로", "dvassallo"],
+      "profiles": ["https://dvassallo.com/", "https://twitter.com/dvassallo"]
+    },
+    {
       "id": "andrew-kamphey",
       "name": "Andrew Kamphey",
       "aliases": ["앤드루 캠피", "앤드류 캠피", "kamphey"],
@@ -745,6 +751,34 @@
     }
   ],
   "products": [
+    {
+      "id": "the-good-parts-of-aws",
+      "name": "The Good Parts of AWS",
+      "aliases": ["AWS Good Parts"],
+      "domains": [],
+      "personIds": ["daniel-vassallo"]
+    },
+    {
+      "id": "everyone-can-build-a-twitter-audience",
+      "name": "Everyone Can Build a Twitter Audience",
+      "aliases": ["Twitter Audience Course"],
+      "domains": [],
+      "personIds": ["daniel-vassallo"]
+    },
+    {
+      "id": "profit-and-loss",
+      "name": "Profit and Loss",
+      "aliases": ["Daniel Vassallo Profit and Loss"],
+      "domains": [],
+      "personIds": ["daniel-vassallo"]
+    },
+    {
+      "id": "userbase",
+      "name": "Userbase",
+      "aliases": [],
+      "domains": ["userbase.com"],
+      "personIds": ["daniel-vassallo"]
+    },
     {
       "id": "better-sheets",
       "name": "Better Sheets",
@@ -2456,6 +2490,29 @@
         "https://leveldo.com/making-google-sheets-skills-into-a-six-figure-business-interview-with-andrew-kamphey-founder-of-better-sheets/",
         "https://mail.bettersheets.co/blog/whats-inside-better-sheets",
         "https://bettersheets.co/"
+      ]
+    },
+    {
+      "id": "daniel-vassallo-good-parts-aws",
+      "personIds": ["daniel-vassallo"],
+      "productIds": [
+        "the-good-parts-of-aws",
+        "everyone-can-build-a-twitter-audience",
+        "profit-and-loss",
+        "userbase"
+      ],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-06",
+      "sources": [
+        "https://indiebites.com/37",
+        "https://dvassallo.medium.com/from-employee-to-bootstrapper-941f061f207f",
+        "https://dvassallo.medium.com/how-i-made-210-822-selling-a-pdf-and-a-video-on-the-internet-316f44b77fce",
+        "https://www.indiehackers.com/podcast/177-daniel-vassallo",
+        "https://www.software-engineering-unlocked.com/entrepreneurship-developer/",
+        "https://www.softwaresessions.com/episodes/the-good-parts-of-aws-with-daniel-vassallo/",
+        "https://dvassallo.gumroad.com/l/aws-good-parts",
+        "https://dvassallo.gumroad.com/l/twitter-audience",
+        "https://www.producthunt.com/stories/four-lessons-from-info-product-creator-daniel-vassallo"
       ]
     }
   ]

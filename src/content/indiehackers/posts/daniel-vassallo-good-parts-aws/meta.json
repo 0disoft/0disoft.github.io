@@ -1,0 +1,29 @@
+{
+  "id": "daniel-vassallo-good-parts-aws",
+  "personIds": ["daniel-vassallo"],
+  "productIds": [
+    "the-good-parts-of-aws",
+    "everyone-can-build-a-twitter-audience",
+    "profit-and-loss",
+    "userbase"
+  ],
+  "productName": "The Good Parts of AWS · Everyone Can Build a Twitter Audience",
+  "coverImage": "/images/indiehackers/daniel-vassallo-good-parts-aws.webp",
+  "publishedAt": "2026-10-06",
+  "tags": [
+    "content-service",
+    "developer-tools",
+    "web",
+    "b2b",
+    "b2c",
+    "developers",
+    "subscription",
+    "one-time-purchase",
+    "solo-building",
+    "bootstrapping",
+    "launch",
+    "pricing",
+    "acquisition",
+    "growth"
+  ]
+}
