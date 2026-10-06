@@ -89,7 +89,8 @@ export function validateRegistry(registry) {
 	}
 	const domains = new Set();
 	for (const product of registry.products) {
-		requireList(product.domains, `${product.id} domains`);
+		// Marketplace products can have a name and sources without a dedicated domain.
+		requireList(product.domains, `${product.id} domains`, true);
 		for (const domain of product.domains) {
 			if (
 				!/^[a-z0-9.-]+\.[a-z]{2,}$/.test(domain) ||

@@ -97,6 +97,23 @@ describe("indiehackers research registry", () => {
 		broken.products[0].personIds = ["missing-person"];
 		expect(() => validateRegistry(broken)).toThrow(/Unknown person/);
 	});
+	it("finds marketplace products by name without claiming the shared storefront domain", () => {
+		const fixture = structuredClone(inventory);
+		fixture.registry.products.push({
+			id: "marketplace-book",
+			name: "Marketplace Book",
+			aliases: ["Book on a Storefront"],
+			domains: [],
+			personIds: [fixture.registry.people[0].id],
+		});
+		validateRegistry(fixture.registry);
+		expect(searchInventory(fixture, "Book on a Storefront").matches[0].id).toBe("marketplace-book");
+		expect(searchInventory(fixture, "https://example.gumroad.com/l/book").matches).toEqual([]);
+		fixture.registry.products[fixture.registry.products.length - 1].domains = [
+			"gumroad.com/l/book",
+		];
+		expect(() => validateRegistry(fixture.registry)).toThrow(/Invalid or duplicate domain/);
+	});
 	it("requires manual review when distinct people share a name", () => {
 		const fixture = structuredClone(inventory);
 		fixture.registry.people.push({ id: "another-aj", name: "AJ", aliases: [], profiles: [] });
