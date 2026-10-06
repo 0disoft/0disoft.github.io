@@ -2,7 +2,6 @@
 	import IndiehackersShareToolbar from "$lib/indiehackers-share-toolbar.svelte";
 	import {
 		getIndiehackersPostTagLabels,
-		getAdjacentIndiehackersPosts,
 		type IndiehackersPost,
 		type IndiehackersPostDetail,
 	} from "$lib/indiehackers-posts";
@@ -20,11 +19,7 @@ const displayLocale = $derived(isSiteLocale(locale) ? locale : "en");
 const selectedLocale = $derived(displayLocale);
 const post = $derived(data.post);
 const sourcePosts: readonly IndiehackersPost[] = $derived(page.data.indiehackersPosts);
-const adjacentPosts = $derived.by(() => {
-	if (!collection) return data.adjacentPosts;
-	const slugs = new Set(getStoryPosts(collection, sourcePosts).map((item) => item.slug));
-	return getAdjacentIndiehackersPosts(sourcePosts.filter((item) => slugs.has(item.slug)), post.slug, displayLocale);
-});
+const adjacentPosts = $derived(data.adjacentPosts);
 const tagLabels = $derived.by(() => {
 	const entry = collection ? getStoryPosts(collection, sourcePosts).find((item) => item.slug === post.slug) : null;
 	return entry ? getStoryPostTagLabels(entry, displayLocale) : getIndiehackersPostTagLabels(post);
@@ -39,7 +34,7 @@ const backHref = $derived(localizeSitePathname(collection ? `/${collection}` : "
 
 function getPostHref(slug: string): string {
 	const href = localizeSitePathname(`/indiehackers/${slug}`, selectedLocale);
-	return collection ? `${href}?collection=${collection}` : href;
+	return href;
 }
 </script>
 

@@ -266,7 +266,7 @@ describe("site shell", () => {
 		expect(indiehackersListSource).toContain("aria-expanded={facetsExpanded}");
 		expect(indiehackersListSource).toContain('type="checkbox"');
 		expect(indiehackersListSource).toContain("tag-chips");
-		expect(indiehackersListSource).toContain("getIndiehackersFilterOptions(sourcePosts)");
+		expect(indiehackersListSource).toContain("getIndiehackersFilterOptions(indiehackersPosts)");
 		expect(indiehackersListSource).toContain("localizedFilterOptions.groups");
 		expect(indiehackersListSource).toContain("tag.count");
 		expect(indiehackersListSource).toContain("recent-chip");

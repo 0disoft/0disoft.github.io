@@ -5,7 +5,8 @@ import {
 	getStoryFilterOptions,
 	getStoryLabel,
 	getStoryTags,
-	getStoryCollectionContext,
+	getStoryCollectionForSlug,
+	getStoryCollectionPosts,
 	parseStoryFilters,
 	type StoryPost,
 } from "./story-collections";
@@ -23,6 +24,21 @@ const base: StoryPost = {
 const now = new Date("2026-10-06T03:00:00Z");
 
 describe("story collections", () => {
+	it("assigns creator cases to one section and keeps them out of indiehacker lists", () => {
+		const posts = [
+			{ ...base, tags: [], slug: "carrd" },
+			...entries.creators.map((entry) => ({ ...base, tags: [], slug: entry.slug })),
+		];
+		const creators = getStoryCollectionPosts(posts, "creators");
+		const indiehackers = getStoryCollectionPosts(posts, null);
+		expect(creators).toHaveLength(entries.creators.length);
+		expect(indiehackers.map((post) => post.slug)).toEqual(["carrd"]);
+		expect(getStoryCollectionForSlug("harry-dry-marketing-examples")).toBe("creators");
+		expect(getStoryCollectionForSlug("carrd")).toBeNull();
+		expect(new Set([...creators, ...indiehackers].map((post) => post.slug)).size).toBe(
+			posts.length,
+		);
+	});
 	it("combines alternatives within a facet and requires all selected facets", () => {
 		const posts = [
 			{ ...base, slug: "a", tags: ["newsletter", "membership"] },
@@ -80,7 +96,7 @@ describe("story collections", () => {
 			}
 		}
 	});
-	it("links curated cases to existing complete articles and rejects unrelated context", () => {
+	it("links curated cases to existing complete articles", () => {
 		const root = new URL("../content/indiehackers/posts/", import.meta.url);
 		const slugs = new Set(readdirSync(root));
 		for (const entry of entries.creators) {
@@ -89,8 +105,5 @@ describe("story collections", () => {
 				expect(existsSync(new URL(`${entry.slug}/${locale}.md`, root))).toBe(true);
 			expect(entry.tags.every((tag) => getStoryTags("creators").includes(tag))).toBe(true);
 		}
-		expect(getStoryCollectionContext("creators", "harry-dry-marketing-examples")).toBe("creators");
-		expect(getStoryCollectionContext("creators", "carrd")).toBeNull();
-		expect(getStoryCollectionContext("fake", "carrd")).toBeNull();
 	});
 });

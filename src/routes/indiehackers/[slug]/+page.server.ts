@@ -9,6 +9,7 @@ import {
 	indiehackersPosts,
 } from "$lib/server/indiehackers-posts";
 import { getPathLocale } from "$lib/site-locales";
+import { getStoryCollectionForSlug, getStoryCollectionPosts } from "$lib/story-collections";
 
 export const prerender = true;
 
@@ -22,8 +23,14 @@ export const load = (({ params, url }) => {
 		error(404, "Not Found");
 	}
 
+	const collection = getStoryCollectionForSlug(params.slug);
 	return {
 		post,
-		adjacentPosts: getAdjacentIndiehackersPosts(indiehackersPosts, params.slug, locale),
+		collection,
+		adjacentPosts: getAdjacentIndiehackersPosts(
+			getStoryCollectionPosts(indiehackersPosts, collection),
+			params.slug,
+			locale,
+		),
 	};
 }) satisfies PageServerLoad;

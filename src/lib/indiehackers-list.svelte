@@ -20,7 +20,7 @@
 	import { isSiteLocale, localizeSitePathname } from "$lib/site-locales";
 	import {
 		getStoryPosts, getStoryFilterOptions, filterStoryPosts, parseStoryFilters,
-		getStoryPostTagLabels, getStoryLabel, type StoryCollection, type StoryFilters, type StoryPost,
+		getStoryPostTagLabels, getStoryLabel, getStoryCollectionPosts, type StoryCollection, type StoryFilters, type StoryPost,
 	} from "$lib/story-collections";
 
 	let { collection = "indiehackers" }: { collection?: "indiehackers" | StoryCollection } = $props();
@@ -29,18 +29,19 @@
 	const displayLocale = $derived(toDisplayLocale(getLocale()));
 	const currentLocale = $derived(getLocale());
 	const sourcePosts: readonly IndiehackersPost[] = $derived(page.data.indiehackersPosts);
+	const indiehackersPosts = $derived(getStoryCollectionPosts(sourcePosts, null));
 	const indiehackersAction = $derived(
 		localizeSitePathname(`/${collection}`, isSiteLocale(currentLocale) ? currentLocale : "en"),
 	);
 	const collectionTitle = $derived(getLocalizedNavigationLabel(`/${collection}`, displayLocale));
 	const localizedPosts: readonly StoryPost[] = $derived(collection === "indiehackers"
-		? sourcePosts.map((post) => ({ ...post, href: `/indiehackers/${post.slug}` }))
+		? indiehackersPosts.map((post) => ({ ...post, href: `/indiehackers/${post.slug}` }))
 		: getStoryPosts(collection, sourcePosts));
 	const localizedFilterOptions = $derived(collection === "indiehackers"
-		? getIndiehackersFilterOptions(sourcePosts)
+		? getIndiehackersFilterOptions(indiehackersPosts)
 		: getStoryFilterOptions(collection, localizedPosts, displayLocale));
 	const filteredPosts = $derived(collection === "indiehackers"
-		? filterIndiehackersPosts(sourcePosts, { ...filters, tags: filters.tags as readonly IndiehackersTagId[] })
+		? filterIndiehackersPosts(indiehackersPosts, { ...filters, tags: filters.tags as readonly IndiehackersTagId[] })
 			.map((post) => ({ ...post, href: `/indiehackers/${post.slug}` }))
 		: filterStoryPosts(collection, localizedPosts, filters, displayLocale));
 	const hasActiveFilters = $derived(
@@ -213,7 +214,7 @@
 			path,
 			isSiteLocale(currentLocale) ? currentLocale : "en",
 		);
-		return collection === "indiehackers" ? href : `${href}?collection=${collection}`;
+		return href;
 	}
 
 	function getIndiehackersPostTagLabels(post: StoryPost): string[] {

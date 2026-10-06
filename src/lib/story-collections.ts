@@ -10,7 +10,26 @@ export type StoryPost = Omit<IndiehackersPost, "tags"> & {
 };
 export type StoryFilters = { query: string; tags: readonly string[]; recentOnly: boolean };
 
-// The same article can appear in several collections without duplicating its translations.
+// Each case belongs to one section, according to the business covered by the article.
+const collectionBySlug = new Map<string, StoryCollection>();
+for (const collection of ["investors", "creators"] as const) {
+	for (const entry of entries[collection]) {
+		if (collectionBySlug.has(entry.slug)) throw new Error(`Duplicate story section: ${entry.slug}`);
+		collectionBySlug.set(entry.slug, collection);
+	}
+}
+
+export function getStoryCollectionForSlug(slug: string): StoryCollection | null {
+	return collectionBySlug.get(slug) ?? null;
+}
+
+export function getStoryCollectionPosts<Post extends IndiehackersPost>(
+	posts: readonly Post[],
+	collection: StoryCollection | null,
+): Post[] {
+	return posts.filter((post) => getStoryCollectionForSlug(post.slug) === collection);
+}
+
 export const storyCatalogs: Record<StoryCollection, Record<string, readonly string[]>> = {
 	investors: {
 		asset: [
@@ -72,14 +91,6 @@ export function getStoryLabel(id: string, locale: SiteLocale): string {
 
 export function getStoryTags(collection: StoryCollection): string[] {
 	return Object.values(storyCatalogs[collection]).flatMap((tags) => [...tags]);
-}
-
-export function getStoryCollectionContext(
-	value: string | null,
-	slug: string,
-): StoryCollection | null {
-	if (value !== "investors" && value !== "creators") return null;
-	return entries[value].some((entry) => entry.slug === slug) ? value : null;
 }
 
 export function getStoryPosts(
