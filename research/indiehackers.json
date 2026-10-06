@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "andrew-kamphey",
+      "name": "Andrew Kamphey",
+      "aliases": ["앤드루 캠피", "앤드류 캠피", "kamphey"],
+      "profiles": ["https://kampheyapproved.com/", "https://twitter.com/Kamphey"]
+    },
+    {
       "id": "brett-williams",
       "name": "Brett Williams",
       "aliases": ["브렛 윌리엄스", "brettwill1025"],
@@ -739,6 +745,27 @@
     }
   ],
   "products": [
+    {
+      "id": "better-sheets",
+      "name": "Better Sheets",
+      "aliases": ["BetterSheets", "SheetShot", "Sheet Shot"],
+      "domains": ["bettersheets.co"],
+      "personIds": ["andrew-kamphey"]
+    },
+    {
+      "id": "onlysheets",
+      "name": "OnlySheets",
+      "aliases": ["Only Sheets"],
+      "domains": ["onlysheets.bettersheets.co", "onlysheets.xyz"],
+      "personIds": ["andrew-kamphey"]
+    },
+    {
+      "id": "atomic-sheets",
+      "name": "Atomic Sheets",
+      "aliases": ["AtomicSheets"],
+      "domains": ["atomicsheets.com"],
+      "personIds": ["andrew-kamphey"]
+    },
     {
       "id": "designjoy",
       "name": "Designjoy",
@@ -2410,6 +2437,25 @@
         "https://www.reddit.com/r/webflow/comments/1bd84ip/i_run_designjoy_the_infamous_webflow_agency_ama/",
         "https://www.productizeyourself.co/",
         "https://www.scribbbles.design/"
+      ]
+    },
+    {
+      "id": "andrew-kamphey-better-sheets",
+      "personIds": ["andrew-kamphey"],
+      "productIds": ["better-sheets", "onlysheets", "atomic-sheets"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-06",
+      "sources": [
+        "https://indiebites.com/94",
+        "https://www.starterstory.com/google-sheets-tutorials",
+        "https://www.starterstory.com/stories/better-sheets",
+        "https://www.starterstory.com/stories/better-sheets-37c0b534-27b9-4f8f-b8d7-53ce255e9a7e",
+        "https://www.starterstory.com/stories/better-sheets-2c84fd1f-462e-4e17-8777-dc89384ba8a8",
+        "https://hackernoon.com/how-i-made-%24100k-in-revenue-selling-tutorials-on-google-sheets",
+        "https://ideamensch.com/andrew-kamphey/",
+        "https://leveldo.com/making-google-sheets-skills-into-a-six-figure-business-interview-with-andrew-kamphey-founder-of-better-sheets/",
+        "https://mail.bettersheets.co/blog/whats-inside-better-sheets",
+        "https://bettersheets.co/"
       ]
     }
   ]
