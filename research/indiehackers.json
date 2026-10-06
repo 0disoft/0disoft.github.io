@@ -2,6 +2,15 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "brett-williams",
+      "name": "Brett Williams",
+      "aliases": ["브렛 윌리엄스", "brettwill1025"],
+      "profiles": [
+        "https://twitter.com/brettwill1025",
+        "https://www.linkedin.com/in/brettwill1025/"
+      ]
+    },
+    {
       "id": "marie-poulin",
       "name": "Marie Poulin",
       "aliases": ["마리 풀랭", "마리 풀랭 노션", "mariepoulin"],
@@ -730,6 +739,27 @@
     }
   ],
   "products": [
+    {
+      "id": "designjoy",
+      "name": "Designjoy",
+      "aliases": ["DesignJoy", "Design Joy"],
+      "domains": ["designjoy.co"],
+      "personIds": ["brett-williams"]
+    },
+    {
+      "id": "productize-yourself",
+      "name": "Productize Yourself",
+      "aliases": [],
+      "domains": ["productizeyourself.co"],
+      "personIds": ["brett-williams"]
+    },
+    {
+      "id": "scribbbles",
+      "name": "Scribbbles",
+      "aliases": ["Scribbbles 1.0", "Funky Scribbbles"],
+      "domains": ["scribbbles.design"],
+      "personIds": ["brett-williams"]
+    },
     {
       "id": "notion-mastery",
       "name": "Notion Mastery",
@@ -2362,6 +2392,24 @@
         "https://pushingboulders.biz/episodes/marie-poulin-making-a-business-from-notion-mastery/transcript",
         "https://badass.dev/podcast/course_builders/effectively-using-learner-feedback-with-marie-poulin",
         "https://thebootstrappedfounder.com/marie-poulin-benjamin-borowski-digital-permaculture/"
+      ]
+    },
+    {
+      "id": "brett-williams-designjoy",
+      "personIds": ["brett-williams"],
+      "productIds": ["designjoy", "productize-yourself", "scribbbles"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-06",
+      "sources": [
+        "https://indiebites.com/47",
+        "https://www.designjoy.co/",
+        "https://thefutur.com/podcast/productize-design",
+        "https://www.indiehackers.com/post/how-i-scaled-designjoy-to-300k-in-revenue-in-2020-year-in-review-941a7472ed",
+        "https://www.indiehackers.com/post/designjoy-crosses-70k-mrr-someone-pinch-me-18f17779fb",
+        "https://www.indiehackers.com/post/the-surprising-way-i-run-my-800k-arr-design-service-1018108b62",
+        "https://www.reddit.com/r/webflow/comments/1bd84ip/i_run_designjoy_the_infamous_webflow_agency_ama/",
+        "https://www.productizeyourself.co/",
+        "https://www.scribbbles.design/"
       ]
     }
   ]

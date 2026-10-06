@@ -1,0 +1,23 @@
+{
+  "id": "brett-williams-designjoy",
+  "personIds": ["brett-williams"],
+  "productIds": ["designjoy", "productize-yourself", "scribbbles"],
+  "productName": "Designjoy",
+  "coverImage": "/images/indiehackers/brett-williams-designjoy.webp",
+  "publishedAt": "2026-10-06",
+  "tags": [
+    "content-service",
+    "design-tools",
+    "web",
+    "b2b",
+    "subscription",
+    "one-time-purchase",
+    "solo-building",
+    "bootstrapping",
+    "launch",
+    "pricing",
+    "acquisition",
+    "growth",
+    "retention"
+  ]
+}
