@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "jay-clouse",
+      "name": "Jay Clouse",
+      "aliases": ["제이 클라우스", "jayclouse"],
+      "profiles": ["https://jayclouse.com/", "https://twitter.com/jayclouse"]
+    },
+    {
       "id": "daniel-vassallo",
       "name": "Daniel Vassallo",
       "aliases": ["다니엘 바살로", "dvassallo"],
@@ -751,6 +757,34 @@
     }
   ],
   "products": [
+    {
+      "id": "creator-science",
+      "name": "Creator Science",
+      "aliases": ["Creative Elements", "Creative Companion"],
+      "domains": ["creatorscience.com", "podcast.creatorscience.com"],
+      "personIds": ["jay-clouse"]
+    },
+    {
+      "id": "creator-science-the-lab",
+      "name": "The Lab",
+      "aliases": ["Creator Science The Lab"],
+      "domains": ["join.creatorscience.com"],
+      "personIds": ["jay-clouse"]
+    },
+    {
+      "id": "creatorhq",
+      "name": "CreatorHQ",
+      "aliases": ["Creator HQ"],
+      "domains": ["creatorhq.co"],
+      "personIds": ["jay-clouse"]
+    },
+    {
+      "id": "unreal-collective",
+      "name": "Unreal Collective",
+      "aliases": [],
+      "domains": [],
+      "personIds": ["jay-clouse"]
+    },
     {
       "id": "the-good-parts-of-aws",
       "name": "The Good Parts of AWS",
@@ -2513,6 +2547,32 @@
         "https://dvassallo.gumroad.com/l/aws-good-parts",
         "https://dvassallo.gumroad.com/l/twitter-audience",
         "https://www.producthunt.com/stories/four-lessons-from-info-product-creator-daniel-vassallo"
+      ]
+    },
+    {
+      "id": "jay-clouse-creator-science",
+      "personIds": ["jay-clouse"],
+      "productIds": [
+        "creator-science",
+        "creator-science-the-lab",
+        "creatorhq",
+        "unreal-collective"
+      ],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-06",
+      "sources": [
+        "https://indiebites.com/83",
+        "https://www.supercast.com/podcast/podcast-growth-jay-clouse",
+        "https://www.passionfroot.me/creators-on-air/jay-clouse",
+        "https://creatorscience.com/revenue-ocean/",
+        "https://creatorscience.com/11-lessons-email-newsletter/",
+        "https://creatorscience.com/podcast-rebrand/",
+        "https://creatorscience.com/income-report-september-2022/",
+        "https://creatorscience.com/staying-small/",
+        "https://podcast.creatorscience.com/december-2022-retro/",
+        "https://creative-architects.castos.com/episodes/learn-how-to-build-a-profitable-community-and-bet-on-yourself-with-jay-clouse",
+        "https://www.newsletteroperator.com/podcast/s/new_media/jay_clouse_-_how_to_build_an_audience_from_scratch_understanding_discovery_and_relationship_platforms_email_vs_newsletters_how_to_build_a_paid_community_vertical_integration_for_creators_and_more",
+        "https://creatorscience.com/year-in-review-2024/"
       ]
     }
   ]

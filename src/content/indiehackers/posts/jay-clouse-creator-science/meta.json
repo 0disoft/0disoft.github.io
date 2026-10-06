@@ -1,0 +1,26 @@
+{
+  "id": "jay-clouse-creator-science",
+  "personIds": ["jay-clouse"],
+  "productIds": ["creator-science", "creator-science-the-lab", "creatorhq", "unreal-collective"],
+  "productName": "Creator Science",
+  "coverImage": "/images/indiehackers/jay-clouse-creator-science.webp",
+  "publishedAt": "2026-10-06",
+  "tags": [
+    "content-service",
+    "community",
+    "productivity",
+    "web",
+    "b2b",
+    "b2c",
+    "subscription",
+    "one-time-purchase",
+    "advertising",
+    "commission",
+    "small-team",
+    "bootstrapping",
+    "launch",
+    "pricing",
+    "acquisition",
+    "growth"
+  ]
+}
