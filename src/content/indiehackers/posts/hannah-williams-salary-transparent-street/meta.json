@@ -1,0 +1,20 @@
+{
+  "id": "hannah-williams-salary-transparent-street",
+  "personIds": ["hannah-williams", "james-daniels"],
+  "productIds": ["salary-transparent-street"],
+  "productName": "Salary Transparent Street",
+  "coverImage": "/images/indiehackers/hannah-williams-salary-transparent-street.webp",
+  "publishedAt": "2026-10-10",
+  "tags": [
+    "content-service",
+    "web",
+    "b2b",
+    "b2c",
+    "advertising",
+    "small-team",
+    "bootstrapping",
+    "acquisition",
+    "growth",
+    "exit"
+  ]
+}

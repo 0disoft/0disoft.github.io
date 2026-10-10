@@ -2,6 +2,18 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "james-daniels",
+      "name": "James Daniels",
+      "aliases": ["제임스 대니얼스"],
+      "profiles": []
+    },
+    {
+      "id": "hannah-williams",
+      "name": "Hannah Williams",
+      "aliases": ["한나 윌리엄스", "Hannah A. Williams"],
+      "profiles": ["https://www.linkedin.com/in/hannahawilliams"]
+    },
+    {
       "id": "kevin-conti",
       "name": "Kevin Conti",
       "aliases": ["케빈 콘티", "Kevcon80", "Kev_Conti"],
@@ -779,6 +791,13 @@
     }
   ],
   "products": [
+    {
+      "id": "salary-transparent-street",
+      "name": "Salary Transparent Street",
+      "aliases": ["STS", "SalaryTransparentStreet"],
+      "domains": ["salarytransparentstreet.com"],
+      "personIds": ["hannah-williams", "james-daniels"]
+    },
     {
       "id": "software-ideas",
       "name": "Software Ideas",
@@ -2709,6 +2728,26 @@
         "https://www.indiehackers.com/product/softwareideas-io/20-000-in-sales-in-three-months--MJC8mCqhCVhADytxYK8",
         "https://www.indiehackers.com/product/softwareideas-io/im-going-full-time-on-software-ideas--MZrO4_OHUt0GqsSEmPs",
         "https://mailchi.mp/3f04818d8040/software-ideas-is-transitioning-away-from-a-weekly-newsletter-13362128"
+      ]
+    },
+    {
+      "id": "hannah-williams-salary-transparent-street",
+      "personIds": ["hannah-williams", "james-daniels"],
+      "productIds": ["salary-transparent-street"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-10",
+      "sources": [
+        "https://www.podscan.fm/podcasts/the-rough-draft/episodes/exploring-pay-transparency-and-content-creation-with-hannah-williams-of-salary-transparent-street",
+        "https://www.creatorspotlight.com/podcast/s/tcsp/hannah_williams_of_salary_transparent_street",
+        "https://www.linkedin.com/posts/hannahawilliams_we-made-1m-in-2023-from-street-interviews-activity-7152702754782683136-a-Rk",
+        "https://www.linkedin.com/posts/hannahawilliams_salarytransparentstreet-salarytransparency-activity-7053757860098273280-vap0",
+        "https://fortune.com/2023/11/29/hannah-williams-salary-transparent-street-tiktok-pay-cut/",
+        "https://www.linkedin.com/posts/rare-days_we-partnered-with-hannah-williams-of-salary-activity-7326230647432257538-XmXR",
+        "https://time.com/collections/time100-creators-2025/7299126/hannah-williams/",
+        "https://www.podparadise.com/episodes/34561364/",
+        "https://www.linkedin.com/posts/hannahawilliams_breaking-news-nearly-four-years-ago-activity-7417573855646404608-0ywV",
+        "https://podscan.fm/podcasts/two-cents-1/episodes/we-sold-salary-transparent-street-why-for-how-much-and-what-happens-next",
+        "https://www.salarytransparentstreet.com/"
       ]
     }
   ]
