@@ -1,0 +1,26 @@
+{
+  "id": "graham-stephan-youtube",
+  "personIds": ["graham-stephan"],
+  "productIds": [
+    "graham-stephan-youtube",
+    "graham-stephan-show",
+    "iced-coffee-hour",
+    "youtube-creator-academy",
+    "real-estate-agent-academy"
+  ],
+  "productName": "Graham Stephan",
+  "coverImage": "/images/indiehackers/graham-stephan-youtube.webp",
+  "publishedAt": "2026-10-10",
+  "tags": [
+    "content-service",
+    "web",
+    "b2c",
+    "advertising",
+    "commission",
+    "one-time-purchase",
+    "solo-building",
+    "small-team",
+    "bootstrapping",
+    "growth"
+  ]
+}

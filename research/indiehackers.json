@@ -2,6 +2,16 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "graham-stephan",
+      "name": "Graham Stephan",
+      "aliases": ["그레이엄 스테판", "GPStephan"],
+      "profiles": [
+        "https://www.grahamstephan.com/",
+        "https://www.youtube.com/@GrahamStephan",
+        "https://www.instagram.com/gpstephan/"
+      ]
+    },
+    {
       "id": "james-daniels",
       "name": "James Daniels",
       "aliases": ["제임스 대니얼스"],
@@ -791,6 +801,41 @@
     }
   ],
   "products": [
+    {
+      "id": "real-estate-agent-academy",
+      "name": "Real Estate Agent Academy",
+      "aliases": ["The Real Estate Agent Academy"],
+      "domains": [],
+      "personIds": ["graham-stephan"]
+    },
+    {
+      "id": "youtube-creator-academy",
+      "name": "YouTube Creator Academy",
+      "aliases": ["The YouTube Creator Academy"],
+      "domains": [],
+      "personIds": ["graham-stephan"]
+    },
+    {
+      "id": "iced-coffee-hour",
+      "name": "The Iced Coffee Hour",
+      "aliases": ["Iced Coffee Hour"],
+      "domains": [],
+      "personIds": ["graham-stephan"]
+    },
+    {
+      "id": "graham-stephan-show",
+      "name": "The Graham Stephan Show",
+      "aliases": ["Graham Stephan Show"],
+      "domains": [],
+      "personIds": ["graham-stephan"]
+    },
+    {
+      "id": "graham-stephan-youtube",
+      "name": "Graham Stephan",
+      "aliases": ["Graham Stephan YouTube", "그레이엄 스테판 유튜브"],
+      "domains": ["grahamstephan.com"],
+      "personIds": ["graham-stephan"]
+    },
     {
       "id": "salary-transparent-street",
       "name": "Salary Transparent Street",
@@ -2748,6 +2793,32 @@
         "https://www.linkedin.com/posts/hannahawilliams_breaking-news-nearly-four-years-ago-activity-7417573855646404608-0ywV",
         "https://podscan.fm/podcasts/two-cents-1/episodes/we-sold-salary-transparent-street-why-for-how-much-and-what-happens-next",
         "https://www.salarytransparentstreet.com/"
+      ]
+    },
+    {
+      "id": "graham-stephan-youtube",
+      "personIds": ["graham-stephan"],
+      "productIds": [
+        "graham-stephan-youtube",
+        "graham-stephan-show",
+        "iced-coffee-hour",
+        "youtube-creator-academy",
+        "real-estate-agent-academy"
+      ],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-10",
+      "sources": [
+        "https://www.youtube.com/watch?v=C9WX5sEYolA",
+        "https://rosetta.to/u/grahamstephan/how-much-i-make-with-3-million-subscribers",
+        "https://www.tapesearch.com/episode/how-graham-stephan-went-from-0-to-10-million-on-youtube/AyBJpQPVvbgsNYcpB7ACy7",
+        "https://nerdfighteria.info/v/dHBl7TunWOs/",
+        "https://nerdfighteria.info/v/6E3P2s5pB_k/",
+        "https://rosetta.to/u/grahamstephan/revealing-my-actual-net-worth",
+        "https://rosetta.to/u/grahamstephan/unboxing-the-10-million-dollar-invite-only-credit-card-the-jp-morgan-reserve",
+        "https://intromaker.com/blog/youtube-video-notes-10-million-views-in-30-days",
+        "https://www.tapesearch.com/episode/how-graham-stephan-makes-4-578-896-32-a-year-on-youtube/Zjb7GfN6hzGRRzvLwmpRsP",
+        "https://podscripts.co/podcasts/the-iced-coffee-hour/revealing-how-much-money-the-graham-stephan-show-makes-ep-14",
+        "https://www.grahamstephan.com/"
       ]
     }
   ]
