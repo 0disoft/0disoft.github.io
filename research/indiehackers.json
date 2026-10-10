@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "joshua-mayo",
+      "name": "Joshua Mayo",
+      "aliases": ["조슈아 메이요"],
+      "profiles": ["https://joshuamayo.com/", "https://www.youtube.com/@joshuamayo"]
+    },
+    {
       "id": "graham-stephan",
       "name": "Graham Stephan",
       "aliases": ["그레이엄 스테판", "GPStephan"],
@@ -801,6 +807,13 @@
     }
   ],
   "products": [
+    {
+      "id": "joshua-mayo-youtube",
+      "name": "Joshua Mayo",
+      "aliases": ["Joshua Mayo YouTube", "조슈아 메이요 유튜브"],
+      "domains": ["joshuamayo.com"],
+      "personIds": ["joshua-mayo"]
+    },
     {
       "id": "real-estate-agent-academy",
       "name": "Real Estate Agent Academy",
@@ -2819,6 +2832,23 @@
         "https://www.tapesearch.com/episode/how-graham-stephan-makes-4-578-896-32-a-year-on-youtube/Zjb7GfN6hzGRRzvLwmpRsP",
         "https://podscripts.co/podcasts/the-iced-coffee-hour/revealing-how-much-money-the-graham-stephan-show-makes-ep-14",
         "https://www.grahamstephan.com/"
+      ]
+    },
+    {
+      "id": "joshua-mayo-youtube",
+      "personIds": ["joshua-mayo"],
+      "productIds": ["joshua-mayo-youtube"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-10",
+      "sources": [
+        "https://joshuamayo.com/press/",
+        "https://www.youtube.com/@joshuamayo",
+        "https://www.businessinsider.com/how-much-does-a-finance-youtuber-make-a-month-year-2022-11",
+        "https://www.businessinsider.es/tecnologia/cuanto-gana-mes-youtuber-finanzas-270000-suscriptores-1157147",
+        "https://www.aol.com/finance/influencer-making-100k-just-month-150145318.html",
+        "https://www.epidemicsound.com/blog/the-future-of-the-creator-economy-report-2024/",
+        "https://corporate.epidemicsound.com/files/Main/21928/4132587/epidemic-sound-annual-report-2024.pdf",
+        "https://rosetta.to/u/ed-lawrence/everything-i-learned-making-7m-on-youtube"
       ]
     }
   ]
