@@ -2,6 +2,18 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "kate-erickson",
+      "name": "Kate Erickson",
+      "aliases": ["케이트 에릭슨"],
+      "profiles": []
+    },
+    {
+      "id": "john-lee-dumas",
+      "name": "John Lee Dumas",
+      "aliases": ["존 리 두마스", "JLD"],
+      "profiles": ["https://www.eofire.com/about/"]
+    },
+    {
       "id": "joshua-mayo",
       "name": "Joshua Mayo",
       "aliases": ["조슈아 메이요"],
@@ -807,6 +819,41 @@
     }
   ],
   "products": [
+    {
+      "id": "podplatform",
+      "name": "PodPlatform",
+      "aliases": ["Pod Platform"],
+      "domains": ["podplatform.com"],
+      "personIds": ["john-lee-dumas", "kate-erickson"]
+    },
+    {
+      "id": "freedom-journal",
+      "name": "The Freedom Journal",
+      "aliases": ["Freedom Journal"],
+      "domains": ["thefreedomjournal.com"],
+      "personIds": ["john-lee-dumas", "kate-erickson"]
+    },
+    {
+      "id": "fire-nation-elite",
+      "name": "Fire Nation Elite",
+      "aliases": ["FireNationElite", "FNE"],
+      "domains": [],
+      "personIds": ["john-lee-dumas", "kate-erickson"]
+    },
+    {
+      "id": "podcasters-paradise",
+      "name": "Podcasters’ Paradise",
+      "aliases": ["Podcasters Paradise"],
+      "domains": ["podcastersparadise.com"],
+      "personIds": ["john-lee-dumas", "kate-erickson"]
+    },
+    {
+      "id": "eofire",
+      "name": "Entrepreneurs on Fire",
+      "aliases": ["EOFire", "EntrepreneurOnFire", "Entrepreneurs On Fire"],
+      "domains": ["eofire.com", "entrepreneuronfire.com"],
+      "personIds": ["john-lee-dumas", "kate-erickson"]
+    },
     {
       "id": "joshua-mayo-youtube",
       "name": "Joshua Mayo",
@@ -2849,6 +2896,37 @@
         "https://www.epidemicsound.com/blog/the-future-of-the-creator-economy-report-2024/",
         "https://corporate.epidemicsound.com/files/Main/21928/4132587/epidemic-sound-annual-report-2024.pdf",
         "https://rosetta.to/u/ed-lawrence/everything-i-learned-making-7m-on-youtube"
+      ]
+    },
+    {
+      "id": "john-lee-dumas-eofire",
+      "personIds": ["john-lee-dumas", "kate-erickson"],
+      "productIds": [
+        "eofire",
+        "podcasters-paradise",
+        "fire-nation-elite",
+        "freedom-journal",
+        "podplatform"
+      ],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-10",
+      "sources": [
+        "https://www.eofire.com/about/",
+        "https://www.eofire.com/media/",
+        "https://www.eofire.com/incomebonus/",
+        "https://www.eofire.com/income1/",
+        "https://www.eofire.com/income2/",
+        "https://www.eofire.com/income14/",
+        "https://www.eofire.com/income122/",
+        "https://www.eofire.com/income136/",
+        "https://www.eofire.com/the-pat-flynn-effect/",
+        "https://www.eofire.com/podcast-sponsorships/",
+        "https://www.smartpassiveincome.com/podcasts/entrepreneur-on-fire/",
+        "https://www.smartpassiveincome.com/download/transcript-SPI077.pdf",
+        "https://www.socialmediaexaminer.com/accomplishing-goals-a-guide-to-getting-stuff-done-john-lee-dumas/",
+        "https://observer.com/2016/01/entrepreneur-on-fire-john-lee-dumas/",
+        "https://www.ndtvprofit.com/business/podcast-guests-can-pay-big-money-to-be-on-top-shows-10110072",
+        "https://robertglazer.com/elevate-podcast/john-lee-dumas-on-building-and-hosting-entrepreneurs-on-fire/"
       ]
     }
   ]

@@ -1,0 +1,29 @@
+{
+  "id": "john-lee-dumas-eofire",
+  "personIds": ["john-lee-dumas", "kate-erickson"],
+  "productIds": [
+    "eofire",
+    "podcasters-paradise",
+    "fire-nation-elite",
+    "freedom-journal",
+    "podplatform"
+  ],
+  "productName": "EOFire",
+  "coverImage": "/images/indiehackers/john-lee-dumas-eofire.webp",
+  "publishedAt": "2026-10-12",
+  "tags": [
+    "content-service",
+    "community",
+    "ecommerce",
+    "web",
+    "b2b",
+    "b2c",
+    "advertising",
+    "commission",
+    "one-time-purchase",
+    "small-team",
+    "bootstrapping",
+    "validation",
+    "growth"
+  ]
+}
