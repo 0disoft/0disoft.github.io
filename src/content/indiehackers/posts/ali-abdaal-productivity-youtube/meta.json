@@ -1,0 +1,17 @@
+{
+  "id": "ali-abdaal-productivity-youtube",
+  "personIds": ["ali-abdaal"],
+  "productIds": ["ali-abdaal-youtube", "6med", "part-time-youtuber-academy"],
+  "productName": "Ali Abdaal · Part-Time YouTuber Academy",
+  "coverImage": "/images/indiehackers/ali-abdaal-productivity-youtube.webp",
+  "publishedAt": "2026-10-12",
+  "tags": [
+    "content-service",
+    "web",
+    "b2c",
+    "advertising",
+    "one-time-purchase",
+    "small-team",
+    "growth"
+  ]
+}

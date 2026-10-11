@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "ali-abdaal",
+      "name": "Ali Abdaal",
+      "aliases": ["알리 압달"],
+      "profiles": ["https://aliabdaal.com/about/"]
+    },
+    {
       "id": "risabae",
       "name": "RISABAE",
       "aliases": ["이사배", "Lee Sa-bae"],
@@ -849,6 +855,27 @@
     }
   ],
   "products": [
+    {
+      "id": "ali-abdaal-youtube",
+      "name": "Ali Abdaal YouTube",
+      "aliases": ["알리 압달 유튜브"],
+      "domains": ["aliabdaal.com"],
+      "personIds": ["ali-abdaal"]
+    },
+    {
+      "id": "6med",
+      "name": "6med",
+      "aliases": [],
+      "domains": ["6med.co.uk"],
+      "personIds": ["ali-abdaal"]
+    },
+    {
+      "id": "part-time-youtuber-academy",
+      "name": "Part-Time YouTuber Academy",
+      "aliases": ["파트타임 유튜버 아카데미", "PTYA"],
+      "domains": [],
+      "personIds": ["ali-abdaal"]
+    },
     {
       "id": "two-slash-four",
       "name": "TWO SLASH FOUR",
@@ -3096,6 +3123,25 @@
         "https://news.cafe24.com/kr/cafe24-supports-beauty-creator-risabae/",
         "https://besuccess.com/%ED%81%AC%EB%A6%AC%EC%97%90%EC%9D%B4%ED%84%B0-%EC%9D%B4%EC%82%AC%EB%B0%B0-%EB%B7%B0%ED%8B%B0-%EB%B8%8C%EB%9E%9C%EB%93%9C-%ED%88%AC%EC%8A%AC%EB%9E%98%EC%8B%9C%ED%8F%AC/",
         "https://www.marieclairekorea.com/beauty/2024/01/risabae/"
+      ]
+    },
+    {
+      "id": "ali-abdaal-productivity-youtube",
+      "personIds": ["ali-abdaal"],
+      "productIds": ["ali-abdaal-youtube", "6med", "part-time-youtuber-academy"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-12",
+      "sources": [
+        "https://aliabdaal.com/youtube/the-ultimate-guide-to-youtube/",
+        "https://aliabdaal.com/about/",
+        "https://6med.co.uk/",
+        "https://www.linkedin.com/posts/ali-abdaal_i-built-a-million-dollar-business-in-medical-activity-7035550036788695040-6sXq",
+        "https://www.passionfroot.me/creators-on-air/find-your-business-model-as-a-creator-with-ali-abdaal",
+        "https://aliabdaal.com/newsletter/using-notion-as-a-resonance-calendar/",
+        "https://aliabdaal.com/newsletter/quantity-over-quality/",
+        "https://aliabdaal.com/newsletter/i-lost-1-million-dollars/",
+        "https://aliabdaal.com/newsletter/what-would-you-do-if-you-knew-you-couldnt-fail/",
+        "https://nelson-jordan.com/podcast/ep-28-from-junior-doctor-to-superstar-youtuber-with-ali-abdaal/"
       ]
     }
   ]
