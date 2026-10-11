@@ -1,0 +1,9 @@
+{
+  "id": "tzuyang-mukbang",
+  "personIds": ["tzuyang"],
+  "productIds": ["tzuyang-youtube"],
+  "productName": "Tzuyang",
+  "coverImage": "/images/indiehackers/tzuyang-mukbang.webp",
+  "publishedAt": "2026-10-12",
+  "tags": ["content-service", "web", "b2c", "advertising", "small-team", "growth"]
+}

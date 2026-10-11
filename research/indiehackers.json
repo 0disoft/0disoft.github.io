@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "tzuyang",
+      "name": "Tzuyang",
+      "aliases": ["쯔양", "박정원"],
+      "profiles": []
+    },
+    {
       "id": "bjork-ostrom",
       "name": "Bjork Ostrom",
       "aliases": ["비오르크 오스트롬", "비요크 오스트롬"],
@@ -831,6 +837,13 @@
     }
   ],
   "products": [
+    {
+      "id": "tzuyang-youtube",
+      "name": "Tzuyang YouTube",
+      "aliases": ["tzuyang쯔양", "쯔양 유튜브"],
+      "domains": [],
+      "personIds": ["tzuyang"]
+    },
     {
       "id": "tasty-food-photography",
       "name": "Tasty Food Photography",
@@ -2982,6 +2995,29 @@
         "https://www.foodbloggerpro.com/blog/welcome-to-food-blogger-pro/",
         "https://www.foodbloggerpro.com/podcast/pinch-of-yums-instagram-playbook/",
         "https://www.foodbloggerpro.com/podcast/the-state-of-pinch-of-yum/"
+      ]
+    },
+    {
+      "id": "tzuyang-mukbang",
+      "personIds": ["tzuyang"],
+      "productIds": ["tzuyang-youtube"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-12",
+      "sources": [
+        "https://m.mbn.co.kr/news-amp/4132663",
+        "https://m.news.nate.com/view/20230225n12616",
+        "https://www.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=02932326625740384",
+        "https://www.fnnews.com/news/202303210655095797",
+        "https://www.metroseoul.co.kr/article/2020012100002",
+        "https://www.hankyung.com/article/202001211375H",
+        "https://sports.donga.com/ent/article/all/20210316/105909035/1",
+        "https://v.daum.net/v/20210326091100019",
+        "https://enews.imbc.com/Tpl/View/470676",
+        "https://enews.imbc.com/Tpl/View/470689",
+        "https://enews.imbc.com/News/RetrieveNewsInfo/471861",
+        "https://www.ncc.re.kr/webzine/201907/sub_05.jsp",
+        "https://www.hankyung.com/article/2024071034377",
+        "https://www.joongang.co.kr/article/25262458"
       ]
     }
   ]
