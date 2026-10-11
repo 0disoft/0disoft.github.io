@@ -1,0 +1,18 @@
+{
+  "id": "risabae-beauty-creator",
+  "personIds": ["risabae"],
+  "productIds": ["risabae-channel", "risabae-art", "two-slash-four"],
+  "productName": "RISABAE · TWO SLASH FOUR",
+  "coverImage": "/images/indiehackers/risabae-beauty-creator.webp",
+  "publishedAt": "2026-10-12",
+  "tags": [
+    "content-service",
+    "ecommerce",
+    "web",
+    "b2c",
+    "advertising",
+    "one-time-purchase",
+    "small-team",
+    "growth"
+  ]
+}

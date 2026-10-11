@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "risabae",
+      "name": "RISABAE",
+      "aliases": ["이사배", "Lee Sa-bae"],
+      "profiles": []
+    },
+    {
       "id": "caleb-simpson",
       "name": "Caleb Simpson",
       "aliases": ["케일럽 심슨"],
@@ -843,6 +849,27 @@
     }
   ],
   "products": [
+    {
+      "id": "two-slash-four",
+      "name": "TWO SLASH FOUR",
+      "aliases": ["투슬래시포", "TWOSLASHFOUR"],
+      "domains": ["twoslashfour.com"],
+      "personIds": ["risabae"]
+    },
+    {
+      "id": "risabae-art",
+      "name": "RISABAE ART",
+      "aliases": ["이사배아트"],
+      "domains": [],
+      "personIds": ["risabae"]
+    },
+    {
+      "id": "risabae-channel",
+      "name": "RISABAE Makeup",
+      "aliases": ["이사배 유튜브"],
+      "domains": [],
+      "personIds": ["risabae"]
+    },
     {
       "id": "caleb-simpson-channel",
       "name": "Caleb Simpson Home Tours",
@@ -3050,6 +3077,25 @@
         "https://pod.wave.co/podcast/trading-secrets-95f68d38-8eb6-4ef5-9fa3-01215767da7d/209-caleb-simpson-from-asking-family-for-rent-to-grossing-million-in-apartment-t-6c274bf4",
         "https://magazine.remindermedia.com/book/bam-december-2023/",
         "https://view.ceros.com/gallery-media-group/travel-waldorf-1-1-1?heightOverride=10608&mobileHeightOverride=9739"
+      ]
+    },
+    {
+      "id": "risabae-beauty-creator",
+      "personIds": ["risabae"],
+      "productIds": ["risabae-channel", "risabae-art", "two-slash-four"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-12",
+      "sources": [
+        "https://enews.imbc.com/News/RetrieveNewsInfo/232210",
+        "https://v.daum.net/v/20180424155549182",
+        "https://www.donga.com/news/article/all/20180424/89770856/1",
+        "https://www.wikitree.co.kr/articles/269225",
+        "https://www.allurekorea.com/2017/08/08/%EC%9D%B4%EC%82%AC%EB%B0%B0-%EA%B7%B8%EB%A6%AC%EA%B3%A0-%EA%B0%93%EC%82%AC%EB%B0%B0/",
+        "https://www.mk.co.kr/economy/view.php?no=588346&sc=50000001&year=2018",
+        "https://www.mk.co.kr/news/society/9927912",
+        "https://news.cafe24.com/kr/cafe24-supports-beauty-creator-risabae/",
+        "https://besuccess.com/%ED%81%AC%EB%A6%AC%EC%97%90%EC%9D%B4%ED%84%B0-%EC%9D%B4%EC%82%AC%EB%B0%B0-%EB%B7%B0%ED%8B%B0-%EB%B8%8C%EB%9E%9C%EB%93%9C-%ED%88%AC%EC%8A%AC%EB%9E%98%EC%8B%9C%ED%8F%AC/",
+        "https://www.marieclairekorea.com/beauty/2024/01/risabae/"
       ]
     }
   ]
