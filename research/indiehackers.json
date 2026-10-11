@@ -2,6 +2,18 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "bjork-ostrom",
+      "name": "Bjork Ostrom",
+      "aliases": ["비오르크 오스트롬", "비요크 오스트롬"],
+      "profiles": ["https://www.foodbloggerpro.com/about/"]
+    },
+    {
+      "id": "lindsay-ostrom",
+      "name": "Lindsay Ostrom",
+      "aliases": ["린지 오스트롬"],
+      "profiles": ["https://pinchofyum.com/about"]
+    },
+    {
       "id": "kate-erickson",
       "name": "Kate Erickson",
       "aliases": ["케이트 에릭슨"],
@@ -819,6 +831,27 @@
     }
   ],
   "products": [
+    {
+      "id": "tasty-food-photography",
+      "name": "Tasty Food Photography",
+      "aliases": [],
+      "domains": [],
+      "personIds": ["lindsay-ostrom"]
+    },
+    {
+      "id": "food-blogger-pro",
+      "name": "Food Blogger Pro",
+      "aliases": ["FoodBloggerPro", "FBP"],
+      "domains": ["foodbloggerpro.com"],
+      "personIds": ["lindsay-ostrom", "bjork-ostrom"]
+    },
+    {
+      "id": "pinch-of-yum",
+      "name": "Pinch of Yum",
+      "aliases": ["PinchOfYum", "POY"],
+      "domains": ["pinchofyum.com"],
+      "personIds": ["lindsay-ostrom", "bjork-ostrom"]
+    },
     {
       "id": "podplatform",
       "name": "PodPlatform",
@@ -2927,6 +2960,28 @@
         "https://observer.com/2016/01/entrepreneur-on-fire-john-lee-dumas/",
         "https://www.ndtvprofit.com/business/podcast-guests-can-pay-big-money-to-be-on-top-shows-10110072",
         "https://robertglazer.com/elevate-podcast/john-lee-dumas-on-building-and-hosting-entrepreneurs-on-fire/"
+      ]
+    },
+    {
+      "id": "lindsay-ostrom-pinch-of-yum",
+      "personIds": ["lindsay-ostrom", "bjork-ostrom"],
+      "productIds": ["pinch-of-yum", "food-blogger-pro", "tasty-food-photography"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-12",
+      "sources": [
+        "https://pinchofyum.com/about",
+        "https://pinchofyum.com/the-food-blog-money-making-experiment-month-1",
+        "https://pinchofyum.com/september-traffic-income-report",
+        "https://pinchofyum.com/july-traffic-and-income-report",
+        "https://pinchofyum.com/on-full-time-blogging",
+        "https://pinchofyum.com/on-full-time-blogging-end-of-a-chapter",
+        "https://pinchofyum.com/tasty-food-photography-workshops-november-december",
+        "https://pinchofyum.com/september-report-updating-an-old-blog-post",
+        "https://pinchofyum.com/november-traffic-income-report",
+        "https://www.foodbloggerpro.com/about/",
+        "https://www.foodbloggerpro.com/blog/welcome-to-food-blogger-pro/",
+        "https://www.foodbloggerpro.com/podcast/pinch-of-yums-instagram-playbook/",
+        "https://www.foodbloggerpro.com/podcast/the-state-of-pinch-of-yum/"
       ]
     }
   ]

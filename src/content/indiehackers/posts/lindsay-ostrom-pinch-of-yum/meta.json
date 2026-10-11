@@ -1,0 +1,22 @@
+{
+  "id": "lindsay-ostrom-pinch-of-yum",
+  "personIds": ["lindsay-ostrom", "bjork-ostrom"],
+  "productIds": ["pinch-of-yum", "food-blogger-pro", "tasty-food-photography"],
+  "productName": "Pinch of Yum",
+  "coverImage": "/images/indiehackers/lindsay-ostrom-pinch-of-yum.webp",
+  "publishedAt": "2026-10-12",
+  "tags": [
+    "content-service",
+    "community",
+    "web",
+    "b2c",
+    "b2b",
+    "advertising",
+    "commission",
+    "subscription",
+    "one-time-purchase",
+    "small-team",
+    "bootstrapping",
+    "growth"
+  ]
+}
