@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "caleb-simpson",
+      "name": "Caleb Simpson",
+      "aliases": ["케일럽 심슨"],
+      "profiles": []
+    },
+    {
       "id": "tzuyang",
       "name": "Tzuyang",
       "aliases": ["쯔양", "박정원"],
@@ -837,6 +843,13 @@
     }
   ],
   "products": [
+    {
+      "id": "caleb-simpson-channel",
+      "name": "Caleb Simpson Home Tours",
+      "aliases": ["Caleb Simpson YouTube", "Caleb W Simpson"],
+      "domains": [],
+      "personIds": ["caleb-simpson"]
+    },
     {
       "id": "tzuyang-youtube",
       "name": "Tzuyang YouTube",
@@ -3018,6 +3031,25 @@
         "https://www.ncc.re.kr/webzine/201907/sub_05.jsp",
         "https://www.hankyung.com/article/2024071034377",
         "https://www.joongang.co.kr/article/25262458"
+      ]
+    },
+    {
+      "id": "caleb-simpson-home-tours",
+      "personIds": ["caleb-simpson"],
+      "productIds": ["caleb-simpson-channel"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-12",
+      "sources": [
+        "https://www.linkedin.com/pulse/how-caleb-simpson-mastered-youtube-shorts-samir-chaudry",
+        "https://www.architecturaldigest.com/story/caleb-simpson-new-york-apartment-tours-interview",
+        "https://www.theguardian.com/technology/2022/nov/16/caleb-simpson-viral-tiktok-videos-nyc-apartments",
+        "https://www.realtor.com/news/trends/caleb-simpson-interview-touring-nyc-apartments/",
+        "https://people.com/meet-caleb-simpson-the-content-creator-who-asks-how-much-do-pay-for-rent-8584989",
+        "https://www.housebeautiful.com/lifestyle/a60567412/caleb-simpson-is-the-mtv-cribs-of-the-tiktok-generation/",
+        "https://www.methodist.edu/wp-content/uploads/2023/05/mutoday_sp23.pdf",
+        "https://pod.wave.co/podcast/trading-secrets-95f68d38-8eb6-4ef5-9fa3-01215767da7d/209-caleb-simpson-from-asking-family-for-rent-to-grossing-million-in-apartment-t-6c274bf4",
+        "https://magazine.remindermedia.com/book/bam-december-2023/",
+        "https://view.ceros.com/gallery-media-group/travel-waldorf-1-1-1?heightOverride=10608&mobileHeightOverride=9739"
       ]
     }
   ]
