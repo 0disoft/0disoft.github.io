@@ -59,6 +59,7 @@ export const storyCatalogs: Record<StoryCollection, Record<string, readonly stri
 		format: ["video", "short-video", "live-stream", "photography", "podcast", "music"],
 		channel: [
 			"youtube",
+			"linkedin",
 			"instagram",
 			"tiktok",
 			"x",
