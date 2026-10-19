@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "na-dong-hyun",
+      "name": "Na Dong-hyun",
+      "aliases": ["나동현", "대도서관", "Daedoseogwan", "Great Library"],
+      "profiles": ["https://www.youtube.com/user/BuzzBean11"]
+    },
+    {
       "id": "heebab",
       "name": "Heebab",
       "aliases": ["히밥", "좌희재", "Jwa Hee-jae"],
@@ -906,6 +912,27 @@
     }
   ],
   "products": [
+    {
+      "id": "daedoseogwan-channel",
+      "name": "Daedoseogwan TV",
+      "aliases": ["대도서관TV", "buzzbean11"],
+      "domains": [],
+      "personIds": ["na-dong-hyun"]
+    },
+    {
+      "id": "uncle-daedo",
+      "name": "Uncle Daedo",
+      "aliases": ["엉클대도"],
+      "domains": [],
+      "personIds": ["na-dong-hyun"]
+    },
+    {
+      "id": "god-of-youtube",
+      "name": "The God of YouTube",
+      "aliases": ["유튜브의 신"],
+      "domains": [],
+      "personIds": ["na-dong-hyun"]
+    },
     {
       "id": "heebab-channel",
       "name": "Heebab",
@@ -3418,6 +3445,23 @@
         "https://v.daum.net/v/20231031091312115",
         "https://www.mt.co.kr/society/2023/09/18/2023091808001055737",
         "https://news.nate.com/view/20230917n19114"
+      ]
+    },
+    {
+      "id": "daedoseogwan-gaming-creator",
+      "personIds": ["na-dong-hyun"],
+      "productIds": ["daedoseogwan-channel", "uncle-daedo", "god-of-youtube"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-19",
+      "sources": [
+        "https://sports.khan.co.kr/article/201910170825003/amp",
+        "https://www.khan.co.kr/article/201511221503421/amp",
+        "https://zdnet.co.kr/view/?no=20180728044500",
+        "https://www.yna.co.kr/view/AKR20190225138400005",
+        "https://it.donga.com/25311/",
+        "https://news.nate.com/view/20180601n01734",
+        "https://weekly.chosun.com/news/articleView.html?idxno=13076",
+        "https://m.radio.ytn.co.kr/interview_view.php?id=56642&s_mcd=0206"
       ]
     }
   ]
