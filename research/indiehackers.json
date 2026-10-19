@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "heebab",
+      "name": "Heebab",
+      "aliases": ["히밥", "좌희재", "Jwa Hee-jae"],
+      "profiles": []
+    },
+    {
       "id": "erika-kullberg",
       "name": "Erika Kullberg",
       "aliases": ["에리카 컬버그"],
@@ -900,6 +906,20 @@
     }
   ],
   "products": [
+    {
+      "id": "heebab-channel",
+      "name": "Heebab",
+      "aliases": ["히밥: 희재야 밥먹자"],
+      "domains": [],
+      "personIds": ["heebab"]
+    },
+    {
+      "id": "heebab-company",
+      "name": "Heebab food and media business",
+      "aliases": ["히밥 식음료·미디어 사업"],
+      "domains": [],
+      "personIds": ["heebab"]
+    },
     {
       "id": "erika-kullberg-content",
       "name": "Erika Kullberg",
@@ -3382,6 +3402,22 @@
         "https://www.iheart.com/podcast/269-forbes-top-creators-show-250339829/episode/why-erika-kullberg-turned-down-a-340835461/",
         "https://erika.com/press/",
         "https://erika.com/youtube-guide/"
+      ]
+    },
+    {
+      "id": "heebab-mukbang-business",
+      "personIds": ["heebab"],
+      "productIds": ["heebab-channel", "heebab-company"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-19",
+      "sources": [
+        "https://v.daum.net/v/f19OfmwMUa",
+        "https://woman.donga.com/people/article/all/12/3422032/1",
+        "https://www.bntnews.co.kr/article/view/bnt202003310031",
+        "https://www.youtube.com/watch?v=bs__VFMhx54",
+        "https://v.daum.net/v/20231031091312115",
+        "https://www.mt.co.kr/society/2023/09/18/2023091808001055737",
+        "https://news.nate.com/view/20230917n19114"
       ]
     }
   ]
