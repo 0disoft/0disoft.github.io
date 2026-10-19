@@ -1,0 +1,20 @@
+{
+  "id": "jenn-lueke-eat-goood",
+  "personIds": ["jenn-lueke"],
+  "productIds": ["jenn-eats-goood", "eat-goood-newsletter", "dont-think-about-dinner"],
+  "productName": "Jenn Eats Goood",
+  "coverImage": "/images/indiehackers/jenn-lueke-eat-goood.webp",
+  "publishedAt": "2026-10-19",
+  "tags": [
+    "content-service",
+    "web",
+    "b2c",
+    "subscription",
+    "advertising",
+    "commission",
+    "one-time-purchase",
+    "small-team",
+    "bootstrapping",
+    "growth"
+  ]
+}

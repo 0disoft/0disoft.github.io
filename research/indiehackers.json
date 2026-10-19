@@ -2,6 +2,16 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "jenn-lueke",
+      "name": "Jenn Lueke",
+      "aliases": ["젠"],
+      "profiles": [
+        "https://www.instagram.com/jenneatsgoood/",
+        "https://www.tiktok.com/@jenneatsgoood",
+        "https://www.youtube.com/@jenneatsgoood"
+      ]
+    },
+    {
       "id": "vin-matano",
       "name": "Vin Matano",
       "aliases": ["빈 마타노"],
@@ -879,6 +889,27 @@
     }
   ],
   "products": [
+    {
+      "id": "jenn-eats-goood",
+      "name": "Jenn Eats Goood",
+      "aliases": ["jenneatsgoood"],
+      "domains": ["jenneatsgoood.com"],
+      "personIds": ["jenn-lueke"]
+    },
+    {
+      "id": "eat-goood-newsletter",
+      "name": "the eat goood newsletter",
+      "aliases": [],
+      "domains": ["jenneatsgoood.substack.com"],
+      "personIds": ["jenn-lueke"]
+    },
+    {
+      "id": "dont-think-about-dinner",
+      "name": "Don’t Think About Dinner",
+      "aliases": ["Don't Think About Dinner"],
+      "domains": [],
+      "personIds": ["jenn-lueke"]
+    },
     {
       "id": "vin-matano-content",
       "name": "Vin Matano",
@@ -3285,6 +3316,23 @@
         "https://www.creatorbuzz.com/",
         "https://www.linkedin.com/posts/vinmatano_im-building-a-business-in-public-and-i-activity-7204486317605306368-O27F",
         "https://dk.linkedin.com/posts/vinmatano_its-officially-been-1-year-since-ive-posting-activity-7056612831848230913-43Pr"
+      ]
+    },
+    {
+      "id": "jenn-lueke-eat-goood",
+      "personIds": ["jenn-lueke"],
+      "productIds": ["jenn-eats-goood", "eat-goood-newsletter", "dont-think-about-dinner"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-19",
+      "sources": [
+        "https://www.creatorspotlight.com/p/jenn-lueke",
+        "https://videos.creatorspotlight.com/v/the-5-revenue-streams-of-a-1m-creator-business",
+        "https://jenneatsgoood.substack.com/about",
+        "https://jenneatsgoood.substack.com/p/how-to-navigate-the-eat-goood-substack",
+        "https://jenneatsgoood.substack.com/p/may-meal-prep-plan-f30",
+        "https://jenneatsgoood.com/how-to-turn-a-75-grocery-haul-into-10-healthy-meals/",
+        "https://jenneatsgoood.com/cookbook/",
+        "https://books.google.com/books?id=Ckxk0QEACAAJ"
       ]
     }
   ]
