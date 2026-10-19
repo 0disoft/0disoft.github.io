@@ -1,0 +1,18 @@
+{
+  "id": "erika-kullberg-fine-print",
+  "personIds": ["erika-kullberg"],
+  "productIds": ["erika-kullberg-content", "erika-taught-me", "plug-and-law"],
+  "productName": "Erika Kullberg · Erika Taught Me",
+  "coverImage": "/images/indiehackers/erika-kullberg-fine-print.webp",
+  "publishedAt": "2026-10-19",
+  "tags": [
+    "content-service",
+    "web",
+    "b2c",
+    "b2b",
+    "advertising",
+    "commission",
+    "small-team",
+    "growth"
+  ]
+}

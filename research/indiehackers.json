@@ -2,6 +2,17 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "erika-kullberg",
+      "name": "Erika Kullberg",
+      "aliases": ["에리카 컬버그"],
+      "profiles": [
+        "https://www.youtube.com/@Erika2",
+        "https://www.instagram.com/erikankullberg/",
+        "https://www.tiktok.com/@erikakullberg",
+        "https://erika.com/"
+      ]
+    },
+    {
       "id": "jenn-lueke",
       "name": "Jenn Lueke",
       "aliases": ["젠"],
@@ -889,6 +900,27 @@
     }
   ],
   "products": [
+    {
+      "id": "erika-kullberg-content",
+      "name": "Erika Kullberg",
+      "aliases": ["Money Lawyer Erika"],
+      "domains": ["erika.com", "erikakullberg.com"],
+      "personIds": ["erika-kullberg"]
+    },
+    {
+      "id": "erika-taught-me",
+      "name": "Erika Taught Me",
+      "aliases": [],
+      "domains": [],
+      "personIds": ["erika-kullberg"]
+    },
+    {
+      "id": "plug-and-law",
+      "name": "Plug and Law",
+      "aliases": [],
+      "domains": ["plugandlaw.com"],
+      "personIds": ["erika-kullberg"]
+    },
     {
       "id": "jenn-eats-goood",
       "name": "Jenn Eats Goood",
@@ -3333,6 +3365,23 @@
         "https://jenneatsgoood.com/how-to-turn-a-75-grocery-haul-into-10-healthy-meals/",
         "https://jenneatsgoood.com/cookbook/",
         "https://books.google.com/books?id=Ckxk0QEACAAJ"
+      ]
+    },
+    {
+      "id": "erika-kullberg-fine-print",
+      "personIds": ["erika-kullberg"],
+      "productIds": ["erika-kullberg-content", "erika-taught-me", "plug-and-law"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-19",
+      "sources": [
+        "https://erika.com/how-much-social-media-pays/",
+        "https://erika.com/how-i-paid-off-student-debt/",
+        "https://www.entrepreneur.com/business-news/how-erika-kullberg-grows-and-monetizes-her-youtube-channel/475477",
+        "https://www.entrepreneur.com/business-news/heres-how-much-popular-influencer-erika-kullberg-makes/474686",
+        "https://www.insideedition.com/how-attorney-erika-kullberg-went-from-practicing-law-to-becoming-tiktok-star-erika-taught-me-81309",
+        "https://www.iheart.com/podcast/269-forbes-top-creators-show-250339829/episode/why-erika-kullberg-turned-down-a-340835461/",
+        "https://erika.com/press/",
+        "https://erika.com/youtube-guide/"
       ]
     }
   ]
