@@ -57,7 +57,16 @@ export const storyCatalogs: Record<StoryCollection, Record<string, readonly stri
 	},
 	creators: {
 		format: ["video", "short-video", "live-stream", "photography", "podcast", "music"],
-		channel: ["youtube", "instagram", "tiktok", "twitch", "facebook", "blog", "podcast-platforms"],
+		channel: [
+			"youtube",
+			"instagram",
+			"tiktok",
+			"x",
+			"twitch",
+			"facebook",
+			"blog",
+			"podcast-platforms",
+		],
 		revenue: [
 			"advertising",
 			"sponsorship",
