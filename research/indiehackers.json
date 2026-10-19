@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "brandon-edelman",
+      "name": "Brandon Edelman",
+      "aliases": ["Bran Flakezz", "브랜든 에델먼", "bran_flakezz", "bran__flakezz"],
+      "profiles": []
+    },
+    {
       "id": "ali-abdaal",
       "name": "Ali Abdaal",
       "aliases": ["알리 압달"],
@@ -855,6 +861,20 @@
     }
   ],
   "products": [
+    {
+      "id": "bran-flakezz-channel",
+      "name": "Bran Flakezz",
+      "aliases": ["Bran Flakezz TikTok", "TikTok Transparency"],
+      "domains": [],
+      "personIds": ["brandon-edelman"]
+    },
+    {
+      "id": "between-us-girlies",
+      "name": "Between Us Girlies",
+      "aliases": ["Between Us Girlies Podcast"],
+      "domains": [],
+      "personIds": ["brandon-edelman"]
+    },
     {
       "id": "ali-abdaal-youtube",
       "name": "Ali Abdaal YouTube",
@@ -3142,6 +3162,23 @@
         "https://aliabdaal.com/newsletter/i-lost-1-million-dollars/",
         "https://aliabdaal.com/newsletter/what-would-you-do-if-you-knew-you-couldnt-fail/",
         "https://nelson-jordan.com/podcast/ep-28-from-junior-doctor-to-superstar-youtuber-with-ali-abdaal/"
+      ]
+    },
+    {
+      "id": "bran-flakezz-content-business",
+      "personIds": ["brandon-edelman"],
+      "productIds": ["bran-flakezz-channel", "between-us-girlies"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-19",
+      "sources": [
+        "https://podcasts.apple.com/us/podcast/233-bran-flakezz-from-%248-65-hr-at-forever-21-to-over/id1556286270?i=1000706335908",
+        "https://podbay.fm/p/networth-and-chill-with-your-rich-bff/e/1741150860",
+        "https://www.usmagazine.com/celebrity-news/news/influencer-bran-flakezz-breaks-down-his-765000-content-creation-salary/",
+        "https://podscripts.co/podcasts/trading-secrets/233-bran-flakezz-from-865hr-at-forever-21-to-over-6-figures-in-content-creation-brandon-edelmans-wild-bts-of-building-a-platform-by-being-authentically-himself-staying-frugal-and-prioritizing-mental-health?show_ads=true",
+        "https://holrmagazine.com/holr-chats-bran-flakezz-on-how-he-got-his-start-in-social-media-and-whats-next/",
+        "https://gisellemedina.github.io/TikTok-A-Path-To-Stardom...-Sort-of/",
+        "https://6abc.com/amp/post/dish-feel-good-oatmeal-breakfast-story-pure-green-juice-bar-center-city-philadelphia/16659572/",
+        "https://www.inquirer.com/arts/bran-flakezz-tiktok-philadelphia-20250315.html"
       ]
     }
   ]
