@@ -1,0 +1,9 @@
+{
+  "id": "mrbeast-x-video-revenue",
+  "personIds": ["jimmy-donaldson"],
+  "productIds": ["mrbeast-channel"],
+  "productName": "MrBeast · X",
+  "coverImage": "/images/indiehackers/mrbeast-x-video-revenue.webp",
+  "publishedAt": "2026-10-19",
+  "tags": ["content-service", "web", "b2c", "advertising", "growth"]
+}
