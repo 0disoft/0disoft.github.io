@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "ankur-warikoo",
+      "name": "Ankur Warikoo",
+      "aliases": ["앙쿠르 와리쿠", "warikoo"],
+      "profiles": ["https://ankurwarikoo.com/"]
+    },
+    {
       "id": "brandon-edelman",
       "name": "Brandon Edelman",
       "aliases": ["Bran Flakezz", "브랜든 에델먼", "bran_flakezz", "bran__flakezz"],
@@ -861,6 +867,27 @@
     }
   ],
   "products": [
+    {
+      "id": "ankur-warikoo-channel",
+      "name": "Ankur Warikoo",
+      "aliases": ["Brand Warikoo", "warikoo Wednesdays"],
+      "domains": ["ankurwarikoo.com"],
+      "personIds": ["ankur-warikoo"]
+    },
+    {
+      "id": "webveda",
+      "name": "WebVeda",
+      "aliases": ["Web Veda"],
+      "domains": ["webveda.com"],
+      "personIds": ["ankur-warikoo"]
+    },
+    {
+      "id": "nearbuy",
+      "name": "nearbuy",
+      "aliases": ["니어바이"],
+      "domains": ["nearbuy.com"],
+      "personIds": ["ankur-warikoo"]
+    },
     {
       "id": "bran-flakezz-channel",
       "name": "Bran Flakezz",
@@ -3179,6 +3206,21 @@
         "https://gisellemedina.github.io/TikTok-A-Path-To-Stardom...-Sort-of/",
         "https://6abc.com/amp/post/dish-feel-good-oatmeal-breakfast-story-pure-green-juice-bar-center-city-philadelphia/16659572/",
         "https://www.inquirer.com/arts/bran-flakezz-tiktok-philadelphia-20250315.html"
+      ]
+    },
+    {
+      "id": "ankur-warikoo-content-business",
+      "personIds": ["ankur-warikoo"],
+      "productIds": ["ankur-warikoo-channel", "webveda", "nearbuy"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-19",
+      "sources": [
+        "https://ankurwarikoo.com/about/",
+        "https://ankurwarikoo.com/im-on-the-18th-month-of-my-3-month-break/",
+        "https://ankurwarikoo.com/brand-waricrew/",
+        "https://www.businesstoday.in/amp/latest/trends/story/this-is-how-much-ankur-warikoo-earned-in-2024-influencer-reveals-income-from-youtube-instagram-5-other-streams-461232-2025-01-17",
+        "https://bingepods.com/podcast/woice-with-warikoo-podcast/episode/how-much-money-we-made-in-2024",
+        "https://threadreaderapp.com/thread/1716754160484565482.html"
       ]
     }
   ]

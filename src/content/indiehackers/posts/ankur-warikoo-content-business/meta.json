@@ -1,0 +1,17 @@
+{
+  "id": "ankur-warikoo-content-business",
+  "personIds": ["ankur-warikoo"],
+  "productIds": ["ankur-warikoo-channel", "webveda", "nearbuy"],
+  "productName": "Ankur Warikoo · WebVeda",
+  "coverImage": "/images/indiehackers/ankur-warikoo-content-business.webp",
+  "publishedAt": "2026-10-19",
+  "tags": [
+    "content-service",
+    "web",
+    "b2c",
+    "one-time-purchase",
+    "licensing",
+    "small-team",
+    "growth"
+  ]
+}
