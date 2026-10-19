@@ -1,0 +1,9 @@
+{
+  "id": "vin-matano-b2b-creator",
+  "personIds": ["vin-matano"],
+  "productIds": ["vin-matano-content", "creatorbuzz"],
+  "productName": "Vin Matano · Creatorbuzz",
+  "coverImage": "/images/indiehackers/vin-matano-b2b-creator.webp",
+  "publishedAt": "2026-10-19",
+  "tags": ["content-service", "web", "b2b", "small-team", "growth"]
+}

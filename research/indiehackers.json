@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "people": [
     {
+      "id": "vin-matano",
+      "name": "Vin Matano",
+      "aliases": ["빈 마타노"],
+      "profiles": ["https://www.linkedin.com/in/vinmatano/", "https://www.instagram.com/vinmatano/"]
+    },
+    {
       "id": "jimmy-donaldson",
       "name": "Jimmy Donaldson",
       "aliases": ["MrBeast", "Mr Beast", "미스터비스트", "지미 도널드슨"],
@@ -873,6 +879,20 @@
     }
   ],
   "products": [
+    {
+      "id": "vin-matano-content",
+      "name": "Vin Matano",
+      "aliases": ["Vin Matano LinkedIn"],
+      "domains": [],
+      "personIds": ["vin-matano"]
+    },
+    {
+      "id": "creatorbuzz",
+      "name": "Creatorbuzz",
+      "aliases": ["Creator Buzz"],
+      "domains": ["creatorbuzz.com"],
+      "personIds": ["vin-matano"]
+    },
     {
       "id": "mrbeast-channel",
       "name": "MrBeast",
@@ -3250,6 +3270,21 @@
         "https://time.com/6566485/mrbeast-x-video-ad-money-elon-musk/",
         "https://www.socialmediatoday.com/news/mrbeast-questions-x-promotion-earning-250k-in-a-week-from-video-upload/705227/",
         "https://www.carscoops.com/2024/01/mrbeast-makes-260000-on-elon-musks-x-with-a-car-video-after-161-million-views/"
+      ]
+    },
+    {
+      "id": "vin-matano-b2b-creator",
+      "personIds": ["vin-matano"],
+      "productIds": ["vin-matano-content", "creatorbuzz"],
+      "status": "researched",
+      "lastResearchedAt": "2026-10-19",
+      "sources": [
+        "https://www.creatorspotlight.com/p/vin-matano",
+        "https://videos.creatorspotlight.com/v/the-creator-earning-200k-posting-on-linkedin",
+        "https://later.com/beyond-influence-podcast/episodes/vin-matano/",
+        "https://www.creatorbuzz.com/",
+        "https://www.linkedin.com/posts/vinmatano_im-building-a-business-in-public-and-i-activity-7204486317605306368-O27F",
+        "https://dk.linkedin.com/posts/vinmatano_its-officially-been-1-year-since-ive-posting-activity-7056612831848230913-43Pr"
       ]
     }
   ]
