@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { browser } from "$app/environment";
-	import { pushState } from "$app/navigation";
+	import { pushState, replaceState } from "$app/navigation";
 	import { page } from "$app/state";
 	import { onMount } from "svelte";
 	import { ChevronDown, Search, SlidersHorizontal } from "@lucide/svelte";
@@ -144,7 +144,7 @@
 		};
 
 		filters = nextFilters;
-		pushState(createIndiehackersFilterHref(nextFilters), page.state);
+		replaceState(createIndiehackersFilterHref(nextFilters), page.state);
 	}
 
 	function handleTagChange(event: Event) {
