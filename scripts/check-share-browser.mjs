@@ -1,0 +1,92 @@
+// Run against a local dev server: node scripts/check-share-browser.mjs [driver-path] [origin]
+import assert from "node:assert/strict";
+import { resolve } from "node:path";
+import { pathToFileURL } from "node:url";
+
+const driver = process.argv[2] ? pathToFileURL(resolve(process.argv[2])).href : "playwright-core";
+const { chromium } = await import(driver);
+const origin = process.argv[3] ?? "http://127.0.0.1:5180";
+const browser = await chromium.launch({ channel: "chrome", headless: true });
+try {
+	const context = await browser.newContext({ locale: "en-US" });
+	await context.route("**/*", (route) =>
+		new URL(route.request().url()).origin === new URL(origin).origin
+			? route.continue()
+			: route.abort(),
+	);
+	await context.addInitScript(() => {
+		window.copyMode = "fail";
+		window.shareMode = "fail";
+		Object.defineProperty(navigator, "clipboard", {
+			configurable: true,
+			value: {
+				writeText: async () => {
+					if (window.copyMode !== "success") throw new Error("Clipboard blocked");
+				},
+			},
+		});
+		document.execCommand = () => false;
+		Object.defineProperty(navigator, "share", {
+			configurable: true,
+			value: async () => {
+				throw new DOMException(
+					"Share failed",
+					window.shareMode === "abort" ? "AbortError" : "NotAllowedError",
+				);
+			},
+		});
+	});
+	const page = await context.newPage();
+	page.setDefaultTimeout(60_000);
+	const errors = [];
+	page.on("pageerror", (error) => errors.push(error.message));
+	await page.goto(`${origin}/indiehackers`, { waitUntil: "domcontentloaded", timeout: 60_000 });
+	await page.locator('a[href^="/indiehackers/"]').first().click();
+	await page.waitForLoadState("networkidle");
+	const toolbar = page.locator(".share-toolbar").first();
+	const copy = toolbar.getByRole("button", { name: "Copy link", exact: true });
+	await copy.click();
+	const manual = toolbar.getByRole("textbox", { name: "Copy link", exact: true });
+	await manual.waitFor();
+	assert.match(await toolbar.getByRole("status").innerText(), /couldn't copy/);
+	assert.equal(await manual.getAttribute("readonly"), "");
+	const url = await manual.inputValue();
+	assert.equal(
+		url,
+		page.url().replace(new URL(origin).origin, "https://0disoft.github.io").replace(/\/$/, ""),
+	);
+	assert.equal(
+		await manual.evaluate(
+			(input) =>
+				document.activeElement === input &&
+				input.selectionStart === 0 &&
+				input.selectionEnd === input.value.length,
+		),
+		true,
+	);
+	await page.evaluate(() => {
+		window.copyMode = "success";
+	});
+	await copy.click();
+	await toolbar.getByRole("button", { name: "Copied", exact: true }).waitFor();
+	assert.equal(await manual.count(), 0);
+	await toolbar.getByRole("button", { name: "Copy link", exact: true }).waitFor();
+	await page.evaluate(() => {
+		window.shareMode = "abort";
+		window.copyMode = "fail";
+	});
+	await toolbar.getByRole("button", { name: "Share with device", exact: true }).click();
+	assert.equal(await manual.count(), 0);
+	await page.evaluate(() => {
+		window.shareMode = "fail";
+	});
+	await toolbar.getByRole("button", { name: "Share with device", exact: true }).click();
+	await manual.waitFor();
+	assert.equal(await manual.inputValue(), url);
+	assert.deepEqual(errors, []);
+	console.log(
+		"Share recovery passed: copy failure, selected manual URL, successful retry, share cancellation and fallback; no page errors.",
+	);
+} finally {
+	await browser.close();
+}

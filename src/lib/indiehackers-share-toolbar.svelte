@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Copy, MessageCircle, Send, Share2 } from "@lucide/svelte";
-	import { onMount } from "svelte";
+	import { onMount, tick } from "svelte";
 	import {
 		siBluesky,
 		siFacebook,
@@ -37,7 +37,8 @@
 	} = $props();
 
 	let canUseDeviceShare = $state(false);
-	let copyState = $state<"idle" | "copied">("idle");
+	let copyState = $state<"idle" | "copied" | "failed">("idle");
+	let manualCopyInput = $state<HTMLInputElement>();
 	let copyFeedbackTimer: number | undefined;
 
 	const displayLocale = $derived(toDisplayLocale(getLocale()));
@@ -67,12 +68,22 @@
 			return;
 		}
 
-		await copyTextToClipboard(url);
-		copyState = "copied";
-
 		if (copyFeedbackTimer !== undefined) {
 			window.clearTimeout(copyFeedbackTimer);
+			copyFeedbackTimer = undefined;
 		}
+		copyState = "idle";
+
+		try {
+			await copyTextToClipboard(url);
+		} catch {
+			copyState = "failed";
+			await tick();
+			manualCopyInput?.focus();
+			manualCopyInput?.select();
+			return;
+		}
+		copyState = "copied";
 
 		copyFeedbackTimer = window.setTimeout(() => {
 			copyState = "idle";
@@ -200,6 +211,19 @@
 			</a>
 		{/each}
 	</div>
+	{#if copyState === "failed"}
+		<div class="manual-copy">
+			<p role="status">{m.indiehackers_copy_failed({}, { locale: displayLocale })}</p>
+			<input
+				bind:this={manualCopyInput}
+				type="text"
+				readonly
+				value={url}
+				aria-label={m.indiehackers_copy_link({}, { locale: displayLocale })}
+				onfocus={(event) => event.currentTarget.select()}
+			/>
+		</div>
+	{/if}
 	<span class="sr-only" aria-live="polite">{copyState === "copied" ? copyLabel : ""}</span>
 </section>
 
@@ -217,6 +241,34 @@
 	.share-toolbar p {
 		margin: 0;
 		font-weight: 760;
+	}
+
+	.manual-copy {
+		display: grid;
+		gap: 0.5rem;
+		min-width: 0;
+	}
+
+	.manual-copy p {
+		font-size: 0.88rem;
+		font-weight: 400;
+	}
+
+	.manual-copy input {
+		width: 100%;
+		min-width: 0;
+		padding: 0.5rem;
+		border: 1px solid var(--border);
+		border-radius: var(--radius-md);
+		background: var(--background);
+		color: var(--foreground);
+		font: inherit;
+		user-select: text;
+	}
+
+	.manual-copy input:focus-visible {
+		outline: 3px solid var(--focus-ring);
+		outline-offset: 3px;
 	}
 
 	.share-toolbar-grid {
