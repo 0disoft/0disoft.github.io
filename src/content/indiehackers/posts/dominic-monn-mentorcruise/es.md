@@ -1,15 +1,15 @@
 ---
 {
-  "title": "MentorCruise, de 도미닉 몬(Dominic Monn): convertir en negocio el asesoramiento necesario tras terminar el curso",
+  "title": "MentorCruise, de Dominic Monn: convertir en negocio el asesoramiento necesario tras terminar el curso",
   "summary": "MentorCruise, que conectó a profesionales técnicos con personas que necesitaban desarrollar su carrera. Examinamos el proceso de convertir un proyecto personal en un negocio de plataforma de mentoría mediante la captación de mentores y la atracción de tráfico de búsqueda, la estructura de comisiones, la gestión de expectativas y el soporte al cliente."
 }
 ---
 
-MentorCruise, creado por 몬, es una plataforma de mentoría de pago que conecta a profesionales experimentados del ámbito técnico con personas que necesitan desarrollar su carrera. Ofrece una relación en la que se aconseja según los objetivos de cada persona y se revisa el progreso. El producto central es el acceso a ayuda continua de alguien que recorrió ese camino antes.
+MentorCruise, creado por Dominic Monn, es una plataforma de mentoría de pago que conecta a profesionales experimentados del ámbito técnico con personas que necesitan desarrollar su carrera. Ofrece una relación en la que se aconseja según los objetivos de cada persona y se revisa el progreso. El producto central es el acceso a ayuda continua de alguien que recorrió ese camino antes.
 
 ## El mentor que desapareció al terminar el curso
 
-몬 era ingeniero de machine learning y trabajaba en Suiza, y había experimentado la mentoría en Udacity, el servicio de educación online. Cuando completó el curso y pasó al mundo laboral, la guía que durante el aprendizaje se daba por sentada desapareció, y tampoco era fácil encontrar un mentor por su cuenta entre su entorno o en redes sociales. Decidió crear una forma de conexión en la que quedara claro qué podían esperar el uno del otro el mentor y el aprendiz.
+Dominic Monn era ingeniero de machine learning y trabajaba en Suiza, y había experimentado la mentoría en Udacity, el servicio de educación online. Cuando completó el curso y pasó al mundo laboral, la guía que durante el aprendizaje se daba por sentada desapareció, y tampoco era fácil encontrar un mentor por su cuenta entre su entorno o en redes sociales. Decidió crear una forma de conexión en la que quedara claro qué podían esperar el uno del otro el mentor y el aprendiz.
 
 El producto se lanzó en marzo de 2018. Durante una pasantía, aprovechó las noches y los fines de semana para desarrollarlo durante unos seis meses, y añadió funciones que consideraba necesarias sin hablar lo suficiente con los usuarios. Más tarde, en una retrospectiva, reconoció que el producto inicial tenía muchas funciones que después no se usaban o que terminó eliminando. El tiempo dedicado a crear herramientas de gestión de horarios y pantallas de administración había primado sobre el tiempo para mejorar la experiencia que los clientes consideraban realmente importante.
 
@@ -37,11 +37,11 @@ También queda claro que una transacción de precio bajo no es necesariamente un
 
 ## Cómo creció con el tráfico de búsqueda y las mejoras operativas
 
-El detonante que cambió la dirección de la adquisición inicial de clientes fue la pregunta sobre el canal de procedencia que añadió a la pantalla de pago. 도미닉 몬(Dominic Monn) dedicaba tiempo a actividades comunitarias y al contacto con bootcamps de programación, pero al revisar las respuestas descubrió que la mayoría de los clientes llegaba desde Google. A partir de entonces, convirtió la optimización para buscadores en una tarea de crecimiento más importante.
+El detonante que cambió la dirección de la adquisición inicial de clientes fue la pregunta sobre el canal de procedencia que añadió a la pantalla de pago. Dominic Monn dedicaba tiempo a actividades comunitarias y al contacto con bootcamps de programación, pero al revisar las respuestas descubrió que la mayoría de los clientes llegaba desde Google. A partir de entonces, convirtió la optimización para buscadores en una tarea de crecimiento más importante.
 
 El informe de caso de la agencia de SEO con la que colaboró, Embarque, muestra que la ejecución fue concreta. Segmentó a los clientes en grupos como personas en transición de carrera, profesionales técnicos y fundadores; atacó los términos de búsqueda con los que la gente realmente busca mentoría, y mejoró artículos existentes y páginas de presentación del servicio. No obstante, se trata de un caso de resultados elaborado por la agencia, por lo que es más preciso no tratar las tasas de crecimiento que presenta ni las cifras de ingresos de la entrevista con el fundador como material verificado al mismo nivel.
 
-Según la retrospectiva de 2022 de 몬, después de que comenzara la COVID-19 la demanda y el crecimiento del servicio se expandieron rápidamente. No dejó su empleo nada más empezar el negocio, sino que lo compaginó durante varios años, y en febrero de 2022 dejó su puesto de ingeniero de aprendizaje automático en Doist para dedicarse por completo a MentorCruise. Si se cuenta desde el lanzamiento en 2018, transcurrieron unos cuatro años hasta el cambio a dedicación exclusiva.
+Según la retrospectiva de 2022 de Dominic Monn, después de que comenzara la COVID-19 la demanda y el crecimiento del servicio se expandieron rápidamente. No dejó su empleo nada más empezar el negocio, sino que lo compaginó durante varios años, y en febrero de 2022 dejó su puesto de ingeniero de aprendizaje automático en Doist para dedicarse por completo a MentorCruise. Si se cuenta desde el lanzamiento en 2018, transcurrieron unos cuatro años hasta el cambio a dedicación exclusiva.
 
 Ya antes de pasar a la dedicación exclusiva estaba dejando atrás el modelo de hacerlo todo solo. En una retrospectiva de 2025, reveló que en el verano de 2020 contrató a su primer empleado y que ese puesto era de atención al cliente. Al principio, como el conocimiento del producto solo existía en su cabeza, incluso durante la primera semana tras esa contratación tuvo que responder personalmente al 90 % de los correos, pero al documentar las respuestas y las políticas de gestión amplió el alcance que la persona a cargo podía resolver. Después creó un sistema de soporte que separaba las consultas generales, las que requerían gestión de sistemas y pagos, y los problemas que necesitaban intervención de un especialista.
 
