@@ -285,6 +285,7 @@ export function filterIndiehackersPosts(
 			indiehackersTagOptions.filter((tag) => tag.group === group.id && tags.includes(tag.id)),
 		)
 		.filter((group) => group.length > 0);
+	const isRecent = recentOnly ? createRecentPublicationDatePredicate(now) : null;
 
 	return posts.filter((post) => {
 		const matchesQuery =
@@ -292,12 +293,11 @@ export function filterIndiehackersPosts(
 			getIndiehackersPostSearchValues(post).some((value) =>
 				normalizeSearchText(value).includes(normalizedQuery),
 			);
+		if (!matchesQuery) return false;
 		const matchesTags = selectedGroups.every((group) =>
 			group.some((tag) => post.tags.includes(tag.id)),
 		);
-		const matchesRecent = !recentOnly || isRecentIndiehackersPost(post.publishedAt, now);
-
-		return matchesQuery && matchesTags && matchesRecent;
+		return matchesTags && (!isRecent || isRecent(post.publishedAt));
 	});
 }
 
@@ -309,10 +309,13 @@ const publicationCalendar = new Intl.DateTimeFormat("en-US", {
 });
 
 export function isRecentIndiehackersPost(publishedAt: string, now: Date = new Date()): boolean {
-	const published = parseCalendarDate(publishedAt);
-	if (!published || Number.isNaN(now.getTime())) {
-		return false;
-	}
+	return createRecentPublicationDatePredicate(now)(publishedAt);
+}
+
+export function createRecentPublicationDatePredicate(
+	now: Date = new Date(),
+): (publishedAt: string) => boolean {
+	if (Number.isNaN(now.getTime())) return () => false;
 	// Articles use the publisher's Seoul calendar, including on UTC build runners.
 	const parts = publicationCalendar.formatToParts(now);
 	const today = new Date(
@@ -327,7 +330,10 @@ export function isRecentIndiehackersPost(publishedAt: string, now: Date = new Da
 	if (cutoff.getUTCMonth() !== today.getUTCMonth()) {
 		cutoff.setUTCDate(0);
 	}
-	return published >= cutoff && published <= today;
+	return (publishedAt) => {
+		const published = parseCalendarDate(publishedAt);
+		return published !== null && published >= cutoff && published <= today;
+	};
 }
 
 function parseCalendarDate(value: string): Date | null {

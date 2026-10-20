@@ -1,5 +1,8 @@
 import * as m from "$lib/paraglide/messages";
-import { isRecentIndiehackersPost, type IndiehackersPost } from "$lib/indiehackers-posts";
+import {
+	createRecentPublicationDatePredicate,
+	type IndiehackersPost,
+} from "$lib/indiehackers-posts";
 import type { SiteLocale } from "$lib/site-locales";
 import collectionEntries from "../content/collections/entries.json";
 
@@ -179,6 +182,7 @@ export function filterStoryPosts(
 	const selected = Object.values(storyCatalogs[collection])
 		.map((tags) => tags.filter((tag) => filters.tags.includes(tag)))
 		.filter((tags) => tags.length > 0);
+	const isRecent = filters.recentOnly ? createRecentPublicationDatePredicate(now) : null;
 	return posts.filter(
 		(post) =>
 			(!query ||
@@ -186,6 +190,6 @@ export function filterStoryPosts(
 					value.toLocaleLowerCase().includes(query),
 				)) &&
 			selected.every((tags) => tags.some((tag) => post.tags.includes(tag))) &&
-			(!filters.recentOnly || isRecentIndiehackersPost(post.publishedAt, now)),
+			(!isRecent || isRecent(post.publishedAt)),
 	);
 }
