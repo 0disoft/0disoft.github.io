@@ -78,7 +78,11 @@ export function writeStoredSiteLocale(locale: SiteLocale) {
 		// Cookie persistence below still gives the user a durable preference path.
 	}
 
-	document.cookie = `${siteLocaleCookieName}=${locale}; path=/; max-age=${siteLocaleCookieMaxAge}; SameSite=Lax`;
+	try {
+		document.cookie = `${siteLocaleCookieName}=${locale}; path=/; max-age=${siteLocaleCookieMaxAge}; SameSite=Lax`;
+	} catch {
+		// Persistence failure must not prevent the caller from switching languages.
+	}
 }
 
 export function getBrowserSiteLocale(languages: readonly string[]): SiteLocale {
@@ -123,15 +127,20 @@ export function localizeSitePathname(pathname: string, locale: SiteLocale): stri
 }
 
 function readCookieLocale(): SiteLocale | null {
-	const cookiePrefix = `${siteLocaleCookieName}=`;
-	const localeCookie = document.cookie
-		.split(";")
-		.map((cookie) => cookie.trim())
-		.find((cookie) => cookie.startsWith(cookiePrefix));
+	try {
+		const cookiePrefix = `${siteLocaleCookieName}=`;
+		const localeCookie = document.cookie
+			.split(";")
+			.map((cookie) => cookie.trim())
+			.find((cookie) => cookie.startsWith(cookiePrefix));
 
-	if (!localeCookie) {
+		if (!localeCookie) {
+			return null;
+		}
+
+		return toSiteLocale(decodeURIComponent(localeCookie.slice(cookiePrefix.length)));
+	} catch {
+		// Cookies can be malformed or inaccessible in restricted browser contexts.
 		return null;
 	}
-
-	return toSiteLocale(decodeURIComponent(localeCookie.slice(cookiePrefix.length)));
 }

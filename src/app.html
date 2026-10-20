@@ -31,15 +31,17 @@
           storedLocale = toLocale(window.localStorage.getItem(storageKey));
         } catch {}
 
-        const cookiePrefix = cookieName + "=";
-        const cookieLocale = toLocale(
-          (
-            document.cookie
-              .split(";")
-              .map((cookie) => cookie.trim())
-              .find((cookie) => cookie.startsWith(cookiePrefix)) || ""
-          ).slice(cookiePrefix.length),
-        );
+        let cookieLocale = null;
+        try {
+          const cookiePrefix = cookieName + "=";
+          const localeCookie = document.cookie
+            .split(";")
+            .map((cookie) => cookie.trim())
+            .find((cookie) => cookie.startsWith(cookiePrefix));
+          if (localeCookie) {
+            cookieLocale = toLocale(decodeURIComponent(localeCookie.slice(cookiePrefix.length)));
+          }
+        } catch {}
         const browserLocales =
           navigator.languages && navigator.languages.length > 0
             ? navigator.languages
