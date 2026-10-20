@@ -100,6 +100,21 @@ export function createIndiehackersPostFromContent(
 	locale: IndiehackersPostLocale,
 	markdown: string,
 ): IndiehackersPost {
+	const { body: _body, ...post } = createIndiehackersPostDetailFromContent(
+		path,
+		metadata,
+		locale,
+		markdown,
+	);
+	return post;
+}
+
+export function createIndiehackersPostDetailFromContent(
+	path: string,
+	metadata: unknown,
+	locale: IndiehackersPostLocale,
+	markdown: string,
+): IndiehackersPostDetail {
 	const sharedMetadata = readSharedMetadata(path, metadata);
 	const localizedContent = parseMarkdownFile(`${getContentDirectory(path)}/${locale}.md`, markdown);
 	const localizedMetadata = toRecord(localizedContent.frontmatter, path);
@@ -115,19 +130,6 @@ export function createIndiehackersPostFromContent(
 		...(sharedMetadata.updatedAt ? { updatedAt: sharedMetadata.updatedAt } : {}),
 		tags: sharedMetadata.tags,
 		searchTags: readOptionalStringList(localizedMetadata, "searchTags", path),
-	};
-}
-
-export function createIndiehackersPostDetailFromContent(
-	path: string,
-	metadata: unknown,
-	locale: IndiehackersPostLocale,
-	markdown: string,
-): IndiehackersPostDetail {
-	const localizedContent = parseMarkdownFile(`${getContentDirectory(path)}/${locale}.md`, markdown);
-
-	return {
-		...createIndiehackersPostFromContent(path, metadata, locale, markdown),
 		body: localizedContent.body,
 	};
 }

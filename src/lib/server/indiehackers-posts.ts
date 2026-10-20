@@ -1,6 +1,5 @@
 import {
 	createIndiehackersPostDetailFromContent,
-	createIndiehackersPostFromContent,
 	indiehackersPostLocales,
 	type IndiehackersPost,
 	type IndiehackersPostDetail,
@@ -50,25 +49,6 @@ assertCompleteIndiehackersTranslations(
 	indiehackersPostMarkdownModules,
 );
 
-export const indiehackersPosts: readonly IndiehackersPost[] = Object.entries(
-	indiehackersPostMetaModules,
-)
-	.flatMap(([path, metadata]) =>
-		indiehackersPostLocales.map((locale) => {
-			const markdown =
-				indiehackersPostMarkdownModules[`${path.replace(/\/meta\.json$/, "")}/${locale}.md`];
-
-			if (typeof markdown !== "string") {
-				throw new Error(
-					`Missing indiehackers post translation: ${path.replace(/\/meta\.json$/, "")}/${locale}.md`,
-				);
-			}
-
-			return createIndiehackersPostFromContent(path, metadata, locale, markdown);
-		}),
-	)
-	.sort((left, right) => right.publishedAt.localeCompare(left.publishedAt));
-
 export const indiehackersPostDetails: readonly IndiehackersPostDetail[] = Object.entries(
 	indiehackersPostMetaModules,
 )
@@ -87,3 +67,7 @@ export const indiehackersPostDetails: readonly IndiehackersPostDetail[] = Object
 		}),
 	)
 	.sort((left, right) => right.publishedAt.localeCompare(left.publishedAt));
+
+export const indiehackersPosts: readonly IndiehackersPost[] = indiehackersPostDetails.map(
+	({ body: _body, ...post }) => post,
+);
