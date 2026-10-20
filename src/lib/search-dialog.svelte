@@ -9,25 +9,11 @@
 	import { localizeSitePathname } from "$lib/site-locales";
 	import { isEditableKeyboardTarget, isModifiedKeyEvent } from "$lib/site-keyboard";
 	import IconButton from "$lib/ui/icon-button.svelte";
-
-	type SearchResultItem = {
-		id: string;
-		url: string;
-		title: string;
-		excerpt: string;
-		plainExcerpt?: boolean;
-	};
-
-	type PagefindSearchResponse = {
-		results?: Array<{
-			id: string;
-			data: () => Promise<{
-				url?: string;
-				meta?: { title?: string };
-				excerpt?: string;
-			}>;
-		}>;
-	};
+	import {
+		loadSearchResults,
+		type SearchResultItem,
+		type PagefindSearchResponse,
+	} from "$lib/search-results";
 
 	type PagefindModule = {
 		search: (term: string) => Promise<PagefindSearchResponse>;
@@ -84,19 +70,9 @@
 				return;
 			}
 
-			const loadedResults = await Promise.all(
-				(response.results ?? []).map(async (result) => {
-					const data = await result.data();
-					return {
-						id: result.id,
-						url: data.url ?? "",
-						title: data.meta?.title ?? "",
-						excerpt: data.excerpt ?? "",
-					};
-				}),
-			);
+			const loadedResults = await loadSearchResults(response);
 			if (requestId !== requestSequence) return;
-			results = loadedResults.filter((result) => result.url.length > 0);
+			results = loadedResults;
 			status = "ready";
 		} catch {
 			if (requestId !== requestSequence) {
