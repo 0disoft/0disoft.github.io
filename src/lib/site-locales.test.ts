@@ -9,6 +9,13 @@ import {
 	writeStoredSiteLocale,
 } from "./site-locales";
 
+function runLocaleBootstrap(context: Record<string, unknown>) {
+	const html = readFileSync(new URL("../app.html", import.meta.url), "utf8");
+	const bootstrapScript = html.match(/<script>([\s\S]*?)<\/script>/)?.[1];
+	if (!bootstrapScript) throw new Error("Locale bootstrap script missing");
+	runInNewContext(bootstrapScript, context);
+}
+
 describe("saved locale recovery", () => {
 	const getItem = vi.fn();
 	const setItem = vi.fn();
@@ -22,6 +29,28 @@ describe("saved locale recovery", () => {
 	});
 
 	afterEach(() => vi.unstubAllGlobals());
+
+	it.each([
+		{ languages: [], language: "ko-KR", expected: "ko" },
+		{ language: "fr-FR", expected: "fr" },
+		{ languages: ["es-ES"], language: "ko-KR", expected: "es" },
+		{ languages: [], language: "de-DE", expected: "en" },
+	])("agrees with bootstrap for browser preferences $language / $languages", (preferences) => {
+		const { expected, ...browserNavigator } = preferences;
+		vi.stubGlobal("navigator", browserNavigator);
+		const replace = vi.fn();
+		runLocaleBootstrap({
+			window: {
+				localStorage: { getItem },
+				location: { pathname: "/blog", search: "?q=test", hash: "#post", replace },
+			},
+			document,
+			navigator: browserNavigator,
+		});
+		expect(getPreferredClientLocale()).toBe(expected);
+		if (expected === "en") expect(replace).not.toHaveBeenCalled();
+		else expect(replace).toHaveBeenCalledExactlyOnceWith(`/${expected}/blog?q=test#post`);
+	});
 
 	it.each(["%", "%E0%A4%A"])(
 		"ignores malformed cookie %s and uses the browser language",
@@ -79,11 +108,8 @@ describe("saved locale recovery", () => {
 		["%6B%6F", "/ko/blog?query=test#post"],
 		["blocked", "/fr/blog?query=test#post"],
 	])("recovers from cookie %s before hydration too", (value, expectedPath) => {
-		const html = readFileSync(new URL("../app.html", import.meta.url), "utf8");
-		const bootstrapScript = html.match(/<script>([\s\S]*?)<\/script>/)?.[1];
-		if (!bootstrapScript) throw new Error("Locale bootstrap script missing");
 		const replace = vi.fn();
-		runInNewContext(bootstrapScript, {
+		runLocaleBootstrap({
 			window: {
 				localStorage: { getItem },
 				location: { pathname: "/blog", search: "?query=test", hash: "#post", replace },

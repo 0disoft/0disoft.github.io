@@ -98,7 +98,12 @@ export function getBrowserSiteLocale(languages: readonly string[]): SiteLocale {
 }
 
 export function getPreferredClientLocale(): SiteLocale {
-	return readStoredSiteLocale() ?? getBrowserSiteLocale(navigator.languages);
+	return (
+		readStoredSiteLocale() ??
+		getBrowserSiteLocale(
+			navigator.languages?.length > 0 ? navigator.languages : [navigator.language],
+		)
+	);
 }
 
 function toInternalPathname(pathname: string): string {
