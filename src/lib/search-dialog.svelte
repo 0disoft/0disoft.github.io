@@ -70,7 +70,13 @@
 				return;
 			}
 
-			const loadedResults = await loadSearchResults(response);
+			const loadedResults = await loadSearchResults(response, {
+				isCurrent: () => requestId === requestSequence,
+				onResults: (available) => {
+					results = available;
+					status = "ready";
+				},
+			});
 			if (requestId !== requestSequence) return;
 			results = loadedResults;
 			status = "ready";
