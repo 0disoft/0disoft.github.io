@@ -309,16 +309,8 @@ const publicationCalendar = new Intl.DateTimeFormat("en-US", {
 });
 
 export function isRecentIndiehackersPost(publishedAt: string, now: Date = new Date()): boolean {
-	if (!/^\d{4}-\d{2}-\d{2}$/.test(publishedAt) || Number.isNaN(now.getTime())) {
-		return false;
-	}
-	const [year, month, day] = publishedAt.split("-").map(Number);
-	const published = new Date(Date.UTC(year, month - 1, day));
-	if (
-		published.getUTCFullYear() !== year ||
-		published.getUTCMonth() !== month - 1 ||
-		published.getUTCDate() !== day
-	) {
+	const published = parseCalendarDate(publishedAt);
+	if (!published || Number.isNaN(now.getTime())) {
 		return false;
 	}
 	// Articles use the publisher's Seoul calendar, including on UTC build runners.
@@ -336,6 +328,12 @@ export function isRecentIndiehackersPost(publishedAt: string, now: Date = new Da
 		cutoff.setUTCDate(0);
 	}
 	return published >= cutoff && published <= today;
+}
+
+function parseCalendarDate(value: string): Date | null {
+	if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return null;
+	const date = new Date(`${value}T00:00:00Z`);
+	return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value ? date : null;
 }
 
 function parseMarkdownFile(path: string, markdown: string): { frontmatter: unknown; body: string } {
@@ -399,11 +397,11 @@ function readRequiredString(
 function readPublishedAt(metadata: Record<string, unknown>, path: string): string {
 	const value = metadata.publishedAt;
 
-	if (typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
+	if (typeof value === "string" && parseCalendarDate(value)) {
 		return value;
 	}
 
-	throw new Error(`Indiehackers post publishedAt must use YYYY-MM-DD: ${path}`);
+	throw new Error(`Indiehackers post publishedAt must use a valid YYYY-MM-DD date: ${path}`);
 }
 
 function readOptionalUpdatedAt(
@@ -416,8 +414,8 @@ function readOptionalUpdatedAt(
 		return {};
 	}
 
-	if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
-		throw new Error(`Indiehackers post updatedAt must use YYYY-MM-DD: ${path}`);
+	if (typeof value !== "string" || !parseCalendarDate(value)) {
+		throw new Error(`Indiehackers post updatedAt must use a valid YYYY-MM-DD date: ${path}`);
 	}
 
 	const updatedAt = value.trim();

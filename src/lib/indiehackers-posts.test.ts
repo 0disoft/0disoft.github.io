@@ -29,6 +29,42 @@ const carrdEnglishMarkdown = `---
 Carrd reached $1M in annual recurring revenue with a single one-page-site product.`;
 
 describe("indiehackers posts", () => {
+	it("rejects nonexistent publication and update dates", () => {
+		for (const field of ["publishedAt", "updatedAt"]) {
+			for (const date of ["2026-02-30", "2026-02-29", "2026-13-01", "1900-02-29"]) {
+				expect(() =>
+					createIndiehackersPostFromContent(
+						carrdPath,
+						{ ...carrdMetadata, [field]: date },
+						"en",
+						carrdEnglishMarkdown,
+					),
+				).toThrow(`${field} must use a valid YYYY-MM-DD date`);
+			}
+		}
+	});
+
+	it("accepts leap days while keeping updates after publication", () => {
+		for (const date of ["2000-02-29", "2024-02-29"]) {
+			expect(
+				createIndiehackersPostFromContent(
+					carrdPath,
+					{ ...carrdMetadata, publishedAt: date, updatedAt: date },
+					"en",
+					carrdEnglishMarkdown,
+				),
+			).toMatchObject({ publishedAt: date, updatedAt: date });
+		}
+		expect(() =>
+			createIndiehackersPostFromContent(
+				carrdPath,
+				{ ...carrdMetadata, updatedAt: "2026-09-21" },
+				"en",
+				carrdEnglishMarkdown,
+			),
+		).toThrow("updatedAt must not be earlier than publishedAt");
+	});
+
 	it("preserves optional editorial metadata and rejects non-local covers", () => {
 		const metadata = {
 			...carrdMetadata,
