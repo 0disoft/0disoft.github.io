@@ -17,10 +17,17 @@ try {
 	await context.addInitScript(() => {
 		window.copyMode = "fail";
 		window.shareMode = "fail";
+		window.copyCalls = 0;
+		window.pendingCopies = [];
+		window.pendingShares = [];
 		Object.defineProperty(navigator, "clipboard", {
 			configurable: true,
 			value: {
 				writeText: async () => {
+					window.copyCalls++;
+					if (window.copyMode === "defer") {
+						return new Promise((resolve, reject) => window.pendingCopies.push({ resolve, reject }));
+					}
 					if (window.copyMode !== "success") throw new Error("Clipboard blocked");
 				},
 			},
@@ -29,6 +36,9 @@ try {
 		Object.defineProperty(navigator, "share", {
 			configurable: true,
 			value: async () => {
+				if (window.shareMode === "defer") {
+					return new Promise((resolve, reject) => window.pendingShares.push({ resolve, reject }));
+				}
 				throw new DOMException(
 					"Share failed",
 					window.shareMode === "abort" ? "AbortError" : "NotAllowedError",
@@ -83,9 +93,49 @@ try {
 	await toolbar.getByRole("button", { name: "Share with device", exact: true }).click();
 	await manual.waitFor();
 	assert.equal(await manual.inputValue(), url);
+	const share = toolbar.getByRole("button", { name: "Share with device", exact: true });
+	await page.evaluate(() => {
+		window.copyMode = "defer";
+	});
+	const previousCalls = await page.evaluate(() => window.copyCalls);
+	await copy.click();
+	assert.equal(
+		await copy.isDisabled(),
+		true,
+		"copy must stay disabled while clipboard work is pending",
+	);
+	assert.equal(await share.isDisabled(), true, "share must not overlap pending copy work");
+	await copy.evaluate((button) => button.click());
+	assert.equal(await page.evaluate(() => window.copyCalls), previousCalls + 1);
+	await page.evaluate(() => window.pendingCopies.shift().resolve());
+	await toolbar.getByRole("button", { name: "Copied", exact: true }).waitFor();
+	assert.equal(await share.isEnabled(), true);
+	await page.evaluate(() => {
+		window.shareMode = "defer";
+		window.copyMode = "fail";
+	});
+	await share.click();
+	assert.equal(await share.isDisabled(), true);
+	assert.equal(await copy.isDisabled(), true);
+	await page.evaluate(() => window.pendingShares.shift().reject(new Error("Denied")));
+	await manual.waitFor();
+	assert.equal(await copy.isEnabled(), true, "a failed share and copy must unlock retries");
+	await share.click();
+	const callsBeforeNavigation = await page.evaluate(() => window.copyCalls);
+	await page.locator(".adjacent-card").first().click();
+	await page.waitForLoadState("networkidle");
+	await page.evaluate(() => window.pendingShares.shift().reject(new Error("Old share failed")));
+	await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 100)));
+	assert.equal(
+		await page.evaluate(() => window.copyCalls),
+		callsBeforeNavigation,
+		"an obsolete share must not copy the next article",
+	);
+	assert.equal(await manual.count(), 0);
+	assert.equal(await copy.isEnabled(), true);
 	assert.deepEqual(errors, []);
 	console.log(
-		"Share recovery passed: copy failure, selected manual URL, successful retry, share cancellation and fallback; no page errors.",
+		"Share recovery passed: failure recovery, retry, cancellation, serialized copy/share, and navigation during pending share; no page errors.",
 	);
 } finally {
 	await browser.close();

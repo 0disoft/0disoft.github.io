@@ -40,6 +40,8 @@
 	let copyState = $state<"idle" | "copied" | "failed">("idle");
 	let manualCopyInput = $state<HTMLInputElement>();
 	let copyFeedbackTimer: number | undefined;
+	let actionPending = $state(false);
+	let disposed = false;
 
 	const displayLocale = $derived(toDisplayLocale(getLocale()));
 	const shareLinks = $derived(buildIndiehackersShareLinks({ title, url }));
@@ -57,32 +59,48 @@
 			typeof navigator !== "undefined" && typeof navigator.share === "function";
 
 		return () => {
+			disposed = true;
 			if (copyFeedbackTimer !== undefined) {
 				window.clearTimeout(copyFeedbackTimer);
 			}
 		};
 	});
 
-	async function copyShareUrl() {
-		if (!url) {
-			return;
-		}
-
+	function beginShareAction(): boolean {
+		if (actionPending || disposed) return false;
+		actionPending = true;
 		if (copyFeedbackTimer !== undefined) {
 			window.clearTimeout(copyFeedbackTimer);
 			copyFeedbackTimer = undefined;
 		}
 		copyState = "idle";
+		return true;
+	}
+
+	async function copyShareUrl() {
+		if (!beginShareAction()) return;
+		try {
+			await copyUrl();
+		} finally {
+			actionPending = false;
+		}
+	}
+
+	async function copyUrl() {
+		if (!url || disposed) return;
 
 		try {
 			await copyTextToClipboard(url);
 		} catch {
+			if (disposed) return;
 			copyState = "failed";
 			await tick();
+			if (disposed) return;
 			manualCopyInput?.focus();
 			manualCopyInput?.select();
 			return;
 		}
+		if (disposed) return;
 		copyState = "copied";
 
 		copyFeedbackTimer = window.setTimeout(() => {
@@ -92,6 +110,15 @@
 	}
 
 	async function shareWithDevice() {
+		if (!beginShareAction()) return;
+		try {
+			await shareUrlWithDevice();
+		} finally {
+			actionPending = false;
+		}
+	}
+
+	async function shareUrlWithDevice() {
 		if (
 			canUseDeviceShare &&
 			typeof navigator !== "undefined" &&
@@ -107,7 +134,7 @@
 			}
 		}
 
-		await copyShareUrl();
+		await copyUrl();
 	}
 
 	function getSharePlatformLabel(platform: IndiehackersSharePlatform): string {
@@ -175,6 +202,7 @@
 			type="button"
 			aria-label={copyLabel}
 			data-tooltip={copyLabel}
+			disabled={actionPending}
 			onclick={copyShareUrl}
 		>
 			<Copy aria-hidden="true" size={18} strokeWidth={2.2} />
@@ -184,6 +212,7 @@
 			type="button"
 			aria-label={deviceShareLabel}
 			data-tooltip={deviceShareLabel}
+			disabled={actionPending}
 			onclick={shareWithDevice}
 		>
 			<Share2 aria-hidden="true" size={18} strokeWidth={2.2} />

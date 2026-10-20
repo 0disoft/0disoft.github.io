@@ -69,11 +69,13 @@ function getPostHref(slug: string): string {
 		</div>
 
 		<aside class="indiehackers-sidecar" data-pagefind-ignore="all">
-			<IndiehackersShareToolbar
-				title={post.title}
-				url={shareUrl}
-				headingId="indiehackers-share-title"
-			/>
+			{#key shareUrl}
+				<IndiehackersShareToolbar
+					title={post.title}
+					url={shareUrl}
+					headingId="indiehackers-share-title"
+				/>
+			{/key}
 		</aside>
 	</div>
 
