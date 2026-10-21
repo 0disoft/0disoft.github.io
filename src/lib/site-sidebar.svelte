@@ -1,19 +1,17 @@
 <script lang="ts">
 	import type { Component } from "svelte";
 	import { tick } from "svelte";
-	import {
-		FileText,
-		Heart,
-		Monitor,
-		Moon,
-		Search,
-		Settings,
-		Sun,
-		Users,
-		ChartNoAxesCombined,
-		PenTool,
-		X,
-	} from "@lucide/svelte";
+	import FileText from "@lucide/svelte/icons/file-text";
+	import Heart from "@lucide/svelte/icons/heart";
+	import Monitor from "@lucide/svelte/icons/monitor";
+	import Moon from "@lucide/svelte/icons/moon";
+	import Search from "@lucide/svelte/icons/search";
+	import Settings from "@lucide/svelte/icons/settings";
+	import Sun from "@lucide/svelte/icons/sun";
+	import Users from "@lucide/svelte/icons/users";
+	import ChartNoAxesCombined from "@lucide/svelte/icons/chart-no-axes-combined";
+	import PenTool from "@lucide/svelte/icons/pen-tool";
+	import X from "@lucide/svelte/icons/x";
 	import { resetMode, setMode, userPrefersMode } from "mode-watcher";
 	import * as m from "$lib/paraglide/messages";
 	import { getLocale, setLocale } from "$lib/paraglide/runtime";

@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { ArrowLeft, Home } from "@lucide/svelte";
+	import ArrowLeft from "@lucide/svelte/icons/arrow-left";
+	import Home from "@lucide/svelte/icons/home";
 	import { page } from "$app/state";
 	import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";

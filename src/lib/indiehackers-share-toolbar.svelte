@@ -1,5 +1,8 @@
 <script lang="ts">
-	import { Copy, MessageCircle, Send, Share2 } from "@lucide/svelte";
+	import Copy from "@lucide/svelte/icons/copy";
+	import MessageCircle from "@lucide/svelte/icons/message-circle";
+	import Send from "@lucide/svelte/icons/send";
+	import Share2 from "@lucide/svelte/icons/share-2";
 	import { onMount, tick } from "svelte";
 	import {
 		siBluesky,

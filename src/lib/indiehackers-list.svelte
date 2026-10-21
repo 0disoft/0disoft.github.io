@@ -3,7 +3,9 @@
 	import { pushState, replaceState } from "$app/navigation";
 	import { page } from "$app/state";
 	import { onMount } from "svelte";
-	import { ChevronDown, Search, SlidersHorizontal } from "@lucide/svelte";
+	import ChevronDown from "@lucide/svelte/icons/chevron-down";
+	import Search from "@lucide/svelte/icons/search";
+	import SlidersHorizontal from "@lucide/svelte/icons/sliders-horizontal";
 	import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
 	import {

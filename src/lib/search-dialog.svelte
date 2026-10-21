@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from "$app/state";
 	import { onDestroy, tick } from "svelte";
-	import { X } from "@lucide/svelte";
+	import X from "@lucide/svelte/icons/x";
 	import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
 	import { toDisplayLocale } from "$lib/site-labels";
