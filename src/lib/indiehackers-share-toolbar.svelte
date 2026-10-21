@@ -4,6 +4,7 @@
 	import Send from "@lucide/svelte/icons/send";
 	import Share2 from "@lucide/svelte/icons/share-2";
 	import { onMount, tick } from "svelte";
+	import { beforeNavigate } from "$app/navigation";
 	import {
 		siBluesky,
 		siFacebook,
@@ -45,6 +46,11 @@
 	let copyFeedbackTimer: number | undefined;
 	let actionPending = $state(false);
 	let disposed = false;
+	let navigationVersion = 0;
+	// View transitions can keep the outgoing toolbar mounted after navigation starts.
+	beforeNavigate(() => {
+		navigationVersion += 1;
+	});
 
 	const displayLocale = $derived(toDisplayLocale(getLocale()));
 	const shareLinks = $derived(buildIndiehackersShareLinks({ title, url }));
@@ -69,59 +75,63 @@
 		};
 	});
 
-	function beginShareAction(): boolean {
-		if (actionPending || disposed) return false;
+	function beginShareAction(): (() => boolean) | null {
+		if (actionPending || disposed) return null;
+		const version = navigationVersion;
 		actionPending = true;
 		if (copyFeedbackTimer !== undefined) {
 			window.clearTimeout(copyFeedbackTimer);
 			copyFeedbackTimer = undefined;
 		}
 		copyState = "idle";
-		return true;
+		return () => !disposed && version === navigationVersion;
 	}
 
 	async function copyShareUrl() {
-		if (!beginShareAction()) return;
+		const isCurrent = beginShareAction();
+		if (!isCurrent) return;
 		try {
-			await copyUrl();
+			await copyUrl(isCurrent);
 		} finally {
 			actionPending = false;
 		}
 	}
 
-	async function copyUrl() {
-		if (!url || disposed) return;
+	async function copyUrl(isCurrent: () => boolean) {
+		if (!url || !isCurrent()) return;
 
 		try {
-			await copyTextToClipboard(url);
+			await copyTextToClipboard(url, { isCurrent });
 		} catch {
-			if (disposed) return;
+			if (!isCurrent()) return;
 			copyState = "failed";
 			await tick();
-			if (disposed) return;
+			if (!isCurrent()) return;
 			manualCopyInput?.focus();
 			manualCopyInput?.select();
 			return;
 		}
-		if (disposed) return;
+		if (!isCurrent()) return;
 		copyState = "copied";
 
 		copyFeedbackTimer = window.setTimeout(() => {
+			if (!isCurrent()) return;
 			copyState = "idle";
 			copyFeedbackTimer = undefined;
 		}, 1500);
 	}
 
 	async function shareWithDevice() {
-		if (!beginShareAction()) return;
+		const isCurrent = beginShareAction();
+		if (!isCurrent) return;
 		try {
-			await shareUrlWithDevice();
+			await shareUrlWithDevice(isCurrent);
 		} finally {
 			actionPending = false;
 		}
 	}
 
-	async function shareUrlWithDevice() {
+	async function shareUrlWithDevice(isCurrent: () => boolean) {
 		if (
 			canUseDeviceShare &&
 			typeof navigator !== "undefined" &&
@@ -137,7 +147,7 @@
 			}
 		}
 
-		await copyUrl();
+		await copyUrl(isCurrent);
 	}
 
 	function getSharePlatformLabel(platform: IndiehackersSharePlatform): string {

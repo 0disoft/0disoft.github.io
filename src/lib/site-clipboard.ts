@@ -1,4 +1,8 @@
-export async function copyTextToClipboard(text: string) {
+export async function copyTextToClipboard(
+	text: string,
+	{ isCurrent = () => true }: { isCurrent?: () => boolean } = {},
+) {
+	if (!isCurrent()) return;
 	if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
 		try {
 			await navigator.clipboard.writeText(text);
@@ -8,6 +12,7 @@ export async function copyTextToClipboard(text: string) {
 		}
 	}
 
+	if (!isCurrent()) return;
 	if (typeof document === "undefined") {
 		throw new Error("Clipboard is not available");
 	}

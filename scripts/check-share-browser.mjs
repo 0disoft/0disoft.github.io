@@ -18,6 +18,7 @@ try {
 		window.copyMode = "fail";
 		window.shareMode = "fail";
 		window.copyCalls = 0;
+		window.fallbackCopies = 0;
 		window.pendingCopies = [];
 		window.pendingShares = [];
 		Object.defineProperty(navigator, "clipboard", {
@@ -32,7 +33,10 @@ try {
 				},
 			},
 		});
-		document.execCommand = () => false;
+		document.execCommand = () => {
+			window.fallbackCopies++;
+			return false;
+		};
 		Object.defineProperty(navigator, "share", {
 			configurable: true,
 			value: async () => {
@@ -122,15 +126,31 @@ try {
 	assert.equal(await copy.isEnabled(), true, "a failed share and copy must unlock retries");
 	await share.click();
 	const callsBeforeNavigation = await page.evaluate(() => window.copyCalls);
+	const oldPageUrl = page.url();
 	await page.locator(".adjacent-card").first().click();
+	await page.waitForURL((url) => url.href !== oldPageUrl);
 	await page.waitForLoadState("networkidle");
 	await page.evaluate(() => window.pendingShares.shift().reject(new Error("Old share failed")));
 	await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 100)));
 	assert.equal(
 		await page.evaluate(() => window.copyCalls),
 		callsBeforeNavigation,
-		"an obsolete share must not copy the next article",
+		"an obsolete share must not copy after navigation",
 	);
+	assert.equal(await manual.count(), 0);
+	assert.equal(await copy.isEnabled(), true);
+	await page.evaluate(() => {
+		window.copyMode = "defer";
+	});
+	await copy.click();
+	const fallbacksBeforeNavigation = await page.evaluate(() => window.fallbackCopies);
+	const pageBeforeCopyNavigation = page.url();
+	await page.locator(".adjacent-card").first().click();
+	await page.waitForURL((url) => url.href !== pageBeforeCopyNavigation);
+	await page.evaluate(() => window.pendingCopies.shift().reject(new Error("Old copy failed")));
+	await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 100)));
+	assert.equal(await page.evaluate(() => window.fallbackCopies), fallbacksBeforeNavigation);
+	await page.waitForLoadState("networkidle");
 	assert.equal(await manual.count(), 0);
 	assert.equal(await copy.isEnabled(), true);
 	assert.deepEqual(errors, []);

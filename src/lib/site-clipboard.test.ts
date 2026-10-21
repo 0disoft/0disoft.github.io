@@ -4,6 +4,27 @@ import { copyTextToClipboard } from "./site-clipboard";
 afterEach(() => vi.unstubAllGlobals());
 
 describe("clipboard fallback", () => {
+	it("does not attempt a fallback when navigation invalidates a pending copy", async () => {
+		let current = true;
+		let rejectCopy!: (error: Error) => void;
+		const writeText = vi.fn(
+			() =>
+				new Promise<void>((_resolve, reject) => {
+					rejectCopy = reject;
+				}),
+		);
+		vi.stubGlobal("navigator", { clipboard: { writeText } });
+		const createElement = vi.fn();
+		vi.stubGlobal("document", { createElement });
+		const copying = copyTextToClipboard("obsolete", { isCurrent: () => current });
+		current = false;
+		rejectCopy(new Error("Denied"));
+		await expect(copying).resolves.toBeUndefined();
+		expect(createElement).not.toHaveBeenCalled();
+		await copyTextToClipboard("already obsolete", { isCurrent: () => false });
+		expect(writeText).toHaveBeenCalledTimes(1);
+	});
+
 	it("uses the native API without creating a temporary element", async () => {
 		const writeText = vi.fn().mockResolvedValue(undefined);
 		vi.stubGlobal("navigator", { clipboard: { writeText } });
