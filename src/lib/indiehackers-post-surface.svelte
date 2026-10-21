@@ -3,7 +3,6 @@
 	import ArticleCover from "$lib/article-cover.svelte";
 	import {
 		type IndiehackersPost,
-		type IndiehackersPostDetail,
 	} from "$lib/indiehackers-posts";
 	import { isSiteLocale, localizeSitePathname } from "$lib/site-locales";
 	import { siteProfile } from "$lib/site-profile";
@@ -11,7 +10,7 @@
 	import { getLocale } from "$lib/paraglide/runtime";
 	import type { StoryCollection } from "$lib/story-collections";
 
-	let { data, collection = null }: { data: { post: IndiehackersPostDetail; bodyHtml: string; tagLabels: string[]; adjacentPosts: { previous: IndiehackersPost | null; next: IndiehackersPost | null } }; collection?: StoryCollection | null } = $props();
+	let { data, collection = null }: { data: { post: IndiehackersPost; bodyHtml: string; tagLabels: string[]; adjacentPosts: { previous: IndiehackersPost | null; next: IndiehackersPost | null } }; collection?: StoryCollection | null } = $props();
 
 const locale = $derived(getLocale());
 const displayLocale = $derived(isSiteLocale(locale) ? locale : "en");

@@ -24,11 +24,12 @@ export const entries: EntryGenerator = () => getIndiehackersPostEntries(indiehac
 
 export const load = (({ params, url }) => {
 	const locale = getPathLocale(url.pathname) ?? getLocale();
-	const post = getIndiehackersPostForLocale(indiehackersPostDetails, params.slug, locale);
+	const postDetail = getIndiehackersPostForLocale(indiehackersPostDetails, params.slug, locale);
 
-	if (!post) {
+	if (!postDetail) {
 		error(404, "Not Found");
 	}
+	const { body, ...post } = postDetail;
 
 	const collection = getStoryCollectionForSlug(params.slug);
 	const story = collection ? getStoryPosts(collection, [post])[0] : null;
@@ -37,7 +38,7 @@ export const load = (({ params, url }) => {
 		tagLabels: story
 			? getStoryPostTagLabels(story, post.locale)
 			: getIndiehackersPostTagLabels(post),
-		bodyHtml: renderArticleMarkdown(post.body),
+		bodyHtml: renderArticleMarkdown(body),
 		collection,
 		adjacentPosts: getAdjacentIndiehackersPosts(
 			getStoryCollectionPosts(indiehackersPosts, collection),
