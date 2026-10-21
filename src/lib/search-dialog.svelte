@@ -28,6 +28,12 @@
 	let pagefindModule: PagefindModule | null = null;
 	let requestSequence = 0;
 	let searchTimer: ReturnType<typeof setTimeout> | undefined;
+	const SEARCH_BATCH_SIZE = 20;
+	let pendingPagefindResults: NonNullable<PagefindSearchResponse["results"]> = [];
+	let nextPagefindIndex = 0;
+	let moreFallbackResults: SearchResultItem[] = [];
+	let hasMore = $state(false);
+	let loadingMore = $state(false);
 	const fallbackIndexes = new Map<string, IndiehackersPost[]>();
 
 	const displayLocale = $derived(toDisplayLocale(getLocale()));
@@ -38,6 +44,11 @@
 		requestSequence += 1;
 		clearTimeout(searchTimer);
 		searchTimer = undefined;
+		pendingPagefindResults = [];
+		nextPagefindIndex = 0;
+		moreFallbackResults = [];
+		hasMore = false;
+		loadingMore = false;
 	}
 
 	export function openSearch() {
@@ -72,18 +83,8 @@
 				return;
 			}
 
-			let incomplete = false;
-			const loadedResults = await loadSearchResults(response, {
-				onIncomplete: () => { incomplete = true; },
-				isCurrent: () => requestId === requestSequence,
-				onResults: (available) => {
-					results = available;
-					status = "ready";
-				},
-			});
-			if (requestId !== requestSequence) return;
-			results = loadedResults;
-			if (incomplete) await recoverSearch(term, requestId);
+			pendingPagefindResults = response.results ?? [];
+			await loadNextBatch(term, requestId);
 			if (requestId !== requestSequence) return;
 			status = "ready";
 		} catch {
@@ -94,10 +95,67 @@
 			try { await recoverSearch(term, requestId); } catch { /* Keep any healthy Pagefind results. */ }
 			if (requestId !== requestSequence) return;
 			status = results.length > 0 ? "ready" : "unavailable";
+			hasMore = nextPagefindIndex < pendingPagefindResults.length || moreFallbackResults.length > 0;
 		}
 	}
 
-	async function recoverSearch(term: string, requestId: number) {
+	function unseenResults(items: SearchResultItem[], existing = results) {
+		const path = (item: SearchResultItem) => new URL(item.url, page.url).pathname.replace(/\/$/, "");
+		const seen = new Set(existing.map(path));
+		return items.filter((item) => {
+			const key = path(item);
+			if (seen.has(key)) return false;
+			seen.add(key);
+			return true;
+		});
+	}
+
+	async function loadNextBatch(term: string, requestId: number) {
+		const previous = results;
+		const targetCount = previous.length + SEARCH_BATCH_SIZE;
+		const batch = pendingPagefindResults.slice(nextPagefindIndex, nextPagefindIndex + SEARCH_BATCH_SIZE);
+		nextPagefindIndex += batch.length;
+		try {
+			if (batch.length > 0) {
+				let incomplete = false;
+				await loadSearchResults({ results: batch }, {
+					isCurrent: () => requestId === requestSequence,
+					onIncomplete: () => { incomplete = true; },
+					onResults: (available) => {
+						results = [...previous, ...unseenResults(available, previous)];
+						status = "ready";
+					},
+				});
+				if (requestId !== requestSequence) return;
+				if (incomplete) await recoverSearch(term, requestId, targetCount);
+			} else {
+				moreFallbackResults = unseenResults(moreFallbackResults);
+				results = [...results, ...moreFallbackResults.splice(0, SEARCH_BATCH_SIZE)];
+			}
+		} catch {
+			if (requestId !== requestSequence) return;
+			await recoverSearch(term, requestId, targetCount);
+		} finally {
+			if (requestId === requestSequence) {
+				hasMore = nextPagefindIndex < pendingPagefindResults.length || moreFallbackResults.length > 0;
+			}
+		}
+	}
+
+	async function showMore() {
+		if (loadingMore || !hasMore) return;
+		const requestId = requestSequence;
+		loadingMore = true;
+		try {
+			await loadNextBatch(query.trim(), requestId);
+		} catch {
+			// Keep existing results and allow the remaining batches to be loaded.
+		} finally {
+			if (requestId === requestSequence) loadingMore = false;
+		}
+	}
+
+	async function recoverSearch(term: string, requestId: number, targetCount = SEARCH_BATCH_SIZE) {
 			const locale = displayLocale;
 			let posts = page.data.indiehackersPosts;
 			if (posts.length === 0) {
@@ -119,8 +177,8 @@
 				excerpt: post.summary,
 				plainExcerpt: true,
 			}));
-			const seen = new Set(results.map((result) => new URL(result.url, page.url).pathname.replace(/\/$/, "")));
-			results = [...results, ...fallback.filter((result) => !seen.has(new URL(result.url, page.url).pathname.replace(/\/$/, "")))];
+			moreFallbackResults = unseenResults(fallback);
+			results = [...results, ...moreFallbackResults.splice(0, Math.max(0, targetCount - results.length))];
 	}
 
 	async function loadPagefind(): Promise<PagefindModule> {
@@ -271,11 +329,36 @@
 			{:else if query.trim()}
 				<p class="search-note">{m.search_no_results({}, { locale: displayLocale })}</p>
 			{/if}
+			{#if hasMore}
+				<button type="button" class="search-more" disabled={loadingMore} onclick={showMore}>
+					{m.search_load_more({}, { locale: displayLocale })}
+				</button>
+			{/if}
 		</div>
 	</div>
 </dialog>
 
 <style>
+	.search-more {
+		padding: 0.65rem 1rem;
+		border: 1px solid var(--border);
+		border-radius: var(--radius-md);
+		background: var(--popover);
+		color: inherit;
+		font: inherit;
+		cursor: pointer;
+	}
+
+	.search-more:focus-visible {
+		outline: 3px solid var(--focus-ring);
+		outline-offset: 3px;
+	}
+
+	.search-more:disabled {
+		opacity: 0.6;
+		cursor: wait;
+	}
+
 	.search-dialog {
 		position: fixed;
 		inset: 50% auto auto 50%;
