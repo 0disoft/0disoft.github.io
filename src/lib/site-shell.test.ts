@@ -391,7 +391,10 @@ describe("site shell", () => {
 		expect(errorSource).toContain("page.status");
 		expect(errorSource).toContain("function handleBack");
 		expect(errorSource).toContain("document.referrer");
-		expect(errorSource).toContain('window.location.assign("/")');
+		expect(errorSource).toContain("window.history.length > 1");
+		expect(errorSource).toContain("localizeSitePathname");
+		expect(errorSource).toContain("window.location.assign(homePath)");
+		expect(errorSource).toContain("href={homePath}");
 		expect(errorSource).toContain("--error-secondary-foreground");
 		expect(errorSource).toContain("type ErrorLocale");
 		expect(errorSource).toContain("getLocale()");

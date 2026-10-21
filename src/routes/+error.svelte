@@ -4,6 +4,7 @@
 	import { page } from "$app/state";
 	import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
+	import { isSiteLocale, localizeSitePathname } from "$lib/site-locales";
 	import { birdMarkPath } from "$lib/site-assets";
 	import { siteProfile } from "$lib/site-profile";
 
@@ -11,6 +12,10 @@
 
 	const message = $derived(page.error?.message ?? "Not Found");
 	const errorLocale = $derived(getErrorLocale(page.url.pathname));
+	const homePath = $derived.by(() => {
+		const locale = getLocale();
+		return localizeSitePathname("/", isSiteLocale(locale) ? locale : "en");
+	});
 
 	function getErrorLocale(pathname: string): ErrorLocale {
 		const selectedLocale = getLocale();
@@ -23,12 +28,12 @@
 	}
 
 	function handleBack() {
-		if (document.referrer) {
+		if (window.history.length > 1 && document.referrer) {
 			window.history.back();
 			return;
 		}
 
-		window.location.assign("/");
+		window.location.assign(homePath);
 	}
 </script>
 
@@ -45,7 +50,7 @@
 			<h1 id="error-title">{message}</h1>
 
 			<div class="actions">
-				<a href="/">
+				<a href={homePath}>
 					<Home size={18} strokeWidth={2.2} aria-hidden="true" />
 					<span>{m.error_home({}, { locale: errorLocale })}</span>
 				</a>
