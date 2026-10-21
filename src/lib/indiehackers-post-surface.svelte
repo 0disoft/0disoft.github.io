@@ -12,7 +12,7 @@
 	import { page } from "$app/state";
 	import { getStoryPosts, getStoryPostTagLabels, type StoryCollection } from "$lib/story-collections";
 
-	let { data, collection = null }: { data: { post: IndiehackersPostDetail; adjacentPosts: { previous: IndiehackersPost | null; next: IndiehackersPost | null } }; collection?: StoryCollection | null } = $props();
+	let { data, collection = null }: { data: { post: IndiehackersPostDetail; bodyHtml: string; adjacentPosts: { previous: IndiehackersPost | null; next: IndiehackersPost | null } }; collection?: StoryCollection | null } = $props();
 
 const locale = $derived(getLocale());
 const displayLocale = $derived(isSiteLocale(locale) ? locale : "en");
@@ -59,13 +59,7 @@ function getPostHref(slug: string): string {
 
 	<div class="indiehackers-reading-layout">
 		<div class="indiehackers-body">
-			{#each post.body.split(/\n{2,}/) as paragraph}
-				{#if paragraph.trim().startsWith("## ")}
-					<h2>{paragraph.replace(/\n/g, " ").trim().slice(3).trim()}</h2>
-				{:else}
-					<p>{paragraph.replace(/\n/g, " ").trim()}</p>
-				{/if}
-			{/each}
+			{@html data.bodyHtml}
 		</div>
 
 		<aside class="indiehackers-sidecar" data-pagefind-ignore="all">
@@ -204,11 +198,11 @@ function getPostHref(slug: string): string {
 		line-height: 1.75;
 	}
 
-	.indiehackers-body p {
+	.indiehackers-body :global(p) {
 		margin: 0;
 	}
 
-	.indiehackers-body h2 {
+	.indiehackers-body :global(h2) {
 		margin: 0.75rem 0 0;
 		font-size: 1.32rem;
 		font-weight: 720;

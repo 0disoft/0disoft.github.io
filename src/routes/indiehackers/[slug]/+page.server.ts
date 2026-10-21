@@ -1,5 +1,6 @@
 import type { EntryGenerator, PageServerLoad } from "./$types";
 import { error } from "@sveltejs/kit";
+import { renderArticleMarkdown } from "$lib/server/markdown";
 import { getLocale } from "$lib/paraglide/runtime";
 import {
 	getAdjacentIndiehackersPosts,
@@ -26,6 +27,7 @@ export const load = (({ params, url }) => {
 	const collection = getStoryCollectionForSlug(params.slug);
 	return {
 		post,
+		bodyHtml: renderArticleMarkdown(post.body),
 		collection,
 		adjacentPosts: getAdjacentIndiehackersPosts(
 			getStoryCollectionPosts(indiehackersPosts, collection),
