@@ -1,7 +1,31 @@
 import { describe, expect, it, vi } from "vitest";
-import { loadSearchResults, type SearchResultItem } from "./search-results";
+import { loadSearchResults, withSearchTimeout, type SearchResultItem } from "./search-results";
 
 describe("search result loading", () => {
+	it("finishes stalled detail requests and reports partial results", async () => {
+		vi.useFakeTimers();
+		try {
+			const incomplete = vi.fn();
+			const loading = loadSearchResults(
+				{
+					results: [
+						{ id: "stuck", data: () => new Promise(() => {}) },
+						{ id: "ok", data: async () => ({ url: "/ok" }) },
+					],
+				},
+				{ onIncomplete: incomplete },
+			);
+			await vi.advanceTimersByTimeAsync(5_001);
+			expect((await loading).map((result) => result.id)).toEqual(["ok"]);
+			expect(incomplete).toHaveBeenCalledOnce();
+			const timeout = withSearchTimeout(new Promise(() => {}));
+			const rejected = expect(timeout).rejects.toThrow("Search timed out");
+			await vi.advanceTimersByTimeAsync(8_001);
+			await rejected;
+		} finally {
+			vi.useRealTimers();
+		}
+	});
 	it("shows ready results while a higher-ranked detail is still pending", async () => {
 		let resolveSlow!: (value: { url: string }) => void;
 		const slow = new Promise<{ url: string }>((resolve) => {

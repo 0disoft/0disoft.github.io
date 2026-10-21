@@ -11,6 +11,7 @@
 	import IconButton from "$lib/ui/icon-button.svelte";
 	import {
 		loadSearchResults,
+		withSearchTimeout,
 		type SearchResultItem,
 		type PagefindSearchResponse,
 	} from "$lib/search-results";
@@ -62,15 +63,17 @@
 
 	async function runSearch(term: string, requestId: number) {
 		try {
-			pagefindModule ??= await loadPagefind();
+			pagefindModule ??= await withSearchTimeout(loadPagefind());
 			if (requestId !== requestSequence) return;
-			const response = await pagefindModule.search(term);
+			const response = await withSearchTimeout(pagefindModule.search(term));
 
 			if (requestId !== requestSequence) {
 				return;
 			}
 
+			let incomplete = false;
 			const loadedResults = await loadSearchResults(response, {
+				onIncomplete: () => { incomplete = true; },
 				isCurrent: () => requestId === requestSequence,
 				onResults: (available) => {
 					results = available;
@@ -79,13 +82,20 @@
 			});
 			if (requestId !== requestSequence) return;
 			results = loadedResults;
+			if (incomplete) recoverSearch(term);
 			status = "ready";
 		} catch {
 			if (requestId !== requestSequence) {
 				return;
 			}
 
-			results = filterIndiehackersPosts(page.data.indiehackersPosts, {
+			recoverSearch(term);
+			status = results.length > 0 ? "ready" : "unavailable";
+		}
+	}
+
+	function recoverSearch(term: string) {
+			const fallback = filterIndiehackersPosts(page.data.indiehackersPosts, {
 				query: term,
 				tags: [],
 				recentOnly: false,
@@ -96,8 +106,8 @@
 				excerpt: post.summary,
 				plainExcerpt: true,
 			}));
-			status = results.length > 0 ? "ready" : "unavailable";
-		}
+			const seen = new Set(results.map((result) => new URL(result.url, page.url).pathname.replace(/\/$/, "")));
+			results = [...results, ...fallback.filter((result) => !seen.has(new URL(result.url, page.url).pathname.replace(/\/$/, "")))];
 	}
 
 	async function loadPagefind(): Promise<PagefindModule> {
