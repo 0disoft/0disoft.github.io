@@ -25,11 +25,12 @@ import { toDisplayLocale } from '$lib/site-labels';
 		siteThemeColorMeta,
 	} from "$lib/site-meta";
 	import { siteProfile } from '$lib/site-profile';
+	import { getSitePageMeta } from '$lib/site-page-meta';
 	import { ModeWatcher } from 'mode-watcher';
 	import './layout.css';
 
 	let { children } = $props();
-	const shareImageUrl = `${siteProfile.origin}${birdMarkPath}`;
+	const meta = $derived(getSitePageMeta(page.url.pathname, page.data.post));
 	const rssAlternateLinks = getSiteRssAlternateLinks();
 	const plainTextAlternateLinks = getSitePlainTextAlternateLinks();
 	const displayLocale = $derived(toDisplayLocale(getLocale()));
@@ -98,7 +99,8 @@ import { toDisplayLocale } from '$lib/site-labels';
 
 <svelte:head>
 	<title>{siteProfile.name}</title>
-	<meta name="description" content={siteProfile.description} />
+	<meta name="description" content={meta.description} />
+	<link rel="canonical" href={meta.url} />
 	<link rel="icon" href={birdMarkPath} />
 	{#if localeFontStylesheet}
 		<link rel="stylesheet" href={localeFontStylesheet} />
@@ -117,16 +119,17 @@ import { toDisplayLocale } from '$lib/site-labels';
 	{#each siteThemeColorMeta as themeColor (themeColor.media)}
 		<meta name="theme-color" content={themeColor.content} media={themeColor.media} />
 	{/each}
-	<meta property="og:type" content="website" />
+	<meta property="og:type" content={meta.type} />
 	<meta property="og:site_name" content={siteProfile.name} />
-	<meta property="og:title" content={siteProfile.name} />
-	<meta property="og:description" content={siteProfile.description} />
-	<meta property="og:image" content={shareImageUrl} />
-	<meta property="og:image:alt" content="0disoft bird mark" />
-	<meta name="twitter:card" content="summary" />
-	<meta name="twitter:title" content={siteProfile.name} />
-	<meta name="twitter:description" content={siteProfile.description} />
-	<meta name="twitter:image" content={shareImageUrl} />
+	<meta property="og:url" content={meta.url} />
+	<meta property="og:title" content={meta.title} />
+	<meta property="og:description" content={meta.description} />
+	<meta property="og:image" content={meta.image} />
+	<meta property="og:image:alt" content={meta.imageAlt} />
+	<meta name="twitter:card" content={meta.card} />
+	<meta name="twitter:title" content={meta.title} />
+	<meta name="twitter:description" content={meta.description} />
+	<meta name="twitter:image" content={meta.image} />
 </svelte:head>
 <ModeWatcher />
 <SiteAnalytics />

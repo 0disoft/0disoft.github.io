@@ -34,7 +34,6 @@ function getPostHref(slug: string): string {
 
 <svelte:head>
 	<title>{post.title} · {siteProfile.name}</title>
-	<meta name="description" content={post.summary} />
 	</svelte:head>
 
 	<article class="indiehackers" aria-labelledby="post-title">
