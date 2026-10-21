@@ -5,6 +5,14 @@ import { load as loadLayout } from "../../routes/+layout.server";
 vi.mock("$lib/paraglide/runtime", () => ({ getLocale: () => "en" }));
 
 describe("localized indiehackers delivery", () => {
+	it("omits the catalog from home and article responses", async () => {
+		for (const path of ["/", "/ko/", "/ko/indiehackers/carrd/"]) {
+			const layout = await loadLayout({ url: new URL(path, "https://example.test") } as Parameters<
+				typeof loadLayout
+			>[0]);
+			expect(layout.indiehackersPosts).toEqual([]);
+		}
+	});
 	it("returns localized indiehackers copy from the layout", async () => {
 		for (const locale of ["en", "ko"] as const) {
 			const layout = await loadLayout({

@@ -6,11 +6,17 @@ import {
 	getAdjacentIndiehackersPosts,
 	getIndiehackersPostEntries,
 	getIndiehackersPostForLocale,
+	getIndiehackersPostTagLabels,
 	indiehackersPostDetails,
 	indiehackersPosts,
 } from "$lib/server/indiehackers-posts";
 import { getPathLocale } from "$lib/site-locales";
-import { getStoryCollectionForSlug, getStoryCollectionPosts } from "$lib/story-collections";
+import {
+	getStoryCollectionForSlug,
+	getStoryCollectionPosts,
+	getStoryPosts,
+	getStoryPostTagLabels,
+} from "$lib/story-collections";
 
 export const prerender = true;
 
@@ -25,8 +31,12 @@ export const load = (({ params, url }) => {
 	}
 
 	const collection = getStoryCollectionForSlug(params.slug);
+	const story = collection ? getStoryPosts(collection, [post])[0] : null;
 	return {
 		post,
+		tagLabels: story
+			? getStoryPostTagLabels(story, post.locale)
+			: getIndiehackersPostTagLabels(post),
 		bodyHtml: renderArticleMarkdown(post.body),
 		collection,
 		adjacentPosts: getAdjacentIndiehackersPosts(

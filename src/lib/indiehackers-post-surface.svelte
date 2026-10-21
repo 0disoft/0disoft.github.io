@@ -1,7 +1,6 @@
 <script lang="ts">
 	import IndiehackersShareToolbar from "$lib/indiehackers-share-toolbar.svelte";
 	import {
-		getIndiehackersPostTagLabels,
 		type IndiehackersPost,
 		type IndiehackersPostDetail,
 	} from "$lib/indiehackers-posts";
@@ -9,21 +8,16 @@
 	import { siteProfile } from "$lib/site-profile";
 	import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
-	import { page } from "$app/state";
-	import { getStoryPosts, getStoryPostTagLabels, type StoryCollection } from "$lib/story-collections";
+	import type { StoryCollection } from "$lib/story-collections";
 
-	let { data, collection = null }: { data: { post: IndiehackersPostDetail; bodyHtml: string; adjacentPosts: { previous: IndiehackersPost | null; next: IndiehackersPost | null } }; collection?: StoryCollection | null } = $props();
+	let { data, collection = null }: { data: { post: IndiehackersPostDetail; bodyHtml: string; tagLabels: string[]; adjacentPosts: { previous: IndiehackersPost | null; next: IndiehackersPost | null } }; collection?: StoryCollection | null } = $props();
 
 const locale = $derived(getLocale());
 const displayLocale = $derived(isSiteLocale(locale) ? locale : "en");
 const selectedLocale = $derived(displayLocale);
 const post = $derived(data.post);
-const sourcePosts: readonly IndiehackersPost[] = $derived(page.data.indiehackersPosts);
 const adjacentPosts = $derived(data.adjacentPosts);
-const tagLabels = $derived.by(() => {
-	const entry = collection ? getStoryPosts(collection, sourcePosts).find((item) => item.slug === post.slug) : null;
-	return entry ? getStoryPostTagLabels(entry, displayLocale) : getIndiehackersPostTagLabels(post);
-});
+const tagLabels = $derived(data.tagLabels);
 const shareUrl = $derived(
 	new URL(
 		localizeSitePathname(`/indiehackers/${post.slug}`, selectedLocale),

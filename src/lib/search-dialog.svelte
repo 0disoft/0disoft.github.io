@@ -5,7 +5,7 @@
 	import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
 	import { toDisplayLocale } from "$lib/site-labels";
-	import { filterIndiehackersPosts } from "$lib/indiehackers-posts";
+	import { filterIndiehackersPosts, type IndiehackersPost } from "$lib/indiehackers-posts";
 	import { localizeSitePathname } from "$lib/site-locales";
 	import { isEditableKeyboardTarget, isModifiedKeyEvent } from "$lib/site-keyboard";
 	import IconButton from "$lib/ui/icon-button.svelte";
@@ -28,6 +28,7 @@
 	let pagefindModule: PagefindModule | null = null;
 	let requestSequence = 0;
 	let searchTimer: ReturnType<typeof setTimeout> | undefined;
+	const fallbackIndexes = new Map<string, IndiehackersPost[]>();
 
 	const displayLocale = $derived(toDisplayLocale(getLocale()));
 
@@ -82,20 +83,31 @@
 			});
 			if (requestId !== requestSequence) return;
 			results = loadedResults;
-			if (incomplete) recoverSearch(term);
+			if (incomplete) await recoverSearch(term, requestId);
 			status = "ready";
 		} catch {
 			if (requestId !== requestSequence) {
 				return;
 			}
 
-			recoverSearch(term);
+			try { await recoverSearch(term, requestId); } catch { /* Keep any healthy Pagefind results. */ }
+			if (requestId !== requestSequence) return;
 			status = results.length > 0 ? "ready" : "unavailable";
 		}
 	}
 
-	function recoverSearch(term: string) {
-			const fallback = filterIndiehackersPosts(page.data.indiehackersPosts, {
+	async function recoverSearch(term: string, requestId: number) {
+			const locale = displayLocale;
+			let posts = page.data.indiehackersPosts;
+			if (posts.length === 0) {
+				posts = fallbackIndexes.get(locale) ?? await withSearchTimeout(fetch(`/search-index/${locale}.json`).then((response) => {
+					if (!response.ok) throw new Error("Search index unavailable");
+					return response.json() as Promise<IndiehackersPost[]>;
+				}));
+				fallbackIndexes.set(locale, posts);
+			}
+			if (requestId !== requestSequence) return;
+			const fallback = filterIndiehackersPosts(posts, {
 				query: term,
 				tags: [],
 				recentOnly: false,
