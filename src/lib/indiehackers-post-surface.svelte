@@ -195,6 +195,21 @@ function getPostHref(slug: string): string {
 		margin: 0;
 	}
 
+	.indiehackers-body :global(a) {
+		text-decoration: underline;
+		text-underline-offset: 0.15em;
+	}
+
+	.indiehackers-body :global(ul) {
+		list-style: disc;
+		padding-left: 1.5em;
+	}
+
+	.indiehackers-body :global(ol) {
+		list-style: decimal;
+		padding-left: 1.5em;
+	}
+
 	.indiehackers-body :global(h2) {
 		margin: 0.75rem 0 0;
 		font-size: 1.32rem;

@@ -84,6 +84,7 @@
 			if (requestId !== requestSequence) return;
 			results = loadedResults;
 			if (incomplete) await recoverSearch(term, requestId);
+			if (requestId !== requestSequence) return;
 			status = "ready";
 		} catch {
 			if (requestId !== requestSequence) {
