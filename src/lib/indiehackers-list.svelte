@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { browser } from "$app/environment";
-	import { pushState, replaceState } from "$app/navigation";
+	import { afterNavigate, pushState, replaceState } from "$app/navigation";
 	import { page } from "$app/state";
 	import { onMount } from "svelte";
 	import ChevronDown from "@lucide/svelte/icons/chevron-down";
@@ -114,8 +114,14 @@
 		}
 	}
 
+	afterNavigate(syncFiltersFromUrl);
+
+	function submitFilters(event: SubmitEvent) {
+		event.preventDefault();
+		replaceState(createIndiehackersFilterHref(filters), page.state);
+	}
+
 	onMount(() => {
-		syncFiltersFromUrl();
 		filterFormElement?.addEventListener("keydown", handleFilterBarKeydown);
 
 		window.addEventListener("popstate", syncFiltersFromUrl);
@@ -238,6 +244,7 @@
 	<form
 		class="indiehackers-filters"
 		method="GET"
+		onsubmit={submitFilters}
 		action={indiehackersAction}
 		aria-labelledby="indiehackers-filter-title"
 		bind:this={filterFormElement}
