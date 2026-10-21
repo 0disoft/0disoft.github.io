@@ -149,7 +149,7 @@
 			return;
 		}
 
-		if (document.querySelector<HTMLDialogElement>(".settings-dialog")?.open) {
+		if (document.querySelector("dialog[open]")) {
 			return;
 		}
 

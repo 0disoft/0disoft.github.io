@@ -100,8 +100,8 @@
 		advertisingConsent = value === "granted";
 	}));
 
-	function isSettingsDialogOpen(): boolean {
-		return settingsDialog?.open === true;
+	function isModalDialogOpen(): boolean {
+		return document.querySelector("dialog[open]") !== null;
 	}
 
 	function focusSettingsControl(id: string) {
@@ -241,7 +241,7 @@
 			return;
 		}
 
-		if (isSettingsDialogOpen()) {
+		if (isModalDialogOpen()) {
 			return;
 		}
 
