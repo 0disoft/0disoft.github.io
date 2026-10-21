@@ -11,6 +11,7 @@
 	import {
 		readStoredAdvertisingConsentValue,
 		writeStoredAdvertisingConsent,
+		subscribeAdvertisingConsent,
 	} from "$lib/site-advertising-consent";
 	import { isSiteAdvertisingConfigured } from "$lib/site-advertising";
 	import { toDisplayLocale } from "$lib/site-labels";
@@ -25,11 +26,14 @@
 			return;
 		}
 
-		return subscribeAnalyticsConsent(() => {
+		const refresh = () => {
 			visible =
 				(analyticsConfigured && readStoredAnalyticsConsentValue() === null) ||
 				(advertisingConfigured && readStoredAdvertisingConsentValue() === null);
-		});
+		};
+		const unsubscribeAnalytics = subscribeAnalyticsConsent(refresh);
+		const unsubscribeAdvertising = subscribeAdvertisingConsent(refresh);
+		return () => { unsubscribeAnalytics(); unsubscribeAdvertising(); };
 	});
 
 	function acceptConfiguredServices() {

@@ -54,6 +54,7 @@
 	import {
 		readStoredAdvertisingConsent,
 		writeStoredAdvertisingConsent,
+		subscribeAdvertisingConsent,
 	} from "$lib/site-advertising-consent";
 	import { isSiteAdvertisingConfigured } from "$lib/site-advertising";
 	import type { SiteLocale } from "$lib/site-locales";
@@ -95,6 +96,9 @@
 		}),
 	);
 	let advertisingConsent = $state(false);
+	$effect(() => subscribeAdvertisingConsent((value) => {
+		advertisingConsent = value === "granted";
+	}));
 
 	function isSettingsDialogOpen(): boolean {
 		return settingsDialog?.open === true;
