@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from "$app/navigation";
 	import type { Component } from "svelte";
 	import { tick } from "svelte";
 	import FileText from "@lucide/svelte/icons/file-text";
@@ -233,7 +234,7 @@
 	}
 
 	function navigateToSection(path: SiteSectionPath) {
-		window.location.assign(localizeSitePathname(path, getSettingsLocale()));
+		void goto(localizeSitePathname(path, getSettingsLocale()));
 	}
 
 	function handleGlobalKeydown(event: KeyboardEvent) {

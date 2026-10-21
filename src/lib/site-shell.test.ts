@@ -243,6 +243,7 @@ describe("site shell", () => {
 	});
 
 	it("uses routed navigation without a duplicate home body", () => {
+		expect(sidebarSource).toContain("void goto(localizeSitePathname(path, getSettingsLocale()))");
 		expect(siteSurfaceSource).toContain('href={localizeSitePathname("/", selectedLocale)}');
 		expect(siteSurfaceSource).not.toContain('href="#');
 		expect(getSiteSurfaceSectionKind("/")).toBe("home");
