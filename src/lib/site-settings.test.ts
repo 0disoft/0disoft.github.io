@@ -30,6 +30,19 @@ import {
 } from "./test-support/site-test-sources";
 
 describe("site settings", () => {
+	it("restricts Pages and OIDC write access to deployment", () => {
+		const [header, jobs] = deployWorkflowSource.split("jobs:");
+		const [build, deploy] = jobs.split("  deploy:");
+		for (const source of [header, build]) {
+			expect(source).not.toContain("pages: write");
+			expect(source).not.toContain("id-token: write");
+		}
+		expect(deploy).toContain("pages: write");
+		expect(deploy).toContain("id-token: write");
+		expect(build).not.toContain("actions/configure-pages");
+		expect(deploy).toContain("actions/configure-pages");
+	});
+
 	it("shares theme tokens across routes and distinguishes selected controls from hover", () => {
 		for (const token of ["background", "foreground"]) {
 			expect(layoutCss).toContain(`--mode-control-selected-${token}:`);
