@@ -26,8 +26,8 @@ export function createGa4ScriptSrc(measurementId: string): string {
 
 export function createGa4PageViewPayload(url: URL, title: string): Ga4PageViewPayload {
 	return {
-		page_location: url.href,
-		page_path: `${url.pathname}${url.search}`,
+		page_location: `${url.origin}${url.pathname}`,
+		page_path: url.pathname,
 		page_title: title,
 	};
 }

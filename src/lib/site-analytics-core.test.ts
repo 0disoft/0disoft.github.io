@@ -34,10 +34,23 @@ describe("site analytics core", () => {
 				"크레딧 차감 순서를 설계하는 법",
 			),
 		).toEqual({
-			page_location:
-				"https://0disoft.github.io/ko/blog/credit-lot-spend-expiry-design/?tag=payments",
-			page_path: "/ko/blog/credit-lot-spend-expiry-design/?tag=payments",
+			page_location: "https://0disoft.github.io/ko/blog/credit-lot-spend-expiry-design/",
+			page_path: "/ko/blog/credit-lot-spend-expiry-design/",
 			page_title: "크레딧 차감 순서를 설계하는 법",
+		});
+	});
+
+	it("excludes queries, fragments and credentials from page-view URLs", () => {
+		const payload = createGa4PageViewPayload(
+			new URL(
+				"https://user:secret@0disoft.github.io/indiehackers/?q=private@example.test&token=secret#private-note",
+			),
+			"Stories",
+		);
+		expect(payload).toEqual({
+			page_location: "https://0disoft.github.io/indiehackers/",
+			page_path: "/indiehackers/",
+			page_title: "Stories",
 		});
 	});
 });
