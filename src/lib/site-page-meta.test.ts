@@ -16,7 +16,9 @@ describe("page sharing metadata", () => {
 		expect(meta.description).toBe("글 요약");
 		expect(meta.url).toBe("https://0disoft.github.io/ko/indiehackers/example/");
 		expect(meta.type).toBe("article");
-		expect(meta.image).toBe("https://0disoft.github.io/images/indiehackers/example.webp");
+		expect(meta.image).toBe(
+			"https://0disoft.github.io/images/indiehackers/responsive/example-1440.webp",
+		);
 		expect(getSitePageMeta("/ko/").type).toBe("website");
 	});
 });

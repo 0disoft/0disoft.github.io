@@ -3,6 +3,7 @@
 	import { afterNavigate, pushState, replaceState } from "$app/navigation";
 	import { page } from "$app/state";
 	import { onMount } from "svelte";
+	import ArticleCover from "$lib/article-cover.svelte";
 	import ChevronDown from "@lucide/svelte/icons/chevron-down";
 	import Search from "@lucide/svelte/icons/search";
 	import SlidersHorizontal from "@lucide/svelte/icons/sliders-horizontal";
@@ -367,7 +368,7 @@
 				<a class="lead-link" href={getIndiehackersPostHref(leadPost.slug)}>
 					{#if leadPost.coverImage}
 						<span class="cover cover-lead">
-							<img src={leadPost.coverImage} alt="" width="1440" height="810" loading="eager" decoding="async" />
+							<ArticleCover src={leadPost.coverImage} sizes="(max-width: 48rem) calc(100vw - 2rem), (max-width: 113rem) calc(62vw - 15.5rem), 880px" loading="eager" />
 						</span>
 					{/if}
 					<div class="card-body">
@@ -400,7 +401,7 @@
 						<a class="side-link" href={getIndiehackersPostHref(post.slug)}>
 							{#if post.coverImage}
 								<span class="cover cover-side">
-									<img src={post.coverImage} alt="" width="1440" height="810" loading="lazy" decoding="async" />
+									<ArticleCover src={post.coverImage} sizes="(max-width: 48rem) calc(100vw - 2rem), (max-width: 113rem) calc(38vw - 9.5rem), 540px" />
 								</span>
 							{/if}
 							<div class="card-body">
@@ -432,7 +433,7 @@
 						<a class="indiehackers-card-link" href={getIndiehackersPostHref(post.slug)}>
 							{#if post.coverImage}
 								<span class="cover cover-rest">
-									<img src={post.coverImage} alt="" width="1440" height="810" loading="lazy" decoding="async" />
+									<ArticleCover src={post.coverImage} sizes="(max-width: 48rem) calc(100vw - 2rem), (max-width: 113rem) calc(33vw - 9rem), 460px" />
 								</span>
 							{/if}
 							<div class="card-body">
@@ -491,7 +492,7 @@
 	.lead-card, .side-card, .indiehackers-card { min-width: 0; }
 	.lead-link, .side-link, .indiehackers-card-link { display: grid; gap: 0.85rem; color: inherit; text-decoration: none; }
 	.cover { display: block; overflow: hidden; border-radius: 5px; aspect-ratio: 16 / 9; background: var(--muted); }
-	.cover img { display: block; width: 100%; height: 100%; object-fit: cover; }
+	.cover :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; }
 	.cover-side { aspect-ratio: 3 / 1; }
 	.card-body { display: grid; min-width: 0; gap: 0.55rem; }
 	.eyebrow { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.25rem 0.75rem; align-items: baseline; font-size: 0.875rem; color: var(--muted-foreground); }

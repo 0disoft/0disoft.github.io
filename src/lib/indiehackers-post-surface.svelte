@@ -1,5 +1,6 @@
 <script lang="ts">
 	import IndiehackersShareToolbar from "$lib/indiehackers-share-toolbar.svelte";
+	import ArticleCover from "$lib/article-cover.svelte";
 	import {
 		type IndiehackersPost,
 		type IndiehackersPostDetail,
@@ -89,7 +90,7 @@ function getPostHref(slug: string): string {
 					</span>
 					<span class="adjacent-card-cover" aria-hidden="true">
 						{#if adjacentPosts.previous.coverImage}
-							<img src={adjacentPosts.previous.coverImage} alt="" width="1440" height="810" loading="lazy" decoding="async" />
+							<ArticleCover src={adjacentPosts.previous.coverImage} sizes="(max-width: 28rem) calc(100vw - 4rem), 144px" />
 						{:else}
 							<span>←</span>
 						{/if}
@@ -114,7 +115,7 @@ function getPostHref(slug: string): string {
 					</span>
 					<span class="adjacent-card-cover" aria-hidden="true">
 						{#if adjacentPosts.next.coverImage}
-							<img src={adjacentPosts.next.coverImage} alt="" width="1440" height="810" loading="lazy" decoding="async" />
+							<ArticleCover src={adjacentPosts.next.coverImage} sizes="(max-width: 28rem) calc(100vw - 4rem), 144px" />
 						{:else}
 							<span>→</span>
 						{/if}
@@ -339,7 +340,7 @@ function getPostHref(slug: string): string {
 		font-size: 2rem;
 	}
 
-	.adjacent-card-cover img {
+	.adjacent-card-cover :global(img) {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
