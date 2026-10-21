@@ -45,8 +45,30 @@ describe("site meta files", () => {
 		]);
 		expect(xml).toContain("<title>A &amp; &lt;B&gt;</title>");
 		expect(xml).toContain("<description>A &quot;quote&quot; &amp; summary</description>");
-		expect(xml).toContain("<pubDate>Tue, 22 Sep 2026 00:00:00 GMT</pubDate>");
+		expect(xml).toContain("<pubDate>Mon, 21 Sep 2026 15:00:00 GMT</pubDate>");
 		expect(xml).toContain("<category>SaaS</category>");
+	});
+	it("publishes at Seoul midnight, consistently with the story list", async () => {
+		const { createRecentPublicationDatePredicate } = await import("./indiehackers-posts");
+		const post: IndiehackersPost = {
+			slug: "new",
+			locale: "ko",
+			title: "New",
+			summary: "Summary",
+			publishedAt: "2026-10-19",
+			tags: ["saas"],
+		};
+		for (const [time, published] of [
+			["2026-10-18T23:59:59+09:00", false],
+			["2026-10-19T00:00:00+09:00", true],
+			["2026-10-19T08:59:59+09:00", true],
+		] as const) {
+			const now = new Date(time);
+			expect(createRecentPublicationDatePredicate(now)(post.publishedAt)).toBe(published);
+			expect(extractRssItemUrls(buildRssXml(origin, [post], "ko", now)).length).toBe(
+				published ? 1 : 0,
+			);
+		}
 	});
 	it("builds crawler discovery files from the site profile", () => {
 		const robotsText = buildRobotsText(origin);

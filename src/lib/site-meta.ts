@@ -6,6 +6,7 @@ import {
 	type SiteLocale,
 } from "$lib/site-locales";
 import { siteProfile } from "$lib/site-profile";
+import { getPublicationCalendarDate, getPublicationStartDate } from "$lib/site-publication-date";
 import { getIndiehackersPostTagLabels, type IndiehackersPost } from "$lib/indiehackers-posts";
 
 export { indexedSiteLocales };
@@ -119,7 +120,7 @@ export function buildRssXml(
 	locale: SiteLocale = defaultRssFeedLocale,
 	now: Date = new Date(),
 ): string {
-	const today = now.toISOString().slice(0, 10);
+	const today = getPublicationCalendarDate(now);
 	const items = posts
 		.filter((post) => post.locale === locale && post.publishedAt <= today)
 		.toSorted(
@@ -139,7 +140,7 @@ export function buildRssXml(
 				`      <link>${url}</link>`,
 				`      <guid isPermaLink="true">${url}</guid>`,
 				`      <description>${escapeXml(post.summary)}</description>`,
-				`      <pubDate>${new Date(`${post.publishedAt}T00:00:00Z`).toUTCString()}</pubDate>`,
+				`      <pubDate>${getPublicationStartDate(post.publishedAt).toUTCString()}</pubDate>`,
 				...getIndiehackersPostTagLabels(post).map(
 					(tag) => `      <category>${escapeXml(tag)}</category>`,
 				),

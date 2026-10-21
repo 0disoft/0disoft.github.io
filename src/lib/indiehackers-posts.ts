@@ -1,3 +1,5 @@
+import { getPublicationCalendarDate } from "$lib/site-publication-date";
+
 export const indiehackersTagGroups = [
 	{ id: "product", label: "Product" },
 	{ id: "platform", label: "Platform" },
@@ -301,13 +303,6 @@ export function filterIndiehackersPosts(
 	});
 }
 
-const publicationCalendar = new Intl.DateTimeFormat("en-US", {
-	timeZone: "Asia/Seoul",
-	year: "numeric",
-	month: "numeric",
-	day: "numeric",
-});
-
 export function isRecentIndiehackersPost(publishedAt: string, now: Date = new Date()): boolean {
 	return createRecentPublicationDatePredicate(now)(publishedAt);
 }
@@ -317,14 +312,7 @@ export function createRecentPublicationDatePredicate(
 ): (publishedAt: string) => boolean {
 	if (Number.isNaN(now.getTime())) return () => false;
 	// Articles use the publisher's Seoul calendar, including on UTC build runners.
-	const parts = publicationCalendar.formatToParts(now);
-	const today = new Date(
-		Date.UTC(
-			Number(parts.find((part) => part.type === "year")?.value),
-			Number(parts.find((part) => part.type === "month")?.value) - 1,
-			Number(parts.find((part) => part.type === "day")?.value),
-		),
-	);
+	const today = new Date(`${getPublicationCalendarDate(now)}T00:00:00Z`);
 	const cutoff = new Date(today);
 	cutoff.setUTCFullYear(today.getUTCFullYear() - 1);
 	if (cutoff.getUTCMonth() !== today.getUTCMonth()) {
