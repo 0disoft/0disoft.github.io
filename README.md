@@ -26,13 +26,16 @@ hooks run Svelte checking and the production build.
 
 The bounded search browser check (`scripts/check-search-browser.mjs`) exercises
 the built Pagefind index and delayed search responses, including clear and
-close/reopen races. Build the site and index first. The check requires Chrome and
+close/reopen races. Build the site and index first. The check requires Chrome or Edge and
 `playwright-core`; its optional first argument is an installed driver entrypoint.
-In the workspace, use the configured `zero_disoft_github_io_search_browser` intent.
 It serves build assets through browser request interception without a dev server.
 
-The browser check also toggles reduced motion at runtime and filters both blog
-and work lists, checking that list fades stop and resume with the preference.
+The filter check (`scripts/check-indiehackers-filters.mjs`) derives counts from
+the current story catalog and checks search, facets, history and WebP covers on
+desktop and mobile. The advertising check (`scripts/check-ads-browser.mjs`) uses
+an offline provider stub to verify consent, revocation and article navigation.
+Both accept the same optional driver entrypoint; `BROWSER_CHANNEL` overrides the
+default browser (Edge on Windows, Chrome elsewhere).
 
 Pagefind indexes the shared main content area (`data-pagefind-body`), excluding
 sidebar/settings chrome, share tools, image previews and ad placeholders. Public
