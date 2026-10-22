@@ -1,6 +1,7 @@
 <script lang="ts">
 	import IndiehackersShareToolbar from "$lib/indiehackers-share-toolbar.svelte";
 	import ArticleCover from "$lib/article-cover.svelte";
+	import ArticleAd from "$lib/article-ad.svelte";
 	import {
 		type IndiehackersPost,
 	} from "$lib/indiehackers-posts";
@@ -53,6 +54,7 @@ function getPostHref(slug: string): string {
 	<div class="indiehackers-reading-layout">
 		<div class="indiehackers-body">
 			{@html data.bodyHtml}
+			{#key post.slug}<ArticleAd />{/key}
 		</div>
 
 		<aside class="indiehackers-sidecar" data-pagefind-ignore="all">

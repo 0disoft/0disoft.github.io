@@ -65,25 +65,40 @@ export function loadGoogleAdScript(clientId: string): Promise<boolean> {
 		return scriptLoadPromise;
 	}
 
-	const existingScript = document.getElementById(googleAdScriptId);
-
-	if (existingScript) {
-		scriptLoadPromise = Promise.resolve(true);
-		return scriptLoadPromise;
-	}
-
-	scriptLoadPromise = new Promise((resolve) => {
-		const script = document.createElement("script");
-		script.id = googleAdScriptId;
-		script.async = true;
-		script.crossOrigin = "anonymous";
-		script.src = createGoogleAdScriptSrc(clientId);
-		script.onload = () => resolve(true);
-		script.onerror = () => resolve(false);
-		document.head.append(script);
+	const attempt = new Promise<boolean>((resolve) => {
+		const existing = document.getElementById(googleAdScriptId) as HTMLScriptElement | null;
+		if (existing?.dataset.loaded === "true") {
+			resolve(true);
+			return;
+		}
+		const script = existing ?? document.createElement("script");
+		let settled = false;
+		const timer = setTimeout(() => finish(false), 10_000);
+		function finish(loaded: boolean) {
+			if (settled) return;
+			settled = true;
+			clearTimeout(timer);
+			script.onload = null;
+			script.onerror = null;
+			if (loaded) script.dataset.loaded = "true";
+			else script.remove();
+			resolve(loaded);
+		}
+		script.onload = () => finish(true);
+		script.onerror = () => finish(false);
+		if (!existing) {
+			script.id = googleAdScriptId;
+			script.async = true;
+			script.crossOrigin = "anonymous";
+			script.src = createGoogleAdScriptSrc(clientId);
+			document.head.append(script);
+		}
 	});
-
-	return scriptLoadPromise;
+	scriptLoadPromise = attempt;
+	void attempt.then((loaded) => {
+		if (!loaded && scriptLoadPromise === attempt) scriptLoadPromise = null;
+	});
+	return attempt;
 }
 
 export function requestGoogleAdRender(): boolean {
