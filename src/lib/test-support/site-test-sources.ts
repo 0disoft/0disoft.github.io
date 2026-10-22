@@ -1,37 +1,7 @@
-import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { readFileSync } from "node:fs";
 
 function readRequiredText(path: string): string {
 	return readFileSync(new URL(path, import.meta.url), "utf8");
-}
-
-function collectRelativeFiles(rootPath: string, suffix: string): string[] {
-	const rootUrl = new URL(rootPath, import.meta.url);
-
-	if (!existsSync(rootUrl)) {
-		return [];
-	}
-
-	const rootUrlPath = rootUrl.pathname;
-	const paths: string[] = [];
-
-	function visit(directoryUrl: URL) {
-		for (const entry of readdirSync(directoryUrl, { withFileTypes: true })) {
-			const entryUrl = new URL(`${entry.name}${entry.isDirectory() ? "/" : ""}`, directoryUrl);
-
-			if (entry.isDirectory()) {
-				visit(entryUrl);
-				continue;
-			}
-
-			if (entry.name === suffix || entry.name.endsWith(suffix)) {
-				paths.push(decodeURIComponent(entryUrl.pathname.slice(rootUrlPath.length)));
-			}
-		}
-	}
-
-	visit(rootUrl);
-
-	return paths.sort();
 }
 
 export const routeSource = readRequiredText("../../routes/+page.svelte");
