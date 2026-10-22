@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "bun run images && vite dev",
-    "build": "bun run images && vite build",
+    "build": "bun run images && vite build && bun scripts/optimize-build-images.mjs",
     "images": "bun scripts/article-cover-images.mjs",
     "build:index": "bun run paraglide && bun run build && bun run index",
     "preview": "vite preview",
