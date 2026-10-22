@@ -5,6 +5,7 @@ import { tmpdir } from "node:os";
 import sharp from "sharp";
 import { prepareArticleCovers } from "../../scripts/article-cover-images.mjs";
 
+/** @type {string | undefined} */
 let root;
 afterEach(async () => {
 	if (root) await rm(root, { recursive: true, force: true });
@@ -21,6 +22,7 @@ it("reuses content across checkouts and rebuilds changed or missing covers", asy
 		JSON.stringify({ coverImage: "/images/indiehackers/example.webp" }),
 	);
 	const source = join(images, "example.webp");
+	/** @param {string} background */
 	const image = (background) =>
 		sharp({ create: { width: 32, height: 18, channels: 3, background } })
 			.webp()

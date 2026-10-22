@@ -18,6 +18,7 @@ export async function prepareArticleCovers(repositoryRoot = root) {
 	const previous = await readFile(manifestPath, "utf8")
 		.then((text) => JSON.parse(text))
 		.catch(() => ({}));
+	/** @type {Record<string, string>} */
 	const manifest = {};
 	let generated = 0;
 	for (const entry of await readdir(content, { withFileTypes: true })) {
