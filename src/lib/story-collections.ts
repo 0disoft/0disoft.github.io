@@ -1,4 +1,5 @@
-import * as m from "$lib/paraglide/messages";
+import { getStoryLabel } from "$lib/story-labels";
+export { getStoryLabel } from "$lib/story-labels";
 import {
 	createRecentPublicationDatePredicate,
 	type IndiehackersPost,
@@ -92,15 +93,6 @@ export const storyCatalogs: Record<StoryCollection, Record<string, readonly stri
 		],
 	},
 } as const;
-
-export function getStoryLabel(id: string, locale: SiteLocale): string {
-	const key = `stories_${id.replaceAll("-", "_")}`;
-	const message = (
-		m as unknown as Record<string, (params: object, options: { locale: SiteLocale }) => string>
-	)[key];
-	if (!message) throw new Error(`Missing story filter label: ${key}`);
-	return message({}, { locale });
-}
 
 export function getStoryTags(collection: StoryCollection): string[] {
 	return Object.values(storyCatalogs[collection]).flatMap((tags) => [...tags]);
