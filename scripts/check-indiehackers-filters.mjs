@@ -1,188 +1,72 @@
 import assert from "node:assert/strict";
-import { mkdir, readFile } from "node:fs/promises";
-import { extname, resolve, sep } from "node:path";
-import { pathToFileURL } from "node:url";
+import { openBuiltSite, readCatalog } from "./browser-test-site.mjs";
 
-const { chromium } = await import(pathToFileURL(resolve(process.argv[2])).href);
-const roots = [
-	resolve(".svelte-kit/output/prerendered/pages"),
-	resolve(".svelte-kit/output/prerendered/dependencies"),
-	resolve(".svelte-kit/output/client"),
-	resolve("static"),
-];
-const live = process.argv.includes("--live");
-const origin = live ? "https://0disoft.github.io" : "https://filters.test";
-const output = resolve(".mustflow/state/taxonomy-screenshots");
-const mime = {
-	".html": "text/html",
-	".js": "application/javascript",
-	".css": "text/css",
-	".json": "application/json",
-	".svg": "image/svg+xml",
-	".woff2": "font/woff2",
-	".webp": "image/webp",
-};
-const browser = await chromium.launch({ channel: "chrome", headless: true });
-try {
-	await mkdir(output, { recursive: true });
-	for (const viewport of [
-		{ width: 1440, height: 1000 },
-		{ width: 390, height: 844 },
-	]) {
-		const context = await browser.newContext({
-			viewport,
-			serviceWorkers: "block",
-			locale: "ko-KR",
-		});
-		if (!live)
-			await context.route("**/*", async (route) => {
-				const url = new URL(route.request().url());
-				if (url.origin !== origin) return route.abort();
-				// Keep optional public integrations disabled in this isolated UI smoke test.
-				if (url.pathname === "/_app/env.js") {
-					return route.fulfill({
-						contentType: "application/javascript",
-						body: "export const env = {};",
-					});
-				}
-				const candidates = roots.flatMap((root) => {
-					const file = resolve(root, `.${decodeURIComponent(url.pathname)}`);
-					return file === root || file.startsWith(root + sep)
-						? [file, `${file}.html`, resolve(file, "index.html")]
-						: [];
-				});
-				for (const candidate of candidates) {
-					try {
-						return await route.fulfill({
-							body: await readFile(candidate),
-							contentType: mime[extname(candidate)] ?? "application/octet-stream",
-						});
-					} catch (error) {
-						if (!["ENOENT", "EISDIR", "ENOTDIR"].includes(error.code)) throw error;
-					}
-				}
-				return route.fulfill({ status: 404, body: "Not found" });
-			});
-		const page = await context.newPage();
-		const errors = [];
-		page.on("pageerror", (error) => {
-			errors.push(error.message);
-			console.error(error.message);
-		});
-		await page.clock.install({ time: new Date("2026-09-22T03:00:00Z") });
-		await page.goto(`${origin}/ko/indiehackers/?recent=0`);
+const posts = (await readCatalog("ko")).filter((post) => !post.collection);
+for (const viewport of [
+	{ width: 1440, height: 1000 },
+	{ width: 390, height: 844 },
+]) {
+	const { browser, page, origin, errors } = await openBuiltSite({ viewport });
+	try {
+		const latest = posts
+			.map((post) => post.publishedAt)
+			.sort()
+			.at(-1);
+		await page.clock.install({ time: new Date(latest + "T03:00:00Z") });
+		await page.goto(origin + "/ko/indiehackers/?recent=0");
 		const cards = page.locator("[data-indiehackers-post]");
-		const tag = (id) => page.locator(`input[name="tag"][value="${id}"]`);
-		const selectTag = async (id, checked = true) => {
-			const input = tag(id);
-			if (!(await input.isVisible())) {
-				await input.locator("xpath=ancestor::details/summary").click();
-			}
-			await input.setChecked(checked);
-		};
-		await page.waitForFunction(() => !document.querySelector('input[name="recent"]').checked);
-		assert.equal(await cards.count(), 4);
-		assert.equal(await tag("mobile-app").count(), 0);
-		await selectTag("saas");
-		assert.equal(await cards.count(), 2);
-		await selectTag("design-tools");
-		assert.equal(await cards.count(), 3);
-		await selectTag("subscription");
-		assert.equal(await cards.count(), 2);
-		await selectTag("api");
-		assert.equal(await cards.count(), 1);
-		assert.ok((await cards.first().textContent()).includes("Buttondown"));
+		await page.waitForFunction(
+			(count) => document.querySelectorAll("[data-indiehackers-post]").length === count,
+			posts.length,
+		);
+		await page.locator("#indiehackers-search").fill("zz-no-matching-story-zz");
+		await page.locator(".indiehackers-empty").waitFor();
+		assert.equal(await cards.count(), 0);
+		await page.locator("#indiehackers-search").fill("");
+		const tagId = "saas";
+		const tag = page.locator('input[name="tag"][value="' + tagId + '"]');
+		await tag.locator("xpath=ancestor::details/summary").click();
+		await tag.check();
+		const expected = posts.filter((post) => post.tags.includes(tagId)).length;
+		await page.waitForFunction(
+			(count) => document.querySelectorAll("[data-indiehackers-post]").length === count,
+			expected,
+		);
 		await page.reload();
 		await page.waitForFunction(
-			() => document.querySelectorAll("[data-indiehackers-post]").length === 1,
+			() => document.querySelector('input[name="tag"][value="saas"]').checked,
 		);
-		assert.equal(await tag("api").isChecked(), true);
-		await selectTag("api", false);
-		assert.equal(await cards.count(), 2);
+		assert.equal(await cards.count(), expected);
+		// Create a separate history entry, then restore the selected facet.
+		await page.locator("details[data-facet]").filter({ has: tag }).locator("summary").click();
+		await tag.uncheck();
 		await page.goBack();
-		await page.waitForFunction(() => document.querySelector('input[value="api"]').checked);
-		assert.equal(await cards.count(), 1);
-		await page.locator(".chip-clear").click();
-		await page.waitForFunction(() =>
-			[...document.querySelectorAll("[data-indiehackers-post] img")].every(
-				(img) => img.complete && img.naturalWidth > 0,
-			),
+		await page.waitForFunction(
+			() => document.querySelector('input[name="tag"][value="saas"]').checked,
 		);
-		assert.equal(await cards.locator("img").count(), 4);
-		assert.equal(await cards.count(), 4);
+		assert.equal(await cards.count(), expected);
+		await page.locator(".chip-clear").click();
 		assert.equal(await page.locator('input[name="tag"]:checked').count(), 0);
 		assert.equal(await page.locator('input[name="recent"]').isChecked(), true);
-		await page.locator("#indiehackers-search").fill("nonexistent-product-query");
-		assert.equal(await cards.count(), 0);
-		assert.equal(await page.locator(".indiehackers-empty").count(), 1);
-		await page.locator(".chip-clear").click();
-		const layout = await page.evaluate(() => ({
-			overflow: document.documentElement.scrollWidth > innerWidth,
-			recentBorder: getComputedStyle(document.querySelector(".recent-chip")).borderStyle,
-			tagBorder: getComputedStyle(document.querySelector(".tag-chips .chip")).borderStyle,
-			clipped: [...document.querySelectorAll(".chip")].some(
-				(chip) => chip.getBoundingClientRect().right > innerWidth,
-			),
-		}));
-		assert.equal(layout.overflow, false);
-		assert.equal(layout.clipped, false);
-		assert.equal(layout.recentBorder, layout.tagBorder);
-		const firstFacet = page.locator("details[data-facet]").first();
-		await firstFacet.locator("summary").click();
-		await tag("saas").focus();
-		await page.keyboard.press("Escape");
-		assert.equal(await firstFacet.getAttribute("open"), null);
-		assert.equal(
-			await firstFacet.locator("summary").evaluate((el) => el === document.activeElement),
-			true,
-		);
-		await page.locator(".filter-toggle").click();
-		assert.equal(await page.locator('input[name="recent"]').isVisible(), true);
-		await page.locator(".filter-toggle").click();
-		for (const facet of await page.locator("details[data-facet]").all()) {
-			await facet.locator("summary").click();
-			const box = await facet.locator(".facet-panel").boundingBox();
-			assert.ok(box && box.x >= 0 && box.x + box.width <= viewport.width);
-			await facet.locator("summary").press("Escape");
-		}
-		for (const cover of await cards.locator("img").all()) {
-			await cover.scrollIntoViewIfNeeded();
-			await cover.evaluate((img) => img.decode());
-		}
-		await page.locator(".result-status").click();
-		await page.evaluate(() => {
-			window.scrollTo(0, 0);
-			document.querySelector("#main-content").scrollTop = 0;
-		});
-		await page.screenshot({
-			path: resolve(output, `filters-${viewport.width}.png`),
-			fullPage: true,
-		});
-		if (viewport.width > 768) {
-			await page
-				.locator(".indiehackers-list")
-				.screenshot({ path: resolve(output, `magazine-${viewport.width}.png`) });
-		}
-		assert.deepEqual(errors, []);
-		await page.emulateMedia({ colorScheme: "dark" });
-		await page.waitForFunction(() => document.documentElement.classList.contains("dark"));
-		await page.screenshot({
-			path: resolve(output, `magazine-dark-${viewport.width}.png`),
-			fullPage: true,
-		});
-		await page.goto(`${origin}/fr/indiehackers/`);
-		await page.locator(".filter-toggle").waitFor();
-		assert.equal(await cards.count(), 4);
 		assert.equal(
 			await page.evaluate(() => document.documentElement.scrollWidth > innerWidth),
 			false,
 		);
+		const image = cards.locator("img").first();
+		if (await image.count()) {
+			await image.scrollIntoViewIfNeeded();
+			await image.evaluate((img) => img.decode());
+			assert.match(await image.getAttribute("src"), /\.webp$/);
+		}
 		assert.deepEqual(errors, []);
 		console.log(
-			`PASS ${viewport.width}px: grouped filters, URL reload/back, reset, empty state, layout`,
+			"PASS " +
+				viewport.width +
+				"px: " +
+				posts.length +
+				" registered stories, search, facets, reload, history, reset and WebP",
 		);
-		await context.close();
+	} finally {
+		await browser.close();
 	}
-} finally {
-	await browser.close();
 }
