@@ -9,9 +9,21 @@ favicons and illustrations.
 
 ## Development Checks
 
-Localization dependency checks validate the installed stable version with Bun's
-semver parser and probe patch/minor updates plus the next major boundary.
-Equivalent range syntax and newer compatible minimum versions are accepted.
+The site uses the published Saylo npm packages at `0.1.0-alpha.5`. Translations
+for `en`, `zh`, `es`, `fr`, `hi`, and `ko` live in
+`locales/<locale>/site.json`; `saylo.config.json` selects those locales and
+requires complete translations. `bun run i18n` generates the ignored
+`src/lib/i18n/generated.d.ts` and checks catalog completeness. `bun run dev`
+serves Vite precompiled catalogs while live Saylo catalog changes preserve UI
+state. `bun run build:index` creates the static pages and Pagefind index.
+English uses `/` and other locales use `/ko`-style URLs; cookie and localStorage
+storage remain unchanged.
+
+The browser checks accept an optional installed driver entrypoint.
+`scripts/check-saylo-browser.mjs` covers SSR and hydration for all six locales,
+including language switching, persistence, and routing.
+`scripts/check-saylo-dev.mjs` checks live catalog edits while preserving dialog
+and filter state, with rollback.
 
 Use Prek for optional Git hooks:
 

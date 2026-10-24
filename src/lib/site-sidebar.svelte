@@ -23,7 +23,6 @@
 		withShortcut,
 	} from "$lib/site-labels";
 	import {
-		isSiteLocale,
 		languageOptions,
 		localizeSitePathname,
 		writeStoredSiteLocale,
@@ -83,13 +82,7 @@
 		"/creators": PenTool,
 	} as const satisfies Record<SiteSectionPath, Component>;
 
-	function getSettingsLocale(): SiteLocale {
-		const locale = $i18n.locale;
-
-		return isSiteLocale(locale) ? locale : "en";
-	}
-
-	let selectedLocale = $state<SiteLocale>(getSettingsLocale());
+	const selectedLocale = $derived(displayLocale);
 	let analyticsConsent = $state(false);
 	$effect(() =>
 		subscribeAnalyticsConsent((value) => {
@@ -213,7 +206,6 @@
 	}
 
 	function chooseLocale(locale: SiteLocale) {
-		selectedLocale = locale;
 		writeStoredSiteLocale(locale);
 		$i18n.setLocale(locale);
 
@@ -234,7 +226,7 @@
 	}
 
 	function navigateToSection(path: SiteSectionPath) {
-		void goto(localizeSitePathname(path, getSettingsLocale()));
+		void goto(localizeSitePathname(path, selectedLocale));
 	}
 
 	function handleGlobalKeydown(event: KeyboardEvent) {
