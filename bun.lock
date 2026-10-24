@@ -5,14 +5,14 @@
     "": {
       "name": "0disoft.github.io",
       "dependencies": {
-        "@0disoft/saylo-core": "^0.1.0-alpha.5",
-        "@0disoft/saylo-svelte": "^0.1.0-alpha.5",
+        "@0disoft/saylo-core": "^0.1.0-alpha.6",
+        "@0disoft/saylo-svelte": "^0.1.0-alpha.6",
         "micromark": "^4",
         "mode-watcher": "^1.1.0",
       },
       "devDependencies": {
-        "@0disoft/saylo-typegen": "^0.1.0-alpha.5",
-        "@0disoft/saylo-vite": "^0.1.0-alpha.5",
+        "@0disoft/saylo-typegen": "^0.1.0-alpha.6",
+        "@0disoft/saylo-vite": "^0.1.0-alpha.6",
         "@fontsource-variable/inter": "^5.3.0",
         "@fontsource-variable/noto-sans-devanagari": "^5.3.0",
         "@fontsource-variable/noto-sans-kr": "^5.3.0",
@@ -45,17 +45,14 @@
       },
     },
   },
-  "patchedDependencies": {
-    "@0disoft/saylo-vite@0.1.0-alpha.5": "patches/@0disoft%2Fsaylo-vite@0.1.0-alpha.5.patch",
-  },
   "packages": {
-    "@0disoft/saylo-core": ["@0disoft/saylo-core@0.1.0-alpha.5", "", { "dependencies": { "@formatjs/icu-messageformat-parser": "3", "@noble/hashes": "2", "intl-messageformat": "12" } }, "sha512-vGYRAYwvkyB+01gVFVQR8H1YusWqr4fLV/9MJcFj7nJDKkC6T8zBUr2+lKwgd+IeXdPDtqvVzEXO1rKQTxmAEQ=="],
+    "@0disoft/saylo-core": ["@0disoft/saylo-core@0.1.0-alpha.6", "", { "dependencies": { "@formatjs/icu-messageformat-parser": "3", "@noble/hashes": "2", "intl-messageformat": "12" } }, "sha512-ZJiRN4xMdL/+0PDYeR8eAF98g9XCYFtXprdQIavvDYPXe0MRTR0k+pWvfHWeoXTJzUWMXCyRmY+6QjnPjUkKFg=="],
 
-    "@0disoft/saylo-svelte": ["@0disoft/saylo-svelte@0.1.0-alpha.5", "", { "dependencies": { "@0disoft/saylo-core": "0.1.0-alpha.5" }, "peerDependencies": { "svelte": "5" } }, "sha512-ryyJsirrYnBpgKKcIrBtuSXIskBAxOMQLS3ah9w+++cPk47zt0t4aigEw2nVAluF14Tqc9ZIhQjdpCpcQDsgtQ=="],
+    "@0disoft/saylo-svelte": ["@0disoft/saylo-svelte@0.1.0-alpha.6", "", { "dependencies": { "@0disoft/saylo-core": "0.1.0-alpha.6" }, "peerDependencies": { "svelte": "5" } }, "sha512-V3C+/HdpGIhFR9jkmXO2qjzxN27dSB+PVu/la+h7claE1W1njGnn73Mhc7zm2LA6byHqJqxoHm/IWudZ8CvGwA=="],
 
-    "@0disoft/saylo-typegen": ["@0disoft/saylo-typegen@0.1.0-alpha.5", "", { "dependencies": { "@0disoft/saylo-core": "0.1.0-alpha.5" }, "bin": { "saylo": "dist/catalog-cli.js", "saylo-typegen": "dist/cli.js" } }, "sha512-xzF5YzMPLX93rDGVEw7PSXwKHaMPg78qVOJM1W1hFwZ0bQ71nuDlXToVSKz6NXN4EeSITkmlgDdeILcFhYKE+Q=="],
+    "@0disoft/saylo-typegen": ["@0disoft/saylo-typegen@0.1.0-alpha.6", "", { "dependencies": { "@0disoft/saylo-core": "0.1.0-alpha.6" }, "bin": { "saylo": "dist/catalog-cli.js", "saylo-typegen": "dist/cli.js" } }, "sha512-tcXP//63EhkPvIrqtDDYuSatUwYh6nj9RY2R7tIU20OH/CbpisHFUbLuvLC8DcBOwJdn3tAK0QHAsKq5AGjAaw=="],
 
-    "@0disoft/saylo-vite": ["@0disoft/saylo-vite@0.1.0-alpha.5", "", { "dependencies": { "@0disoft/saylo-core": "0.1.0-alpha.5", "@0disoft/saylo-typegen": "0.1.0-alpha.5", "@babel/parser": "7" }, "peerDependencies": { "vite": "8" } }, "sha512-h9T2BkkMRxWFCZx9w1gEFh7OCv+gc/hKDd7TlvG6F5JkfK1iFkgeiTc71AYqSV9Hwsy3As4Iph9PctgkZJ+dxA=="],
+    "@0disoft/saylo-vite": ["@0disoft/saylo-vite@0.1.0-alpha.6", "", { "dependencies": { "@0disoft/saylo-core": "0.1.0-alpha.6", "@0disoft/saylo-typegen": "0.1.0-alpha.6", "@babel/parser": "7" }, "peerDependencies": { "vite": "8" } }, "sha512-kFJOE6NjmDWrYlG0v9IklJ/G9qYCw/SqO9e4e4X6AcQQH/lbPmtqHOyjg0X5CkuuG9Rn7Xa39tYMULz6miEA8g=="],
 
     "@babel/helper-string-parser": ["@babel/helper-string-parser@7.29.11", "", {}, "sha512-snZbO7MEDOof+hvNa97EjEY7qD7h2kwvQr5AJC3ZhQudKW5dnej6k3kP9NQV88hJwaS8vDqRLFo9rivLEhle2g=="],
 

@@ -9,7 +9,7 @@ favicons and illustrations.
 
 ## Development Checks
 
-The site uses the published Saylo npm packages at `0.1.0-alpha.5`. Translations
+The site uses the published Saylo npm packages at `0.1.0-alpha.6`. Translations
 for `en`, `zh`, `es`, `fr`, `hi`, and `ko` live in
 `locales/<locale>/site.json`; `saylo.config.json` selects those locales and
 requires complete translations. `bun run i18n` generates the ignored
