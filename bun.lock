@@ -45,6 +45,9 @@
       },
     },
   },
+  "patchedDependencies": {
+    "@0disoft/saylo-vite@0.1.0-alpha.5": "patches/@0disoft%2Fsaylo-vite@0.1.0-alpha.5.patch",
+  },
   "packages": {
     "@0disoft/saylo-core": ["@0disoft/saylo-core@0.1.0-alpha.5", "", { "dependencies": { "@formatjs/icu-messageformat-parser": "3", "@noble/hashes": "2", "intl-messageformat": "12" } }, "sha512-vGYRAYwvkyB+01gVFVQR8H1YusWqr4fLV/9MJcFj7nJDKkC6T8zBUr2+lKwgd+IeXdPDtqvVzEXO1rKQTxmAEQ=="],
 

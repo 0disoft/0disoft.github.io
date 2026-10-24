@@ -25,6 +25,7 @@ try {
 	);
 	const page = await context.newPage();
 	page.setDefaultTimeout(15000);
+	page.setDefaultNavigationTimeout(60000);
 	const errors = [];
 	page.on("pageerror", (error) => errors.push(error.message));
 	await page.goto(origin + "/investors/?recent=0");
