@@ -1,10 +1,10 @@
 <script lang="ts">
+ import { getI18n } from "$lib/i18n";
 import type { Snippet } from "svelte";
 import { fade } from "svelte/transition";
 import { prefersReducedMotion } from "svelte/motion";
 	import IndiehackersList from "$lib/indiehackers-list.svelte";
 	import SiteSidebar from "$lib/site-sidebar.svelte";
-	import { getLocale } from "$lib/paraglide/runtime";
 	import { toDisplayLocale } from "$lib/site-labels";
 	import {
 		getSiteSurfacePageTitle,
@@ -12,12 +12,13 @@ import { prefersReducedMotion } from "svelte/motion";
 		type SiteSurfacePath,
 	} from "$lib/site-surface-model";
 	import { siteProfile } from "$lib/site-profile";
+ const i18n = getI18n();
 
 	let { activePath = "/", children }: { activePath?: SiteSurfacePath; children?: Snippet } = $props();
 
-	const displayLocale = $derived(toDisplayLocale(getLocale()));
+	const displayLocale = $derived(toDisplayLocale($i18n.locale));
 	const sectionKind = $derived(getSiteSurfaceSectionKind(activePath));
-	const pageTitle = $derived(getSiteSurfacePageTitle(activePath, displayLocale));
+	const pageTitle = $derived(getSiteSurfacePageTitle(activePath, displayLocale, $i18n.t));
 </script>
 
 <svelte:head>

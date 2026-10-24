@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { browser } from "$app/environment";
-	import * as m from "$lib/paraglide/messages";
-	import { getLocale } from "$lib/paraglide/runtime";
+	import { getI18n } from "$lib/i18n";
 	import {
 		isSiteAnalyticsConfigured,
 		readStoredAnalyticsConsentValue,
@@ -14,10 +13,9 @@
 		subscribeAdvertisingConsent,
 	} from "$lib/site-advertising-consent";
 	import { isSiteAdvertisingConfigured } from "$lib/site-advertising";
-	import { toDisplayLocale } from "$lib/site-labels";
+ const i18n = getI18n();
 
 	let visible = $state(false);
-	const displayLocale = $derived(toDisplayLocale(getLocale()));
 	const analyticsConfigured = isSiteAnalyticsConfigured();
 	const advertisingConfigured = isSiteAdvertisingConfigured();
 
@@ -60,15 +58,15 @@
 {#if visible}
 	<section
 		class="analytics-consent"
-		aria-label={m.analytics_consent_title({}, { locale: displayLocale })}
+		aria-label={$i18n.t("site:analytics_consent_title")}
 	>
-		<p>{m.analytics_consent_body({}, { locale: displayLocale })}</p>
+		<p>{$i18n.t("site:analytics_consent_body")}</p>
 		<div class="analytics-consent-actions">
 			<button type="button" class="primary" onclick={acceptConfiguredServices}>
-				{m.analytics_consent_accept({}, { locale: displayLocale })}
+				{$i18n.t("site:analytics_consent_accept")}
 			</button>
 			<button type="button" onclick={declineConfiguredServices}>
-				{m.analytics_consent_decline({}, { locale: displayLocale })}
+				{$i18n.t("site:analytics_consent_decline")}
 			</button>
 		</div>
 	</section>

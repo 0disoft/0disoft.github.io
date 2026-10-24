@@ -7,13 +7,13 @@
 	} from "$lib/indiehackers-posts";
 	import { isSiteLocale, localizeSitePathname } from "$lib/site-locales";
 	import { siteProfile } from "$lib/site-profile";
-	import * as m from "$lib/paraglide/messages";
-	import { getLocale } from "$lib/paraglide/runtime";
+	import { getI18n } from "$lib/i18n";
 	import type { StoryCollection } from "$lib/story-collections";
+ const i18n = getI18n();
 
 	let { data, collection = null }: { data: { post: IndiehackersPost; bodyHtml: string; tagLabels: string[]; adjacentPosts: { previous: IndiehackersPost | null; next: IndiehackersPost | null } }; collection?: StoryCollection | null } = $props();
 
-const locale = $derived(getLocale());
+const locale = $derived($i18n.locale);
 const displayLocale = $derived(isSiteLocale(locale) ? locale : "en");
 const selectedLocale = $derived(displayLocale);
 const post = $derived(data.post);
@@ -40,7 +40,7 @@ function getPostHref(slug: string): string {
 	<article class="indiehackers" aria-labelledby="post-title">
 	<header class="indiehackers-header">
 		<p class="indiehackers-back">
-			<a href={backHref}>← {m.indiehackers_back_to_list({}, { locale: displayLocale })}</a>
+			<a href={backHref}>← {$i18n.t("site:indiehackers_back_to_list")}</a>
 		</p>
 		<h1 id="post-title">{post.title}</h1>
 		<p class="indiehackers-meta">
@@ -71,14 +71,14 @@ function getPostHref(slug: string): string {
 	{#if adjacentPosts.previous || adjacentPosts.next}
 		<nav
 			class="indiehackers-adjacent"
-			aria-label={m.indiehackers_more_posts({}, { locale: displayLocale })}
+			aria-label={$i18n.t("site:indiehackers_more_posts")}
 		>
 			{#if adjacentPosts.previous}
 				<a class="adjacent-card" href={getPostHref(adjacentPosts.previous.slug)}>
 					<span class="adjacent-card-copy">
 						<span class="adjacent-card-direction">
 							<span class="adjacent-card-arrow" aria-hidden="true">←</span>
-							{m.indiehackers_previous_post({}, { locale: displayLocale })}
+							{$i18n.t("site:indiehackers_previous_post")}
 						</span>
 						<span class="adjacent-card-title">{adjacentPosts.previous.title}</span>
 						<span class="adjacent-card-meta">
@@ -102,7 +102,7 @@ function getPostHref(slug: string): string {
 				<a class="adjacent-card adjacent-card-next" href={getPostHref(adjacentPosts.next.slug)}>
 					<span class="adjacent-card-copy">
 						<span class="adjacent-card-direction">
-							{m.indiehackers_next_post({}, { locale: displayLocale })}
+							{$i18n.t("site:indiehackers_next_post")}
 							<span class="adjacent-card-arrow" aria-hidden="true">→</span>
 						</span>
 						<span class="adjacent-card-title">{adjacentPosts.next.title}</span>

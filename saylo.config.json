@@ -1,0 +1,11 @@
+{
+  "format": "saylo-project/v1",
+  "localesDir": "locales",
+  "baseLocale": "en",
+  "checkLocales": ["en", "zh", "es", "fr", "hi", "ko"],
+  "requireCompleteTranslations": true,
+  "timeZone": "UTC",
+  "typegen": {
+    "outFile": "src/lib/i18n/generated.d.ts"
+  }
+}

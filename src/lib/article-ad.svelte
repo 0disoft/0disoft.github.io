@@ -2,8 +2,8 @@
 	import { subscribeAdvertisingConsent } from "$lib/site-advertising-consent";
 	import { getBlogPostAdUnitConfig, loadSiteAdProviderScript, requestSiteAdRender } from "$lib/site-advertising";
 	import { AD_RENDER_RESULT_TIMEOUT_MS, getAdUnitDisplayStateFromProviderStatus, type AdUnitDisplayState } from "$lib/ad-unit-core";
-	import * as m from "$lib/paraglide/messages";
-	import { getLocale } from "$lib/paraglide/runtime";
+	import { getI18n } from "$lib/i18n";
+ const i18n = getI18n();
 
 	const config = getBlogPostAdUnitConfig("blog-inline");
 	let consent = $state(false);
@@ -33,7 +33,7 @@
 </script>
 
 {#if config && consent}
-	<aside class="article-ad" class:empty={displayState === "empty"} data-pagefind-ignore="all" aria-label={m.settings_advertising_label({}, { locale: getLocale() })}>
+	<aside class="article-ad" class:empty={displayState === "empty"} data-pagefind-ignore="all" aria-label={$i18n.t("site:settings_advertising_label")}>
 		<ins bind:this={element} class="adsbygoogle" style="display: block" data-ad-client={config.clientId} data-ad-slot={config.slot} data-ad-format="auto" data-full-width-responsive="true"></ins>
 	</aside>
 {/if}

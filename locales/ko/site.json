@@ -1,5 +1,4 @@
 {
-  "$schema": "https://inlang.com/schema/inlang-message-format",
   "site_name": "0disoft",
   "error_home": "홈으로",
   "error_back": "뒤로",

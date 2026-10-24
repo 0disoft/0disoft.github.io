@@ -1,50 +1,47 @@
 <script lang="ts">
 	import SiteSurface from "$lib/site-surface.svelte";
-	import * as m from "$lib/paraglide/messages";
-	import { getLocale } from "$lib/paraglide/runtime";
-	import { toDisplayLocale } from "$lib/site-labels";
+	import { getI18n } from "$lib/i18n";
 	import { siteProfile } from "$lib/site-profile";
-
-	const displayLocale = $derived(toDisplayLocale(getLocale()));
+ const i18n = getI18n();
 </script>
 
 <svelte:head>
-	<title>{m.privacy_page_title({}, { locale: displayLocale })} · {siteProfile.name}</title>
+	<title>{$i18n.t("site:privacy_page_title")} · {siteProfile.name}</title>
 </svelte:head>
 
 <SiteSurface>
 	<article class="privacy-document" aria-labelledby="privacy-title">
 		<header>
-			<h1 id="privacy-title">{m.privacy_page_title({}, { locale: displayLocale })}</h1>
-			<p>{m.privacy_page_intro({}, { locale: displayLocale })}</p>
+			<h1 id="privacy-title">{$i18n.t("site:privacy_page_title")}</h1>
+			<p>{$i18n.t("site:privacy_page_intro")}</p>
 		</header>
 
 		<section aria-labelledby="privacy-analytics-title">
 			<h2 id="privacy-analytics-title">
-				{m.privacy_analytics_title({}, { locale: displayLocale })}
+				{$i18n.t("site:privacy_analytics_title")}
 			</h2>
-			<p>{m.privacy_analytics_body({}, { locale: displayLocale })}</p>
+			<p>{$i18n.t("site:privacy_analytics_body")}</p>
 		</section>
 
 		<section aria-labelledby="privacy-ads-title">
 			<h2 id="privacy-ads-title">
-				{m.privacy_ads_title({}, { locale: displayLocale })}
+				{$i18n.t("site:privacy_ads_title")}
 			</h2>
-			<p>{m.privacy_ads_body({}, { locale: displayLocale })}</p>
+			<p>{$i18n.t("site:privacy_ads_body")}</p>
 		</section>
 
 		<section aria-labelledby="privacy-cookies-title">
 			<h2 id="privacy-cookies-title">
-				{m.privacy_cookies_title({}, { locale: displayLocale })}
+				{$i18n.t("site:privacy_cookies_title")}
 			</h2>
-			<p>{m.privacy_cookies_body({}, { locale: displayLocale })}</p>
+			<p>{$i18n.t("site:privacy_cookies_body")}</p>
 		</section>
 
 		<section aria-labelledby="privacy-choices-title">
 			<h2 id="privacy-choices-title">
-				{m.privacy_choices_title({}, { locale: displayLocale })}
+				{$i18n.t("site:privacy_choices_title")}
 			</h2>
-			<p>{m.privacy_choices_body({}, { locale: displayLocale })}</p>
+			<p>{$i18n.t("site:privacy_choices_body")}</p>
 		</section>
 	</article>
 </SiteSurface>

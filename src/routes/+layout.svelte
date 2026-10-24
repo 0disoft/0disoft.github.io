@@ -4,13 +4,14 @@ import { afterNavigate, onNavigate } from '$app/navigation';
 import type { Snapshot } from '@sveltejs/kit';
 import { resolve } from '$app/paths';
 import { page } from '$app/state';
-import { onMount } from 'svelte';
+import { onMount, onDestroy, untrack } from 'svelte';
 import { prefersReducedMotion } from 'svelte/motion';
-import * as m from '$lib/paraglide/messages';
-import { getLocale } from '$lib/paraglide/runtime';
-import { toDisplayLocale } from '$lib/site-labels';
+import { createSiteI18n, setSayloContext } from "$lib/i18n";
+	import { connectDev } from "@0disoft/saylo-vite/client";
+
 	import { localeFontStylesheets } from '$lib/locale-fonts';
 	import {
+		baseLocale,
 		getPathLocale,
 		getPreferredClientLocale,
 		languageOptions,
@@ -29,12 +30,21 @@ import { toDisplayLocale } from '$lib/site-labels';
 	import { ModeWatcher } from 'mode-watcher';
 	import './layout.css';
 
-	let { children } = $props();
+	let { children, data } = $props();
+	const currentSiteLocale = $derived(getPathLocale(page.url.pathname) ?? data.locale ?? baseLocale);
+	const instance = createSiteI18n(untrack(() => currentSiteLocale));
+	const i18n = setSayloContext(instance);
+	onDestroy(() => instance.dispose());
+	onMount(() => connectDev(instance, { hot: import.meta.hot }));
+	$effect(() => {
+		instance.setLocale(currentSiteLocale);
+		document.documentElement.lang = currentSiteLocale;
+	});
 	const meta = $derived(getSitePageMeta(page.url.pathname, page.data.post));
 	const rssAlternateLinks = getSiteRssAlternateLinks();
 	const plainTextAlternateLinks = getSitePlainTextAlternateLinks();
-	const displayLocale = $derived(toDisplayLocale(getLocale()));
-	const currentLocale = $derived(getLocale());
+
+	const currentLocale = $derived($i18n.locale);
 	const localeFontStylesheet = $derived(
 		currentLocale === "hi" || currentLocale === "ko" || currentLocale === "zh"
 			? localeFontStylesheets[currentLocale]
@@ -135,7 +145,7 @@ import { toDisplayLocale } from '$lib/site-labels';
 <SiteAnalytics />
 <SiteAnalyticsConsent />
 <a class="skip-link" href="#main-content" onclick={handleSkipToContent}>
-	{m.skip_to_content_label({}, { locale: displayLocale })}
+	{$i18n.t("site:skip_to_content_label")}
 </a>
 {@render children()}
 

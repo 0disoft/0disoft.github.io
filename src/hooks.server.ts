@@ -1,17 +1,10 @@
 import type { Handle } from "@sveltejs/kit";
-import { getTextDirection } from "$lib/paraglide/runtime";
-import { paraglideMiddleware } from "$lib/paraglide/server";
+import { baseLocale, getPathLocale } from "$lib/site-locales";
 
-const handleParaglide: Handle = ({ event, resolve }) =>
-	paraglideMiddleware(event.request, ({ request, locale }) => {
-		event.request = request;
-
-		return resolve(event, {
-			transformPageChunk: ({ html }) =>
-				html
-					.replace("%paraglide.lang%", locale)
-					.replace("%paraglide.dir%", getTextDirection(locale)),
-		});
+export const handle: Handle = ({ event, resolve }) => {
+	const locale = getPathLocale(event.url.pathname) ?? baseLocale;
+	return resolve(event, {
+		transformPageChunk: ({ html }) =>
+			html.replace("%saylo.lang%", locale).replace("%saylo.dir%", "ltr"),
 	});
-
-export const handle: Handle = handleParaglide;
+};

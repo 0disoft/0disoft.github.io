@@ -16,15 +16,14 @@
 		type SimpleIcon,
 	} from "simple-icons";
 	import { linkedInIcon } from "$lib/ui/share-brand-icons";
-	import * as m from "$lib/paraglide/messages";
-	import { getLocale } from "$lib/paraglide/runtime";
+	import { getI18n } from "$lib/i18n";
 	import {
 		buildIndiehackersShareLinks,
 		type IndiehackersSharePlatform,
 	} from "$lib/indiehackers-share";
 	import { copyTextToClipboard } from "$lib/site-clipboard";
-	import { toDisplayLocale } from "$lib/site-labels";
 	import BrandIcon from "$lib/ui/brand-icon.svelte";
+ const i18n = getI18n();
 
 	type SharePlatformIcon =
 		| { kind: "lucide"; name: "send" | "message-circle" }
@@ -51,16 +50,14 @@
 	beforeNavigate(() => {
 		navigationVersion += 1;
 	});
-
-	const displayLocale = $derived(toDisplayLocale(getLocale()));
 	const shareLinks = $derived(buildIndiehackersShareLinks({ title, url }));
 	const copyLabel = $derived(
 		copyState === "copied"
-			? m.indiehackers_copied_link({}, { locale: displayLocale })
-			: m.indiehackers_copy_link({}, { locale: displayLocale }),
+			? $i18n.t("site:indiehackers_copied_link")
+			: $i18n.t("site:indiehackers_copy_link"),
 	);
 	const deviceShareLabel = $derived(
-		m.indiehackers_share_device({}, { locale: displayLocale }),
+		$i18n.t("site:indiehackers_share_device"),
 	);
 
 	onMount(() => {
@@ -153,25 +150,25 @@
 	function getSharePlatformLabel(platform: IndiehackersSharePlatform): string {
 		switch (platform) {
 			case "telegram":
-				return m.indiehackers_share_telegram({}, { locale: displayLocale });
+				return $i18n.t("site:indiehackers_share_telegram");
 			case "line":
-				return m.indiehackers_share_line({}, { locale: displayLocale });
+				return $i18n.t("site:indiehackers_share_line");
 			case "whatsapp":
-				return m.indiehackers_share_whatsapp({}, { locale: displayLocale });
+				return $i18n.t("site:indiehackers_share_whatsapp");
 			case "x":
-				return m.indiehackers_share_x({}, { locale: displayLocale });
+				return $i18n.t("site:indiehackers_share_x");
 			case "reddit":
-				return m.indiehackers_share_reddit({}, { locale: displayLocale });
+				return $i18n.t("site:indiehackers_share_reddit");
 			case "facebook":
-				return m.indiehackers_share_facebook({}, { locale: displayLocale });
+				return $i18n.t("site:indiehackers_share_facebook");
 			case "threads":
-				return m.indiehackers_share_threads({}, { locale: displayLocale });
+				return $i18n.t("site:indiehackers_share_threads");
 			case "bluesky":
-				return m.indiehackers_share_bluesky({}, { locale: displayLocale });
+				return $i18n.t("site:indiehackers_share_bluesky");
 			case "linkedin":
-				return m.indiehackers_share_linkedin({}, { locale: displayLocale });
+				return $i18n.t("site:indiehackers_share_linkedin");
 			case "weibo":
-				return m.indiehackers_share_weibo({}, { locale: displayLocale });
+				return $i18n.t("site:indiehackers_share_weibo");
 		}
 	}
 
@@ -208,7 +205,7 @@
 </script>
 
 <section class="share-toolbar" aria-labelledby={headingId}>
-	<p id={headingId}>{m.indiehackers_share_label({}, { locale: displayLocale })}</p>
+	<p id={headingId}>{$i18n.t("site:indiehackers_share_label")}</p>
 	<div class="share-toolbar-grid">
 		<button
 			class="share-icon-button"
@@ -255,13 +252,13 @@
 	</div>
 	{#if copyState === "failed"}
 		<div class="manual-copy">
-			<p role="status">{m.indiehackers_copy_failed({}, { locale: displayLocale })}</p>
+			<p role="status">{$i18n.t("site:indiehackers_copy_failed")}</p>
 			<input
 				bind:this={manualCopyInput}
 				type="text"
 				readonly
 				value={url}
-				aria-label={m.indiehackers_copy_link({}, { locale: displayLocale })}
+				aria-label={$i18n.t("site:indiehackers_copy_link")}
 				onfocus={(event) => event.currentTarget.select()}
 			/>
 		</div>

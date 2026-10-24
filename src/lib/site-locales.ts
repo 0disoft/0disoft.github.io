@@ -1,4 +1,4 @@
-import { baseLocale } from "$lib/paraglide/runtime";
+export const baseLocale = "en";
 
 export const languageOptions = [
 	{ locale: "en", label: "English" },

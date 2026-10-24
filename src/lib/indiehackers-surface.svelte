@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { getLocale } from "$lib/paraglide/runtime";
+ import { getI18n } from "$lib/i18n";
 	import { page } from "$app/state";
 	import IndiehackersShareToolbar from "$lib/indiehackers-share-toolbar.svelte";
 	import { isSiteLocale, localizeSitePathname } from "$lib/site-locales";
 	import { siteProfile } from "$lib/site-profile";
+ const i18n = getI18n();
 
-	const locale = $derived(getLocale());
+	const locale = $derived($i18n.locale);
 	const selectedLocale = $derived(isSiteLocale(locale) ? locale : "en");
 	const indiehackers = $derived(page.data.indiehackers);
 	const shareUrl = $derived(

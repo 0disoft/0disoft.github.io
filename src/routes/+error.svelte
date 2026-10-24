@@ -2,23 +2,23 @@
 	import ArrowLeft from "@lucide/svelte/icons/arrow-left";
 	import Home from "@lucide/svelte/icons/home";
 	import { page } from "$app/state";
-	import * as m from "$lib/paraglide/messages";
-	import { getLocale } from "$lib/paraglide/runtime";
+	import { getI18n, getSiteTranslator } from "$lib/i18n";
 	import { isSiteLocale, localizeSitePathname } from "$lib/site-locales";
 	import { birdMarkPath } from "$lib/site-assets";
 	import { siteProfile } from "$lib/site-profile";
+ const i18n = getI18n();
 
 	type ErrorLocale = "ko" | "en";
 
 	const message = $derived(page.error?.message ?? "Not Found");
 	const errorLocale = $derived(getErrorLocale(page.url.pathname));
 	const homePath = $derived.by(() => {
-		const locale = getLocale();
+		const locale = $i18n.locale;
 		return localizeSitePathname("/", isSiteLocale(locale) ? locale : "en");
 	});
 
 	function getErrorLocale(pathname: string): ErrorLocale {
-		const selectedLocale = getLocale();
+		const selectedLocale = $i18n.locale;
 
 		if (selectedLocale === "ko" || pathname === "/ko" || pathname.startsWith("/ko/")) {
 			return "ko";
@@ -52,11 +52,11 @@
 			<div class="actions">
 				<a href={homePath}>
 					<Home size={18} strokeWidth={2.2} aria-hidden="true" />
-					<span>{m.error_home({}, { locale: errorLocale })}</span>
+					<span>{getSiteTranslator(errorLocale).t("site:error_home")}</span>
 				</a>
 				<button type="button" onclick={handleBack}>
 					<ArrowLeft size={18} strokeWidth={2.2} aria-hidden="true" />
-					<span>{m.error_back({}, { locale: errorLocale })}</span>
+					<span>{getSiteTranslator(errorLocale).t("site:error_back")}</span>
 				</button>
 			</div>
 		</div>

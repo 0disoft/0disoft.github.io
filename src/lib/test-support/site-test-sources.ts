@@ -19,13 +19,13 @@ export const layoutSource = readRequiredText("../../routes/+layout.svelte");
 export const localeFontsSource = readRequiredText("../locale-fonts.ts");
 export const hooksSource = readRequiredText("../../hooks.ts");
 
-export const koMessagesSource = readRequiredText("../../../messages/ko.json");
-export const enMessagesSource = readRequiredText("../../../messages/en.json");
+export const koMessagesSource = readRequiredText("../../../locales/ko/site.json");
+export const enMessagesSource = readRequiredText("../../../locales/en/site.json");
 export const additionalLocaleMessageSources = {
-	zh: readRequiredText("../../../messages/zh.json"),
-	es: readRequiredText("../../../messages/es.json"),
-	fr: readRequiredText("../../../messages/fr.json"),
-	hi: readRequiredText("../../../messages/hi.json"),
+	zh: readRequiredText("../../../locales/zh/site.json"),
+	es: readRequiredText("../../../locales/es/site.json"),
+	fr: readRequiredText("../../../locales/fr/site.json"),
+	hi: readRequiredText("../../../locales/hi/site.json"),
 } as const;
 
 export const surfaceSource = readRequiredText("../site-surface.svelte");
@@ -53,7 +53,7 @@ export const googleAdProviderSource = readRequiredText("../site-ad-provider-goog
 export const siteAdvertisingSource = readRequiredText("../site-advertising.ts");
 export const navigationSource = readRequiredText("../site-navigation.ts");
 
-export const inlangSettingsSource = readRequiredText("../../../project.inlang/settings.json");
+export const sayloSettingsSource = readRequiredText("../../../saylo.config.json");
 export const packageSource = readRequiredText("../../../package.json");
 export const viteConfigSource = readRequiredText("../../../vite.config.ts");
 export const svelteConfigSource = readRequiredText("../../../svelte.config.js");

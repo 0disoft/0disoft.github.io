@@ -14,8 +14,7 @@
 	import PenTool from "@lucide/svelte/icons/pen-tool";
 	import X from "@lucide/svelte/icons/x";
 	import { resetMode, setMode, userPrefersMode } from "mode-watcher";
-	import * as m from "$lib/paraglide/messages";
-	import { getLocale, setLocale } from "$lib/paraglide/runtime";
+	import { getI18n } from "$lib/i18n";
 	import { birdMarkPath } from "$lib/site-assets";
 	import {
 		getLocalizedLanguageLabel,
@@ -64,17 +63,18 @@
 	import IconButton from "$lib/ui/icon-button.svelte";
 	import SearchDialog from "$lib/search-dialog.svelte";
 	import SidebarAction from "$lib/ui/sidebar-action.svelte";
+ const i18n = getI18n();
 
 	let { activePath = "/" }: { activePath?: SiteSectionPath | "/" } = $props();
 	let settingsDialog = $state<HTMLDialogElement>();
 	let searchDialog = $state<{ openSearch: () => void }>();
 	let activeSettingsTab = $state<SettingsTab>(defaultSettingsTab);
-	const displayLocale = $derived(toDisplayLocale(getLocale()));
+	const displayLocale = $derived(toDisplayLocale($i18n.locale));
 	const selectedTheme = $derived(userPrefersMode.current);
 	const analyticsConfigured = isSiteAnalyticsConfigured();
-	const settingsLabel = $derived(m.settings_trigger_label({}, { locale: displayLocale }));
-	const searchLabel = $derived(m.search_label({}, { locale: displayLocale }));
-	const sponsorLabel = $derived(m.sponsor_label({}, { locale: displayLocale }));
+	const settingsLabel = $derived($i18n.t("site:settings_trigger_label"));
+	const searchLabel = $derived($i18n.t("site:search_label"));
+	const sponsorLabel = $derived($i18n.t("site:sponsor_label"));
 	const advertisingConfigured = isSiteAdvertisingConfigured();
 
 	const navigationIconByHref = {
@@ -84,7 +84,7 @@
 	} as const satisfies Record<SiteSectionPath, Component>;
 
 	function getSettingsLocale(): SiteLocale {
-		const locale = getLocale();
+		const locale = $i18n.locale;
 
 		return isSiteLocale(locale) ? locale : "en";
 	}
@@ -215,7 +215,7 @@
 	function chooseLocale(locale: SiteLocale) {
 		selectedLocale = locale;
 		writeStoredSiteLocale(locale);
-		setLocale(locale, { reload: false });
+		$i18n.setLocale(locale);
 
 		const nextPathname = localizeSitePathname(window.location.pathname, locale);
 		window.location.assign(`${nextPathname}${window.location.search}${window.location.hash}`);
@@ -356,12 +356,12 @@
 
 <aside
 	class="site-sidebar"
-	aria-label={m.primary_navigation_label({}, { locale: displayLocale })}
+	aria-label={$i18n.t("site:primary_navigation_label")}
 >
 	<a
 		class="brand-link"
 		href={localizeSitePathname("/", selectedLocale)}
-		aria-label={`${siteProfile.name} ${m.home_label({}, { locale: displayLocale })}`}
+		aria-label={`${siteProfile.name} ${$i18n.t("site:home_label")}`}
 		data-sidebar-keyboard-target
 		onkeydown={handleSidebarKeydown}
 	>
@@ -369,11 +369,11 @@
 		<span>{siteProfile.name}</span>
 	</a>
 
-	<nav aria-label={m.primary_navigation_label({}, { locale: displayLocale })}>
+	<nav aria-label={$i18n.t("site:primary_navigation_label")}>
 		<ul class="menu-list">
 			{#each siteProfile.navigation as item (item.href)}
 				{@const Icon = navigationIconByHref[item.href]}
-				{@const label = getLocalizedNavigationLabel(item.href, displayLocale)}
+				{@const label = getLocalizedNavigationLabel(item.href, displayLocale, $i18n.t)}
 				{@const shortcut = navigationShortcutByHref[item.href]}
 				<li>
 					<SidebarAction
@@ -438,11 +438,11 @@
 		class="settings-dialog-panel animate-in fade-in zoom-in-95 duration-200 ease-out motion-reduce:animate-none"
 	>
 		<header class="settings-dialog-header">
-			<h2 id="settings-dialog-title">{m.settings_dialog_title({}, { locale: displayLocale })}</h2>
+			<h2 id="settings-dialog-title">{$i18n.t("site:settings_dialog_title")}</h2>
 			<IconButton
 				icon={X}
-				label={m.close_label({}, { locale: displayLocale })}
-				title={m.close_label({}, { locale: displayLocale })}
+				label={$i18n.t("site:close_label")}
+				title={$i18n.t("site:close_label")}
 				settingsKeyboardTarget
 				onclick={closeSettingsDialog}
 			/>
@@ -451,7 +451,7 @@
 		<div
 			class="settings-tabs"
 			role="tablist"
-			aria-label={m.settings_sections_label({}, { locale: displayLocale })}
+			aria-label={$i18n.t("site:settings_sections_label")}
 		>
 			<button
 				type="button"
@@ -463,10 +463,10 @@
 				class:active={activeSettingsTab === "theme"}
 				data-settings-control="theme-tab"
 				data-settings-keyboard-target
-				title={withShortcut(m.settings_theme_tab({}, { locale: displayLocale }), "T")}
+				title={withShortcut($i18n.t("site:settings_theme_tab"), "T")}
 				onclick={() => selectSettingsTab("theme")}
 			>
-				{m.settings_theme_tab({}, { locale: displayLocale })}
+				{$i18n.t("site:settings_theme_tab")}
 			</button>
 			<button
 				type="button"
@@ -478,10 +478,10 @@
 				class:active={activeSettingsTab === "language"}
 				data-settings-control="language-tab"
 				data-settings-keyboard-target
-				title={withShortcut(m.settings_language_tab({}, { locale: displayLocale }), "L")}
+				title={withShortcut($i18n.t("site:settings_language_tab"), "L")}
 				onclick={() => selectSettingsTab("language")}
 			>
-				{m.settings_language_tab({}, { locale: displayLocale })}
+				{$i18n.t("site:settings_language_tab")}
 			</button>
 			<button
 				type="button"
@@ -493,10 +493,10 @@
 				class:active={activeSettingsTab === "privacy"}
 				data-settings-control="privacy-tab"
 				data-settings-keyboard-target
-				title={withShortcut(m.settings_privacy_tab({}, { locale: displayLocale }), "P")}
+				title={withShortcut($i18n.t("site:settings_privacy_tab"), "P")}
 				onclick={() => selectSettingsTab("privacy")}
 			>
-				{m.settings_privacy_tab({}, { locale: displayLocale })}
+				{$i18n.t("site:settings_privacy_tab")}
 			</button>
 		</div>
 
@@ -515,11 +515,11 @@
 						aria-keyshortcuts="I"
 						data-settings-control="theme-light"
 						data-settings-keyboard-target
-						title={withShortcut(m.theme_light({}, { locale: displayLocale }), "I")}
+						title={withShortcut($i18n.t("site:theme_light"), "I")}
 						onclick={() => chooseTheme("light")}
 					>
 						<Sun size={17} strokeWidth={2.15} aria-hidden="true" />
-						<span>{m.theme_light({}, { locale: displayLocale })}</span>
+						<span>{$i18n.t("site:theme_light")}</span>
 					</button>
 					<button
 						type="button"
@@ -528,11 +528,11 @@
 						aria-keyshortcuts="D"
 						data-settings-control="theme-dark"
 						data-settings-keyboard-target
-						title={withShortcut(m.theme_dark({}, { locale: displayLocale }), "D")}
+						title={withShortcut($i18n.t("site:theme_dark"), "D")}
 						onclick={() => chooseTheme("dark")}
 					>
 						<Moon size={17} strokeWidth={2.15} aria-hidden="true" />
-						<span>{m.theme_dark({}, { locale: displayLocale })}</span>
+						<span>{$i18n.t("site:theme_dark")}</span>
 					</button>
 					<button
 						type="button"
@@ -541,11 +541,11 @@
 						aria-keyshortcuts="S"
 						data-settings-control="theme-system"
 						data-settings-keyboard-target
-						title={withShortcut(m.theme_system({}, { locale: displayLocale }), "S")}
+						title={withShortcut($i18n.t("site:theme_system"), "S")}
 						onclick={() => chooseTheme("system")}
 					>
 						<Monitor size={17} strokeWidth={2.15} aria-hidden="true" />
-						<span>{m.theme_system({}, { locale: displayLocale })}</span>
+						<span>{$i18n.t("site:theme_system")}</span>
 					</button>
 				</div>
 			</div>
@@ -585,11 +585,11 @@
 				<div class="privacy-panel">
 					<div class="privacy-row">
 						<div class="privacy-copy">
-							<span>{m.settings_analytics_label({}, { locale: displayLocale })}</span>
+							<span>{$i18n.t("site:settings_analytics_label")}</span>
 							<p>
 								{analyticsConfigured
-									? m.settings_analytics_description({}, { locale: displayLocale })
-									: m.settings_analytics_unavailable({}, { locale: displayLocale })}
+									? $i18n.t("site:settings_analytics_description")
+									: $i18n.t("site:settings_analytics_unavailable")}
 							</p>
 							<a
 								class="privacy-policy-link"
@@ -600,7 +600,7 @@
 								data-settings-keyboard-target
 							>
 								<FileText size={14} strokeWidth={2.1} aria-hidden="true" />
-								<span>{m.settings_privacy_policy_link({}, { locale: displayLocale })}</span>
+								<span>{$i18n.t("site:settings_privacy_policy_link")}</span>
 							</a>
 						</div>
 						<button
@@ -613,13 +613,13 @@
 							disabled={!analyticsConfigured}
 							data-settings-control="privacy-analytics"
 							data-settings-keyboard-target
-							title={withShortcut(m.settings_analytics_label({}, { locale: displayLocale }), "A")}
+							title={withShortcut($i18n.t("site:settings_analytics_label"), "A")}
 							onclick={() => chooseAnalyticsConsent(!analyticsConsent)}
 						>
 							<span>
 								{analyticsConsent
-									? m.settings_analytics_enabled({}, { locale: displayLocale })
-									: m.settings_analytics_disabled({}, { locale: displayLocale })}
+									? $i18n.t("site:settings_analytics_enabled")
+									: $i18n.t("site:settings_analytics_disabled")}
 							</span>
 						</button>
 					</div>
@@ -627,8 +627,8 @@
 					{#if advertisingConfigured}
 						<div class="privacy-row">
 							<div class="privacy-copy">
-								<span>{m.settings_advertising_label({}, { locale: displayLocale })}</span>
-								<p>{m.settings_advertising_description({}, { locale: displayLocale })}</p>
+								<span>{$i18n.t("site:settings_advertising_label")}</span>
+								<p>{$i18n.t("site:settings_advertising_description")}</p>
 							</div>
 							<button
 								type="button"
@@ -639,13 +639,13 @@
 								aria-keyshortcuts="D"
 								data-settings-control="privacy-advertising"
 								data-settings-keyboard-target
-								title={withShortcut(m.settings_advertising_label({}, { locale: displayLocale }), "D")}
+								title={withShortcut($i18n.t("site:settings_advertising_label"), "D")}
 								onclick={() => chooseAdvertisingConsent(!advertisingConsent)}
 							>
 								<span>
 									{advertisingConsent
-										? m.settings_advertising_enabled({}, { locale: displayLocale })
-										: m.settings_advertising_disabled({}, { locale: displayLocale })}
+										? $i18n.t("site:settings_advertising_enabled")
+										: $i18n.t("site:settings_advertising_disabled")}
 								</span>
 							</button>
 						</div>

@@ -7,8 +7,7 @@
 	import ChevronDown from "@lucide/svelte/icons/chevron-down";
 	import Search from "@lucide/svelte/icons/search";
 	import SlidersHorizontal from "@lucide/svelte/icons/sliders-horizontal";
-	import * as m from "$lib/paraglide/messages";
-	import { getLocale } from "$lib/paraglide/runtime";
+	import { getI18n } from "$lib/i18n";
 	import {
 		INDIEHACKERS_FILTER_QUERY_KEYS,
 		createEmptyIndiehackersFilters,
@@ -25,28 +24,29 @@
 		getStoryPosts, getStoryFilterOptions, filterStoryPosts, parseStoryFilters,
 		getStoryPostTagLabels, getStoryLabel, getStoryCollectionPosts, type StoryCollection, type StoryFilters, type StoryPost,
 	} from "$lib/story-collections";
+ const i18n = getI18n();
 
 	let { collection = "indiehackers" }: { collection?: "indiehackers" | StoryCollection } = $props();
 
 	let filters = $state<StoryFilters>(createEmptyIndiehackersFilters());
-	const displayLocale = $derived(toDisplayLocale(getLocale()));
-	const currentLocale = $derived(getLocale());
+	const displayLocale = $derived(toDisplayLocale($i18n.locale));
+	const currentLocale = $derived($i18n.locale);
 	const sourcePosts: readonly IndiehackersPost[] = $derived(page.data.indiehackersPosts);
 	const indiehackersPosts = $derived(getStoryCollectionPosts(sourcePosts, null));
 	const indiehackersAction = $derived(
 		localizeSitePathname(`/${collection}`, isSiteLocale(currentLocale) ? currentLocale : "en"),
 	);
-	const collectionTitle = $derived(getLocalizedNavigationLabel(`/${collection}`, displayLocale));
+	const collectionTitle = $derived(getLocalizedNavigationLabel(`/${collection}`, displayLocale, $i18n.t));
 	const localizedPosts: readonly StoryPost[] = $derived(collection === "indiehackers"
 		? indiehackersPosts.map((post) => ({ ...post, href: `/indiehackers/${post.slug}` }))
 		: getStoryPosts(collection, sourcePosts));
 	const localizedFilterOptions = $derived(collection === "indiehackers"
 		? getIndiehackersFilterOptions(indiehackersPosts)
-		: getStoryFilterOptions(collection, localizedPosts, displayLocale));
+		: getStoryFilterOptions(collection, localizedPosts, displayLocale, $i18n.t));
 	const filteredPosts = $derived(collection === "indiehackers"
 		? filterIndiehackersPosts(indiehackersPosts, { ...filters, tags: filters.tags as readonly IndiehackersTagId[] })
 			.map((post) => ({ ...post, href: `/indiehackers/${post.slug}` }))
-		: filterStoryPosts(collection, localizedPosts, filters, displayLocale));
+		: filterStoryPosts(collection, localizedPosts, filters, displayLocale, undefined, $i18n.t));
 	const hasActiveFilters = $derived(
 		filters.query.length > 0 || filters.tags.length > 0 || !filters.recentOnly,
 	);
@@ -56,27 +56,27 @@
 	const activeTagCount = $derived(filters.tags.length);
 	let facetsExpanded = $state(true);
 	let filterFormElement = $state<HTMLElement | null>(null);
-	const recentLabel = $derived(m.indiehackers_recent_label({}, { locale: displayLocale }));
-	const recentTooltip = $derived(m.indiehackers_recent_tooltip({}, { locale: displayLocale }));
-	const filterTitle = $derived(m.indiehackers_filter_title({}, { locale: displayLocale }));
+	const recentLabel = $derived($i18n.t("site:indiehackers_recent_label"));
+	const recentTooltip = $derived($i18n.t("site:indiehackers_recent_tooltip"));
+	const filterTitle = $derived($i18n.t("site:indiehackers_filter_title"));
 
 	function getIndiehackersGroupLabel(groupId: string): string {
 		if (collection !== "indiehackers") {
-			return getStoryLabel(groupId, displayLocale);
+			return getStoryLabel(groupId, displayLocale, $i18n.t);
 		}
 		switch (groupId) {
 			case "product":
-				return m.indiehackers_group_product({}, { locale: displayLocale });
+				return $i18n.t("site:indiehackers_group_product");
 			case "platform":
-				return m.indiehackers_group_platform({}, { locale: displayLocale });
+				return $i18n.t("site:indiehackers_group_platform");
 			case "audience":
-				return m.indiehackers_group_audience({}, { locale: displayLocale });
+				return $i18n.t("site:indiehackers_group_audience");
 			case "revenue":
-				return m.indiehackers_group_revenue({}, { locale: displayLocale });
+				return $i18n.t("site:indiehackers_group_revenue");
 			case "operation":
-				return m.indiehackers_group_operation({}, { locale: displayLocale });
+				return $i18n.t("site:indiehackers_group_operation");
 			case "topic":
-				return m.indiehackers_group_topic({}, { locale: displayLocale });
+				return $i18n.t("site:indiehackers_group_topic");
 			default:
 				return groupId;
 		}
@@ -229,7 +229,7 @@
 	function getIndiehackersPostTagLabels(post: StoryPost): string[] {
 		return collection === "indiehackers"
 			? post.tags.map((id) => indiehackersTagOptions.find((tag) => tag.id === id)?.label ?? id)
-			: getStoryPostTagLabels(post, displayLocale);
+			: getStoryPostTagLabels(post, displayLocale, $i18n.t);
 	}
 
 	function getIndiehackersPostSearchValues(post: StoryPost): string[] {
@@ -251,19 +251,19 @@
 		bind:this={filterFormElement}
 	>
 		<h2 id="indiehackers-filter-title" class="sr-only">
-			{m.indiehackers_filter_title({}, { locale: displayLocale })}
+			{$i18n.t("site:indiehackers_filter_title")}
 		</h2>
 
 		<div class="filter-bar">
 			<label class="filter-search" for="indiehackers-search">
 				<Search size={17} strokeWidth={2.2} aria-hidden="true" />
-				<span class="sr-only">{m.indiehackers_search_label({}, { locale: displayLocale })}</span>
+				<span class="sr-only">{$i18n.t("site:indiehackers_search_label")}</span>
 				<input
 					id="indiehackers-search"
 					name={INDIEHACKERS_FILTER_QUERY_KEYS.query}
 					type="search"
 					autocomplete="off"
-					placeholder={m.indiehackers_search_placeholder({}, { locale: displayLocale })}
+					placeholder={$i18n.t("site:indiehackers_search_placeholder")}
 					value={filters.query}
 					oninput={handleSearchInput}
 				/>
@@ -335,22 +335,22 @@
 						disabled={!hasActiveFilters}
 						onclick={clearFilters}
 					>
-						{m.indiehackers_clear_filters({}, { locale: displayLocale })}
+						{$i18n.t("site:indiehackers_clear_filters")}
 					</button>
 				</div>
 			</div>
 	</form>
 
 	<p class="result-status" aria-live="polite">
-		{m.indiehackers_results_label({}, { locale: displayLocale })}: {filteredPosts.length}
+		{$i18n.t("site:indiehackers_results_label")}: {filteredPosts.length}
 	</p>
 
 	{#if filteredPosts.length === 0}
 		<div class="indiehackers-empty">
 			<p>
 				{hasActiveFilters
-					? m.indiehackers_empty_filtered({}, { locale: displayLocale })
-					: m.indiehackers_empty_title({}, { locale: displayLocale })}
+					? $i18n.t("site:indiehackers_empty_filtered")
+					: $i18n.t("site:indiehackers_empty_title")}
 			</p>
 		</div>
 	{:else if leadPost}

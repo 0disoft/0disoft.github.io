@@ -1,5 +1,4 @@
 {
-  "$schema": "https://inlang.com/schema/inlang-message-format",
   "site_name": "0disoft",
   "error_home": "首页",
   "error_back": "返回",

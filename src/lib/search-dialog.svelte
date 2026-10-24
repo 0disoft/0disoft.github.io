@@ -2,8 +2,7 @@
 	import { page } from "$app/state";
 	import { onDestroy, tick } from "svelte";
 	import X from "@lucide/svelte/icons/x";
-	import * as m from "$lib/paraglide/messages";
-	import { getLocale } from "$lib/paraglide/runtime";
+	import { getI18n } from "$lib/i18n";
 	import { toDisplayLocale } from "$lib/site-labels";
 	import { filterIndiehackersPosts } from "$lib/indiehackers-posts";
 	import { createSearchIndexLoader } from "$lib/search-index-loader";
@@ -16,6 +15,7 @@
 		type SearchResultItem,
 		type PagefindSearchResponse,
 	} from "$lib/search-results";
+ const i18n = getI18n();
 
 	type PagefindModule = {
 		search: (term: string) => Promise<PagefindSearchResponse>;
@@ -37,7 +37,7 @@
 	let loadingMore = $state(false);
 	const loadFallbackIndex = createSearchIndexLoader();
 
-	const displayLocale = $derived(toDisplayLocale(getLocale()));
+	const displayLocale = $derived(toDisplayLocale($i18n.locale));
 
 	onDestroy(invalidateSearch);
 
@@ -262,31 +262,31 @@
 	>
 		<header class="search-dialog-header">
 			<h2 id="search-dialog-title" class="sr-only">
-				{m.search_label({}, { locale: displayLocale })}
+				{$i18n.t("site:search_label")}
 			</h2>
 			<label class="search-field" for="search-dialog-input">
-				<span class="sr-only">{m.search_label({}, { locale: displayLocale })}</span>
+				<span class="sr-only">{$i18n.t("site:search_label")}</span>
 				<input
 					bind:this={searchInput}
 					id="search-dialog-input"
 					type="search"
 					value={query}
-					placeholder={m.search_placeholder({}, { locale: displayLocale })}
+					placeholder={$i18n.t("site:search_placeholder")}
 					autocomplete="off"
 					oninput={handleInput}
 				/>
 			</label>
 			<IconButton
 				icon={X}
-				label={m.close_label({}, { locale: displayLocale })}
-				title={m.close_label({}, { locale: displayLocale })}
+				label={$i18n.t("site:close_label")}
+				title={$i18n.t("site:close_label")}
 				onclick={closeSearch}
 			/>
 		</header>
 
 		<div class="search-dialog-body" aria-live="polite">
 			{#if status === "unavailable"}
-				<p class="search-note">{m.search_unavailable_label({}, { locale: displayLocale })}</p>
+				<p class="search-note">{$i18n.t("site:search_unavailable_label")}</p>
 			{:else if status === "loading"}
 				<div class="search-skeleton" aria-hidden="true">
 					<span></span>
@@ -295,7 +295,7 @@
 				</div>
 			{:else if results.length > 0}
 				<p class="search-summary">
-					{m.search_results_label({}, { locale: displayLocale })}: {results.length}
+					{$i18n.t("site:search_results_label")}: {results.length}
 				</p>
 				<ul class="search-results" role="list">
 					{#each results as result (result.id)}
@@ -319,11 +319,11 @@
 					{/each}
 				</ul>
 			{:else if query.trim()}
-				<p class="search-note">{m.search_no_results({}, { locale: displayLocale })}</p>
+				<p class="search-note">{$i18n.t("site:search_no_results")}</p>
 			{/if}
 			{#if hasMore}
 				<button type="button" class="search-more" disabled={loadingMore} onclick={showMore}>
-					{m.search_load_more({}, { locale: displayLocale })}
+					{$i18n.t("site:search_load_more")}
 				</button>
 			{/if}
 		</div>

@@ -1,3 +1,4 @@
+import type { SiteTranslate } from "$lib/i18n";
 import { getStoryLabel } from "$lib/story-labels";
 export { getStoryLabel } from "$lib/story-labels";
 import {
@@ -133,15 +134,16 @@ export function getStoryFilterOptions(
 	collection: StoryCollection,
 	posts: readonly StoryPost[],
 	locale: SiteLocale,
+	t?: SiteTranslate,
 ) {
 	return {
 		groups: Object.entries(storyCatalogs[collection]).map(([id, tags]) => ({
 			id,
-			label: getStoryLabel(id, locale),
+			label: getStoryLabel(id, locale, t),
 			// Show the complete catalog so an empty collection still explains its scope.
 			tags: tags.map((tag) => ({
 				id: tag,
-				label: getStoryLabel(tag, locale),
+				label: getStoryLabel(tag, locale, t),
 				count: new Set(posts.filter((post) => post.tags.includes(tag)).map((post) => post.slug))
 					.size,
 			})),
@@ -149,16 +151,24 @@ export function getStoryFilterOptions(
 	};
 }
 
-export function getStoryPostTagLabels(post: StoryPost, locale: SiteLocale): string[] {
-	return post.tags.map((tag) => getStoryLabel(tag, locale));
+export function getStoryPostTagLabels(
+	post: StoryPost,
+	locale: SiteLocale,
+	t?: SiteTranslate,
+): string[] {
+	return post.tags.map((tag) => getStoryLabel(tag, locale, t));
 }
 
-export function getStoryPostSearchValues(post: StoryPost, locale: SiteLocale): string[] {
+export function getStoryPostSearchValues(
+	post: StoryPost,
+	locale: SiteLocale,
+	t?: SiteTranslate,
+): string[] {
 	return [
 		post.title,
 		post.summary,
 		...post.tags,
-		...getStoryPostTagLabels(post, locale),
+		...getStoryPostTagLabels(post, locale, t),
 		...(post.searchTags ?? []),
 	];
 }
@@ -169,6 +179,7 @@ export function filterStoryPosts(
 	filters: StoryFilters,
 	locale: SiteLocale,
 	now = new Date(),
+	t?: SiteTranslate,
 ): StoryPost[] {
 	const query = filters.query.trim().toLocaleLowerCase();
 	const selected = Object.values(storyCatalogs[collection])
@@ -178,7 +189,7 @@ export function filterStoryPosts(
 	return posts.filter(
 		(post) =>
 			(!query ||
-				getStoryPostSearchValues(post, locale).some((value) =>
+				getStoryPostSearchValues(post, locale, t).some((value) =>
 					value.toLocaleLowerCase().includes(query),
 				)) &&
 			selected.every((tags) => tags.some((tag) => post.tags.includes(tag))) &&

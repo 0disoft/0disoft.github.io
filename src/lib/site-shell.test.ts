@@ -155,7 +155,7 @@ describe("site shell", () => {
 		expect(siteSurfaceSource).toContain("Settings");
 		expect(siteSurfaceSource).toContain("userPrefersMode");
 		expect(siteSurfaceSource).toContain("const selectedTheme = $derived(userPrefersMode.current)");
-		expect(siteSurfaceSource).toContain("toDisplayLocale(getLocale())");
+		expect(siteSurfaceSource).toContain("toDisplayLocale($i18n.locale)");
 		expect(siteSurfaceSource).toContain("function getLocalizedNavigationLabel");
 		expect(settingsTabs).toEqual(["theme", "language", "privacy"]);
 		expect(defaultSettingsTab).toBe("theme");
@@ -394,10 +394,10 @@ describe("site shell", () => {
 		expect(errorSource).toContain("href={homePath}");
 		expect(errorSource).toContain("--error-secondary-foreground");
 		expect(errorSource).toContain("type ErrorLocale");
-		expect(errorSource).toContain("getLocale()");
+		expect(errorSource).toContain("$i18n.locale");
 		expect(errorSource).toContain('pathname === "/ko" || pathname.startsWith("/ko/")');
-		expect(errorSource).toContain("m.error_home({}, { locale: errorLocale })");
-		expect(errorSource).toContain("m.error_back({}, { locale: errorLocale })");
+		expect(errorSource).toContain('getSiteTranslator(errorLocale).t("site:error_home")');
+		expect(errorSource).toContain('getSiteTranslator(errorLocale).t("site:error_back")');
 		expect(errorSource).toContain("error-shell");
 		expect(errorSource).toContain("error-panel");
 		expect(errorSource).not.toContain("홈으로");

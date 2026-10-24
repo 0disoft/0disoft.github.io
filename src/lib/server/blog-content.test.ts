@@ -1,8 +1,6 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { getIndiehackersCopy } from "./indiehackers";
 import { load as loadLayout } from "../../routes/+layout.server";
-
-vi.mock("$lib/paraglide/runtime", () => ({ getLocale: () => "en" }));
 
 describe("localized indiehackers delivery", () => {
 	it("omits the catalog from home and article responses", async () => {

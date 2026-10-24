@@ -1,6 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
-
-vi.mock("$lib/paraglide/runtime", () => ({ getLocale: () => "en" }));
+import { describe, expect, it } from "vitest";
 
 import { load } from "../../routes/indiehackers/[slug]/+page.server";
 

@@ -1,6 +1,4 @@
 import { describe, expect, it } from "vitest";
-import { readFileSync } from "node:fs";
-import { checkDependencyPolicies } from "./test-support/dependency-policy";
 import {
 	getLocalizedLanguageLabel,
 	languageDisplayNameByLocale,
@@ -21,7 +19,7 @@ import {
 	additionalLocaleMessageSources,
 	appHtmlSource,
 	enMessagesSource,
-	inlangSettingsSource,
+	sayloSettingsSource,
 	koMessagesSource,
 	layoutSource,
 	packageSource,
@@ -30,45 +28,15 @@ import {
 
 describe("site localization", () => {
 	it("offers the requested settings languages", () => {
-		const inlangSettings = JSON.parse(inlangSettingsSource) as {
-			baseLocale: string;
-			locales: string[];
-			modules: string[];
-		};
-		const packageJson = JSON.parse(packageSource) as {
-			devDependencies: Record<string, string>;
-		};
-
-		expect(inlangSettings.baseLocale).toBe("en");
-		expect(inlangSettings.locales).toEqual(["en", "ko", "zh", "es", "fr", "hi"]);
-		expect(inlangSettings.modules).toEqual([
-			"./node_modules/@inlang/plugin-message-format/dist/index.js",
-			"./node_modules/@inlang/plugin-m-function-matcher/dist/index.js",
-		]);
-		expect(inlangSettings.modules.every((module) => !module.startsWith("http"))).toBe(true);
-		const dependencies = [
-			["@inlang/plugin-message-format", "^4.4.4"],
-			["@inlang/plugin-m-function-matcher", "^2.2.15"],
-		] as const;
-		expect(
-			checkDependencyPolicies(
-				dependencies.map(([name, supported]) => ({
-					range: packageJson.devDependencies[name],
-					installed: JSON.parse(
-						readFileSync(
-							new URL(`../../node_modules/${name}/package.json`, import.meta.url),
-							"utf8",
-						),
-					).version,
-					supported,
-				})),
-			),
-		).toEqual([true, true]);
-		expect(packageSource).toContain("--strategy url cookie globalVariable baseLocale");
-		expect(viteConfigSource).toContain(
-			'strategy: ["url", "cookie", "globalVariable", "baseLocale"]',
-		);
-		expect(viteConfigSource).toContain("**/src/lib/paraglide/**");
+		const settings = JSON.parse(sayloSettingsSource);
+		const packageJson = JSON.parse(packageSource);
+		expect(settings.baseLocale).toBe("en");
+		expect(settings.checkLocales).toEqual(["en", "zh", "es", "fr", "hi", "ko"]);
+		expect(settings.requireCompleteTranslations).toBe(true);
+		expect(packageJson.dependencies["@0disoft/saylo-core"]).toContain("0.1.0-alpha.5");
+		expect(packageJson.dependencies["@0disoft/saylo-svelte"]).toContain("0.1.0-alpha.5");
+		expect(viteConfigSource).toContain("loadProjectConfig");
+		expect(viteConfigSource).toContain("saylo.config.json");
 		expect(siteLocales).toEqual(["en", "zh", "es", "fr", "hi", "ko"]);
 		expect(languageOptions).toEqual([
 			{ locale: "en", label: "English" },

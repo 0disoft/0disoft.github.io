@@ -1,4 +1,5 @@
-import { paraglideVitePlugin } from "@inlang/paraglide-js";
+import { fileURLToPath } from "node:url";
+import saylo, { loadProjectConfig } from "@0disoft/saylo-vite";
 import tailwindcss from "@tailwindcss/vite";
 import { sveltekit } from "@sveltejs/kit/vite";
 import { defineConfig } from "vite";
@@ -7,22 +8,8 @@ export default defineConfig({
 	plugins: [
 		tailwindcss(),
 		sveltekit(),
-		paraglideVitePlugin({
-			project: "./project.inlang",
-			outdir: "./src/lib/paraglide",
-			strategy: ["url", "cookie", "globalVariable", "baseLocale"],
-		}),
+		saylo(loadProjectConfig(fileURLToPath(new URL("./saylo.config.json", import.meta.url)))),
 	],
-	server: {
-		watch: {
-			ignored: ["**/build/**", "**/.playwright-cli/**", "**/src/lib/paraglide/**"],
-		},
-	},
-	build: {
-		rolldownOptions: {
-			checks: {
-				pluginTimings: false,
-			},
-		},
-	},
+	server: { watch: { ignored: ["**/build/**", "**/.playwright-cli/**"] } },
+	build: { rolldownOptions: { checks: { pluginTimings: false } } },
 });

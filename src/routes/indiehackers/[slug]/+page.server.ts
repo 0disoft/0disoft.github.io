@@ -1,7 +1,7 @@
 import type { EntryGenerator, PageServerLoad } from "./$types";
 import { error } from "@sveltejs/kit";
 import { renderArticleMarkdown } from "$lib/server/markdown";
-import { getLocale } from "$lib/paraglide/runtime";
+import { baseLocale } from "$lib/site-locales";
 import {
 	getAdjacentIndiehackersPosts,
 	getIndiehackersPostEntries,
@@ -23,7 +23,7 @@ export const prerender = true;
 export const entries: EntryGenerator = () => getIndiehackersPostEntries(indiehackersPostDetails);
 
 export const load = (({ params, url }) => {
-	const locale = getPathLocale(url.pathname) ?? getLocale();
+	const locale = getPathLocale(url.pathname) ?? baseLocale;
 	const postDetail = getIndiehackersPostForLocale(indiehackersPostDetails, params.slug, locale);
 
 	if (!postDetail) {
