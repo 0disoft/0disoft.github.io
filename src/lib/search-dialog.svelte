@@ -5,7 +5,8 @@
 	import * as m from "$lib/paraglide/messages";
 	import { getLocale } from "$lib/paraglide/runtime";
 	import { toDisplayLocale } from "$lib/site-labels";
-	import { filterIndiehackersPosts, type IndiehackersPost } from "$lib/indiehackers-posts";
+	import { filterIndiehackersPosts } from "$lib/indiehackers-posts";
+	import { createSearchIndexLoader } from "$lib/search-index-loader";
 	import { localizeSitePathname } from "$lib/site-locales";
 	import { isEditableKeyboardTarget, isModifiedKeyEvent } from "$lib/site-keyboard";
 	import IconButton from "$lib/ui/icon-button.svelte";
@@ -34,7 +35,7 @@
 	let moreFallbackResults: SearchResultItem[] = [];
 	let hasMore = $state(false);
 	let loadingMore = $state(false);
-	const fallbackIndexes = new Map<string, IndiehackersPost[]>();
+	const loadFallbackIndex = createSearchIndexLoader();
 
 	const displayLocale = $derived(toDisplayLocale(getLocale()));
 
@@ -154,11 +155,7 @@
 			const locale = displayLocale;
 			let posts = page.data.indiehackersPosts;
 			if (posts.length === 0) {
-				posts = fallbackIndexes.get(locale) ?? await withSearchTimeout(fetch(`/search-index/${locale}.json`).then((response) => {
-					if (!response.ok) throw new Error("Search index unavailable");
-					return response.json() as Promise<IndiehackersPost[]>;
-				}));
-				fallbackIndexes.set(locale, posts);
+				posts = await loadFallbackIndex(locale);
 			}
 			if (requestId !== requestSequence) return;
 			const fallback = filterIndiehackersPosts(posts, {
