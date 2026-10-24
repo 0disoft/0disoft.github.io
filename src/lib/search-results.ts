@@ -25,6 +25,39 @@ type SearchResultLoadingOptions = {
 
 const MAX_CONCURRENT_DETAIL_LOADS = 6;
 
+export async function loadSearchBatch(
+	response: PagefindSearchResponse,
+	{
+		isCurrent = () => true,
+		onResults,
+		recover,
+	}: Pick<SearchResultLoadingOptions, "isCurrent" | "onResults"> & {
+		recover: () => Promise<void>;
+	},
+): Promise<boolean> {
+	let incomplete = false;
+	try {
+		await loadSearchResults(response, {
+			isCurrent,
+			onResults,
+			onIncomplete: () => {
+				incomplete = true;
+			},
+		});
+	} catch {
+		incomplete = true;
+	}
+	if (!isCurrent()) return false;
+	if (!incomplete) return true;
+	// Recovery has a single owner: its failure must not re-enter primary-load catches.
+	try {
+		await recover();
+		return isCurrent();
+	} catch {
+		return false;
+	}
+}
+
 export async function withSearchTimeout<T>(
 	operation: Promise<T>,
 	milliseconds = 8_000,

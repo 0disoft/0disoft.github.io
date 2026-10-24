@@ -10,7 +10,7 @@
 	import { isEditableKeyboardTarget, isModifiedKeyEvent } from "$lib/site-keyboard";
 	import IconButton from "$lib/ui/icon-button.svelte";
 	import {
-		loadSearchResults,
+		loadSearchBatch,
 		withSearchTimeout,
 		type SearchResultItem,
 		type PagefindSearchResponse,
@@ -84,9 +84,9 @@
 			}
 
 			pendingPagefindResults = response.results ?? [];
-			await loadNextBatch(term, requestId);
+			const complete = await loadNextBatch(term, requestId);
 			if (requestId !== requestSequence) return;
-			status = "ready";
+			status = complete || results.length > 0 ? "ready" : "unavailable";
 		} catch {
 			if (requestId !== requestSequence) {
 				return;
@@ -117,24 +117,19 @@
 		nextPagefindIndex += batch.length;
 		try {
 			if (batch.length > 0) {
-				let incomplete = false;
-				await loadSearchResults({ results: batch }, {
+				return await loadSearchBatch({ results: batch }, {
 					isCurrent: () => requestId === requestSequence,
-					onIncomplete: () => { incomplete = true; },
+					recover: () => recoverSearch(term, requestId, targetCount),
 					onResults: (available) => {
 						results = [...previous, ...unseenResults(available, previous)];
 						status = "ready";
 					},
 				});
-				if (requestId !== requestSequence) return;
-				if (incomplete) await recoverSearch(term, requestId, targetCount);
 			} else {
 				moreFallbackResults = unseenResults(moreFallbackResults);
 				results = [...results, ...moreFallbackResults.splice(0, SEARCH_BATCH_SIZE)];
+				return true;
 			}
-		} catch {
-			if (requestId !== requestSequence) return;
-			await recoverSearch(term, requestId, targetCount);
 		} finally {
 			if (requestId === requestSequence) {
 				hasMore = nextPagefindIndex < pendingPagefindResults.length || moreFallbackResults.length > 0;
