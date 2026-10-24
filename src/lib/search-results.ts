@@ -60,7 +60,9 @@ export async function loadSearchResults(
 			if (index >= source.length) return;
 			let data: Awaited<ReturnType<(typeof source)[number]["data"]>>;
 			try {
-				data = await withSearchTimeout(source[index].data(), 5_000);
+				// A timeout cannot cancel data(): retain the slot until its I/O settles.
+				// The shared batch deadline below bounds how long the caller waits.
+				data = await source[index].data();
 			} catch {
 				failures += 1;
 				continue;

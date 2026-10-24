@@ -2,7 +2,60 @@ import { describe, expect, it, vi } from "vitest";
 import { loadSearchResults, withSearchTimeout, type SearchResultItem } from "./search-results";
 
 describe("search result loading", () => {
-	it("finishes stalled detail requests and reports partial results", async () => {
+	it("does not release concurrency slots while timed-out I/O is still pending", async () => {
+		vi.useFakeTimers();
+		try {
+			const releases: Array<(value: { url: string }) => void> = [];
+			const data = vi.fn(() => new Promise<{ url: string }>((resolve) => releases.push(resolve)));
+			const onResults = vi.fn();
+			const loading = loadSearchResults(
+				{
+					results: Array.from({ length: 20 }, (_, index) => ({ id: String(index), data })),
+				},
+				{ onResults },
+			);
+			const rejected = expect(loading).rejects.toThrow("All search result details failed");
+			await vi.advanceTimersByTimeAsync(8_000);
+			await rejected;
+			expect(data).toHaveBeenCalledTimes(6);
+			expect(vi.getTimerCount()).toBe(0);
+			for (const release of releases) release({ url: "/late" });
+			await vi.advanceTimersByTimeAsync(0);
+			expect(data).toHaveBeenCalledTimes(6);
+			expect(onResults).not.toHaveBeenCalled();
+		} finally {
+			vi.useRealTimers();
+		}
+	});
+
+	it("keeps results that arrive after five seconds but before the batch deadline", async () => {
+		vi.useFakeTimers();
+		try {
+			const onIncomplete = vi.fn();
+			const loading = loadSearchResults(
+				{
+					results: [
+						{
+							id: "slow",
+							data: () =>
+								new Promise<{ url: string }>((resolve) => {
+									setTimeout(() => resolve({ url: "/slow" }), 6_000);
+								}),
+						},
+						{ id: "fast", data: async () => ({ url: "/fast" }) },
+					],
+				},
+				{ onIncomplete },
+			);
+			await vi.advanceTimersByTimeAsync(6_000);
+			expect((await loading).map((result) => result.id)).toEqual(["slow", "fast"]);
+			expect(onIncomplete).not.toHaveBeenCalled();
+		} finally {
+			vi.useRealTimers();
+		}
+	});
+
+	it("finishes stalled batches and reports partial results", async () => {
 		vi.useFakeTimers();
 		try {
 			const incomplete = vi.fn();
@@ -15,7 +68,7 @@ describe("search result loading", () => {
 				},
 				{ onIncomplete: incomplete },
 			);
-			await vi.advanceTimersByTimeAsync(5_001);
+			await vi.advanceTimersByTimeAsync(8_001);
 			expect((await loading).map((result) => result.id)).toEqual(["ok"]);
 			expect(incomplete).toHaveBeenCalledOnce();
 			const timeout = withSearchTimeout(new Promise(() => {}));
