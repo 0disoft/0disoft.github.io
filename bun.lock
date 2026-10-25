@@ -7,6 +7,7 @@
       "dependencies": {
         "@0disoft/saylo-core": "^0.1.0-alpha.6",
         "@0disoft/saylo-svelte": "^0.1.0-alpha.6",
+        "@tallyfin/browser": "./vendor/tallyfin-browser-0.0.0.tgz",
         "micromark": "^4",
         "mode-watcher": "^1.1.0",
       },
@@ -327,6 +328,8 @@
     "@tailwindcss/oxide-win32-x64-msvc": ["@tailwindcss/oxide-win32-x64-msvc@4.3.3", "", { "os": "win32", "cpu": "x64" }, "sha512-yJ0pwIVc/nYeGoV02WtsN8KYyLQv7kyI2wDnkezyJlGGjkd4QLwDGAwl47YpPJeuI0M0ObaXGSPjvWDPeTPggw=="],
 
     "@tailwindcss/vite": ["@tailwindcss/vite@4.3.3", "", { "dependencies": { "@tailwindcss/node": "4.3.3", "@tailwindcss/oxide": "4.3.3", "tailwindcss": "4.3.3" }, "peerDependencies": { "vite": "^5.2.0 || ^6 || ^7 || ^8" } }, "sha512-yYU8cogLeSh/ms2jh8Fj7jaba/EWa7Ja6GoUqYZaraEuCI5YS6ms6ObZgjjedm+jm6XZjdNRWBpPP6Z86oOxcw=="],
+
+    "@tallyfin/browser": ["@tallyfin/browser@./vendor/tallyfin-browser-0.0.0.tgz", {}, "sha512-gHdqPGo9wXuaTEdUW3U/wtUwwuFe29etCUX2xvIL5ibHvkNMhARcEyI4+9O1as3yD/a/9rAo7OwP88bNDrkYdA=="],
 
     "@types/chai": ["@types/chai@5.2.3", "", { "dependencies": { "@types/deep-eql": "*", "assertion-error": "^2.0.1" } }, "sha512-Mw558oeA9fFbv65/y4mHtXDs9bPnFMZAL/jxdPFUpOHHIXX91mcgEHbS5Lahr+pwZFR8A7GQleRWeI6cGFC2UA=="],
 

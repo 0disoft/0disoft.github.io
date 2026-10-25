@@ -60,6 +60,14 @@ per URL. Revisiting a page (including a new navigation to the same URL) records 
 new view; analytics initialization and navigation callbacks for one visit do not
 record it twice. Delivery regression tests use an offline GA4 stub.
 
+Self-hosted Tallyfin uses the same analytics consent and records only fixed
+page-category and language enums. It runs on the production site origin, drops
+pending work on withdrawal, and sends neither credentials nor referrers. The
+GitHub Actions variable `PUBLIC_TALLYFIN_ENDPOINT` enables it; leaving the value
+empty disables Tallyfin without changing Google Analytics. See the
+[pilot setup and checks](docs/tallyfin-pilot.md). The bundled Tallyfin SDK retains
+its Apache-2.0 LICENSE and NOTICE inside the [local package archive](vendor/README.md).
+
 Analytics consent changes update the settings and consent banner across tabs.
 When browser storage rejects a write, the current tab retains that choice until
 reload or a subsequent shared storage change. Revoking consent during script

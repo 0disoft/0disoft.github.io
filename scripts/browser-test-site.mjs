@@ -27,6 +27,7 @@ export async function readCatalog(locale = "en") {
 }
 
 export async function openBuiltSite({
+	origin = "https://site-check.test",
 	locale = "en-US",
 	viewport = { width: 1440, height: 1000 },
 	env = {},
@@ -40,7 +41,6 @@ export async function openBuiltSite({
 	});
 	try {
 		const context = await browser.newContext({ locale, viewport, serviceWorkers: "block" });
-		const origin = "https://site-check.test";
 		const root = resolve(repositoryRoot, "build");
 		const mime = {
 			".html": "text/html",

@@ -54,7 +54,7 @@
   "privacy_page_title": "Privacy",
   "privacy_page_intro": "This page explains the analytics, advertising, and storage choices used on this site.",
   "privacy_analytics_title": "Analytics",
-  "privacy_analytics_body": "Google Analytics loads only after you allow analytics. It is used to understand basic site usage.",
+  "privacy_analytics_body": "Google Analytics and self-hosted Tallyfin run only after you allow analytics. Tallyfin counts page views by page category and language without sending page addresses, titles, search terms, or visitor identifiers.",
   "privacy_ads_title": "Ads",
   "privacy_ads_body": "Advertising partners load only after you allow ads. They can use cookies or similar storage to personalize and measure ads according to their policies.",
   "privacy_cookies_title": "Cookies and local storage",

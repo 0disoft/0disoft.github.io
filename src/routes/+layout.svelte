@@ -18,6 +18,7 @@ import { createSiteI18n, setSayloContext } from "$lib/i18n";
 		localizeSitePathname,
 	} from '$lib/site-locales';
 	import SiteAnalytics from "$lib/site-analytics.svelte";
+	import SiteTallyfin from "$lib/site-tallyfin.svelte";
 	import SiteAnalyticsConsent from "$lib/site-analytics-consent.svelte";
 	import { birdMarkPath } from '$lib/site-assets';
 	import {
@@ -143,6 +144,7 @@ import { createSiteI18n, setSayloContext } from "$lib/i18n";
 </svelte:head>
 <ModeWatcher />
 <SiteAnalytics />
+<SiteTallyfin />
 <SiteAnalyticsConsent />
 <a class="skip-link" href="#main-content" onclick={handleSkipToContent}>
 	{$i18n.t("site:skip_to_content_label")}

@@ -54,7 +54,7 @@
   "privacy_page_title": "개인정보 안내",
   "privacy_page_intro": "이 페이지는 이 사이트에서 쓰는 분석, 광고, 브라우저 저장 설정을 설명합니다.",
   "privacy_analytics_title": "분석",
-  "privacy_analytics_body": "Google Analytics는 분석을 허용한 뒤에만 불러옵니다. 사이트 이용 흐름을 이해하는 데만 사용합니다.",
+  "privacy_analytics_body": "Google Analytics와 자체 호스팅 Tallyfin은 분석을 허용한 뒤에만 실행됩니다. Tallyfin은 페이지 주소, 제목, 검색어, 방문자 식별자를 보내지 않고 페이지 분류와 언어를 기준으로 조회수를 집계합니다.",
   "privacy_ads_title": "광고",
   "privacy_ads_body": "광고 공급자는 광고를 허용한 뒤에만 불러옵니다. 맞춤 광고와 광고 효과 측정을 위해 각 공급자의 정책에 따라 쿠키나 유사한 저장소를 사용할 수 있습니다.",
   "privacy_cookies_title": "쿠키와 브라우저 저장소",

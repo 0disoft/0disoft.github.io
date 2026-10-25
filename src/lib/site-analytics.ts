@@ -1,6 +1,7 @@
 import { browser } from "$app/environment";
 import { env as publicEnv } from "$env/dynamic/public";
 import { createConsentStorage } from "$lib/site-consent-storage";
+import { tallyfinEndpoint } from "$lib/site-tallyfin-config";
 import {
 	createGa4PageViewPayload,
 	createGa4ScriptSrc,
@@ -37,7 +38,7 @@ const consentStorage = createConsentStorage({
 });
 
 export function isSiteAnalyticsConfigured(): boolean {
-	return isAnalyticsMeasurementIdConfigured(measurementId);
+	return isAnalyticsMeasurementIdConfigured(measurementId) || tallyfinEndpoint() !== null;
 }
 
 export const readStoredAnalyticsConsentValue = consentStorage.read;
@@ -49,7 +50,11 @@ export function readStoredAnalyticsConsent(): boolean {
 }
 
 export async function initSiteAnalytics(): Promise<boolean> {
-	if (!browser || !isSiteAnalyticsConfigured() || !readStoredAnalyticsConsent()) {
+	if (
+		!browser ||
+		!isAnalyticsMeasurementIdConfigured(measurementId) ||
+		!readStoredAnalyticsConsent()
+	) {
 		return false;
 	}
 
