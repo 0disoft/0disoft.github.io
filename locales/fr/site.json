@@ -54,7 +54,7 @@
   "privacy_page_title": "Confidentialité",
   "privacy_page_intro": "Cette page explique les choix d’analyse, d’annonces et de stockage du navigateur utilisés sur ce site.",
   "privacy_analytics_title": "Analyse",
-  "privacy_analytics_body": "Google Analytics et Tallyfin, auto-hébergé, ne s’exécutent qu’après votre accord pour l’analyse. Tallyfin compte les pages vues par catégorie de page et par langue, sans transmettre les adresses des pages, les titres, les termes de recherche ni les identifiants des visiteurs.",
+  "privacy_analytics_body": "Google Analytics et Tallyfin, auto-hébergé, ne fonctionnent qu’après votre accord pour l’analyse. Tallyfin compte les pages vues, les recherches et les étapes de copie de lien par catégorie de page et par langue, sans transmettre les adresses, titres, termes de recherche ni identifiants des visiteurs. Des identifiants de tâche aléatoires relient les étapes dans un onglet sans être enregistrés dans le stockage du navigateur.",
   "privacy_ads_title": "Annonces",
   "privacy_ads_body": "Les partenaires publicitaires ne se chargent qu’après votre accord pour les annonces. Ils peuvent utiliser des cookies ou un stockage similaire pour personnaliser les annonces et mesurer leur efficacité selon leurs règles.",
   "privacy_cookies_title": "Cookies et stockage local",

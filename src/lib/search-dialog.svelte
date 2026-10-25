@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { startTallyfinSearch, cancelTallyfinSearch, trackTallyfinSearchResult } from "$lib/site-tallyfin";
 	import { page } from "$app/state";
 	import { onDestroy, tick } from "svelte";
 	import X from "@lucide/svelte/icons/x";
@@ -42,6 +43,7 @@
 	onDestroy(invalidateSearch);
 
 	function invalidateSearch() {
+		cancelTallyfinSearch();
 		requestSequence += 1;
 		clearTimeout(searchTimer);
 		searchTimer = undefined;
@@ -68,6 +70,13 @@
 		dialog?.close();
 	}
 
+	function selectSearchResult(event: MouseEvent, url: string) {
+		if (event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
+			trackTallyfinSearchResult(new URL(url, page.url));
+		}
+		closeSearch();
+	}
+
 	function closeSearchOnBackdrop(event: MouseEvent) {
 		if (event.target === dialog) {
 			closeSearch();
@@ -75,6 +84,8 @@
 	}
 
 	async function runSearch(term: string, requestId: number) {
+		if (requestId !== requestSequence) return;
+		startTallyfinSearch();
 		try {
 			pagefindModule ??= await withSearchTimeout(loadPagefind());
 			if (requestId !== requestSequence) return;
@@ -304,7 +315,7 @@
 								class="search-result"
 								href={result.url}
 								data-search-result
-								onclick={closeSearch}
+								onclick={(event) => selectSearchResult(event, result.url)}
 							>
 								<span class="search-result-title">{result.title}</span>
 								{#if result.excerpt}

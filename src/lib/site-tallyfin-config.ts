@@ -1,21 +1,38 @@
 import { env } from "$env/dynamic/public";
-import type { BrowserSchema } from "@tallyfin/browser";
+import type { FunnelSchema } from "@tallyfin/browser/funnels";
+
+const pageProperties = {
+	section: [
+		"enum",
+		true,
+		["home", "indiehackers", "story", "investors", "creators", "privacy", "other"],
+	],
+	locale: ["enum", true, ["en", "zh", "es", "fr", "hi", "ko"]],
+} as const;
 
 export const tallyfinSiteOrigin = "https://0disoft.github.io";
 export const tallyfinSchema = {
-	version: 1,
+	version: 2,
 	events: {
-		page_view: {
-			section: [
-				"enum",
-				true,
-				["home", "indiehackers", "story", "investors", "creators", "privacy", "other"],
-			],
-			locale: ["enum", true, ["en", "zh", "es", "fr", "hi", "ko"]],
+		page_view: pageProperties,
+		story_opened: pageProperties,
+		share_copy_started: pageProperties,
+		share_link_copied: pageProperties,
+		search_started: pageProperties,
+		search_result_clicked: pageProperties,
+		search_destination_opened: pageProperties,
+	},
+	funnels: {
+		story_sharing: {
+			steps: ["story_opened", "share_copy_started", "share_link_copied"],
+			dimensions: ["locale"],
+		},
+		search_discovery: {
+			steps: ["search_started", "search_result_clicked", "search_destination_opened"],
+			dimensions: ["locale"],
 		},
 	},
-	workflows: {},
-} as const satisfies BrowserSchema;
+} as const satisfies FunnelSchema;
 
 export function tallyfinEndpoint(): string | null {
 	const endpoint = env.PUBLIC_TALLYFIN_ENDPOINT;

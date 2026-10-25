@@ -21,6 +21,7 @@
 		buildIndiehackersShareLinks,
 		type IndiehackersSharePlatform,
 	} from "$lib/indiehackers-share";
+	import { beginTallyfinShareCopy } from "$lib/site-tallyfin";
 	import { copyTextToClipboard } from "$lib/site-clipboard";
 	import BrandIcon from "$lib/ui/brand-icon.svelte";
  const i18n = getI18n();
@@ -96,6 +97,7 @@
 
 	async function copyUrl(isCurrent: () => boolean) {
 		if (!url || !isCurrent()) return;
+		const completeCopy = beginTallyfinShareCopy();
 
 		try {
 			await copyTextToClipboard(url, { isCurrent });
@@ -110,6 +112,7 @@
 		}
 		if (!isCurrent()) return;
 		copyState = "copied";
+		completeCopy?.();
 
 		copyFeedbackTimer = window.setTimeout(() => {
 			if (!isCurrent()) return;
