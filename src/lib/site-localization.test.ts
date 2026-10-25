@@ -33,8 +33,8 @@ describe("site localization", () => {
 		expect(settings.baseLocale).toBe("en");
 		expect(settings.checkLocales).toEqual(["en", "zh", "es", "fr", "hi", "ko"]);
 		expect(settings.requireCompleteTranslations).toBe(true);
-		expect(packageJson.dependencies["@0disoft/saylo-core"]).toContain("0.1.0-alpha.6");
-		expect(packageJson.dependencies["@0disoft/saylo-svelte"]).toContain("0.1.0-alpha.6");
+		expect(packageJson.dependencies["@0disoft/saylo-core"]).toContain("0.1.0-alpha.7");
+		expect(packageJson.dependencies["@0disoft/saylo-svelte"]).toContain("0.1.0-alpha.7");
 		expect(viteConfigSource).toContain("loadProjectConfig");
 		expect(viteConfigSource).toContain("saylo.config.json");
 		expect(siteLocales).toEqual(["en", "zh", "es", "fr", "hi", "ko"]);
